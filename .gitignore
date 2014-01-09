@@ -1,0 +1,61 @@
+# built application files
+*.apk
+*.ap_
+*.a
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+FootBallX/proj.android/assets/
+FootBallX/proj.android/bin/
+FootBallX/proj.android/libs/
+FootBallX/proj.android/gen/
+FootBallX/proj.android/obj/
+FootBallX/CCBRes.Android/
+FootBallX/CCBRes.iOS/
+#cocos2dx/platform/android/java/bin/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+
+# for xcode proj
+# Exclude the build directory
+
+build/*
+
+# Exclude temp nibs and swap files
+
+*~.nib
+
+*.swp
+
+# Exclude OS X folder attributes
+
+.DS_Store
+
+# Exclude user-specific XCode 3 and 4 files
+
+*.mode1
+
+*.mode1v3
+
+*.mode2v3
+
+*.perspective
+
+*.perspectivev3
+
+*.pbxuser
+
+*.xcworkspace
+
+xcuserdata
