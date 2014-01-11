@@ -17,7 +17,7 @@
 //#include "CBatchNodeManager.h"
 //#include "CDataCenterManager.h"
 //#include "CBackgroundManager.h"
-//#include "CGameSceneManager.h"
+#include "CGameSceneManager.h"
 //#include "CTimeProfile.h"
 //#include "CShopManager.h"
 #include <time.h>
@@ -67,11 +67,11 @@ bool AppDelegate::applicationDidFinishLaunching()
 ////        BREAK_IF_FAILED(PATH_MANAGER->initialize());
 //
 //        BREAK_IF_FAILED(SCENE_MANAGER->initialize());
-//        
+//
 //        TP_INIT();
 //        
-//        SCENE_MANAGER->go(ST_LOGIN);
-//
+        SCENE_MANAGER->go(ST_MATCH);
+
         return true;
     } while (false);
         
@@ -138,6 +138,7 @@ void AppDelegate::setupMultipleResolutionSupport()
     std::vector<std::string> searchPaths;
     std::vector<std::string> resDirOrders;
     
+    resDirOrders.push_back("CCBRes.iOS");
     Application::Platform platform = Application::getInstance()->getTargetPlatform();
     if (platform == Application::Platform::OS_IPHONE || platform == Application::Platform::OS_IPAD)
     {
@@ -147,14 +148,14 @@ void AppDelegate::setupMultipleResolutionSupport()
         {
             resourceSize = sizeIpadHD;
             designSize = sizeIpadHD;
-            resDirOrders.push_back("resources-ipadhd");
+            resDirOrders.push_back("CCBRes.iOS/resources-ipadhd");
             
             CCBReader::setResolutionScale(4.0f);
         } else if (screenSize.height > 640) {
             resourceSize = sizeIpad;
             designSize = resourceSize;
-            resDirOrders.push_back("resources-ipad");
-            resDirOrders.push_back("resources-iphonehd");
+            resDirOrders.push_back("CCBRes.iOS/resources-ipad");
+            resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
             
             CCBReader::setResolutionScale(2.0f);
         } else if (screenSize.height > 480) {
@@ -168,18 +169,23 @@ void AppDelegate::setupMultipleResolutionSupport()
             
             CCBReader::setResolutionScale(2.0f);
             
-            resDirOrders.push_back("resources-iphonehd");
+            resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
         } else {
             CCBReader::setResolutionScale(1.0f);
             
             designSize = sizeIphone;
             resourceSize = sizeIphone; 
             
-            resDirOrders.push_back("resources-iphone"); 
+            resDirOrders.push_back("CCBRes.iOS/resources-iphone"); 
         } 
-        
-        FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);
-    } 
+    }
+    else if (platform == Application::Platform::OS_MAC)
+    {
+        resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
+        CCBReader::setResolutionScale(2.0f);
+    }
+
+    FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);
     
     Director* pDirector = Director::getInstance();
     pDirector->setContentScaleFactor(resourceSize.width / designSize.width); 

@@ -33,6 +33,30 @@
 		542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C3187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */; };
+		543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
+		543D49A118815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
+		543D49AC18815D0F0076C7EB /* CBaseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A218815D0F0076C7EB /* CBaseLayer.cpp */; };
+		543D49AD18815D0F0076C7EB /* CBaseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A218815D0F0076C7EB /* CBaseLayer.cpp */; };
+		543D49AE18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A418815D0F0076C7EB /* CGameSceneManager.cpp */; };
+		543D49AF18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A418815D0F0076C7EB /* CGameSceneManager.cpp */; };
+		543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A618815D0F0076C7EB /* CMemPool.cpp */; };
+		543D49B118815D0F0076C7EB /* CMemPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A618815D0F0076C7EB /* CMemPool.cpp */; };
+		543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A818815D0F0076C7EB /* CMessageBoxLayer.cpp */; };
+		543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A818815D0F0076C7EB /* CMessageBoxLayer.cpp */; };
+		543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49AA18815D0F0076C7EB /* CTouchesLayer.cpp */; };
+		543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49AA18815D0F0076C7EB /* CTouchesLayer.cpp */; };
+		543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49B718815D7A0076C7EB /* CLoginLayer.cpp */; };
+		543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49B718815D7A0076C7EB /* CLoginLayer.cpp */; };
+		543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49BC18815EB50076C7EB /* CCControlToggleButton.cpp */; };
+		543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49BC18815EB50076C7EB /* CCControlToggleButton.cpp */; };
+		543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C018815EE60076C7EB /* CTransitLayer.cpp */; };
+		543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C018815EE60076C7EB /* CTransitLayer.cpp */; };
+		543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
+		543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
+		543D49CC188162F30076C7EB /* CCBRes.iOS in Resources */ = {isa = PBXBuildFile; fileRef = 543D49CB188162F30076C7EB /* CCBRes.iOS */; };
+		543D49CD188162F30076C7EB /* CCBRes.iOS in Resources */ = {isa = PBXBuildFile; fileRef = 543D49CB188162F30076C7EB /* CCBRes.iOS */; };
+		544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
+		544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		5472F721187DA4EB0001FD79 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F720187DA4EB0001FD79 /* IOKit.framework */; };
 		5472F723187DA5020001FD79 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F722187DA5020001FD79 /* OpenGL.framework */; };
 		5472F725187DA5090001FD79 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F724187DA5090001FD79 /* AppKit.framework */; };
@@ -98,6 +122,29 @@
 		542650C0187E3BEB008113ED /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSingleton.h; path = ../Classes/CSingleton.h; sourceTree = "<group>"; };
 		542650C5187E3DE4008113ED /* PomeloTestsGateServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsGateServer.h; path = FootBallXTests/PomeloTestsGateServer.h; sourceTree = "<group>"; };
 		542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsGateServer.mm; path = FootBallXTests/PomeloTestsGateServer.mm; sourceTree = "<group>"; };
+		543D499E18815CB80076C7EB /* CMatchLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMatchLayer.cpp; path = ../Classes/CMatchLayer.cpp; sourceTree = "<group>"; };
+		543D499F18815CB80076C7EB /* CMatchLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMatchLayer.h; path = ../Classes/CMatchLayer.h; sourceTree = "<group>"; };
+		543D49A218815D0F0076C7EB /* CBaseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBaseLayer.cpp; path = ../Classes/CBaseLayer.cpp; sourceTree = "<group>"; };
+		543D49A318815D0F0076C7EB /* CBaseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBaseLayer.h; path = ../Classes/CBaseLayer.h; sourceTree = "<group>"; };
+		543D49A418815D0F0076C7EB /* CGameSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CGameSceneManager.cpp; path = ../Classes/CGameSceneManager.cpp; sourceTree = "<group>"; };
+		543D49A518815D0F0076C7EB /* CGameSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGameSceneManager.h; path = ../Classes/CGameSceneManager.h; sourceTree = "<group>"; };
+		543D49A618815D0F0076C7EB /* CMemPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMemPool.cpp; path = ../Classes/CMemPool.cpp; sourceTree = "<group>"; };
+		543D49A718815D0F0076C7EB /* CMemPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMemPool.h; path = ../Classes/CMemPool.h; sourceTree = "<group>"; };
+		543D49A818815D0F0076C7EB /* CMessageBoxLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMessageBoxLayer.cpp; path = ../Classes/CMessageBoxLayer.cpp; sourceTree = "<group>"; };
+		543D49A918815D0F0076C7EB /* CMessageBoxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMessageBoxLayer.h; path = ../Classes/CMessageBoxLayer.h; sourceTree = "<group>"; };
+		543D49AA18815D0F0076C7EB /* CTouchesLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CTouchesLayer.cpp; path = ../Classes/CTouchesLayer.cpp; sourceTree = "<group>"; };
+		543D49AB18815D0F0076C7EB /* CTouchesLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTouchesLayer.h; path = ../Classes/CTouchesLayer.h; sourceTree = "<group>"; };
+		543D49B718815D7A0076C7EB /* CLoginLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CLoginLayer.cpp; path = ../Classes/CLoginLayer.cpp; sourceTree = "<group>"; };
+		543D49B818815D7A0076C7EB /* CLoginLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLoginLayer.h; path = ../Classes/CLoginLayer.h; sourceTree = "<group>"; };
+		543D49BC18815EB50076C7EB /* CCControlToggleButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCControlToggleButton.cpp; path = ../Classes/CCControlToggleButton.cpp; sourceTree = "<group>"; };
+		543D49BD18815EB50076C7EB /* CCControlToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCControlToggleButton.h; path = ../Classes/CCControlToggleButton.h; sourceTree = "<group>"; };
+		543D49C018815EE60076C7EB /* CTransitLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CTransitLayer.cpp; path = ../Classes/CTransitLayer.cpp; sourceTree = "<group>"; };
+		543D49C118815EE60076C7EB /* CTransitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTransitLayer.h; path = ../Classes/CTransitLayer.h; sourceTree = "<group>"; };
+		543D49C418815F320076C7EB /* CAnimationCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CAnimationCache.cpp; path = ../Classes/CAnimationCache.cpp; sourceTree = "<group>"; };
+		543D49C518815F320076C7EB /* CAnimationCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CAnimationCache.h; path = ../Classes/CAnimationCache.h; sourceTree = "<group>"; };
+		543D49CB188162F30076C7EB /* CCBRes.iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CCBRes.iOS; path = ../CCBRes.iOS; sourceTree = "<group>"; };
+		544955EF187F8924002FB29B /* CFBPitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitch.cpp; path = ../Classes/CFBPitch.cpp; sourceTree = "<group>"; };
+		544955F0187F8924002FB29B /* CFBPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitch.h; path = ../Classes/CFBPitch.h; sourceTree = "<group>"; };
 		5472F720187DA4EB0001FD79 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		5472F722187DA5020001FD79 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		5472F724187DA5090001FD79 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -214,15 +261,66 @@
 			name = FrameworksMac;
 			sourceTree = "<group>";
 		};
-		542650C4187E3BEE008113ED /* ToolClasses */ = {
+		542EC2DC1880FC1700EB100C /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				543D49C018815EE60076C7EB /* CTransitLayer.cpp */,
+				543D49C118815EE60076C7EB /* CTransitLayer.h */,
+				543D49B718815D7A0076C7EB /* CLoginLayer.cpp */,
+				543D49B818815D7A0076C7EB /* CLoginLayer.h */,
+				543D49A218815D0F0076C7EB /* CBaseLayer.cpp */,
+				543D49A318815D0F0076C7EB /* CBaseLayer.h */,
+				543D49A818815D0F0076C7EB /* CMessageBoxLayer.cpp */,
+				543D49A918815D0F0076C7EB /* CMessageBoxLayer.h */,
+				543D49AA18815D0F0076C7EB /* CTouchesLayer.cpp */,
+				543D49AB18815D0F0076C7EB /* CTouchesLayer.h */,
+				543D499E18815CB80076C7EB /* CMatchLayer.cpp */,
+				543D499F18815CB80076C7EB /* CMatchLayer.h */,
+			);
+			name = Layers;
+			sourceTree = "<group>";
+		};
+		542EC2DD1880FD4900EB100C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				543D49A618815D0F0076C7EB /* CMemPool.cpp */,
+				543D49A718815D0F0076C7EB /* CMemPool.h */,
+				542650BB187E3BAE008113ED /* Common.h */,
 				542650BF187E3BEB008113ED /* CSingleton.cpp */,
 				542650C0187E3BEB008113ED /* CSingleton.h */,
 				542650B4187E3B9C008113ED /* CCPomelo.cpp */,
 				542650B5187E3B9C008113ED /* CCPomelo.h */,
 			);
-			name = ToolClasses;
+			name = Common;
+			sourceTree = "<group>";
+		};
+		543D49B618815D1E0076C7EB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				543D49C418815F320076C7EB /* CAnimationCache.cpp */,
+				543D49C518815F320076C7EB /* CAnimationCache.h */,
+				543D49A418815D0F0076C7EB /* CGameSceneManager.cpp */,
+				543D49A518815D0F0076C7EB /* CGameSceneManager.h */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		543D49BB18815EA50076C7EB /* CocosExt */ = {
+			isa = PBXGroup;
+			children = (
+				543D49BC18815EB50076C7EB /* CCControlToggleButton.cpp */,
+				543D49BD18815EB50076C7EB /* CCControlToggleButton.h */,
+			);
+			name = CocosExt;
+			sourceTree = "<group>";
+		};
+		544955EE187F8862002FB29B /* FootBallGamePlay */ = {
+			isa = PBXGroup;
+			children = (
+				544955EF187F8924002FB29B /* CFBPitch.cpp */,
+				544955F0187F8924002FB29B /* CFBPitch.h */,
+			);
+			name = FootBallGamePlay;
 			sourceTree = "<group>";
 		};
 		5472F732187DA78C0001FD79 /* Libs */ = {
@@ -264,8 +362,6 @@
 			children = (
 				5472F77A187DA9900001FD79 /* UnitTest */,
 				5472F732187DA78C0001FD79 /* Libs */,
-				5484C234187D1D2600AA8AFB /* Resources.Mac */,
-				5484C232187D1D1900AA8AFB /* Resources.iOS */,
 				5484C22F187D1BC000AA8AFB /* Resource */,
 				5484C222187D1B4B00AA8AFB /* Mac */,
 				5484C221187D1B4200AA8AFB /* iOS */,
@@ -309,10 +405,13 @@
 		5484C220187D1B3A00AA8AFB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				542650C4187E3BEE008113ED /* ToolClasses */,
+				543D49BB18815EA50076C7EB /* CocosExt */,
+				543D49B618815D1E0076C7EB /* Manager */,
+				542EC2DD1880FD4900EB100C /* Common */,
+				542EC2DC1880FC1700EB100C /* Layers */,
+				544955EE187F8862002FB29B /* FootBallGamePlay */,
 				542650B9187E3BAE008113ED /* AppDelegate.cpp */,
 				542650BA187E3BAE008113ED /* AppDelegate.h */,
-				542650BB187E3BAE008113ED /* Common.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -342,6 +441,9 @@
 		5484C22F187D1BC000AA8AFB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				543D49CB188162F30076C7EB /* CCBRes.iOS */,
+				5484C234187D1D2600AA8AFB /* Resources.Mac */,
+				5484C232187D1D1900AA8AFB /* Resources.iOS */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -437,6 +539,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5484C233187D1D1900AA8AFB /* Resources.iOS in Resources */,
+				543D49CC188162F30076C7EB /* CCBRes.iOS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +557,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5484C235187D1D2600AA8AFB /* Resources.Mac in Resources */,
+				543D49CD188162F30076C7EB /* CCBRes.iOS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +590,17 @@
 				542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BC187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C1187E3BEB008113ED /* CSingleton.cpp in Sources */,
+				544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */,
+				543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */,
+				543D49AC18815D0F0076C7EB /* CBaseLayer.cpp in Sources */,
+				543D49AE18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
+				543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */,
+				543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
+				543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
+				543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
+				543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
+				543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */,
+				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +626,17 @@
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BD187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */,
+				544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */,
+				543D49A118815CB80076C7EB /* CMatchLayer.cpp in Sources */,
+				543D49AD18815D0F0076C7EB /* CBaseLayer.cpp in Sources */,
+				543D49AF18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
+				543D49B118815D0F0076C7EB /* CMemPool.cpp in Sources */,
+				543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
+				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
+				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
+				543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
+				543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */,
+				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
