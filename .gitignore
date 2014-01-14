@@ -15,8 +15,8 @@ FootBallX/proj.android/bin/
 FootBallX/proj.android/libs/
 FootBallX/proj.android/gen/
 FootBallX/proj.android/obj/
-FootBallX/CCBRes.Android/
-FootBallX/CCBRes.iOS/
+FootBallX/Resources.android/
+FootBallX/Resources.ios/
 #cocos2dx/platform/android/java/bin/
 
 # Local configuration file (sdk path, etc)

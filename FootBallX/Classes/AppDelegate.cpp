@@ -131,6 +131,10 @@ void AppDelegate::setupMultipleResolutionSupport()
     Size sizeIpad = Size(1024, 768);
     Size sizeIpadHD = Size(2048, 1536);
     
+    Size sizeSmall = Size(480, 320);
+    Size sizeLarge = Size(1024, 768);
+    Size sizeXLarge = Size(2048, 1536);
+    
     Size designSize = sizeIphoneHD;
     Size resourceSize = sizeIphoneHD;
     Size screenSize = EGLView::getInstance()->getFrameSize();
@@ -138,26 +142,27 @@ void AppDelegate::setupMultipleResolutionSupport()
     std::vector<std::string> searchPaths;
     std::vector<std::string> resDirOrders;
     
-    resDirOrders.push_back("CCBRes.iOS");
+    
     Application::Platform platform = Application::getInstance()->getTargetPlatform();
     if (platform == Application::Platform::OS_IPHONE || platform == Application::Platform::OS_IPAD)
     {
+        resDirOrders.push_back("Resources.ios");
         FileUtils::getInstance()->setSearchPaths(searchPaths);
         
         if (screenSize.height > 768)
         {
             resourceSize = sizeIpadHD;
             designSize = sizeIpadHD;
-            resDirOrders.push_back("CCBRes.iOS/resources-ipadhd");
+            resDirOrders.push_back("Resources.ios/resources-ipadhd");
             
-            CCBReader::setResolutionScale(4.0f);
+            cocosbuilder::CCBReader::setResolutionScale(4.0f);
         } else if (screenSize.height > 640) {
             resourceSize = sizeIpad;
             designSize = resourceSize;
-            resDirOrders.push_back("CCBRes.iOS/resources-ipad");
-            resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
+            resDirOrders.push_back("Resources.ios/resources-ipad");
+            resDirOrders.push_back("Resources.ios/resources-iphonehd");
             
-            CCBReader::setResolutionScale(2.0f);
+            cocosbuilder::CCBReader::setResolutionScale(2.0f);
         } else if (screenSize.height > 480) {
             if (screenSize.width > 960) {
                 designSize = sizeIphone5;
@@ -167,22 +172,52 @@ void AppDelegate::setupMultipleResolutionSupport()
             }
             resourceSize = sizeIphoneHD;
             
-            CCBReader::setResolutionScale(2.0f);
+            cocosbuilder::CCBReader::setResolutionScale(2.0f);
             
-            resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
+            resDirOrders.push_back("Resources.ios/resources-iphonehd");
         } else {
-            CCBReader::setResolutionScale(1.0f);
+            cocosbuilder::CCBReader::setResolutionScale(1.0f);
             
             designSize = sizeIphone;
             resourceSize = sizeIphone; 
             
-            resDirOrders.push_back("CCBRes.iOS/resources-iphone"); 
+            resDirOrders.push_back("Resources.ios/resources-iphone"); 
         } 
+    }
+    else if (platform == Application::Platform::OS_ANDROID)
+    {
+//        resDirOrders.push_back("CCBRes.Android");
+        
+        if (screenSize.height > 768)
+        {
+            resourceSize = sizeXLarge;
+            designSize = resourceSize;
+            resDirOrders.push_back("resources-xlarge");
+            cocosbuilder::CCBReader::setResolutionScale(4.0f);
+                log("-------------1");
+        }
+        else if (screenSize.height > 320)
+        {
+            resourceSize = sizeLarge;
+            designSize = resourceSize;
+            resDirOrders.push_back("resources-large");
+            cocosbuilder::CCBReader::setResolutionScale(2.0f);
+                log("-------------2");
+        }
+        else
+        {
+            resourceSize = sizeSmall;
+            designSize = resourceSize;
+            resDirOrders.push_back("resources-small");
+            cocosbuilder::CCBReader::setResolutionScale(1.0f);
+                log("-------------3");
+        }
     }
     else if (platform == Application::Platform::OS_MAC)
     {
-        resDirOrders.push_back("CCBRes.iOS/resources-iphonehd");
-        CCBReader::setResolutionScale(2.0f);
+        resDirOrders.push_back("Resources.ios");
+        resDirOrders.push_back("Resources.ios/resources-iphonehd");
+        cocosbuilder::CCBReader::setResolutionScale(2.0f);
     }
 
     FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);

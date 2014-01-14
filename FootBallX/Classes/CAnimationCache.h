@@ -17,7 +17,6 @@ class CAnimationCache
 public:
     static CAnimationCache* getInstance();
     
-    virtual void addAnimations(const char* pFileName);
     virtual Animate* getAnimateByAnimationName(const char* name);
     virtual cocos2d::Animation* getAnimationByName(const char* name);
     virtual Action* createActionByAnimationName(const char* name, bool repeated = true, CallFunc* callback = nullptr);

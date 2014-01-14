@@ -9,14 +9,13 @@
 #ifndef __FootBallX__CMatchLayer__
 #define __FootBallX__CMatchLayer__
 #include "CBaseLayer.h"
-#include "CCBReader/CCBReader.h"
 
 
 class CMatchLayer
 : public CBaseLayer
-, public CCBSelectorResolver
-, public CCBMemberVariableAssigner
-, public NodeLoaderListener
+, public cocosbuilder::CCBSelectorResolver
+, public cocosbuilder::CCBMemberVariableAssigner
+, public cocosbuilder::NodeLoaderListener
 {
 public:
     CREATE_FUNC(CMatchLayer);
@@ -33,7 +32,7 @@ public:
     //CCBMemberVariableAssigner
     virtual bool onAssignCCBMemberVariable(Object * pTarget, const char* pMemberVariableName, Node * pNode);
     
-    virtual void onNodeLoaded(Node * pNode, NodeLoader * pNodeLoader);
+    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
 protected:
 //    virtual void onFormation(Object *pSender);
 //    virtual void onBattle(Object* pSender);
@@ -45,7 +44,7 @@ private:
 };
 
 
-class CMatchLayerLoader : public cocos2d::extension::LayerLoader
+class CMatchLayerLoader : public cocosbuilder::LayerLoader
 {
 public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CMatchLayerLoader, loader);

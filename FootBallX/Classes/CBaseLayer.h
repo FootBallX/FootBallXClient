@@ -34,12 +34,9 @@ public:
     virtual void unLoadTransitLayer();
     
     void go(LAYERS layer, bool needTransit = false);
-    
-    CC_SYNTHESIZE_RETAIN(Array*, m_popTargets, PopTargets);
-    
+
 protected:
     virtual Scene* wrap(LAYERS layer);
-    virtual void addPopTarget(Node* pNode);
     virtual void addCloseButton();
     virtual void menuCloseCallback(Object* pSender);
     

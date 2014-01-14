@@ -42,67 +42,6 @@ CAnimationCache* CAnimationCache::getInstance()
 }
 
 
-void CAnimationCache::addAnimations(const char* pFileName)
-{
-    CCAssert(pFileName && (strlen(pFileName) > 0), "Invalid file name.");
-    
-    Dictionary* dict = Dictionary::createWithContentsOfFile(pFileName);
-    if (nullptr == dict)
-    {
-        __CCLOGWITHFUNCTION("Failed to retrieve file: %s", pFileName);
-        return ;
-    }
-    
-    
-    AnimationCache *animationCache = AnimationCache::getInstance();
-    SpriteFrameCache* spriteFrameCache = SpriteFrameCache::getInstance();
-    
-    DictElement* pElement = nullptr;
-    CCDICT_FOREACH(dict, pElement)
-    {
-        do
-        {
-            const char* key = pElement->getStrKey();
-            CC_BREAK_IF(nullptr == key || strlen(key) <= 0);
-            Dictionary* entry = dynamic_cast<Dictionary*>(pElement->getObject());
-            CC_BREAK_IF(nullptr == entry);
-
-            do
-            {
-                String* type = dynamic_cast<String*>(entry->objectForKey(ANIMATION_TYPE));
-                CC_BREAK_IF(nullptr == type || type->compare("SequenceFrame") != 0);
-                String* frameName = dynamic_cast<String*>(entry->objectForKey(ANIMATION_FRAME_NAME));
-                CC_BREAK_IF(nullptr == frameName);
-                String* frameNum = dynamic_cast<String*>(entry->objectForKey(ANIMATION_FRAME_NUM));
-                CC_BREAK_IF(nullptr == frameNum);
-                String* delayPerUnit = dynamic_cast<String*>(entry->objectForKey(ANIMATION_DELAY_PER_UNIT));
-                CC_BREAK_IF(nullptr == delayPerUnit);
-                String* restoreOriginalFrame = dynamic_cast<String*>(entry->objectForKey(ANIMATION_RESTORE_ORIGINAL_FRAME));
-                CC_BREAK_IF(nullptr == restoreOriginalFrame);
-                String* loop = dynamic_cast<String*>(entry->objectForKey(ANIMATION_LOOP));
-                CC_BREAK_IF(nullptr == loop);
-                
-                Array* frames = Array::createWithCapacity(frameNum->intValue());
-                char buffer[256] = {'\0'};
-                
-                for (int i = 0; i < frameNum->intValue(); i++) {
-                    sprintf(buffer, "%s%d", frameName->getCString(), i);
-                    SpriteFrame* frame = spriteFrameCache->getSpriteFrameByName(buffer);
-                    frames->addObject(frame);
-                }
-                
-                cocos2d::Animation* animation = cocos2d::Animation::createWithSpriteFrames(frames);
-                animation->setDelayPerUnit(delayPerUnit->floatValue());
-                animation->setRestoreOriginalFrame(restoreOriginalFrame->boolValue());
-                animation->setLoops(loop->intValue());
-                
-                animationCache->addAnimation(animation, key);
-            } while (false);
-        } while (false);
-    }
-}
-
-
 Animate* CAnimationCache::getAnimateByAnimationName(const char* name)
 {
     do {

@@ -15,7 +15,6 @@ IMPLEMENT_SINGLETON(CGameSceneManager);
 
 
 CGameSceneManager::CGameSceneManager()
-: m_scenes(nullptr)
 {
     
 }
@@ -24,7 +23,6 @@ CGameSceneManager::CGameSceneManager()
 
 CGameSceneManager::~CGameSceneManager()
 {
-    CC_SAFE_RELEASE(m_scenes);
 }
 
 
@@ -33,9 +31,6 @@ bool CGameSceneManager::initialize()
 {
     do
     {
-        m_scenes = Array::createWithCapacity(ST_NUM);
-        CC_SAFE_RETAIN(m_scenes);
-
         return true;
     } while (false);
     
@@ -51,14 +46,14 @@ bool CGameSceneManager::go(SCENE_TYPE st)
     {
         case ST_LOGIN:
         {
-            CCBReader* pReader = new CCBReader(NodeLoaderLibrary::getInstance());
+            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
             scene = pReader->createSceneWithNodeGraphFromFile("login_layer.ccbi");
             delete pReader;
             break;
         }
         case ST_MATCH:
         {
-            CCBReader* pReader = new CCBReader(NodeLoaderLibrary::getInstance());
+            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
             scene = pReader->createSceneWithNodeGraphFromFile("pitch_layer.ccbi");
             delete pReader;
             break;

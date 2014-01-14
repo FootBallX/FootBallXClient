@@ -57,16 +57,18 @@ private:
     const int Z_BUTTON = 20;
     
     const char* FONT_NAME = "Helvetica";
-    const int FONT_SIZE = 12 * CCBReader::getResolutionScale();
+    const int FONT_SIZE = 12 * cocosbuilder::CCBReader::getResolutionScale();
     const char* BKG_FILENAME = "huds/info_bkg.png";
-    const float INSET = 15 * CCBReader::getResolutionScale();
+    const float INSET = 15 * cocosbuilder::CCBReader::getResolutionScale();
     
-    const float V_GAP = 10 * CCBReader::getResolutionScale();
-    const float H_GAP = 5 * CCBReader::getResolutionScale();
+    const float V_GAP = 10 * cocosbuilder::CCBReader::getResolutionScale();
+    const float H_GAP = 5 * cocosbuilder::CCBReader::getResolutionScale();
     
     Size m_boxSize;
     unsigned int m_buttonMask = BUTTON_TYPE::_NONE;
     vector<ControlButton*> m_buttons;
+    
+    EventListenerTouchOneByOne* m_touchListener = nullptr;
 };
 
 #endif /* defined(__GameX__CMessageBoxLayer__) */

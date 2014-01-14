@@ -24,6 +24,10 @@ bool CMessageBoxLayer::init()
 {
     do
     {
+        m_touchListener = EventListenerTouchOneByOne::create();
+        CC_ASSERT(m_touchListener);
+        m_touchListener->onTouchBegan = CC_CALLBACK_2(CMessageBoxLayer::onTouchBegan, this);
+        
         Size sz = Director::getInstance()->getWinSize();
         
         setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
@@ -116,8 +120,9 @@ void CMessageBoxLayer::setCallback(function<bool(int)> f)
 
 
 void CMessageBoxLayer::doModal()
-{
-    setTouchEnabled(true);
+{    
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
+    dispatcher->addEventListenerWithSceneGraphPriority(m_touchListener, this);
 
     adjustBoxSize();
     
@@ -130,8 +135,9 @@ void CMessageBoxLayer::doModal()
 
 void CMessageBoxLayer::closeModal()
 {
-    setTouchEnabled(false);
-    
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
+    dispatcher->removeEventListener(m_touchListener);
+
     Scene* pCurrentScene = Director::getInstance()->getRunningScene();
     CC_ASSERT(pCurrentScene);
     pCurrentScene->removeChildByTag(TAG_THIS);

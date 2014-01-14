@@ -17,7 +17,7 @@ static class CLoginLayerRegister
 public:
     CLoginLayerRegister()
     {
-        NodeLoaderLibrary::getInstance()->registerNodeLoader( "CLoginLayer", CLoginLayerLoader::loader());
+        cocosbuilder::NodeLoaderLibrary::getInstance()->registerNodeLoader( "CLoginLayer", CLoginLayerLoader::loader());
     }
 } __reg;
 
@@ -60,7 +60,7 @@ bool CLoginLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMember
 }
 
 
-void CLoginLayer::onNodeLoaded(Node * pNode, NodeLoader * pNodeLoader)
+void CLoginLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)
 {
     m_userName = createEdit("huds/hp_bar_bg0.png", m_editUserNameLayer->getContentSize());
     CC_ASSERT(m_userName);
@@ -130,7 +130,7 @@ void CLoginLayer::onLogin(Object* sender, Control::EventType event)
                                  }
                                  json_t* host = json_object_get(ccpomeloresp->docs, "host");
                                  json_t* ip = json_object_get(ccpomeloresp->docs, "port");
-                                 connectToConnector(json_string_value(host), json_integer_value(ip));
+                                 connectToConnector(json_string_value(host), (int)json_integer_value(ip));
                              });
                          }))
     {

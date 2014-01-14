@@ -33,6 +33,8 @@
 		542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C3187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */; };
+		543BF4C31884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
+		543BF4C41884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
 		543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
 		543D49A118815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
 		543D49AC18815D0F0076C7EB /* CBaseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49A218815D0F0076C7EB /* CBaseLayer.cpp */; };
@@ -53,8 +55,6 @@
 		543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C018815EE60076C7EB /* CTransitLayer.cpp */; };
 		543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
 		543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
-		543D49CC188162F30076C7EB /* CCBRes.iOS in Resources */ = {isa = PBXBuildFile; fileRef = 543D49CB188162F30076C7EB /* CCBRes.iOS */; };
-		543D49CD188162F30076C7EB /* CCBRes.iOS in Resources */ = {isa = PBXBuildFile; fileRef = 543D49CB188162F30076C7EB /* CCBRes.iOS */; };
 		544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		5472F721187DA4EB0001FD79 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F720187DA4EB0001FD79 /* IOKit.framework */; };
@@ -67,7 +67,6 @@
 		5472F72F187DA53C0001FD79 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F72E187DA53C0001FD79 /* AVFoundation.framework */; };
 		5472F731187DA5440001FD79 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F730187DA5440001FD79 /* AudioToolbox.framework */; };
 		5472F780187DAA7A0001FD79 /* FootBallXTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5472F77F187DAA7A0001FD79 /* FootBallXTests.mm */; };
-		5472F783187DAB940001FD79 /* FootBallXTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5472F782187DAB940001FD79 /* FootBallXTests-Info.plist */; };
 		5472F786187DAB9E0001FD79 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5472F784187DAB9D0001FD79 /* InfoPlist.strings */; };
 		5484C1CB187D0E2A00AA8AFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CA187D0E2A00AA8AFB /* UIKit.framework */; };
 		5484C1CD187D0E2A00AA8AFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CC187D0E2A00AA8AFB /* Foundation.framework */; };
@@ -75,8 +74,6 @@
 		5484C1E9187D0E2A00AA8AFB /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1E8187D0E2A00AA8AFB /* SenTestingKit.framework */; };
 		5484C1EA187D0E2A00AA8AFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CA187D0E2A00AA8AFB /* UIKit.framework */; };
 		5484C1EB187D0E2A00AA8AFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CC187D0E2A00AA8AFB /* Foundation.framework */; };
-		5484C233187D1D1900AA8AFB /* Resources.iOS in Resources */ = {isa = PBXBuildFile; fileRef = 5484C232187D1D1900AA8AFB /* Resources.iOS */; };
-		5484C235187D1D2600AA8AFB /* Resources.Mac in Resources */ = {isa = PBXBuildFile; fileRef = 5484C234187D1D2600AA8AFB /* Resources.Mac */; };
 		5484C238187D1D3B00AA8AFB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5484C236187D1D3B00AA8AFB /* main.cpp */; };
 		5484C23F187D1D4B00AA8AFB /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5484C23A187D1D4B00AA8AFB /* AppController.mm */; };
 		5484C240187D1D4B00AA8AFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5484C23B187D1D4B00AA8AFB /* main.m */; };
@@ -84,6 +81,21 @@
 		5484C243187D23E000AA8AFB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C242187D23E000AA8AFB /* OpenGLES.framework */; };
 		54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54908206187EA8D000F11AFE /* PomeloTestBase.mm */; };
 		54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */; };
+		54F159B01884DAD3008AF575 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 54F159AE1884DAD3008AF575 /* Icon.icns */; };
+		54F159C01884DADF008AF575 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B21884DADF008AF575 /* Icon-29.png */; };
+		54F159C11884DADF008AF575 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B31884DADF008AF575 /* Icon-40.png */; };
+		54F159C21884DADF008AF575 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B41884DADF008AF575 /* Icon-50.png */; };
+		54F159C31884DADF008AF575 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B51884DADF008AF575 /* Icon-57.png */; };
+		54F159C41884DADF008AF575 /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B61884DADF008AF575 /* Icon-58.png */; };
+		54F159C51884DADF008AF575 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B71884DADF008AF575 /* Icon-72.png */; };
+		54F159C61884DADF008AF575 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B81884DADF008AF575 /* Icon-76.png */; };
+		54F159C71884DADF008AF575 /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B91884DADF008AF575 /* Icon-80.png */; };
+		54F159C81884DADF008AF575 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BA1884DADF008AF575 /* Icon-100.png */; };
+		54F159C91884DADF008AF575 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BB1884DADF008AF575 /* Icon-114.png */; };
+		54F159CA1884DADF008AF575 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BC1884DADF008AF575 /* Icon-120.png */; };
+		54F159CB1884DADF008AF575 /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BD1884DADF008AF575 /* Icon-144.png */; };
+		54F159CC1884DADF008AF575 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BE1884DADF008AF575 /* Icon-152.png */; };
+		54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F159CE1884DD08008AF575 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +134,7 @@
 		542650C0187E3BEB008113ED /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSingleton.h; path = ../Classes/CSingleton.h; sourceTree = "<group>"; };
 		542650C5187E3DE4008113ED /* PomeloTestsGateServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsGateServer.h; path = FootBallXTests/PomeloTestsGateServer.h; sourceTree = "<group>"; };
 		542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsGateServer.mm; path = FootBallXTests/PomeloTestsGateServer.mm; sourceTree = "<group>"; };
+		543BF4C21884E073006BC0F6 /* Resources.ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources.ios; path = ../Resources.ios; sourceTree = "<group>"; };
 		543D499E18815CB80076C7EB /* CMatchLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMatchLayer.cpp; path = ../Classes/CMatchLayer.cpp; sourceTree = "<group>"; };
 		543D499F18815CB80076C7EB /* CMatchLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMatchLayer.h; path = ../Classes/CMatchLayer.h; sourceTree = "<group>"; };
 		543D49A218815D0F0076C7EB /* CBaseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CBaseLayer.cpp; path = ../Classes/CBaseLayer.cpp; sourceTree = "<group>"; };
@@ -142,7 +155,6 @@
 		543D49C118815EE60076C7EB /* CTransitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTransitLayer.h; path = ../Classes/CTransitLayer.h; sourceTree = "<group>"; };
 		543D49C418815F320076C7EB /* CAnimationCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CAnimationCache.cpp; path = ../Classes/CAnimationCache.cpp; sourceTree = "<group>"; };
 		543D49C518815F320076C7EB /* CAnimationCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CAnimationCache.h; path = ../Classes/CAnimationCache.h; sourceTree = "<group>"; };
-		543D49CB188162F30076C7EB /* CCBRes.iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CCBRes.iOS; path = ../CCBRes.iOS; sourceTree = "<group>"; };
 		544955EF187F8924002FB29B /* CFBPitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitch.cpp; path = ../Classes/CFBPitch.cpp; sourceTree = "<group>"; };
 		544955F0187F8924002FB29B /* CFBPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitch.h; path = ../Classes/CFBPitch.h; sourceTree = "<group>"; };
 		5472F720187DA4EB0001FD79 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -165,8 +177,6 @@
 		5484C1E7187D0E2A00AA8AFB /* FootBallXTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootBallXTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5484C1E8187D0E2A00AA8AFB /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		5484C203187D0F9B00AA8AFB /* FootBallXMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootBallXMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5484C232187D1D1900AA8AFB /* Resources.iOS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources.iOS; path = ../Resources.iOS; sourceTree = "<group>"; };
-		5484C234187D1D2600AA8AFB /* Resources.Mac */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources.Mac; path = ../Resources.Mac; sourceTree = "<group>"; };
 		5484C236187D1D3B00AA8AFB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = mac/main.cpp; sourceTree = "<group>"; };
 		5484C237187D1D3B00AA8AFB /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = mac/Prefix.pch; sourceTree = "<group>"; };
 		5484C239187D1D4B00AA8AFB /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = "<group>"; };
@@ -180,6 +190,23 @@
 		54908206187EA8D000F11AFE /* PomeloTestBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestBase.mm; path = FootBallXTests/PomeloTestBase.mm; sourceTree = "<group>"; };
 		54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsConnectorServer.h; path = FootBallXTests/PomeloTestsConnectorServer.h; sourceTree = "<group>"; };
 		54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsConnectorServer.mm; path = FootBallXTests/PomeloTestsConnectorServer.mm; sourceTree = "<group>"; };
+		54F159AE1884DAD3008AF575 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = mac/Icon.icns; sourceTree = "<group>"; };
+		54F159AF1884DAD3008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mac/Info.plist; sourceTree = "<group>"; };
+		54F159B21884DADF008AF575 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
+		54F159B31884DADF008AF575 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
+		54F159B41884DADF008AF575 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-50.png"; path = "ios/Icon-50.png"; sourceTree = "<group>"; };
+		54F159B51884DADF008AF575 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-57.png"; path = "ios/Icon-57.png"; sourceTree = "<group>"; };
+		54F159B61884DADF008AF575 /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-58.png"; path = "ios/Icon-58.png"; sourceTree = "<group>"; };
+		54F159B71884DADF008AF575 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "ios/Icon-72.png"; sourceTree = "<group>"; };
+		54F159B81884DADF008AF575 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "ios/Icon-76.png"; sourceTree = "<group>"; };
+		54F159B91884DADF008AF575 /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-80.png"; path = "ios/Icon-80.png"; sourceTree = "<group>"; };
+		54F159BA1884DADF008AF575 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-100.png"; path = "ios/Icon-100.png"; sourceTree = "<group>"; };
+		54F159BB1884DADF008AF575 /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-114.png"; path = "ios/Icon-114.png"; sourceTree = "<group>"; };
+		54F159BC1884DADF008AF575 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-120.png"; path = "ios/Icon-120.png"; sourceTree = "<group>"; };
+		54F159BD1884DADF008AF575 /* Icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-144.png"; path = "ios/Icon-144.png"; sourceTree = "<group>"; };
+		54F159BE1884DADF008AF575 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-152.png"; path = "ios/Icon-152.png"; sourceTree = "<group>"; };
+		54F159BF1884DADF008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Info.plist; sourceTree = "<group>"; };
+		54F159CE1884DD08008AF575 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */,
 				54027EE4187D72C50061A96E /* libjansson.a in Frameworks */,
 				54027EE5187D72C50061A96E /* libpomelo.a in Frameworks */,
 				54027EE6187D72C50061A96E /* libuv.a in Frameworks */,
@@ -389,6 +417,7 @@
 				54027ED3187D721F0061A96E /* libcocos2dx iOS.a */,
 				54027ED4187D721F0061A96E /* libcocos2dx-extensions iOS.a */,
 				54027ED5187D721F0061A96E /* libCocosDenshion iOS.a */,
+				54F159CE1884DD08008AF575 /* CoreMotion.framework */,
 				54027EDF187D726E0061A96E /* OpenAL.framework */,
 				54027EDD187D72660061A96E /* QuartzCore.framework */,
 				54027EDB187D725B0061A96E /* AudioToolbox.framework */,
@@ -419,6 +448,7 @@
 		5484C221187D1B4200AA8AFB /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				54F159AD1884DAC8008AF575 /* Icons */,
 				5484C239187D1D4B00AA8AFB /* AppController.h */,
 				5484C23A187D1D4B00AA8AFB /* AppController.mm */,
 				5484C23B187D1D4B00AA8AFB /* main.m */,
@@ -432,6 +462,7 @@
 		5484C222187D1B4B00AA8AFB /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				54F159AC1884DAC2008AF575 /* Icons */,
 				5484C236187D1D3B00AA8AFB /* main.cpp */,
 				5484C237187D1D3B00AA8AFB /* Prefix.pch */,
 			);
@@ -441,11 +472,39 @@
 		5484C22F187D1BC000AA8AFB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				543D49CB188162F30076C7EB /* CCBRes.iOS */,
-				5484C234187D1D2600AA8AFB /* Resources.Mac */,
-				5484C232187D1D1900AA8AFB /* Resources.iOS */,
+				543BF4C21884E073006BC0F6 /* Resources.ios */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		54F159AC1884DAC2008AF575 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				54F159AE1884DAD3008AF575 /* Icon.icns */,
+				54F159AF1884DAD3008AF575 /* Info.plist */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		54F159AD1884DAC8008AF575 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				54F159B21884DADF008AF575 /* Icon-29.png */,
+				54F159B31884DADF008AF575 /* Icon-40.png */,
+				54F159B41884DADF008AF575 /* Icon-50.png */,
+				54F159B51884DADF008AF575 /* Icon-57.png */,
+				54F159B61884DADF008AF575 /* Icon-58.png */,
+				54F159B71884DADF008AF575 /* Icon-72.png */,
+				54F159B81884DADF008AF575 /* Icon-76.png */,
+				54F159B91884DADF008AF575 /* Icon-80.png */,
+				54F159BA1884DADF008AF575 /* Icon-100.png */,
+				54F159BB1884DADF008AF575 /* Icon-114.png */,
+				54F159BC1884DADF008AF575 /* Icon-120.png */,
+				54F159BD1884DADF008AF575 /* Icon-144.png */,
+				54F159BE1884DADF008AF575 /* Icon-152.png */,
+				54F159BF1884DADF008AF575 /* Info.plist */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -538,8 +597,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5484C233187D1D1900AA8AFB /* Resources.iOS in Resources */,
-				543D49CC188162F30076C7EB /* CCBRes.iOS in Resources */,
+				54F159C01884DADF008AF575 /* Icon-29.png in Resources */,
+				54F159C11884DADF008AF575 /* Icon-40.png in Resources */,
+				54F159C21884DADF008AF575 /* Icon-50.png in Resources */,
+				54F159C31884DADF008AF575 /* Icon-57.png in Resources */,
+				54F159C41884DADF008AF575 /* Icon-58.png in Resources */,
+				54F159C51884DADF008AF575 /* Icon-72.png in Resources */,
+				54F159C61884DADF008AF575 /* Icon-76.png in Resources */,
+				54F159C71884DADF008AF575 /* Icon-80.png in Resources */,
+				54F159C81884DADF008AF575 /* Icon-100.png in Resources */,
+				54F159C91884DADF008AF575 /* Icon-114.png in Resources */,
+				54F159CA1884DADF008AF575 /* Icon-120.png in Resources */,
+				54F159CB1884DADF008AF575 /* Icon-144.png in Resources */,
+				54F159CC1884DADF008AF575 /* Icon-152.png in Resources */,
+				543BF4C31884E073006BC0F6 /* Resources.ios in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +618,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5472F783187DAB940001FD79 /* FootBallXTests-Info.plist in Resources */,
 				5472F786187DAB9E0001FD79 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,8 +626,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5484C235187D1D2600AA8AFB /* Resources.Mac in Resources */,
-				543D49CD188162F30076C7EB /* CCBRes.iOS in Resources */,
+				54F159B01884DAD3008AF575 /* Icon.icns in Resources */,
+				543BF4C41884E073006BC0F6 /* Resources.ios in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,14 +763,20 @@
 					"\"$(SRCROOT)/../../libpomelo/include\"",
 					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
 					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/base\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/physics\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/gui\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -729,14 +805,20 @@
 					"\"$(SRCROOT)/../../libpomelo/include\"",
 					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
 					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
+					"\"$(SRCROOT)/../../cocos2d-x\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/base\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/physics\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/gui\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -757,24 +839,13 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios/Simulation\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/ios/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../Resources.iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
 					"\"$(SRCROOT)/../../libpomelo/lib\"",
 				);
@@ -797,24 +868,13 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios/Simulation\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/ios/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../Resources.iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
 					"\"$(SRCROOT)/../../libpomelo/lib\"",
 				);
@@ -845,24 +905,12 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios/Simulation\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/ios/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
 				);
 				INFOPLIST_FILE = "FootBallXTests/FootBallXTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
 					"\"$(SRCROOT)/../../libpomelo/lib\"",
 				);
@@ -883,24 +931,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios/Simulation\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/ios/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
 				);
 				INFOPLIST_FILE = "FootBallXTests/FootBallXTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
 					"\"$(SRCROOT)/../../libpomelo/lib\"",
 				);
@@ -931,20 +967,11 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/mac/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../Resources.Mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/libsMac\"",
@@ -980,20 +1007,11 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../libpomelo/include\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/jansson/src\"",
-					"\"$(SRCROOT)/../../libpomelo/deps/uv/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/CocosDenshion/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/include\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-					"\"$(SRCROOT)/../../cocos2d-x/extensions\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/third_party/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/libwebsockets/mac/include\"",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../Resources.Mac/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/libsMac\"",

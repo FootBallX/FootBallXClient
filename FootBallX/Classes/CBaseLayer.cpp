@@ -13,7 +13,6 @@
 
 
 CBaseLayer::CBaseLayer()
-: m_popTargets(nullptr)
 {
     
 }
@@ -21,27 +20,12 @@ CBaseLayer::CBaseLayer()
 
 CBaseLayer::~CBaseLayer()
 {
-    setPopTargets(nullptr);
 }
 
 
 void CBaseLayer::onEnter()
 {
     Layer::onEnter();
-    
-    if (m_popTargets)
-    {
-        Object* pObject = nullptr;
-        CCARRAY_FOREACH(m_popTargets, pObject)
-        {
-            Node* pNode = dynamic_cast<Node*>(pObject);
-            if (pNode)
-            {
-                pNode->stopAllActions();
-//                pNode->runAction(ANIMATION_CACHE->createPopAction(1.5f));
-            }
-        }
-    }
 }
 
 
@@ -291,16 +275,6 @@ Scene* CBaseLayer::wrap(LAYERS layer)
     return pScene;
 }
 
-
-void CBaseLayer::addPopTarget(Node* pNode)
-{
-    if (nullptr == m_popTargets)
-    {
-        setPopTargets(Array::create());
-    }
-    
-    m_popTargets->addObject(pNode);
-}
 
 
 void CBaseLayer::addCloseButton()

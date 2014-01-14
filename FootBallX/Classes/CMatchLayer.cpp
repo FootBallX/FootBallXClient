@@ -16,7 +16,7 @@ static class CMatchLayerRegister
 public:
     CMatchLayerRegister()
     {
-        NodeLoaderLibrary::getInstance()->registerNodeLoader( "CMatchLayer", CMatchLayerLoader::loader());
+        cocosbuilder::NodeLoaderLibrary::getInstance()->registerNodeLoader( "CMatchLayer", CMatchLayerLoader::loader());
     }
 } __reg;
 
@@ -71,7 +71,7 @@ bool CMatchLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMember
 }
 
 
-void CMatchLayer::onNodeLoaded(Node * pNode, NodeLoader * pNodeLoader)
+void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoader)
 {
     
 }
