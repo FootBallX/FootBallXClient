@@ -1,7 +1,6 @@
 # built application files
 *.apk
 *.ap_
-*.a
 
 # files for the dex VM
 *.dex
@@ -18,6 +17,10 @@ FootBallX/proj.android/obj/
 FootBallX/Resources.android/
 FootBallX/Resources.ios/
 #cocos2dx/platform/android/java/bin/
+cocos2d-x/libs/
+cocos2d-x/libsMac/
+libpomelo/lib/
+libpomelo/libMac/
 
 # Local configuration file (sdk path, etc)
 local.properties
