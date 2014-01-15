@@ -49,9 +49,9 @@
 	<key>onlyPublishCCBs</key>
 	<false/>
 	<key>publishDirectory</key>
-	<string>../../../CCBRes.iOS</string>
+	<string>../../../Resources.ios</string>
 	<key>publishDirectoryAndroid</key>
-	<string>../../../CCBRes.Android</string>
+	<string>../../../Resources.android</string>
 	<key>publishDirectoryHTML5</key>
 	<string>Published-HTML5</string>
 	<key>publishEnabledAndroid</key>
