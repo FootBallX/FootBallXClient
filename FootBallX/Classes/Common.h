@@ -151,37 +151,7 @@ USING_NS_CC_EXT;
 #include <sstream>
 #include <iostream>
 
-
 using namespace std;
-
-typedef std::vector<unsigned int> VUI;
-typedef std::vector<unsigned int>::iterator VUI_IT;
-typedef std::vector<unsigned int>::const_iterator VUI_CIT;
-typedef std::vector<std::string> VS;
-typedef std::set<std::string> SS;
-typedef std::set<class CRole*> SR;
-typedef std::queue<class CRole*> QR;
-typedef std::map<std::string, SpriteBatchNode*> MSSBN;              // batch node name -> batch node object
-typedef std::vector<class IFightingRelation*> VR;
-typedef std::vector<class IFightingRelation*>::iterator VR_IT;
-typedef std::vector<class IFightingRelation*>::const_iterator VR_CIT;
-typedef std::map<class IFightingRelation*, VR> MRVR;
-typedef std::vector<class CFormationElement*> VFE;
-typedef std::vector<class CFormationElement*>::iterator VFE_IT;
-typedef std::vector<class CFormationElement*>::const_iterator VFE_CIT;
-typedef std::map<int, SS> VSS;
-typedef std::queue<class _FinderTask*> QFT;
-typedef std::set<class TFCollisionProtocol*> LRB;
-typedef std::vector<LRB> MILRB;
-typedef std::map<GBCollisionType, COLLISION_HANDLER> MICH;
-typedef std::map<class CRole*, float> MRF;
-typedef std::map<int, string> MIS;
-typedef std::map<int, timeval> MIT;
-typedef std::set<class ICCBAnimationDelegate*> SAD;
-typedef std::set<class CObjectBase*> SOB;
-typedef std::vector<class CNodeContainer*> VNC;
-typedef std::map<int, class CVisibleObject*> MISVO;
-
 
 #pragma mark --debug
 

@@ -21,6 +21,7 @@ cocos2d-x/libs/
 cocos2d-x/libsMac/
 libpomelo/lib/
 libpomelo/libMac/
+.metadata/
 
 # Local configuration file (sdk path, etc)
 local.properties

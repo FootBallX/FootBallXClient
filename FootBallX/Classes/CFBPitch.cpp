@@ -7,3 +7,9 @@
 //
 
 #include "CFBPitch.h"
+
+
+Point CFBPitch::transformPersentage(const Point& pt)
+{
+    return Point(pt.x * m_width, pt.y * m_height);
+}

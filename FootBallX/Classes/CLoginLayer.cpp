@@ -215,7 +215,7 @@ void CLoginLayer::getPlayerInfo(void)
             CC_ASSERT(player);
 //            PLAYER_INFO->setUID(json_integer_value(json_object_get(player, "uid")));
 //            PLAYER_INFO->setPID(json_integer_value(json_object_get(player, "pid")));
-            const char* nickname = json_string_value(json_object_get(player, "nickname"));
+//            const char* nickname = json_string_value(json_object_get(player, "nickname"));
 //            PLAYER_INFO->setNickName(nickname ? nickname : "");
 //            PLAYER_INFO->setLevel(json_integer_value(json_object_get(player, "level")));
 //            PLAYER_INFO->setMoney(json_integer_value(json_object_get(player, "money")));

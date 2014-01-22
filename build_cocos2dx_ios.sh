@@ -1,9 +1,9 @@
 rm -rf ./cocos2d-x/build/build
 
-xcodebuild -target 'chipmunk iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator6.1 -arch i386
-xcodebuild -target 'cocos2dx iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator6.1 -arch i386
-xcodebuild -target 'cocos2dx-extensions iOS'  -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator6.1 -arch i386
-xcodebuild -target 'CocosDenshion iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator6.1 -arch i386
+xcodebuild -target 'chipmunk iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator7.0 -arch i386
+xcodebuild -target 'cocos2dx iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator7.0 -arch i386
+xcodebuild -target 'cocos2dx-extensions iOS'  -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator7.0 -arch i386
+xcodebuild -target 'CocosDenshion iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphonesimulator7.0 -arch i386
 
 rm -rf ./lib_cocos2dx_ios_sim
 
@@ -16,10 +16,10 @@ cp ./cocos2d-x/build/build/Release-iphonesimulator/"libCocosDenshion iOS.a" ./li
 rm -rf ./cocos2d-x/build/build
 
 
-xcodebuild -target 'chipmunk iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos6.1 -arch armv7 -arch armv7s
-xcodebuild -target 'cocos2dx iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos6.1 -arch armv7 -arch armv7s
-xcodebuild -target 'cocos2dx-extensions iOS'  -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos6.1 -arch armv7 -arch armv7s
-xcodebuild -target 'CocosDenshion iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos6.1 -arch armv7 -arch armv7s
+xcodebuild -target 'chipmunk iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos7.0 -arch armv7 -arch armv7s -arch arm64
+xcodebuild -target 'cocos2dx iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos7.0 -arch armv7 -arch armv7s -arch arm64
+xcodebuild -target 'cocos2dx-extensions iOS'  -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos7.0 -arch armv7 -arch armv7s -arch arm64
+xcodebuild -target 'CocosDenshion iOS' -project cocos2d-x/build/cocos2d_libs.xcodeproj -sdk iphoneos7.0 -arch armv7 -arch armv7s -arch arm64
 
 
 rm -rf ./lib_cocos2dx_ios

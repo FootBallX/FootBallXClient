@@ -40,6 +40,8 @@ protected:
 //    virtual void onTestSocket(Object* pSender);
     
 //    void onMsg(Node* node, void* resp);
+    Sprite* m_blackPlayers[11] = {nullptr};
+    Sprite* m_redPlayers[11] = {nullptr};
 private:
 };
 

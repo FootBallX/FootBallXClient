@@ -139,6 +139,11 @@ void AppDelegate::setupMultipleResolutionSupport()
     Size resourceSize = sizeIphoneHD;
     Size screenSize = EGLView::getInstance()->getFrameSize();
     
+    if (screenSize.width < screenSize.height)
+    {
+        swap(screenSize.width, screenSize.height);
+    }
+    
     std::vector<std::string> searchPaths;
     std::vector<std::string> resDirOrders;
     
@@ -186,15 +191,12 @@ void AppDelegate::setupMultipleResolutionSupport()
     }
     else if (platform == Application::Platform::OS_ANDROID)
     {
-//        resDirOrders.push_back("CCBRes.Android");
-        
         if (screenSize.height > 768)
         {
             resourceSize = sizeXLarge;
             designSize = resourceSize;
             resDirOrders.push_back("resources-xlarge");
             cocosbuilder::CCBReader::setResolutionScale(4.0f);
-                log("-------------1");
         }
         else if (screenSize.height > 320)
         {
@@ -202,7 +204,6 @@ void AppDelegate::setupMultipleResolutionSupport()
             designSize = resourceSize;
             resDirOrders.push_back("resources-large");
             cocosbuilder::CCBReader::setResolutionScale(2.0f);
-                log("-------------2");
         }
         else
         {
@@ -210,7 +211,6 @@ void AppDelegate::setupMultipleResolutionSupport()
             designSize = resourceSize;
             resDirOrders.push_back("resources-small");
             cocosbuilder::CCBReader::setResolutionScale(1.0f);
-                log("-------------3");
         }
     }
     else if (platform == Application::Platform::OS_MAC)
@@ -226,10 +226,8 @@ void AppDelegate::setupMultipleResolutionSupport()
     pDirector->setContentScaleFactor(resourceSize.width / designSize.width); 
     EGLView::getInstance()->setDesignResolutionSize(
                                                       designSize.width, designSize.height, 
-                                                      ResolutionPolicy::EXACT_FIT); 
-
-    // set texture resoures
-//    GLOBAL_CONFIG->setTextureSuffix("");
+                                                      ResolutionPolicy::EXACT_FIT);
+    
 }
 
 

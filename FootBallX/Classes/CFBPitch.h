@@ -10,14 +10,17 @@
 #define __FootBallX__CFBPitch__
 
 #include "Common.h"
+#include "CFBTeam.h"
 
 class CFBPitch
 {
 public:
+    cocos2d::Point transformPersentage(const cocos2d::Point& pt);
 protected:
 private:
-    int m_width;
-    int m_hight;
+    int m_width = 800;
+    int m_height = 600;
+    cocos2d::Point m_Goals[CFBTeam::TEAM::NUM];
 };
 
 #endif /* defined(__FootBallX__CFBPitch__) */

@@ -7,9 +7,9 @@ rm -rf ./libpomelo/build
 rm -rf ./libpomelo/deps/jansson/build
 rm -rf ./libpomelo/deps/uv/build
 
-xcodebuild -project ./libpomelo/deps/jansson/jansson.xcodeproj -sdk iphonesimulator6.1 -arch i386
-xcodebuild -project ./libpomelo/deps/uv/uv.xcodeproj -sdk iphonesimulator6.1 -arch i386
-xcodebuild -project ./libpomelo/pomelo.xcodeproj -sdk iphonesimulator6.1 -arch i386
+xcodebuild -project ./libpomelo/deps/jansson/jansson.xcodeproj -sdk iphonesimulator7.0 -arch i386
+xcodebuild -project ./libpomelo/deps/uv/uv.xcodeproj -sdk iphonesimulator7.0 -arch i386
+xcodebuild -project ./libpomelo/pomelo.xcodeproj -sdk iphonesimulator7.0 -arch i386
 
 rm -rf ./libpomelo/lib_ios_sim
 mkdir ./libpomelo/lib_ios_sim
