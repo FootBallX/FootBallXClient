@@ -543,11 +543,7 @@
 				5484C1C3187D0E2A00AA8AFB /* Sources */,
 				5484C1C4187D0E2A00AA8AFB /* Frameworks */,
 				5484C1C5187D0E2A00AA8AFB /* Resources */,
-<<<<<<< HEAD
 				549F994E188E7677006340C1 /* ShellScript */,
-=======
-				71326961188E3B31008C6825 /* ShellScript */,
->>>>>>> 259238ddd165f4b8a35ce118fd6076b3fa7a4082
 			);
 			buildRules = (
 			);
@@ -678,11 +674,8 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-<<<<<<< HEAD
+
 		549F994E188E7677006340C1 /* ShellScript */ = {
-=======
-		71326961188E3B31008C6825 /* ShellScript */ = {
->>>>>>> 259238ddd165f4b8a35ce118fd6076b3fa7a4082
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,11 +686,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-<<<<<<< HEAD
+
 			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\n\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n    /Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\n    codesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi\n\nif [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n    /Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\n    codesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
-=======
-			shellScript = "export\n\nCODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\n\n\n\nif [ \"${PLATFORM_NAME}\" ==\"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\"]; then\n\n\n\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\n\n\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\n\n\n\nfi";
->>>>>>> 259238ddd165f4b8a35ce118fd6076b3fa7a4082
+
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -893,11 +884,8 @@
 		5484C1FA187D0E2A00AA8AFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-<<<<<<< HEAD
+
 				CODE_SIGN_IDENTITY = "";
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
->>>>>>> 259238ddd165f4b8a35ce118fd6076b3fa7a4082
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -931,11 +919,7 @@
 		5484C1FB187D0E2A00AA8AFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-<<<<<<< HEAD
 				CODE_SIGN_IDENTITY = "";
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
->>>>>>> 259238ddd165f4b8a35ce118fd6076b3fa7a4082
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
