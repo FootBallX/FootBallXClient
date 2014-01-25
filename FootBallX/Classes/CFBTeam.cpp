@@ -10,6 +10,14 @@
 #include "CFBFormation.h"
 #include "CFBPlayer.h"
 
+CFBTeam::CFBTeam()
+: m_side(FBDefs::SIDE::NONE)
+{
+    
+}
+
+
+
 bool CFBTeam::init()
 {
     do
@@ -20,7 +28,7 @@ bool CFBTeam::init()
             m_teamMembers.push_back(new CFBPlayer);
         }
         m_formation = new CFBFormation442();
-        BREAK_IF_FAILED(m_formation->init());
+        BREAK_IF_FAILED(m_formation->init(this));
         return true;
     } while (false);
     
@@ -52,8 +60,55 @@ bool CFBTeam::onStartMatch()
 
 void CFBTeam::kickOff()
 {
-    
+    auto player = m_formation->getKickOffPlayer();
+    player->gainBall();
 }
 
 
 
+CFBPlayer* CFBTeam::getPlayingPlayer()
+{
+    for (int i = 0; i < m_teamMembers.size(); ++i)
+    {
+        auto player = m_teamMembers[i];
+        if (player->m_isOnDuty && player->m_isBallController)
+        {
+            return player;
+        }
+    }
+    
+    return nullptr;
+}
+
+
+
+bool CFBTeam::changeFormation(FBDefs::FORMATION formationId)
+{
+    if (formationId == m_formation->getFormationId()) return true;
+    
+    switch (formationId)
+    {
+        case FBDefs::FORMATION::F_4_4_2:
+            do
+            {
+                CC_SAFE_DELETE(m_formation);
+                m_formation = new CFBFormation442();
+                m_formation->init(this);
+                return true;
+            } while (false);
+            return false;
+        case FBDefs::FORMATION::F_3_5_2:
+            do
+            {
+                CC_SAFE_DELETE(m_formation);
+                m_formation = new CFBFormation352();
+                m_formation->init(this);
+                return true;
+            } while (false);
+            return false;
+        default:
+            break;
+    }
+    
+    return false;
+}

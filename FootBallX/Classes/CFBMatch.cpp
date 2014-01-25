@@ -9,6 +9,7 @@
 #include "CFBMatch.h"
 #include "CFBPitch.h"
 
+
 IMPLEMENT_SINGLETON(CFBMatch);
 
 CFBMatch::CFBMatch()
@@ -43,12 +44,51 @@ bool CFBMatch::startMatch(bool redTeamKickoff)
 {
     do
     {
-        m_redTeam->onStartMatch();
-        m_blackTeam->onStartMatch();
+        if (redTeamKickoff)
+        {
+            m_redTeam->setSide(FBDefs::SIDE::LEFT);
+            m_blackTeam->setSide(FBDefs::SIDE::RIGHT);
+            m_redTeam->onStartMatch();
+            m_blackTeam->onStartMatch();
+            m_redTeam->kickOff();
+            
+        }
+        else
+        {
+            m_redTeam->setSide(FBDefs::SIDE::RIGHT);
+            m_blackTeam->setSide(FBDefs::SIDE::LEFT);
+            m_redTeam->onStartMatch();
+            m_blackTeam->onStartMatch();
+            m_blackTeam->kickOff();
+        }
         
-        redTeamKickoff ? m_redTeam->kickOff() : m_blackTeam->kickOff();
+
         return true;
     } while (false);
     
     return false;
 }
+
+
+CFBTeam* CFBMatch::getPlayingTeam()
+{
+    if (m_redTeam->getPlayingPlayer()) return m_redTeam;
+    if (m_blackTeam->getPlayingPlayer()) return m_blackTeam;
+    
+    return nullptr;
+}
+
+
+
+CFBPlayer* CFBMatch::getPlayingPlayer()
+{
+    auto player = m_redTeam->getPlayingPlayer();
+    if (player) return player;
+    
+    player = m_blackTeam->getPlayingPlayer();
+    if (player) return player;
+    
+    return nullptr;
+}
+
+

@@ -9,7 +9,13 @@
 #include "CFBPitch.h"
 
 
-Point CFBPitch::transformPersentage(const Point& pt)
+Point CFBPitch::transformPersentage(const Point& pt, FBDefs::SIDE side)
 {
-    return Point(pt.x * m_width, pt.y * m_height);
+    Point point(pt);
+    if (side == FBDefs::SIDE::RIGHT)
+    {
+        point.x = 1 - point.x;
+        point.y = 1 - point.y;
+    }
+    return Point(point.x * m_width, point.y * m_height);
 }

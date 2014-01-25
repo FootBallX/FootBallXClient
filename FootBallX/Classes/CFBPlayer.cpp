@@ -7,3 +7,11 @@
 //
 
 #include "CFBPlayer.h"
+
+
+void CFBPlayer::gainBall()
+{
+    CC_ASSERT(m_isOnDuty);
+    
+    m_isBallController = true;
+}

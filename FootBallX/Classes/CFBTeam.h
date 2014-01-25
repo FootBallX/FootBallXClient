@@ -10,6 +10,8 @@
 #define __FootBallX__CFBTeam__
 
 #include "Common.h"
+#include "FBDefs.h"
+
 class CFBFormation;
 class CFBPlayer;
 
@@ -17,20 +19,20 @@ class CFBTeam
 {
 public:
     CC_SYNTHESIZE_READONLY(CFBFormation*, m_formation, Formation);
+    CC_SYNTHESIZE(FBDefs::SIDE, m_side, Side);
     
-    enum TEAM
-    {
-        BLACK,
-        RED,
-        NUM,
-    };
+    CFBTeam();
+    virtual ~CFBTeam() = default;
     
     virtual bool init();
     virtual bool onStartMatch();
     virtual void kickOff();
+    virtual CFBPlayer* getPlayingPlayer();
+    virtual bool changeFormation(FBDefs::FORMATION formationId);
 protected:
 private:
     vector<CFBPlayer*> m_teamMembers;
+    
 };
 
 

@@ -9,14 +9,17 @@
 #include "CFBPlayerAI.h"
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
+#include "CFBFormation.h"
 
 #pragma mark ----- AI Base
 
-bool CFBPlayerAI::init(CFBPlayer* player, float posX, float posY, float radius)
+bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius)
 {
     do
     {
         BREAK_IF(player == nullptr);
+        BREAK_IF(formation == nullptr);
+        m_formation = formation;
         m_player = player;
         m_position.setPoint(posX, posY);
         m_radiusOfOrbitRate = radius;
@@ -38,7 +41,9 @@ void CFBPlayerAI::updatePlayerStates()
 
 void CFBPlayerAI::initPlayerStates()
 {
-    m_player->m_curPosition = FBMATCH->getPitch()->transformPersentage(m_position);
+    Point pt(m_position.x * 0.5f, m_position.y);        // 初始球员位置局限在本方半场。
+    m_player->m_curPosition = FBMATCH->getPitch()->transformPersentage(pt, m_formation->getTeam()->getSide());
+    m_player->m_isOnDuty = true;
 }
 
 

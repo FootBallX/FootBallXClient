@@ -11,8 +11,10 @@
 
 #include "Common.h"
 #include "CFBPlayerAI.h"
+#include "FBDefs.h"
 
 class CFBPlayer;
+class CFBTeam;
 
 #define GOALKEEPER_ORBIT_RATE                0.1f        // 10% pitch width
 #define BACK_ORBIT_RATE                      0.15f       // 15%
@@ -29,15 +31,24 @@ public:
     virtual ~CFBFormation();
     virtual const char* description() = 0;
 
-    virtual bool init();
+    virtual bool init(CFBTeam* team);
     virtual void addPlayer(CFBPlayer* player, int pos) = 0;
+    virtual CFBPlayer* getPlayer(int pos);
     
     virtual void update(float dt);
     
     virtual int getPlayerNumber() { return m_playerNumber;}
     
     virtual bool onStartMatch();
+    
+    virtual CFBPlayer* getKickOffPlayer() = 0;
+    
+    virtual CFBTeam* getTeam() const {return m_team;}
+    
+    virtual FBDefs::FORMATION getFormationId() const { return m_formationId; }
 protected:
+    FBDefs::FORMATION m_formationId = FBDefs::FORMATION::NONE;
+    CFBTeam* m_team;        // weak reference to the team object;
     int m_playerNumber = 0;
     CFBPlayerAI** m_playerAIs = nullptr;
 private:
@@ -51,9 +62,10 @@ class CFBFormation442
 public:
     CFBFormation442();
     virtual ~CFBFormation442() = default;
-    virtual bool init() override;
+    virtual bool init(CFBTeam* team) override;
     virtual const char* description() override;
     virtual void addPlayer(CFBPlayer* player, int pos) override;
+    virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
 protected:
 private:
 };
@@ -66,9 +78,10 @@ class CFBFormation352
 public:
     CFBFormation352();
     virtual ~CFBFormation352() = default;
-    virtual bool init() override;
+    virtual bool init(CFBTeam* team) override;
     virtual const char* description() override;
     virtual void addPlayer(CFBPlayer* player, int pos) override;
+    virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
 protected:
 private:
 };

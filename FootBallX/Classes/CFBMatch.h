@@ -13,11 +13,14 @@
 #include "CSingleton.h"
 #include "CFBPitch.h"
 #include "CFBTeam.h"
+#include "CFBFormation.h"
+#include "CFBPlayer.h"
 
 
 class CFBMatch : public CSingleton<CFBMatch>
 {
 public:
+
     CC_SYNTHESIZE_READONLY(CFBPitch*, m_pitch, Pitch);
     CC_SYNTHESIZE(CFBTeam*, m_redTeam, RedTeam);
     CC_SYNTHESIZE(CFBTeam*, m_blackTeam, BlackTeam);
@@ -28,6 +31,12 @@ public:
     bool init();
     
     bool startMatch(bool redTeamKickoff = true);
+    
+    CFBTeam* getPlayingTeam();
+    CFBPlayer* getPlayingPlayer();
+protected:
+    int m_redTeamScore = 0;
+    int m_blackTeamScore = 0;
 };
 
 #define FBMATCH     (CFBMatch::getInstance())

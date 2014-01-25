@@ -12,6 +12,7 @@
 #include "Common.h"
 
 class CFBPlayer;
+class CFBFormation;
 
 #pragma mark ----- AI Base
 
@@ -29,14 +30,17 @@ public:
     CFBPlayerAI() = default;
     virtual ~CFBPlayerAI() = default;
     
-    virtual bool init(CFBPlayer* player, float posX, float posY, float radius);
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius);
     
     virtual void update(float dt) = 0;
     
     virtual void initPlayerStates();
+    
+    virtual CFBPlayer* getPlayer() const {return m_player;}
 protected:
     virtual void updatePlayerStates();
 
+    CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
     CFBPlayer* m_player = nullptr;
     Point m_position;               // percentage of the pitch
     float m_radiusOfOrbitRate;

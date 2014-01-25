@@ -8,8 +8,8 @@
 
 #include "CMatchLayer.h"
 #include "CGameSceneManager.h"
-
 #include "CCPomelo.h"
+#include "CFBMatch.h"
 
 static class CMatchLayerRegister
 {
@@ -41,6 +41,19 @@ bool CMatchLayer::init()
 {
     do
     {
+        BREAK_IF_FAILED(FBMATCH->init());
+        
+        CFBTeam* red = new CFBTeam;
+        BREAK_IF_FAILED(red->init());
+        CFBTeam* black = new CFBTeam;
+        BREAK_IF_FAILED(black->init());
+        FBMATCH->setRedTeam(red);
+        FBMATCH->setBlackTeam(black);
+        
+        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
+        
+        BREAK_IF_FAILED(FBMATCH->startMatch());
+        this->scheduleUpdate();
         return true;
     } while (false);
     
@@ -102,3 +115,27 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         m_redPlayers[i]->setVisible(false);
     }
 }
+
+
+
+void CMatchLayer::update(float dt)
+{
+    auto black = FBMATCH->getBlackTeam();
+    auto blackFmt = black->getFormation();
+    int i;
+    for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
+    {
+        m_blackPlayers[i]->setVisible(true);
+        m_blackPlayers[i]->setPosition(blackFmt->getPlayer(i)->m_curPosition);
+    }
+    
+    auto red = FBMATCH->getRedTeam();
+    auto redFmt = red->getFormation();
+    for (i = 0; i < redFmt->getPlayerNumber(); ++i)
+    {
+        m_redPlayers[i]->setVisible(true);
+        m_redPlayers[i]->setPosition(redFmt->getPlayer(i)->m_curPosition);
+    }
+}
+
+

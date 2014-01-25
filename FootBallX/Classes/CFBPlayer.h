@@ -15,21 +15,19 @@
 class CFBPlayer
 {
 public:
-    CFBTeam::TEAM m_team = CFBTeam::TEAM::NUM;
     Point m_curPosition;
     
+#pragma mark -- player actions
+    void gainBall();
+    
 #pragma mark -- Player states
+    int m_positionInFormation = -1;
+    bool m_isOnDuty = false;        // 上场
     float m_distanceFromBall = FLT_MAX;
     float m_radiusOfOrbit = 0.f;
     bool m_isBallController = false;
     bool m_isGoalKeeper = false;
-    
-    enum STATE
-    {
-        IDLE,
-    };
-    
-    STATE m_state = STATE::IDLE;
+
 protected:
 private:
 

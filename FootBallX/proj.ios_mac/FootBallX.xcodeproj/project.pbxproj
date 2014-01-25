@@ -200,6 +200,7 @@
 		54908206187EA8D000F11AFE /* PomeloTestBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestBase.mm; path = FootBallXTests/PomeloTestBase.mm; sourceTree = "<group>"; };
 		549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayerAI.cpp; path = ../Classes/CFBPlayerAI.cpp; sourceTree = "<group>"; };
 		549C82B2188BA41C0080E249 /* CFBPlayerAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayerAI.h; path = ../Classes/CFBPlayerAI.h; sourceTree = "<group>"; };
+		54C5F7361893789E00E246AD /* FBDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBDefs.h; path = ../Classes/FBDefs.h; sourceTree = "<group>"; };
 		54D375C71889239C008BA6BB /* CFBPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayer.cpp; path = ../Classes/CFBPlayer.cpp; sourceTree = "<group>"; };
 		54D375C81889239C008BA6BB /* CFBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayer.h; path = ../Classes/CFBPlayer.h; sourceTree = "<group>"; };
 		54D375CB188923AC008BA6BB /* CFBTeam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBTeam.cpp; path = ../Classes/CFBTeam.cpp; sourceTree = "<group>"; };
@@ -374,6 +375,7 @@
 				549C82B2188BA41C0080E249 /* CFBPlayerAI.h */,
 				544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */,
 				544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */,
+				54C5F7361893789E00E246AD /* FBDefs.h */,
 			);
 			name = FootBallGamePlay;
 			sourceTree = "<group>";
@@ -674,7 +676,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-
 		549F994E188E7677006340C1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -686,9 +687,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-
 			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\n\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n    /Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\n    codesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi\n\nif [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n    /Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\n\n    codesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
-
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -884,7 +883,6 @@
 		5484C1FA187D0E2A00AA8AFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;

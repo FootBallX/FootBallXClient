@@ -25,6 +25,8 @@ public:
     
     virtual bool init();
     
+    virtual void update(float dt);
+    
     //CCBSelectorResolver
     virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName) ;
     virtual Control::Handler onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName) ;
