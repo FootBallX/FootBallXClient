@@ -17,6 +17,7 @@ class CFBPitch
 {
 public:
     cocos2d::Point transformPersentage(const cocos2d::Point& pt, FBDefs::SIDE side);
+    float transformPersentage(float p);
 protected:
 private:
     int m_width = 800;

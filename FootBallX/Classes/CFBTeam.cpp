@@ -37,6 +37,13 @@ bool CFBTeam::init()
 
 
 
+void CFBTeam::update(float dt)
+{
+    m_formation->update(dt);
+}
+
+
+
 bool CFBTeam::onStartMatch()
 {
     do

@@ -44,6 +44,9 @@ protected:
     CFBPlayer* m_player = nullptr;
     Point m_position;               // percentage of the pitch
     float m_radiusOfOrbitRate;
+    
+protected:      // ai logic functions
+    virtual void returnToPosition(float dt);
 };
 
 #pragma mark ----- GoalKeeper AI

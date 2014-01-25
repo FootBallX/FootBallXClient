@@ -29,6 +29,7 @@ public:
     ~CFBMatch();
     
     bool init();
+    void update(float dt);
     
     bool startMatch(bool redTeamKickoff = true);
     

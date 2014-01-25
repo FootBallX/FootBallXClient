@@ -25,6 +25,7 @@ public:
     virtual ~CFBTeam() = default;
     
     virtual bool init();
+    virtual void update(float dt);
     virtual bool onStartMatch();
     virtual void kickOff();
     virtual CFBPlayer* getPlayingPlayer();

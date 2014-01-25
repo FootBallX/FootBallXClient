@@ -120,6 +120,8 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
 
 void CMatchLayer::update(float dt)
 {
+    FBMATCH->update(dt);
+    
     auto black = FBMATCH->getBlackTeam();
     auto blackFmt = black->getFormation();
     int i;

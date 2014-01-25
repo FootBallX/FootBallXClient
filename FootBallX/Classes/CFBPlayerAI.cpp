@@ -48,11 +48,25 @@ void CFBPlayerAI::initPlayerStates()
 
 
 
+void CFBPlayerAI::returnToPosition(float dt)
+{
+    CC_ASSERT(m_player);
+    Point pos = FBMATCH->getPitch()->transformPersentage(m_position, m_formation->getTeam()->getSide());
+    
+    if (!pos.equals(m_player->m_curPosition))
+    {
+        Point v = (pos - m_player->m_curPosition).normalize();
+        m_player->m_curPosition += v * FBMATCH->getPitch()->transformPersentage(m_player->m_speed * dt);
+    }
+}
+
+
+
 #pragma mark ----- Goalkeeper AI
 
 void CFBGoalkeeperAI::update(float dt)
 {
-    
+    returnToPosition(dt);
 }
 
 
@@ -74,7 +88,7 @@ void CFBGoalkeeperAI::initPlayerStates()
 
 void CFBBackAI::update(float dt)
 {
-    
+    returnToPosition(dt);
 }
 
 
@@ -98,7 +112,7 @@ void CFBBackAI::initPlayerStates()
 
 void CFBHalfBackAI::update(float dt)
 {
-    
+    returnToPosition(dt);
 }
 
 
@@ -125,7 +139,7 @@ void CFBHalfBackAI::initPlayerStates()
 
 void CFBForwardAI::update(float dt)
 {
-    
+    returnToPosition(dt);
 }
 
 

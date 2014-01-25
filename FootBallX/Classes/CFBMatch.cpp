@@ -40,6 +40,15 @@ bool CFBMatch::init()
     return false;
 }
 
+
+void CFBMatch::update(float dt)
+{
+    m_redTeam->update(dt);
+    m_blackTeam->update(dt);
+}
+
+
+
 bool CFBMatch::startMatch(bool redTeamKickoff)
 {
     do

@@ -28,6 +28,9 @@ public:
     bool m_isBallController = false;
     bool m_isGoalKeeper = false;
 
+#pragma mark -- player properties
+    // all properties are measured by the pitch's width.
+    float m_speed = 0.1f;
 protected:
 private:
 

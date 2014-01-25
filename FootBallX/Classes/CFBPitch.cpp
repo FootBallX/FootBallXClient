@@ -19,3 +19,10 @@ Point CFBPitch::transformPersentage(const Point& pt, FBDefs::SIDE side)
     }
     return Point(point.x * m_width, point.y * m_height);
 }
+
+
+
+float CFBPitch::transformPersentage(float p)
+{
+    return p * m_width;
+}
