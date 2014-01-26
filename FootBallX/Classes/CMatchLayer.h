@@ -44,6 +44,8 @@ protected:
 //    void onMsg(Node* node, void* resp);
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
+    
+    Sprite* m_pitchSprite = nullptr;
 private:
 };
 

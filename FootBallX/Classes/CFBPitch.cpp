@@ -26,3 +26,14 @@ float CFBPitch::transformPersentage(float p)
 {
     return p * m_width;
 }
+
+
+
+void CFBPitch::setPitchSize(int w, int h)
+{
+    m_width = w;
+    m_height = h;
+}
+
+
+

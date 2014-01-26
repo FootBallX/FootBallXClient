@@ -41,18 +41,8 @@ bool CMatchLayer::init()
 {
     do
     {
-        BREAK_IF_FAILED(FBMATCH->init());
+        BREAK_IF_FAILED(CBaseLayer::init());
         
-        CFBTeam* red = new CFBTeam;
-        BREAK_IF_FAILED(red->init());
-        CFBTeam* black = new CFBTeam;
-        BREAK_IF_FAILED(black->init());
-        FBMATCH->setRedTeam(red);
-        FBMATCH->setBlackTeam(black);
-        
-        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
-        
-        BREAK_IF_FAILED(FBMATCH->startMatch());
         this->scheduleUpdate();
         return true;
     } while (false);
@@ -103,6 +93,8 @@ bool CMatchLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMember
     CCB_MEMBERVARIABLEASSIGNER_GLUE( this, "r9", Sprite*, m_redPlayers[9]);
     CCB_MEMBERVARIABLEASSIGNER_GLUE( this, "r10", Sprite*, m_redPlayers[10]);
     
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "pitch", Sprite*, m_pitchSprite);
+    
     return false;
 }
 
@@ -114,6 +106,25 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         m_blackPlayers[i]->setVisible(false);
         m_redPlayers[i]->setVisible(false);
     }
+    
+    do
+    {
+        BREAK_IF_FAILED(FBMATCH->init());
+        
+        Size pitchSz = m_pitchSprite->getContentSize();
+        FBMATCH->getPitch()->setPitchSize(pitchSz.width, pitchSz.height);
+        
+        CFBTeam* red = new CFBTeam;
+        BREAK_IF_FAILED(red->init());
+        CFBTeam* black = new CFBTeam;
+        BREAK_IF_FAILED(black->init());
+        FBMATCH->setRedTeam(red);
+        FBMATCH->setBlackTeam(black);
+        
+        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
+        
+        BREAK_IF_FAILED(FBMATCH->startMatch());
+    } while (false);
 }
 
 
