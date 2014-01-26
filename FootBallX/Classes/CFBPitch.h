@@ -22,8 +22,8 @@ public:
     void setPitchSize(int w, int h);
 protected:
 private:
-    int m_width = 800;
-    int m_height = 600;
+    int m_width = 0;
+    int m_height = 0;
     cocos2d::Point m_Goals[2];
 };
 
