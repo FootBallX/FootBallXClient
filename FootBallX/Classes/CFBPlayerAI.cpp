@@ -32,6 +32,13 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, float posX, f
 
 
 
+void CFBPlayerAI::update(float dt)
+{
+    m_player->update(dt);
+}
+
+
+
 void CFBPlayerAI::updatePlayerStates()
 {
 
@@ -66,6 +73,8 @@ void CFBPlayerAI::returnToPosition(float dt)
 
 void CFBGoalkeeperAI::update(float dt)
 {
+    CFBPlayerAI::update(dt);
+    
     returnToPosition(dt);
 }
 
@@ -88,6 +97,7 @@ void CFBGoalkeeperAI::initPlayerStates()
 
 void CFBBackAI::update(float dt)
 {
+    CFBPlayerAI::update(dt);
     returnToPosition(dt);
 }
 
@@ -112,6 +122,7 @@ void CFBBackAI::initPlayerStates()
 
 void CFBHalfBackAI::update(float dt)
 {
+    CFBPlayerAI::update(dt);
     returnToPosition(dt);
 }
 
@@ -139,7 +150,11 @@ void CFBHalfBackAI::initPlayerStates()
 
 void CFBForwardAI::update(float dt)
 {
-    returnToPosition(dt);
+    CFBPlayerAI::update(dt);
+    if (!this->m_player->m_isBallController)
+    {
+        returnToPosition(dt);
+    }
 }
 
 

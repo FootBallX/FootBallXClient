@@ -16,6 +16,7 @@ CFBMatch::CFBMatch()
 : m_pitch(nullptr)
 , m_redTeam(nullptr)
 , m_blackTeam(nullptr)
+, m_ball(nullptr)
 {
     
 }
@@ -25,6 +26,7 @@ CFBMatch::CFBMatch()
 CFBMatch::~CFBMatch()
 {
     CC_SAFE_DELETE(m_pitch);
+    CC_SAFE_DELETE(m_ball);
 }
 
 
@@ -34,6 +36,8 @@ bool CFBMatch::init()
     do
     {
         m_pitch = new CFBPitch;
+        m_ball = new CFBBall;
+        
         return true;
     } while (false);
     
@@ -70,7 +74,6 @@ bool CFBMatch::startMatch(bool redTeamKickoff)
             m_blackTeam->onStartMatch();
             m_blackTeam->kickOff();
         }
-        
 
         return true;
     } while (false);

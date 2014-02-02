@@ -25,7 +25,9 @@ bool CFBTeam::init()
         // player 对象应该从哪里来？服务器？这里暂时创建一下。
         for (int i = 0; i < 20; ++i)
         {
-            m_teamMembers.push_back(new CFBPlayer);
+            auto player = new CFBPlayer();
+            player->m_ownerTeam = this;
+            m_teamMembers.push_back(player);
         }
         m_formation = new CFBFormation442();
         BREAK_IF_FAILED(m_formation->init(this));

@@ -9,7 +9,7 @@
 #ifndef __FootBallX__CMatchLayer__
 #define __FootBallX__CMatchLayer__
 #include "CBaseLayer.h"
-
+#include "CSpriteEx.h"
 
 class CMatchLayer
 : public CBaseLayer
@@ -36,6 +36,10 @@ public:
     
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
 protected:
+    bool onTouchBegan(Touch* touch, Event* event);
+    void onTouchMoved(Touch* touch, Event* event);
+    void onTouchEnded(Touch* touch, Event* event);
+    void onTouchCancelled(Touch* touch, Event* event);
 //    virtual void onFormation(Object *pSender);
 //    virtual void onBattle(Object* pSender);
 //    virtual void onHome(Object* pSender);
@@ -44,8 +48,15 @@ protected:
 //    void onMsg(Node* node, void* resp);
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
+    CSpriteEx* m_pitchSprite = nullptr;
     
-    Sprite* m_pitchSprite = nullptr;
+    Sprite* m_ball = nullptr;
+    Sprite* m_arrow = nullptr;
+    
+    bool m_isTouchDown = false;
+    
+    Point m_ballMovingVec;
+    Point m_screenCenter;
 private:
 };
 

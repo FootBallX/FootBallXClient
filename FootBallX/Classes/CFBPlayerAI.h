@@ -32,7 +32,7 @@ public:
     
     virtual bool init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius);
     
-    virtual void update(float dt) = 0;
+    virtual void update(float dt);
     
     virtual void initPlayerStates();
     

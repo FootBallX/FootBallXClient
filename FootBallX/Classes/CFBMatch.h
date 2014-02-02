@@ -15,7 +15,7 @@
 #include "CFBTeam.h"
 #include "CFBFormation.h"
 #include "CFBPlayer.h"
-
+#include "CFBBall.H"
 
 class CFBMatch : public CSingleton<CFBMatch>
 {
@@ -24,6 +24,7 @@ public:
     CC_SYNTHESIZE_READONLY(CFBPitch*, m_pitch, Pitch);
     CC_SYNTHESIZE(CFBTeam*, m_redTeam, RedTeam);
     CC_SYNTHESIZE(CFBTeam*, m_blackTeam, BlackTeam);
+    CC_SYNTHESIZE(CFBBall*, m_ball, Ball);
     
     CFBMatch();
     ~CFBMatch();

@@ -23,6 +23,8 @@
 		54027EF7187D77220061A96E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF4187D77220061A96E /* libjansson.a */; };
 		54027EF8187D77220061A96E /* libpomelo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF5187D77220061A96E /* libpomelo.a */; };
 		54027EF9187D77220061A96E /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF6187D77220061A96E /* libuv.a */; };
+		5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
+		5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
 		542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B8187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
@@ -83,12 +85,16 @@
 		54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54908206187EA8D000F11AFE /* PomeloTestBase.mm */; };
 		549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */; };
 		549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */; };
+		54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */; };
+		54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */; };
 		54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375C71889239C008BA6BB /* CFBPlayer.cpp */; };
 		54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375C71889239C008BA6BB /* CFBPlayer.cpp */; };
 		54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CB188923AC008BA6BB /* CFBTeam.cpp */; };
 		54D375CE188923AC008BA6BB /* CFBTeam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CB188923AC008BA6BB /* CFBTeam.cpp */; };
 		54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CF1889284F008BA6BB /* CFBFormation.cpp */; };
 		54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CF1889284F008BA6BB /* CFBFormation.cpp */; };
+		54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
+		54D9CD6F189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
 		54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */; };
 		54F159B01884DAD3008AF575 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 54F159AE1884DAD3008AF575 /* Icon.icns */; };
 		54F159C01884DADF008AF575 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B21884DADF008AF575 /* Icon-29.png */; };
@@ -134,6 +140,8 @@
 		54027EF4187D77220061A96E /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../../libpomelo/libMac/libjansson.a; sourceTree = "<group>"; };
 		54027EF5187D77220061A96E /* libpomelo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpomelo.a; path = ../../libpomelo/libMac/libpomelo.a; sourceTree = "<group>"; };
 		54027EF6187D77220061A96E /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../../libpomelo/libMac/libuv.a; sourceTree = "<group>"; };
+		5408321918976BBB00B0E101 /* CFlip3DEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFlip3DEx.cpp; path = ../Classes/CFlip3DEx.cpp; sourceTree = "<group>"; };
+		5408321A18976BBB00B0E101 /* CFlip3DEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFlip3DEx.h; path = ../Classes/CFlip3DEx.h; sourceTree = "<group>"; };
 		542650B4187E3B9C008113ED /* CCPomelo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPomelo.cpp; path = ../Classes/CCPomelo.cpp; sourceTree = "<group>"; };
 		542650B5187E3B9C008113ED /* CCPomelo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPomelo.h; path = ../Classes/CCPomelo.h; sourceTree = "<group>"; };
 		542650B9187E3BAE008113ED /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -200,6 +208,8 @@
 		54908206187EA8D000F11AFE /* PomeloTestBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestBase.mm; path = FootBallXTests/PomeloTestBase.mm; sourceTree = "<group>"; };
 		549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayerAI.cpp; path = ../Classes/CFBPlayerAI.cpp; sourceTree = "<group>"; };
 		549C82B2188BA41C0080E249 /* CFBPlayerAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayerAI.h; path = ../Classes/CFBPlayerAI.h; sourceTree = "<group>"; };
+		54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSpriteEx.cpp; path = ../Classes/CSpriteEx.cpp; sourceTree = "<group>"; };
+		54C1EBC018963EA000DC5E0F /* CSpriteEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSpriteEx.h; path = ../Classes/CSpriteEx.h; sourceTree = "<group>"; };
 		54C5F7361893789E00E246AD /* FBDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBDefs.h; path = ../Classes/FBDefs.h; sourceTree = "<group>"; };
 		54D375C71889239C008BA6BB /* CFBPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayer.cpp; path = ../Classes/CFBPlayer.cpp; sourceTree = "<group>"; };
 		54D375C81889239C008BA6BB /* CFBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayer.h; path = ../Classes/CFBPlayer.h; sourceTree = "<group>"; };
@@ -207,6 +217,8 @@
 		54D375CC188923AC008BA6BB /* CFBTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBTeam.h; path = ../Classes/CFBTeam.h; sourceTree = "<group>"; };
 		54D375CF1889284F008BA6BB /* CFBFormation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBFormation.cpp; path = ../Classes/CFBFormation.cpp; sourceTree = "<group>"; };
 		54D375D01889284F008BA6BB /* CFBFormation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBFormation.h; path = ../Classes/CFBFormation.h; sourceTree = "<group>"; };
+		54D9CD6C189605B500F7B888 /* CFBBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBBall.cpp; path = ../Classes/CFBBall.cpp; sourceTree = "<group>"; };
+		54D9CD6D189605B500F7B888 /* CFBBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBBall.h; path = ../Classes/CFBBall.h; sourceTree = "<group>"; };
 		54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsConnectorServer.h; path = FootBallXTests/PomeloTestsConnectorServer.h; sourceTree = "<group>"; };
 		54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsConnectorServer.mm; path = FootBallXTests/PomeloTestsConnectorServer.mm; sourceTree = "<group>"; };
 		54F159AE1884DAD3008AF575 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = mac/Icon.icns; sourceTree = "<group>"; };
@@ -356,6 +368,10 @@
 			children = (
 				543D49BC18815EB50076C7EB /* CCControlToggleButton.cpp */,
 				543D49BD18815EB50076C7EB /* CCControlToggleButton.h */,
+				54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */,
+				54C1EBC018963EA000DC5E0F /* CSpriteEx.h */,
+				5408321918976BBB00B0E101 /* CFlip3DEx.cpp */,
+				5408321A18976BBB00B0E101 /* CFlip3DEx.h */,
 			);
 			name = CocosExt;
 			sourceTree = "<group>";
@@ -376,6 +392,8 @@
 				544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */,
 				544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */,
 				54C5F7361893789E00E246AD /* FBDefs.h */,
+				54D9CD6C189605B500F7B888 /* CFBBall.cpp */,
+				54D9CD6D189605B500F7B888 /* CFBBall.h */,
 			);
 			name = FootBallGamePlay;
 			sourceTree = "<group>";
@@ -702,10 +720,12 @@
 				5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */,
 				542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BC187E3BAE008113ED /* AppDelegate.cpp in Sources */,
+				5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */,
 				542650C1187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */,
 				543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */,
 				543D49AC18815D0F0076C7EB /* CBaseLayer.cpp in Sources */,
+				54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */,
 				543D49AE18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
 				543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */,
 				543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
@@ -716,6 +736,7 @@
 				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */,
+				54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
 			);
@@ -739,6 +760,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */,
 				5484C238187D1D3B00AA8AFB /* main.cpp in Sources */,
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BD187E3BAE008113ED /* AppDelegate.cpp in Sources */,
@@ -753,8 +775,10 @@
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,
+				54D9CD6F189605B500F7B888 /* CFBBall.cpp in Sources */,
 				543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,
+				54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				54D375CE188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */,

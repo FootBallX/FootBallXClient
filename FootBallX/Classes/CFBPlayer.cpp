@@ -7,11 +7,25 @@
 //
 
 #include "CFBPlayer.h"
+#include "CFBMatch.h"
 
+void CFBPlayer::update(float dt)
+{
+    if (m_isBallController)
+    {
+        auto ball = FBMATCH->getBall();
+        CC_ASSERT(ball->m_ownerPlayer == this);
+        
+        ball->setBallPos(m_curPosition);
+    }
+}
 
 void CFBPlayer::gainBall()
 {
     CC_ASSERT(m_isOnDuty);
     
     m_isBallController = true;
+    
+    FBMATCH->getBall()->m_ownerPlayer = this;
+    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
 }

@@ -15,12 +15,15 @@
 class CFBPlayer
 {
 public:
+    virtual void update (float dt);
+    
     Point m_curPosition;
     
 #pragma mark -- player actions
     void gainBall();
     
 #pragma mark -- Player states
+    CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
     bool m_isOnDuty = false;        // 上场
     float m_distanceFromBall = FLT_MAX;
