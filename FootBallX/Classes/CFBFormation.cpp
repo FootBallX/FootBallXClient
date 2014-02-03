@@ -31,6 +31,8 @@ bool CFBFormation::init(CFBTeam* team)
         CC_SAFE_DELETE_ARRAY(m_playerAIs);
         
         m_playerAIs = new CFBPlayerAI*[m_playerNumber];
+        m_playerIndices.resize(m_playerNumber);
+        iota(m_playerIndices.begin(), m_playerIndices.end(), 0);
         
         return true;
     } while (false);
@@ -42,6 +44,20 @@ bool CFBFormation::init(CFBTeam* team)
 void CFBFormation::update(float dt)
 {
     CC_ASSERT(m_playerAIs);
+
+    m_updateCD++;
+    int thinkIndex = int(m_updateCD) % m_playerNumber;
+    if (thinkIndex != m_updateIndex)
+    {
+        m_updateIndex = thinkIndex;
+        if (thinkIndex == 0)
+        {
+            random_shuffle(m_playerIndices.begin(), m_playerIndices.end());
+        }
+        
+        m_playerAIs[m_playerIndices[thinkIndex]]->think();
+    }
+    
     for (int i = 0; i < m_playerNumber; ++i)
     {
         CC_ASSERT(m_playerAIs[i]);

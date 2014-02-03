@@ -15,14 +15,17 @@
 class CFBPlayer
 {
 public:
+    CFBPlayer();
+    
     virtual void update (float dt);
     
-    Point m_curPosition;
-    
+    virtual float getSpeed() const;
+    virtual void setSpeed(float speed);
 #pragma mark -- player actions
     void gainBall();
     
 #pragma mark -- Player states
+    Point m_curPosition;
     CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
     bool m_isOnDuty = false;        // 上场
@@ -31,10 +34,11 @@ public:
     bool m_isBallController = false;
     bool m_isGoalKeeper = false;
 
+protected:
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
-    float m_speed = 0.1f;
-protected:
+    float m_speed = 0.f;
+    
 private:
 
 };

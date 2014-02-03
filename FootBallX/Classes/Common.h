@@ -150,6 +150,7 @@ USING_NS_CC_EXT;
 #include <functional>
 #include <sstream>
 #include <iostream>
+#include <numeric>
 
 using namespace std;
 

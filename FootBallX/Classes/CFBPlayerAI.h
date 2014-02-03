@@ -10,6 +10,7 @@
 #define __FootBallX__CFBPlayerAI__
 
 #include "Common.h"
+#include "FBDefs.h"
 
 class CFBPlayer;
 class CFBFormation;
@@ -19,7 +20,7 @@ class CFBFormation;
 class CFBPlayerAI
 {
 public:
-    enum AI_TYPE
+    enum class AI_TYPE
     {
         GOALKEEPER,
         BACK,
@@ -32,21 +33,37 @@ public:
     
     virtual bool init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius);
     
+    virtual void think();
+    
     virtual void update(float dt);
     
     virtual void initPlayerStates();
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
+    
+    virtual void thinkHomePosition();
+    
+    virtual void thinkDefending();
 protected:
     virtual void updatePlayerStates();
+    virtual bool isOnHomePosition();
+    virtual void applyStateCD() { m_changeStateCD = 1.f; }
+    virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
 
     CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
     CFBPlayer* m_player = nullptr;
-    Point m_position;               // percentage of the pitch
-    float m_radiusOfOrbitRate;
+    Point m_attackPosition;               // percentage of the pitch
+    Point m_defendPosition;
+    Point m_homePosition;
+    float m_defendOrbitRadius;
+    float m_defendOrbitRadiusSq;
+    float m_defendOrbitRadiusx2Sq;
     
+    FBDefs::AI_STATE m_state = FBDefs::AI_STATE::NONE;
+    float m_changeStateCD = 0.f;
 protected:      // ai logic functions
     virtual void returnToPosition(float dt);
+    virtual void chaseBall(float dt);
 };
 
 #pragma mark ----- GoalKeeper AI

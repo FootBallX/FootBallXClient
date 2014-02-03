@@ -24,6 +24,25 @@ namespace FBDefs
         F_3_5_2,
         NONE,
     };
+    
+    
+    enum class TEAM_STATE
+    {
+        KICKOFF,
+        ATTACKING,
+        DEFENDING,
+        NONE,
+    };
+    
+    enum class AI_STATE
+    {
+        WAIT,
+        BACKHOME,
+        CONTROL,
+        SUPPORT,
+        CHASE,
+        NONE,
+    };
 }
 
 

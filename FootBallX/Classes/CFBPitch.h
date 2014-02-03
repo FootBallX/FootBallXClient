@@ -20,6 +20,8 @@ public:
     float transformPersentage(float p);
     
     void setPitchSize(int w, int h);
+    int getPitchWidth() const { return m_width; }
+    int getPitchHeight() const { return m_height; }
 protected:
 private:
     int m_width = 0;

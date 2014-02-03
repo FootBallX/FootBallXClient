@@ -9,6 +9,14 @@
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
 
+
+CFBPlayer::CFBPlayer()
+{
+    setSpeed(0.1);
+}
+
+
+
 void CFBPlayer::update(float dt)
 {
     if (m_isBallController)
@@ -29,3 +37,23 @@ void CFBPlayer::gainBall()
     FBMATCH->getBall()->m_ownerPlayer = this;
     FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
 }
+
+
+
+void CFBPlayer::setSpeed(float speed)
+{
+    auto p = FBMATCH->getPitch();
+    CC_ASSERT(p);
+    
+    m_speed = p->transformPersentage(speed);
+}
+
+
+
+float CFBPlayer::getSpeed() const
+{
+    return m_speed;
+}
+
+
+

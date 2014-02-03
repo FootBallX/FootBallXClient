@@ -30,7 +30,10 @@ public:
     virtual void kickOff();
     virtual CFBPlayer* getPlayingPlayer();
     virtual bool changeFormation(FBDefs::FORMATION formationId);
+    virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
+    virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
 protected:
+    FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
 private:
     vector<CFBPlayer*> m_teamMembers;
     

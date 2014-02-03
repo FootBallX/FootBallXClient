@@ -223,7 +223,7 @@ void CMatchLayer::update(float dt)
         m_arrow->setRotation(angle);
         
         Point pos = ball->getBallPos();
-        pos += m_ballMovingVec;
+        pos += m_ballMovingVec * ball->m_ownerPlayer->getSpeed() * dt;
         ball->setBallPos(pos);
     }
     

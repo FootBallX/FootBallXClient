@@ -18,8 +18,8 @@ class CFBTeam;
 
 #define GOALKEEPER_ORBIT_RATE                0.1f        // 10% pitch width
 #define BACK_ORBIT_RATE                      0.15f       // 15%
-#define HALF_BACK_ORBIT_RATE                 0.25f
-#define FORWARD_ORBIT_RATE                   0.2f
+#define HALF_BACK_ORBIT_RATE                 0.15f
+#define FORWARD_ORBIT_RATE                   0.1f
 
 
 #pragma mark ----- FormationBase
@@ -51,6 +51,9 @@ protected:
     CFBTeam* m_team;        // weak reference to the team object;
     int m_playerNumber = 0;
     CFBPlayerAI** m_playerAIs = nullptr;
+    int m_updateIndex = -1;
+    int m_updateCD = 0;
+    vector<int> m_playerIndices;
 private:
 };
 

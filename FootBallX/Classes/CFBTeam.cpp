@@ -31,6 +31,8 @@ bool CFBTeam::init()
         }
         m_formation = new CFBFormation442();
         BREAK_IF_FAILED(m_formation->init(this));
+        
+        m_state = FBDefs::TEAM_STATE::DEFENDING;
         return true;
     } while (false);
     
@@ -71,6 +73,7 @@ void CFBTeam::kickOff()
 {
     auto player = m_formation->getKickOffPlayer();
     player->gainBall();
+    m_state = FBDefs::TEAM_STATE::ATTACKING;
 }
 
 
