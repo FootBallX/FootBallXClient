@@ -78,6 +78,16 @@ void CFBTeam::kickOff()
 
 
 
+void CFBTeam::passBall(int passTo)
+{
+    CC_ASSERT(passTo >=0 && passTo < m_teamMembers.size());
+    auto pp = getPlayingPlayer();
+    pp->loseBall();
+    m_teamMembers[passTo]->gainBall();
+}
+
+
+
 CFBPlayer* CFBTeam::getPlayingPlayer()
 {
     for (int i = 0; i < m_teamMembers.size(); ++i)

@@ -22,8 +22,8 @@ public:
     virtual float getSpeed() const;
     virtual void setSpeed(float speed);
 #pragma mark -- player actions
-    void gainBall();
-    
+    virtual void gainBall();
+    virtual void loseBall();
 #pragma mark -- Player states
     Point m_curPosition;
     CFBTeam* m_ownerTeam = nullptr;

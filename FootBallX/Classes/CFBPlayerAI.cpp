@@ -242,18 +242,21 @@ void CFBGoalkeeperAI::initPlayerStates()
 void CFBBackAI::update(float dt)
 {
     CFBPlayerAI::update(dt);
-    switch (m_state)
+    if (!this->m_player->m_isBallController)
     {
-        case FBDefs::AI_STATE::BACKHOME:
-            returnToPosition(dt);
-            break;
-        case FBDefs::AI_STATE::WAIT:
-            break;
-        case FBDefs::AI_STATE::CHASE:
-            chaseBall(dt);
-            break;
-        default:
-            break;
+        switch (m_state)
+        {
+            case FBDefs::AI_STATE::BACKHOME:
+                returnToPosition(dt);
+                break;
+            case FBDefs::AI_STATE::WAIT:
+                break;
+            case FBDefs::AI_STATE::CHASE:
+                chaseBall(dt);
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -279,18 +282,21 @@ void CFBBackAI::initPlayerStates()
 void CFBHalfBackAI::update(float dt)
 {
     CFBPlayerAI::update(dt);
-    switch (m_state)
+    if (!this->m_player->m_isBallController)
     {
-        case FBDefs::AI_STATE::BACKHOME:
-            returnToPosition(dt);
-            break;
-        case FBDefs::AI_STATE::WAIT:
-            break;
-        case FBDefs::AI_STATE::CHASE:
-            chaseBall(dt);
-            break;
-        default:
-            break;
+        switch (m_state)
+        {
+            case FBDefs::AI_STATE::BACKHOME:
+                returnToPosition(dt);
+                break;
+            case FBDefs::AI_STATE::WAIT:
+                break;
+            case FBDefs::AI_STATE::CHASE:
+                chaseBall(dt);
+                break;
+            default:
+                break;
+        }
     }
 }
 

@@ -22,6 +22,7 @@ public:
 } __reg;
 
 
+#define TAG_ACTION_FLIP3D           1001
 
 
 CMatchLayer::CMatchLayer()
@@ -67,7 +68,23 @@ bool CMatchLayer::init()
 bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
 {
     auto loc = touch->getLocation();
-    m_ballMovingVec = (loc - m_screenCenter).normalize();
+    
+    switch (m_operator)
+    {
+        case OP::PASS_BALL:
+        {
+            int idx = getSelectedPlayerId(loc);
+            if (idx != -1)
+            {
+                FBMATCH->getRedTeam()->passBall(idx);
+            }
+            break;
+        }
+        case OP::NONE:
+            m_ballMovingVec = (loc - m_screenCenter).normalize();
+            break;
+    }
+    
     return true;
 }
 
@@ -76,7 +93,14 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
 void CMatchLayer::onTouchMoved(Touch* touch, Event* event)
 {
     auto loc = touch->getLocation();
-    m_ballMovingVec = (loc - m_screenCenter).normalize();
+    switch (m_operator)
+    {
+        case OP::PASS_BALL:
+            break;
+        case OP::NONE:
+            m_ballMovingVec = (loc - m_screenCenter).normalize();
+            break;
+    }
 }
 
 
@@ -99,19 +123,21 @@ void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 
 SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName)
 {
-    //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onFormation", CMatchLayer::onFormation);
-    //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onBattle", CMatchLayer::onBattle);
-    //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onHome", CMatchLayer::onHome);
-    //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onTestSocket", CMatchLayer::onTestSocket);
+    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onPassBall", CMatchLayer::onPassBall);
+
     return nullptr;
 }
+
+
 
 //函数定义类型为：void pressTitle(Object *pSender);
 Control::Handler CMatchLayer::onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName)
 {
-    //    CCB_SELECTORRESOLVER_CCCONTROL_GLUE( this, "pressTitle", CMatchLayer::controlButtonTest);
+//    CCB_SELECTORRESOLVER_CCCONTROL_GLUE( this, "pressTitle", CMatchLayer::controlButtonTest);
     return nullptr;
 }
+
+
 
 bool CMatchLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMemberVariableName, Node* pNode)
 {
@@ -143,16 +169,21 @@ bool CMatchLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMember
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "ball", Sprite*, m_ball);
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "arrow", Sprite*, m_arrow);
     
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "menuPassBall", MenuItem*, m_menuPassBall);
+    
     return false;
 }
 
 
 void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoader)
 {
-    for (int i = 0; i < 11; ++i)
+    for (auto x : m_blackPlayers)
     {
-        m_blackPlayers[i]->setVisible(false);
-        m_redPlayers[i]->setVisible(false);
+        x->setVisible(false);
+    }
+    for (auto x : m_redPlayers)
+    {
+        x->setVisible(false);
     }
     
     m_ball->setVisible(false);
@@ -162,12 +193,14 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         {
             auto ng = NodeGrid::create();
             FlipX3D* fx3 = CFlip3DYEx::create(1, 90, 90);
+            fx3->setTag(TAG_ACTION_FLIP3D);
             ng->runAction(fx3);
-            m_pitchSprite->getParent()->addChild(ng);
+            m_pitchSprite->getParent()->addChild(ng, -1);
             m_pitchSprite->removeFromParent();
             ng->addChild(m_pitchSprite);
+            m_isPitchViewLieDown = true;
         }
-        
+
         BREAK_IF_FAILED(FBMATCH->init());
         
         Size pitchSz = m_pitchSprite->getContentSize();
@@ -190,46 +223,103 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
 
 void CMatchLayer::update(float dt)
 {
-    FBMATCH->update(dt);
+    CBaseLayer::update(dt);
     
-    auto black = FBMATCH->getBlackTeam();
-    auto blackFmt = black->getFormation();
-    int i;
-    for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
+    if (m_isPitchViewLieDown)
     {
-        m_blackPlayers[i]->setVisible(true);
-        m_blackPlayers[i]->setPosition(blackFmt->getPlayer(i)->m_curPosition);
-    }
-    
-    auto red = FBMATCH->getRedTeam();
-    auto redFmt = red->getFormation();
-    for (i = 0; i < redFmt->getPlayerNumber(); ++i)
-    {
-        m_redPlayers[i]->setVisible(true);
-        m_redPlayers[i]->setPosition(redFmt->getPlayer(i)->m_curPosition);
-    }
-    
-    auto ball = FBMATCH->getBall();
+        FBMATCH->update(dt);
+        
+        auto black = FBMATCH->getBlackTeam();
+        auto blackFmt = black->getFormation();
+        int i;
+        for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
+        {
+            m_blackPlayers[i]->setVisible(true);
+            m_blackPlayers[i]->setPosition(blackFmt->getPlayer(i)->m_curPosition);
+        }
+        
+        auto red = FBMATCH->getRedTeam();
+        auto redFmt = red->getFormation();
+        for (i = 0; i < redFmt->getPlayerNumber(); ++i)
+        {
+            m_redPlayers[i]->setVisible(true);
+            m_redPlayers[i]->setPosition(redFmt->getPlayer(i)->m_curPosition);
+        }
+        
+        auto ball = FBMATCH->getBall();
 
-    if (m_ballMovingVec.equals(Point(0, 0)))
+        if (m_ballMovingVec.equals(Point(0, 0)))
+        {
+            m_arrow->setVisible(false);
+        }
+        else
+        {
+            m_arrow->setVisible(true);
+            Point base = {1, 0};
+            float angle = CC_RADIANS_TO_DEGREES(m_ballMovingVec.getAngle(base));
+            m_arrow->setRotation(angle);
+            
+            Point pos = ball->getBallPos();
+            pos += m_ballMovingVec * ball->m_ownerPlayer->getSpeed() * dt;
+            ball->setBallPos(pos);
+        }
+        
+        m_ball->setVisible(true);
+        m_ball->setPosition(ball->getBallPos());
+        m_arrow->setPosition(ball->getBallPos());
+    }
+}
+
+
+
+void CMatchLayer::togglePitchLieDown()
+{
+    if (m_isPitchViewLieDown)
     {
-        m_arrow->setVisible(false);
+        m_isPitchViewLieDown = false;
+        NodeGrid* ng = (NodeGrid*)m_pitchSprite->getParent();
+        ng->stopActionByTag(TAG_ACTION_FLIP3D);
+        auto fx = CFlip3DYEx::create(.5f, 90, 180);
+        fx->setTag(TAG_ACTION_FLIP3D);
+        ng->runAction(fx);
+        m_operator = OP::PASS_BALL;
     }
     else
     {
-        m_arrow->setVisible(true);
-        Point base = {1, 0};
-        float angle = CC_RADIANS_TO_DEGREES(m_ballMovingVec.getAngle(base));
-        m_arrow->setRotation(angle);
-        
-        Point pos = ball->getBallPos();
-        pos += m_ballMovingVec * ball->m_ownerPlayer->getSpeed() * dt;
-        ball->setBallPos(pos);
+        m_isPitchViewLieDown = true;
+        NodeGrid* ng = (NodeGrid*)m_pitchSprite->getParent();
+        ng->stopActionByTag(TAG_ACTION_FLIP3D);
+        auto fx = CFlip3DYEx::create(.5f, 0, 90);
+        fx->setTag(TAG_ACTION_FLIP3D);
+        ng->runAction(fx);
+        m_operator = OP::NONE;
     }
-    
-    m_ball->setVisible(true);
-    m_ball->setPosition(ball->getBallPos());
-    m_arrow->setPosition(ball->getBallPos());
 }
 
+
+
+void CMatchLayer::onPassBall(Object* pSender)
+{
+    togglePitchLieDown();
+    
+}
+
+
+
+int CMatchLayer::getSelectedPlayerId(const Point& pt)
+{
+    auto mat = m_pitchSprite->getWorldToNodeTransform();
+    Point pos = PointApplyTransform(pt, mat);
+    
+    for (auto spr : m_redPlayers)
+    {
+        auto bx = spr->getBoundingBox();
+        if (bx.containsPoint(pos))
+        {
+            return spr->getTag();
+        }
+    }
+    
+    return -1;
+}
 

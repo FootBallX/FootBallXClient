@@ -40,6 +40,18 @@ void CFBPlayer::gainBall()
 
 
 
+void CFBPlayer::loseBall()
+{
+    CC_ASSERT(m_isOnDuty);
+    
+    m_isBallController = false;
+    
+    FBMATCH->getBall()->m_ownerPlayer = nullptr;
+    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
+}
+
+
+
 void CFBPlayer::setSpeed(float speed)
 {
     auto p = FBMATCH->getPitch();

@@ -28,6 +28,7 @@ public:
     virtual void update(float dt);
     virtual bool onStartMatch();
     virtual void kickOff();
+    virtual void passBall(int passTo);
     virtual CFBPlayer* getPlayingPlayer();
     virtual bool changeFormation(FBDefs::FORMATION formationId);
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }

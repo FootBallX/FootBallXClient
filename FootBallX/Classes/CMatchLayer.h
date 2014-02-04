@@ -40,12 +40,18 @@ protected:
     void onTouchMoved(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
     void onTouchCancelled(Touch* touch, Event* event);
+    
+    void onPassBall(Object* pSender);
 //    virtual void onFormation(Object *pSender);
 //    virtual void onBattle(Object* pSender);
 //    virtual void onHome(Object* pSender);
 //    virtual void onTestSocket(Object* pSender);
     
 //    void onMsg(Node* node, void* resp);
+    
+    void togglePitchLieDown();
+    int getSelectedPlayerId(const Point& pt);
+    
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
     CSpriteEx* m_pitchSprite = nullptr;
@@ -53,10 +59,22 @@ protected:
     Sprite* m_ball = nullptr;
     Sprite* m_arrow = nullptr;
     
+    MenuItem* m_menuPassBall = nullptr;
+    
     bool m_isTouchDown = false;
+    bool m_isPitchViewLieDown = false;
     
     Point m_ballMovingVec;
     Point m_screenCenter;
+    
+    
+    enum class OP
+    {
+        PASS_BALL,
+        NONE,
+    };
+    
+    OP m_operator = OP::NONE;
 private:
 };
 
