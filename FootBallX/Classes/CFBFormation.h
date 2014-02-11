@@ -54,7 +54,6 @@ protected:
     int m_updateIndex = -1;
     int m_updateCD = 0;
     vector<int> m_playerIndices;
-private:
 };
 
 #pragma mark ----- 442
@@ -70,7 +69,6 @@ public:
     virtual void addPlayer(CFBPlayer* player, int pos) override;
     virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
 protected:
-private:
 };
 
 #pragma mark ----- 352
@@ -86,7 +84,6 @@ public:
     virtual void addPlayer(CFBPlayer* player, int pos) override;
     virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
 protected:
-private:
 };
 
 #endif /* defined(__FootBallX__CFBFormation__) */

@@ -22,8 +22,6 @@ class CFBMatch : public CSingleton<CFBMatch>
 public:
 
     CC_SYNTHESIZE_READONLY(CFBPitch*, m_pitch, Pitch);
-    CC_SYNTHESIZE(CFBTeam*, m_redTeam, RedTeam);
-    CC_SYNTHESIZE(CFBTeam*, m_blackTeam, BlackTeam);
     CC_SYNTHESIZE(CFBBall*, m_ball, Ball);
     
     CFBMatch();
@@ -32,13 +30,15 @@ public:
     bool init();
     void update(float dt);
     
-    bool startMatch(bool redTeamKickoff = true);
+    bool startMatch(FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    CFBTeam* getTeam(FBDefs::SIDE side);
+    void setTeam(FBDefs::SIDE side, CFBTeam* team);
     
     CFBTeam* getPlayingTeam();
     CFBPlayer* getPlayingPlayer();
+    
 protected:
-    int m_redTeamScore = 0;
-    int m_blackTeamScore = 0;
+    CFBTeam* m_teams[(int)FBDefs::SIDE::NONE];
 };
 
 #define FBMATCH     (CFBMatch::getInstance())

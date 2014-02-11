@@ -28,17 +28,17 @@
     [super tearDown];
 }
 
-- (void)testStartMatch
-{
-    STAssertTrue(FBMATCH->init(), @"Fail to init match");
-    
-    CFBTeam* red = new CFBTeam;
-    STAssertTrue(red->init(), @"init red fail");
-    CFBTeam* black = new CFBTeam;
-    STAssertTrue(black->init(), @"init red fail");
-    FBMATCH->setRedTeam(red);
-    FBMATCH->setBlackTeam(black);
-    STAssertTrue(FBMATCH->startMatch(), @"Fail to start match");
-}
+//- (void)testStartMatch
+//{
+//    STAssertTrue(FBMATCH->init(), @"Fail to init match");
+//    
+//    CFBTeam* red = new CFBTeam;
+//    STAssertTrue(red->init(), @"init red fail");
+//    CFBTeam* black = new CFBTeam;
+//    STAssertTrue(black->init(), @"init red fail");
+//    FBMATCH->setRedTeam(red);
+//    FBMATCH->setBlackTeam(black);
+//    STAssertTrue(FBMATCH->startMatch(), @"Fail to start match");
+//}
 
 @end

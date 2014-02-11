@@ -25,7 +25,7 @@ public:
     virtual void gainBall();
     virtual void loseBall();
 #pragma mark -- Player states
-    Point m_curPosition;
+    cocos2d::Point m_curPosition;
     CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
     bool m_isOnDuty = false;        // 上场
@@ -38,9 +38,6 @@ protected:
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
     float m_speed = 0.f;
-    
-private:
-
 };
 
 #endif /* defined(__FootBallX__CFBPlayer__) */

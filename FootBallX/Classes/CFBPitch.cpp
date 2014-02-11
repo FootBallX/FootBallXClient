@@ -7,7 +7,8 @@
 //
 
 #include "CFBPitch.h"
-
+#include "CFBMatch.h"
+#include "kazmath/kazmath.h"
 
 Point CFBPitch::transformPersentage(const Point& pt, FBDefs::SIDE side)
 {
@@ -29,11 +30,138 @@ float CFBPitch::transformPersentage(float p)
 
 
 
-void CFBPitch::setPitchSize(int w, int h)
+bool CFBPitch::init(int w, int h)
 {
-    m_width = w;
-    m_height = h;
+    do
+    {
+        m_width = w;
+        m_height = h;
+        
+        {
+            Rect& rc = m_penaltyArea[(int)FBDefs::SIDE::LEFT];
+            rc.origin.x = w * .02f;
+            rc.origin.y = h * .27f;
+            rc.size.width = w * .17f;
+            rc.size.height = h * .46f;
+        }
+        {
+            Rect& rc = m_penaltyArea[(int)FBDefs::SIDE::RIGHT];
+            rc.origin.x = w * .78f;
+            rc.origin.y = h * .27f;
+            rc.size.width = w * .17f;
+            rc.size.height = h * .46f;
+        }
+        
+        {
+            Point& pt = m_Goals[(int)FBDefs::SIDE::LEFT];
+            pt.x = w * .02f;
+            pt.y = .1f;     // range
+        }
+        
+        {
+            Point& pt = m_Goals[(int)FBDefs::SIDE::RIGHT];
+            pt.x = w * .98f;
+            pt.y = .1f;
+        }
+        
+        auto gw = m_gridWidth - 2;
+        auto gh = m_gridHeight - 2;
+        
+        float midW = gw / 2.f - 0.5f;
+        
+        auto gpw = w / m_gridWidth;
+        auto gph = h / m_gridHeight;
+        
+        m_grids.resize(gw * gh);
+        for (int y = 0; y < gh; ++y)
+        {
+            for (int x = 0; x < gw; ++x)
+            {
+                int index = x + gw * y;
+                auto& grid = m_grids[index];
+                grid.m_coordinate.setPoint((1.5f + x) * gpw, (1.5f + y) * gph);
+                grid.m_index = index;
+                
+                if (x < midW)
+                {
+                    int side = (int)FBDefs::SIDE::LEFT;
+                    m_GridsOfSide[side].push_back(index);
+                    if (m_penaltyArea[side].containsPoint(grid.m_coordinate))
+                    {
+                        m_GridsInPenaltyArea[side].push_back(index);
+                    }
+                    else
+                    {
+                        m_GridsOutsidePenaltyArea[side].push_back(index);
+                    }
+                }
+                else if (x > midW)
+                {
+                    int side = (int)FBDefs::SIDE::RIGHT;
+                    m_GridsOfSide[side].push_back(index);
+                    if (m_penaltyArea[side].containsPoint(grid.m_coordinate))
+                    {
+                        m_GridsInPenaltyArea[side].push_back(index);
+                    }
+                    else
+                    {
+                        m_GridsOutsidePenaltyArea[side].push_back(index);
+                    }
+                }
+            }
+        }
+        return true;
+    } while (false);
+    
+    return false;
 }
+
+
+
+void CFBPitch::calc(FBDefs::SIDE side)
+{
+    FBDefs::SIDE otherSide;
+    Point goalGate = m_Goals[(int)side];
+    goalGate.y = m_height * 0.5f;
+    
+    switch (side)
+    {
+        case FBDefs::SIDE::LEFT:
+            otherSide = FBDefs::SIDE::RIGHT;
+            break;
+        case FBDefs::SIDE::RIGHT:
+            otherSide = FBDefs::SIDE::LEFT;
+            break;
+        default:
+            return;
+            break;
+    }
+    
+    auto vs = getGridsInPenaltyAreaBySide(side);
+    auto team = FBMATCH->getTeam(side);
+    auto& players = team->getTeamMembers();
+    
+    for (auto& x : vs)
+    {
+        auto& grid = getGrid(x);
+        setGridScore(x, 0);
+        bool pass = true;
+        for (auto p : players)
+        {
+            if (p->m_isOnDuty && !p->m_isGoalKeeper && FBDefs::isPointOnTheWay(grid.m_coordinate , goalGate, p->m_curPosition))
+            {
+                pass = false;
+                break;
+            }
+        }
+        
+        if (pass)
+        {
+            increaseGridScore(x, 10);
+        }
+    }
+}
+
 
 
 

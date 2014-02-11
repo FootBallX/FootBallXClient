@@ -33,11 +33,13 @@ public:
     virtual bool changeFormation(FBDefs::FORMATION formationId);
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
+    
+    virtual const vector<CFBPlayer*>& getTeamMembers() const { return m_teamMembers; }
 protected:
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
-private:
     vector<CFBPlayer*> m_teamMembers;
     
+    int m_score = 0;        // 比分
 };
 
 

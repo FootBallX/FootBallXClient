@@ -50,7 +50,10 @@ protected:
 //    void onMsg(Node* node, void* resp);
     
     void togglePitchLieDown();
-    int getSelectedPlayerId(const Point& pt);
+    int getSelectedPlayerId(const Point& pt, bool isBlack);
+#ifdef SHOW_GRID
+    void refreshGrids();
+#endif
     
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};

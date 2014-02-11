@@ -52,9 +52,9 @@ protected:
 
     CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
     CFBPlayer* m_player = nullptr;
-    Point m_attackPosition;               // percentage of the pitch
-    Point m_defendPosition;
-    Point m_homePosition;
+    cocos2d::Point m_attackPosition;               // percentage of the pitch
+    cocos2d::Point m_defendPosition;
+    cocos2d::Point m_homePosition;
     float m_defendOrbitRadius;
     float m_defendOrbitRadiusSq;
     float m_defendOrbitRadiusx2Sq;

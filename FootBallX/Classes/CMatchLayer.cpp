@@ -12,6 +12,10 @@
 #include "CFBMatch.h"
 #include "CFlip3DEx.h"
 
+#ifdef SHOW_GRID
+#define TAG_GRID_DRAW_NODE          20001
+#endif
+
 static class CMatchLayerRegister
 {
 public:
@@ -73,10 +77,10 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
     {
         case OP::PASS_BALL:
         {
-            int idx = getSelectedPlayerId(loc);
+            int idx = getSelectedPlayerId(loc, true);
             if (idx != -1)
             {
-                FBMATCH->getRedTeam()->passBall(idx);
+                FBMATCH->getTeam(FBDefs::SIDE::LEFT)->passBall(idx);
             }
             break;
         }
@@ -200,22 +204,30 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
             ng->addChild(m_pitchSprite);
             m_isPitchViewLieDown = true;
         }
-
+        
         BREAK_IF_FAILED(FBMATCH->init());
         
         Size pitchSz = m_pitchSprite->getContentSize();
-        FBMATCH->getPitch()->setPitchSize(pitchSz.width, pitchSz.height);
+        FBMATCH->getPitch()->init(pitchSz.width, pitchSz.height);
         
         CFBTeam* red = new CFBTeam;
         BREAK_IF_FAILED(red->init());
         CFBTeam* black = new CFBTeam;
         BREAK_IF_FAILED(black->init());
-        FBMATCH->setRedTeam(red);
-        FBMATCH->setBlackTeam(black);
+        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
+        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
         
         BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
         
         BREAK_IF_FAILED(FBMATCH->startMatch());
+        
+#ifdef SHOW_GRID
+        auto draw = DrawNode::create();
+        m_pitchSprite->addChild(draw, 10, TAG_GRID_DRAW_NODE);
+        
+        refreshGrids();
+#endif // SHOW_GRID
+
     } while (false);
 }
 
@@ -229,7 +241,7 @@ void CMatchLayer::update(float dt)
     {
         FBMATCH->update(dt);
         
-        auto black = FBMATCH->getBlackTeam();
+        auto black = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
         auto blackFmt = black->getFormation();
         int i;
         for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
@@ -238,7 +250,7 @@ void CMatchLayer::update(float dt)
             m_blackPlayers[i]->setPosition(blackFmt->getPlayer(i)->m_curPosition);
         }
         
-        auto red = FBMATCH->getRedTeam();
+        auto red = FBMATCH->getTeam(FBDefs::SIDE::RIGHT);
         auto redFmt = red->getFormation();
         for (i = 0; i < redFmt->getPlayerNumber(); ++i)
         {
@@ -302,24 +314,113 @@ void CMatchLayer::onPassBall(Object* pSender)
 {
     togglePitchLieDown();
     
+    FBMATCH->getPitch()->calc(FBDefs::SIDE::RIGHT);
+    FBMATCH->getPitch()->calc(FBDefs::SIDE::LEFT);
+#ifdef SHOW_GRID
+    refreshGrids();
+#endif
 }
 
 
 
-int CMatchLayer::getSelectedPlayerId(const Point& pt)
+int CMatchLayer::getSelectedPlayerId(const Point& pt, bool isBlack)
 {
     auto mat = m_pitchSprite->getWorldToNodeTransform();
     Point pos = PointApplyTransform(pt, mat);
     
-    for (auto spr : m_redPlayers)
+    if (isBlack)
     {
-        auto bx = spr->getBoundingBox();
-        if (bx.containsPoint(pos))
+        for (auto spr : m_blackPlayers)
         {
-            return spr->getTag();
+            auto bx = spr->getBoundingBox();
+            if (bx.containsPoint(pos))
+            {
+                return spr->getTag();
+            }
+        }
+    }
+    else
+    {
+        for (auto spr : m_redPlayers)
+        {
+            auto bx = spr->getBoundingBox();
+            if (bx.containsPoint(pos))
+            {
+                return spr->getTag();
+            }
         }
     }
     
     return -1;
 }
 
+
+
+#ifdef SHOW_GRID
+void CMatchLayer::refreshGrids()
+{
+    auto pitch = FBMATCH->getPitch();
+    auto& grids = pitch->getGrids();
+    auto& InLeftPenalty = pitch->getGridsInPenaltyAreaBySide(FBDefs::SIDE::LEFT);
+    auto& OutLeftPenalty = pitch->getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE::LEFT);
+    auto& InRightPenalty = pitch->getGridsInPenaltyAreaBySide(FBDefs::SIDE::RIGHT);
+    auto& OutRightPenalty = pitch->getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE::RIGHT);
+ 
+    DrawNode* draw = (DrawNode*)m_pitchSprite->getChildByTag(TAG_GRID_DRAW_NODE);
+    draw->clear();
+    for (const auto& g: grids)
+    {
+        Color4F color = Color4F::GRAY;
+        int size = 2;
+        if (g.m_score > 0)
+        {
+            size = 5;
+        }
+        if (std::find(InLeftPenalty.begin(), InLeftPenalty.end(), g.m_index) == InLeftPenalty.end())
+        {
+            if (std::find(OutLeftPenalty.begin(), OutLeftPenalty.end(), g.m_index) == OutLeftPenalty.end())
+            {
+                if (std::find(InRightPenalty.begin(), InRightPenalty.end(), g.m_index) == InRightPenalty.end())
+                {
+                    if (std::find(OutRightPenalty.begin(), OutRightPenalty.end(), g.m_index) == OutRightPenalty.end())
+                    {
+                        
+                    }
+                    else
+                    {
+                        color.r = 0;
+                        color.g = .5f;
+                        color.b = 0;
+                        color.a = 1;
+                    }
+                }
+                else
+                {
+                    color.r = 0;
+                    color.g = 1;
+                    color.b = 0;
+                    color.a = 1;
+                }
+            }
+            else
+            {
+                color.r = 0;
+                color.g = 0;
+                color.b = .5f;
+                color.a = 1;
+            }
+        }
+        else
+        {
+            color.r = 0;
+            color.g = 0;
+            color.b = 1;
+            color.a = 1;
+        }
+        
+        draw->drawDot(g.m_coordinate, size, color);
+        pitch->setGridDrawNode(g.m_index, draw);
+    }
+
+}
+#endif

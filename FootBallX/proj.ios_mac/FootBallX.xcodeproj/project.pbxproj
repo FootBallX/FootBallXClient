@@ -61,6 +61,9 @@
 		544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		544B6E2B188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */; };
 		544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */; };
+		545BC7D318A9E8BC001DD728 /* FootBallMathTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */; };
+		545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
+		545BC7D618AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
 		5472F721187DA4EB0001FD79 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F720187DA4EB0001FD79 /* IOKit.framework */; };
 		5472F723187DA5020001FD79 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F722187DA5020001FD79 /* OpenGL.framework */; };
 		5472F725187DA5090001FD79 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F724187DA5090001FD79 /* AppKit.framework */; };
@@ -111,6 +114,8 @@
 		54F159CB1884DADF008AF575 /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BD1884DADF008AF575 /* Icon-144.png */; };
 		54F159CC1884DADF008AF575 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BE1884DADF008AF575 /* Icon-152.png */; };
 		54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F159CE1884DD08008AF575 /* CoreMotion.framework */; };
+		54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */; };
+		54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +181,8 @@
 		544955F0187F8924002FB29B /* CFBPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitch.h; path = ../Classes/CFBPitch.h; sourceTree = "<group>"; };
 		544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBMatch.cpp; path = ../Classes/CFBMatch.cpp; sourceTree = "<group>"; };
 		544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBMatch.h; path = ../Classes/CFBMatch.h; sourceTree = "<group>"; };
+		545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FootBallMathTest.mm; path = FootBallXTests/FootBallMathTest.mm; sourceTree = "<group>"; };
+		545BC7D418AA0660001DD728 /* FBDefs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBDefs.cpp; path = ../Classes/FBDefs.cpp; sourceTree = "<group>"; };
 		5472F720187DA4EB0001FD79 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		5472F722187DA5020001FD79 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		5472F724187DA5090001FD79 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -238,6 +245,8 @@
 		54F159BE1884DADF008AF575 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-152.png"; path = "ios/Icon-152.png"; sourceTree = "<group>"; };
 		54F159BF1884DADF008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Info.plist; sourceTree = "<group>"; };
 		54F159CE1884DD08008AF575 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitchGrid.cpp; path = ../Classes/CFBPitchGrid.cpp; sourceTree = "<group>"; };
+		54FC876218A3AAC100A320EC /* CFBPitchGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitchGrid.h; path = ../Classes/CFBPitchGrid.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +388,8 @@
 		544955EE187F8862002FB29B /* FootBallGamePlay */ = {
 			isa = PBXGroup;
 			children = (
+				54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */,
+				54FC876218A3AAC100A320EC /* CFBPitchGrid.h */,
 				544955EF187F8924002FB29B /* CFBPitch.cpp */,
 				544955F0187F8924002FB29B /* CFBPitch.h */,
 				54D375C71889239C008BA6BB /* CFBPlayer.cpp */,
@@ -392,6 +403,7 @@
 				544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */,
 				544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */,
 				54C5F7361893789E00E246AD /* FBDefs.h */,
+				545BC7D418AA0660001DD728 /* FBDefs.cpp */,
 				54D9CD6C189605B500F7B888 /* CFBBall.cpp */,
 				54D9CD6D189605B500F7B888 /* CFBBall.h */,
 			);
@@ -418,6 +430,7 @@
 				54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */,
 				54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */,
 				54814C471890002100B47B80 /* FootBallAITest.mm */,
+				545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */,
 			);
 			name = UnitTest;
 			sourceTree = "<group>";
@@ -735,7 +748,9 @@
 				543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */,
+				545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */,
 				54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */,
+				54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
 				54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
@@ -746,6 +761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				545BC7D318A9E8BC001DD728 /* FootBallMathTest.mm in Sources */,
 				54814C481890002100B47B80 /* FootBallAITest.mm in Sources */,
 				542650B8187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BE187E3BAE008113ED /* AppDelegate.cpp in Sources */,
@@ -766,6 +782,7 @@
 				542650BD187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */,
+				545BC7D618AA0660001DD728 /* FBDefs.cpp in Sources */,
 				543D49A118815CB80076C7EB /* CMatchLayer.cpp in Sources */,
 				543D49AD18815D0F0076C7EB /* CBaseLayer.cpp in Sources */,
 				543D49AF18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
@@ -780,6 +797,7 @@
 				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */,
+				54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
 				54D375CE188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
@@ -1047,6 +1065,7 @@
 					"COCOS2D_DEBUG=1",
 					USE_FILE32API,
 					CC_TARGET_OS_MAC,
+					SHOW_GRID,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (

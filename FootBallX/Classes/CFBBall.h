@@ -20,13 +20,13 @@ public:
     CFBBall() = default;
     virtual ~CFBBall() = default;
     
-    void setBallPos(const Point& pos);
-    const Point& getBallPos() const { return m_curPosition;};
+    void setBallPos(const cocos2d::Point& pos);
+    const cocos2d::Point& getBallPos() const { return m_curPosition;};
     
     CFBPlayer* m_ownerPlayer = nullptr;
     CFBTeam* m_ownerTeam = nullptr;
 protected:
-    Point m_curPosition;
+    cocos2d::Point m_curPosition;
 };
 
 #endif /* defined(__FootBallX__CFBBall__) */

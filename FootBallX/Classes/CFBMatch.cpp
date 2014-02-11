@@ -14,8 +14,6 @@ IMPLEMENT_SINGLETON(CFBMatch);
 
 CFBMatch::CFBMatch()
 : m_pitch(nullptr)
-, m_redTeam(nullptr)
-, m_blackTeam(nullptr)
 , m_ball(nullptr)
 {
     
@@ -45,36 +43,44 @@ bool CFBMatch::init()
 }
 
 
-void CFBMatch::update(float dt)
+
+void CFBMatch::setTeam(FBDefs::SIDE side, CFBTeam* team)
 {
-    m_redTeam->update(dt);
-    m_blackTeam->update(dt);
+    CC_ASSERT(side < FBDefs::SIDE::NONE);
+    m_teams[(int)side] = team;
+    team->setSide(side);
 }
 
 
 
-bool CFBMatch::startMatch(bool redTeamKickoff)
+CFBTeam* CFBMatch::getTeam(FBDefs::SIDE side)
+{
+    CC_ASSERT(side < FBDefs::SIDE::NONE);
+    
+    return m_teams[(int)side];
+}
+
+
+
+void CFBMatch::update(float dt)
+{
+    for (auto x : m_teams)
+    {
+        x->update(dt);
+    }
+}
+
+
+
+bool CFBMatch::startMatch(FBDefs::SIDE side)
 {
     do
     {
-        if (redTeamKickoff)
+        for (auto x : m_teams)
         {
-            m_redTeam->setSide(FBDefs::SIDE::LEFT);
-            m_blackTeam->setSide(FBDefs::SIDE::RIGHT);
-            m_redTeam->onStartMatch();
-            m_blackTeam->onStartMatch();
-            m_redTeam->kickOff();
-            
+            x->onStartMatch();
         }
-        else
-        {
-            m_redTeam->setSide(FBDefs::SIDE::RIGHT);
-            m_blackTeam->setSide(FBDefs::SIDE::LEFT);
-            m_redTeam->onStartMatch();
-            m_blackTeam->onStartMatch();
-            m_blackTeam->kickOff();
-        }
-
+        m_teams[(int)side]->kickOff();
         return true;
     } while (false);
     
@@ -84,9 +90,13 @@ bool CFBMatch::startMatch(bool redTeamKickoff)
 
 CFBTeam* CFBMatch::getPlayingTeam()
 {
-    if (m_redTeam->getPlayingPlayer()) return m_redTeam;
-    if (m_blackTeam->getPlayingPlayer()) return m_blackTeam;
-    
+    for (auto x : m_teams)
+    {
+        if (x->getPlayingPlayer())
+        {
+            return x;
+        }
+    }
     return nullptr;
 }
 
@@ -94,12 +104,14 @@ CFBTeam* CFBMatch::getPlayingTeam()
 
 CFBPlayer* CFBMatch::getPlayingPlayer()
 {
-    auto player = m_redTeam->getPlayingPlayer();
-    if (player) return player;
-    
-    player = m_blackTeam->getPlayingPlayer();
-    if (player) return player;
-    
+    for (auto x : m_teams)
+    {
+        auto player = x->getPlayingPlayer();
+        if (player)
+        {
+            return player;
+        }
+    }
     return nullptr;
 }
 

@@ -9,9 +9,11 @@
 #ifndef FootBallX_FBDefs_h
 #define FootBallX_FBDefs_h
 
+#include "Common.h"
+
 namespace FBDefs
 {
-    enum class SIDE
+    enum class SIDE : unsigned int
     {
         LEFT,
         RIGHT,
@@ -43,6 +45,9 @@ namespace FBDefs
         CHASE,
         NONE,
     };
+    
+    bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
+    
 }
 
 
