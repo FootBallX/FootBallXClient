@@ -7,6 +7,8 @@
 //
 
 #include "FBDefs.h"
+#include "Common.h"
+#include "CFBPlayer.h"
 
 #define WAY_WIDTH       (10.f * cocosbuilder::CCBReader::getResolutionScale())
 
@@ -45,5 +47,40 @@ namespace FBDefs
         }
         
         return true;
+    }
+    
+    
+    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const cocos2d::Point& p1, const cocos2d::Point& p2)
+    {
+        cocos2d::Point vec = p2 - p1;
+        const cocos2d::Rect rc;
+        float angle = vec.getAngle();
+        
+        kmMat3 mat;
+        kmMat3Rotation(&mat, -angle);
+        kmVec2 vP1, vP2, vP;
+        kmVec2Fill(&vP1, p1.x, p1.y);
+        kmVec2Fill(&vP2, p2.x, p2.y);
+
+        kmVec2Transform(&vP1, &vP1, &mat);
+        kmVec2Transform(&vP2, &vP2, &mat);
+        
+        
+        for (auto x : players)
+        {
+            if (x->m_isOnDuty && !x->m_isGoalKeeper)
+            {
+                const auto& p = x->m_curPosition;
+                kmVec2Fill(&vP, p.x, p.y);
+                kmVec2Transform(&vP, &vP, &mat);
+                
+                if (FLT_GE(vP.x, min(vP1.x, vP2.x)) && FLT_LE(vP.x, max(vP1.x, vP2.x)) && FLT_LE(abs(vP.y - vP1.y), WAY_WIDTH))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }

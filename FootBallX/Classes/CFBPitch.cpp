@@ -145,17 +145,7 @@ void CFBPitch::calc(FBDefs::SIDE side)
     {
         auto& grid = getGrid(x);
         setGridScore(x, 0);
-        bool pass = true;
-        for (auto p : players)
-        {
-            if (p->m_isOnDuty && !p->m_isGoalKeeper && FBDefs::isPointOnTheWay(grid.m_coordinate , goalGate, p->m_curPosition))
-            {
-                pass = false;
-                break;
-            }
-        }
-        
-        if (pass)
+        if (!FBDefs::isPlayersOnTheWay(players, grid.m_coordinate, goalGate))
         {
             increaseGridScore(x, 10);
         }

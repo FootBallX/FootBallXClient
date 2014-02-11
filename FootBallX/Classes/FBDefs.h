@@ -11,6 +11,8 @@
 
 #include "Common.h"
 
+class CFBPlayer;
+
 namespace FBDefs
 {
     enum class SIDE : unsigned int
@@ -47,7 +49,7 @@ namespace FBDefs
     };
     
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
-    
+    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const cocos2d::Point& p1, const cocos2d::Point& p2);
 }
 
 
