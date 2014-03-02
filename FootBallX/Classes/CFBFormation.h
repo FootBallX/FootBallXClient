@@ -45,6 +45,8 @@ public:
     
     virtual CFBTeam* getTeam() const {return m_team;}
     
+    virtual CFBPlayerAI* getPlayerAIById(int idx) { return m_playerAIs[idx]; }
+    
     virtual FBDefs::FORMATION getFormationId() const { return m_formationId; }
 protected:
     FBDefs::FORMATION m_formationId = FBDefs::FORMATION::NONE;
@@ -68,6 +70,7 @@ public:
     virtual const char* description() override;
     virtual void addPlayer(CFBPlayer* player, int pos) override;
     virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
+
 protected:
 };
 
@@ -83,6 +86,7 @@ public:
     virtual const char* description() override;
     virtual void addPlayer(CFBPlayer* player, int pos) override;
     virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
+
 protected:
 };
 

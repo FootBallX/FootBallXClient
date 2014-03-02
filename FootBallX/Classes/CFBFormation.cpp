@@ -9,6 +9,7 @@
 #include "CFBFormation.h"
 #include "CFBPlayer.h"
 #include "CFBTeam.h"
+#include "CFBMatch.h"
 
 #pragma mark ----- FormationBase
 
@@ -44,6 +45,8 @@ bool CFBFormation::init(CFBTeam* team)
 void CFBFormation::update(float dt)
 {
     CC_ASSERT(m_playerAIs);
+    
+//    update3Lines(dt);
 
     m_updateCD++;
     int thinkIndex = int(m_updateCD) % m_playerNumber;
@@ -124,6 +127,10 @@ bool CFBFormation442::init(CFBTeam* team)
         m_playerAIs[8] = new CFBHalfBackAI();
         m_playerAIs[9] = new CFBForwardAI();
         m_playerAIs[10] = new CFBForwardAI();
+        
+        auto pitch = FBMATCH->getPitch();
+        auto side = team->getSide();
+
         return true;
     } while (false);
 	return false;
@@ -133,40 +140,41 @@ bool CFBFormation442::init(CFBTeam* team)
 
 void CFBFormation442::addPlayer(CFBPlayer* player, int pos)
 {
+    player->m_positionInFormation = pos;
     switch (pos)
     {
         case 0:
-            m_playerAIs[pos]->init(this, player, 0.05f, 0.5f, GOALKEEPER_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, GOALKEEPER_ORBIT_RATE);
             break;
         case 1:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.8f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.8f, BACK_ORBIT_RATE);
             break;
         case 2:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.6f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.6f, BACK_ORBIT_RATE);
             break;
         case 3:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.4f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.4f, BACK_ORBIT_RATE);
             break;
         case 4:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.2f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.2f, BACK_ORBIT_RATE);
             break;
         case 5:
-            m_playerAIs[pos]->init(this, player, 0.5f, 0.8f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.8f, HALF_BACK_ORBIT_RATE);
             break;
         case 6:
-            m_playerAIs[pos]->init(this, player, 0.5f, 0.6f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.6f, HALF_BACK_ORBIT_RATE);
             break;
         case 7:
-            m_playerAIs[pos]->init(this, player, 0.5f, 0.4f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.4f, HALF_BACK_ORBIT_RATE);
             break;
         case 8:
-            m_playerAIs[pos]->init(this, player, 0.5f, 0.2f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.2f, HALF_BACK_ORBIT_RATE);
             break;
         case 9:
-            m_playerAIs[pos]->init(this, player, 0.8f, 0.667f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.667f, FORWARD_ORBIT_RATE);
             break;
         case 10:
-            m_playerAIs[pos]->init(this, player, 0.8f, 0.333f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.333f, FORWARD_ORBIT_RATE);
             break;
         default:
             CC_ASSERT(false);
@@ -175,6 +183,7 @@ void CFBFormation442::addPlayer(CFBPlayer* player, int pos)
     
     player->m_positionInFormation = pos;
 }
+
 
 
 #pragma mark ----- 352
@@ -222,37 +231,37 @@ void CFBFormation352::addPlayer(CFBPlayer* player, int pos)
     switch (pos)
     {
         case 0:
-            m_playerAIs[pos]->init(this, player, 0.05f, 0.5f, GOALKEEPER_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, GOALKEEPER_ORBIT_RATE);
             break;
         case 1:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.75f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.75f, BACK_ORBIT_RATE);
             break;
         case 2:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.5f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, BACK_ORBIT_RATE);
             break;
         case 3:
-            m_playerAIs[pos]->init(this, player, 0.15f, 0.25f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.25f, BACK_ORBIT_RATE);
             break;
         case 4:
-            m_playerAIs[pos]->init(this, player, 0.4f, 0.65f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, -0.05f, 0.65f, HALF_BACK_ORBIT_RATE);
             break;
         case 5:
-            m_playerAIs[pos]->init(this, player, 0.4f, 0.35f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, -0.05f, 0.35f, HALF_BACK_ORBIT_RATE);
             break;
         case 6:
-            m_playerAIs[pos]->init(this, player, 0.6f, 0.75f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.05f, 0.75f, HALF_BACK_ORBIT_RATE);
             break;
         case 7:
-            m_playerAIs[pos]->init(this, player, 0.6f, 0.5f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.05f, 0.5f, HALF_BACK_ORBIT_RATE);
             break;
         case 8:
-            m_playerAIs[pos]->init(this, player, 0.6f, 0.25f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.05f, 0.25f, HALF_BACK_ORBIT_RATE);
             break;
         case 9:
-            m_playerAIs[pos]->init(this, player, 0.8f, 0.667f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.667f, FORWARD_ORBIT_RATE);
             break;
         case 10:
-            m_playerAIs[pos]->init(this, player, 0.8f, 0.333f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, 0.f, 0.333f, FORWARD_ORBIT_RATE);
             break;
         default:
             CC_ASSERT(false);
@@ -261,5 +270,6 @@ void CFBFormation352::addPlayer(CFBPlayer* player, int pos)
     
     player->m_positionInFormation = pos;
 }
+
 
 

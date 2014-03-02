@@ -35,25 +35,29 @@ public:
     
     virtual void think();
     
+    virtual void PreventOffsideInRate(float& x);
+    virtual void PreventOffside(float& x);
+    
     virtual void update(float dt);
     
     virtual void initPlayerStates();
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
     
-    virtual void thinkHomePosition();
+    virtual void thinkHomePosition() = 0;
     
     virtual void thinkDefending();
 protected:
     virtual void updatePlayerStates();
-    virtual bool isOnHomePosition();
+    virtual bool isOnPosition(const Point& pos);
     virtual void applyStateCD() { m_changeStateCD = 1.f; }
     virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
+    virtual void startWait(float t);
+    virtual void updateWait(float dt);
 
     CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
     CFBPlayer* m_player = nullptr;
-    cocos2d::Point m_attackPosition;               // percentage of the pitch
-    cocos2d::Point m_defendPosition;
+    cocos2d::Point m_origHomePosition;
     cocos2d::Point m_homePosition;
     float m_defendOrbitRadius;
     float m_defendOrbitRadiusSq;
@@ -61,8 +65,10 @@ protected:
     
     FBDefs::AI_STATE m_state = FBDefs::AI_STATE::NONE;
     float m_changeStateCD = 0.f;
+    float m_waitTime = 0.f;
 protected:      // ai logic functions
-    virtual void returnToPosition(float dt);
+    virtual void returnToHome(float dt);
+    virtual void moveTo(const Point& pos, float dt);
     virtual void chaseBall(float dt);
 };
 
@@ -78,6 +84,7 @@ public:
     virtual void update(float dt) override;
     
 protected:
+    virtual void thinkHomePosition() override;
     virtual void updatePlayerStates() override;
     virtual void initPlayerStates() override;
 };
@@ -94,8 +101,10 @@ public:
     virtual void update(float dt) override;
     
 protected:
+    virtual void thinkHomePosition() override;
     virtual void updatePlayerStates() override;
     virtual void initPlayerStates() override;
+    
 };
 
 #pragma mark ----- Half back AI
@@ -106,12 +115,13 @@ class CFBHalfBackAI
 public:
     CFBHalfBackAI() = default;
     virtual ~CFBHalfBackAI() = default;
-    
+
     virtual void update(float dt) override;
     
     virtual void initPlayerStates() override;
     
 protected:
+    virtual void thinkHomePosition() override;
     virtual void updatePlayerStates() override;
     
 };
@@ -124,12 +134,24 @@ class CFBForwardAI
 public:
     CFBForwardAI() = default;
     virtual ~CFBForwardAI() = default;
-    
+
     virtual void update(float dt) override;
     
 protected:
+    virtual void thinkHomePosition() override;
     virtual void updatePlayerStates() override;
     virtual void initPlayerStates() override;
+    
+    // suport
+    enum class SUPPORT_STATE
+    {
+        FIND_POS,
+        MOVE_TO_POS,
+    } m_supportState = SUPPORT_STATE::FIND_POS;
+    
+    virtual void updateSupport(float dt);
+    
+    Point m_moveToTarget;
 };
 
 #endif /* defined(__FootBallX__CFBPlayerAI__) */

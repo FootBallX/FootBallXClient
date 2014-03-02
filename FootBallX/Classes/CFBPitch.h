@@ -19,7 +19,9 @@ class CFBPitch
 {
 public:
     cocos2d::Point transformPersentage(const cocos2d::Point& pt, FBDefs::SIDE side);
-    float transformPersentage(float p);
+    float transformPersentageX(float x, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    
+    float transformToPersentageX(float x, FBDefs::SIDE side);
     
     bool init(int w, int h);
     int getPitchWidth() const { return m_width; }
@@ -36,6 +38,8 @@ public:
     const vector<int>& getGridsInPenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsInPenaltyArea[(int)side]; }
     const vector<int>& getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsOutsidePenaltyArea[(int)side]; }
     
+    Point getBestSupportPosition(FBDefs::SIDE side);
+    Point getBestAssistantDeffendingPosition(const Point& targetPos, FBDefs::SIDE side);
 #ifdef SHOW_GRID
     void setGridDrawNode(int index, DrawNode* node)
     {
@@ -48,7 +52,12 @@ public:
     }
 #endif
     
-    void calc(FBDefs::SIDE side);
+    void calcBestShootPosition(FBDefs::SIDE side);
+    bool isOffside(cocos2d::Point pos, FBDefs::SIDE side);
+    
+    FBDefs::SIDE getOtherSide(FBDefs::SIDE side) const;
+    
+    Point getGoalPos(FBDefs::SIDE side) const;
 protected:
     int m_width = 0;
     int m_height = 0;

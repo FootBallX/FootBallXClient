@@ -44,6 +44,26 @@ bool CFBTeam::init()
 void CFBTeam::update(float dt)
 {
     m_formation->update(dt);
+    
+    function<bool(float, float)> comp =
+        getSide() == FBDefs::SIDE::LEFT ?
+        [](float a, float b){return a < b;} : [](float a, float b){return a > b;};
+    
+    m_lastPosOfPlayer = 0;
+    for (auto x : m_teamMembers)
+    {
+        if (x->m_isOnDuty && x->m_isGoalKeeper == false)
+        {
+            if (m_lastPosOfPlayer == 0)
+            {
+                m_lastPosOfPlayer = x->m_curPosition.x;
+            }
+            if (comp(x->m_curPosition.x, m_lastPosOfPlayer))
+            {
+                m_lastPosOfPlayer = x->m_curPosition.x;
+            }
+        }
+    }
 }
 
 

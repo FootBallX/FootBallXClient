@@ -12,10 +12,42 @@
 #include "Common.h"
 
 class CFBPlayer;
+class CFBPitchGrid;
 
 namespace FBDefs
 {
-    enum class SIDE : unsigned int
+    static const float GOAL_KEEPER_LINE = 0.05f;
+    // 进攻中，球在己方半场
+    static const float ATK_DEF_BACK_LINE_MIN = 0.05f;
+    static const float ATK_DEF_BACK_LINE_MAX = 0.2f;
+    static const float ATK_DEF_HALF_BACK_LINE_MIN = 0.2f;
+    static const float ATK_DEF_HALF_BACK_LINE_MAX = 0.4f;
+    static const float ATK_DEF_FORWORD_LINE_MIN = 0.48f;
+    static const float ATK_DEF_FORWORD_LINE_MAX = 0.8f;
+    // 进攻中，球在对方半场
+    static const float ATK_ATK_BACK_LINE_MIN = 0.5f;
+    static const float ATK_ATK_BACK_LINE_MAX = 0.65f;
+    static const float ATK_ATK_HALF_BACK_LINE_MIN = 0.65f;
+    static const float ATK_ATK_HALF_BACK_LINE_MAX = 0.80f;
+    static const float ATK_ATK_FORWORD_LINE_MIN = 0.85f;
+    static const float ATK_ATK_FORWORD_LINE_MAX = 0.95f;
+    
+    // 防守中，球在己方半场
+    static const float DEF_DEF_BACK_LINE_MIN = 0.05f;
+    static const float DEF_DEF_BACK_LINE_MAX = 0.2f;
+    static const float DEF_DEF_HALF_BACK_LINE_MIN = 0.2f;
+    static const float DEF_DEF_HALF_BACK_LINE_MAX = 0.4f;
+    static const float DEF_DEF_FORWORD_LINE_MIN = 0.4f;
+    static const float DEF_DEF_FORWORD_LINE_MAX = 0.5f;
+    // 防守中，球在对方半场
+    static const float DEF_ATK_BACK_LINE_MIN = 0.1f;
+    static const float DEF_ATK_BACK_LINE_MAX = 0.35f;
+    static const float DEF_ATK_HALF_BACK_LINE_MIN = 0.35f;
+    static const float DEF_ATK_HALF_BACK_LINE_MAX = 0.55f;
+    static const float DEF_ATK_FORWORD_LINE_MIN = 0.65f;
+    static const float DEF_ATK_FORWORD_LINE_MAX = 0.75f;
+    
+    enum class SIDE
     {
         LEFT,
         RIGHT,
@@ -49,7 +81,8 @@ namespace FBDefs
     };
     
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
-    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const cocos2d::Point& p1, const cocos2d::Point& p2);
+    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid);
+    bool computeGridShootAngleAndMat(const cocos2d::Point& goalPos, CFBPitchGrid* grid);
 }
 
 

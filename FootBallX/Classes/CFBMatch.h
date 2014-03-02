@@ -37,6 +37,8 @@ public:
     CFBTeam* getPlayingTeam();
     CFBPlayer* getPlayingPlayer();
     
+    bool isBallOnTheSide(FBDefs::SIDE side);
+    float getBallPosRateBySide(FBDefs::SIDE side);
 protected:
     CFBTeam* m_teams[(int)FBDefs::SIDE::NONE];
 };

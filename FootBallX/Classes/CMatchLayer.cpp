@@ -219,7 +219,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         
         BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
         
-        BREAK_IF_FAILED(FBMATCH->startMatch());
+        BREAK_IF_FAILED(FBMATCH->startMatch(FBDefs::SIDE::LEFT));
         
 #ifdef SHOW_GRID
         auto draw = DrawNode::create();
@@ -314,8 +314,8 @@ void CMatchLayer::onPassBall(Object* pSender)
 {
     togglePitchLieDown();
     
-    FBMATCH->getPitch()->calc(FBDefs::SIDE::RIGHT);
-    FBMATCH->getPitch()->calc(FBDefs::SIDE::LEFT);
+    FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::RIGHT);
+    FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::LEFT);
 #ifdef SHOW_GRID
     refreshGrids();
 #endif
@@ -371,10 +371,10 @@ void CMatchLayer::refreshGrids()
     for (const auto& g: grids)
     {
         Color4F color = Color4F::GRAY;
-        int size = 2;
+        int size = 1;
         if (g.m_score > 0)
         {
-            size = 5;
+            size = 10.f * g.m_score / 200.f;
         }
         if (std::find(InLeftPenalty.begin(), InLeftPenalty.end(), g.m_index) == InLeftPenalty.end())
         {
@@ -418,7 +418,7 @@ void CMatchLayer::refreshGrids()
             color.a = 1;
         }
         
-        draw->drawDot(g.m_coordinate, size, color);
+        draw->drawDot(g.m_position, size, color);
         pitch->setGridDrawNode(g.m_index, draw);
     }
 

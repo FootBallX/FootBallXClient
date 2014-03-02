@@ -35,6 +35,8 @@
 		542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C3187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */; };
+		5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
+		5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
 		543BF4C31884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
 		543BF4C41884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
 		543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
@@ -156,6 +158,8 @@
 		542650C0187E3BEB008113ED /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSingleton.h; path = ../Classes/CSingleton.h; sourceTree = "<group>"; };
 		542650C5187E3DE4008113ED /* PomeloTestsGateServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsGateServer.h; path = FootBallXTests/PomeloTestsGateServer.h; sourceTree = "<group>"; };
 		542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsGateServer.mm; path = FootBallXTests/PomeloTestsGateServer.mm; sourceTree = "<group>"; };
+		5432C98318B9C2070066919A /* CRandomManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRandomManager.cpp; path = ../Classes/CRandomManager.cpp; sourceTree = "<group>"; };
+		5432C98418B9C2070066919A /* CRandomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRandomManager.h; path = ../Classes/CRandomManager.h; sourceTree = "<group>"; };
 		543BF4C21884E073006BC0F6 /* Resources.ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources.ios; path = ../Resources.ios; sourceTree = "<group>"; };
 		543D499E18815CB80076C7EB /* CMatchLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMatchLayer.cpp; path = ../Classes/CMatchLayer.cpp; sourceTree = "<group>"; };
 		543D499F18815CB80076C7EB /* CMatchLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMatchLayer.h; path = ../Classes/CMatchLayer.h; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				543D49C518815F320076C7EB /* CAnimationCache.h */,
 				543D49A418815D0F0076C7EB /* CGameSceneManager.cpp */,
 				543D49A518815D0F0076C7EB /* CGameSceneManager.h */,
+				5432C98318B9C2070066919A /* CRandomManager.cpp */,
+				5432C98418B9C2070066919A /* CRandomManager.h */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -745,6 +751,7 @@
 				543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
+				5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */,
 				543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */,
@@ -798,6 +805,7 @@
 				54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
+				5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */,
 				54D375CE188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,

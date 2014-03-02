@@ -57,7 +57,7 @@ void CFBPlayer::setSpeed(float speed)
     auto p = FBMATCH->getPitch();
     CC_ASSERT(p);
     
-    m_speed = p->transformPersentage(speed);
+    m_speed = p->transformPersentageX(speed);
 }
 
 

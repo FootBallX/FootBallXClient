@@ -35,11 +35,21 @@ public:
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
     
     virtual const vector<CFBPlayer*>& getTeamMembers() const { return m_teamMembers; }
+    
+    virtual float getLastPosOfPlayer() const { return m_lastPosOfPlayer; }
+    
+    virtual int getActivePlayer() const { return m_activePlayerId; }
+    virtual int getAssistantPlayer() const { return m_assistantPlayerId; }
+    virtual void setActivePlayer(int p) { m_activePlayerId = p; }
+    virtual void setAssistantPlayer(int p) { m_assistantPlayerId = p; }
 protected:
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
     vector<CFBPlayer*> m_teamMembers;
     
     int m_score = 0;        // 比分
+    float m_lastPosOfPlayer = 0.f;
+    int m_activePlayerId = -1;   // 进攻时是控球队员，防守时是上前逼抢的球员
+    int m_assistantPlayerId = -1;  // 进攻时是助攻接应球员（前锋除外），防守时是协防球员
 };
 
 

@@ -116,3 +116,37 @@ CFBPlayer* CFBMatch::getPlayingPlayer()
 }
 
 
+
+
+bool CFBMatch::isBallOnTheSide(FBDefs::SIDE side)
+{
+    auto& pos = this->getBall()->getBallPos();
+    auto pitch = getPitch();
+    if (side == FBDefs::SIDE::LEFT)
+    {
+        return pos.x < pitch->transformPersentageX(0.5f);
+    }
+    else
+    {
+        return pos.x > pitch->transformPersentageX(0.5f);
+    }
+	return false;
+}
+
+
+
+float CFBMatch::getBallPosRateBySide(FBDefs::SIDE side)
+{
+    auto& pos = this->getBall()->getBallPos();
+    auto pitch = getPitch();
+    float rate = pos.x / pitch->getPitchWidth();
+    if (side == FBDefs::SIDE::RIGHT)
+    {
+        rate = 1 - rate;
+    }
+    
+    return rate;
+}
+
+
+
