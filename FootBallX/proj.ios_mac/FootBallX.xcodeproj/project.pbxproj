@@ -25,6 +25,10 @@
 		54027EF9187D77220061A96E /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF6187D77220061A96E /* libuv.a */; };
 		5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
 		5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
+		5418A74718CAEAD6000AE94A /* JS in Resources */ = {isa = PBXBuildFile; fileRef = 5418A74618CAEAD6000AE94A /* JS */; };
+		5418A74B18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */; };
+		5418A74C18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */; };
+		5418A74E18CAED65000AE94A /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418A74D18CAED65000AE94A /* libjs_static.a */; };
 		542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B8187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
@@ -75,6 +79,10 @@
 		5472F72D187DA5330001FD79 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F72C187DA5330001FD79 /* OpenAL.framework */; };
 		5472F731187DA5440001FD79 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5472F730187DA5440001FD79 /* AudioToolbox.framework */; };
 		5472F786187DAB9E0001FD79 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5472F784187DAB9D0001FD79 /* InfoPlist.strings */; };
+		54764CAD18CB25F200C551CB /* libjsbindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764CAC18CB25F200C551CB /* libjsbindings iOS.a */; };
+		54764CAF18CB260B00C551CB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764CAE18CB260B00C551CB /* libsqlite3.dylib */; };
+		54764CB318CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */; };
+		54764CB418CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */; };
 		54814C481890002100B47B80 /* FootBallAITest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54814C471890002100B47B80 /* FootBallAITest.mm */; };
 		5484C1CB187D0E2A00AA8AFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CA187D0E2A00AA8AFB /* UIKit.framework */; };
 		5484C1CD187D0E2A00AA8AFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CC187D0E2A00AA8AFB /* Foundation.framework */; };
@@ -88,6 +96,10 @@
 		5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5484C23E187D1D4B00AA8AFB /* RootViewController.mm */; };
 		5484C243187D23E000AA8AFB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C242187D23E000AA8AFB /* OpenGLES.framework */; };
 		54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54908206187EA8D000F11AFE /* PomeloTestBase.mm */; };
+		5498FD0C18CAF7790021BED7 /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418A74F18CAED7B000AE94A /* libjs_static.a */; };
+		5498FD0E18CAFB6F0021BED7 /* libjsbindings Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */; };
+		5498FD1218CAFCEF0021BED7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5498FD1118CAFCEF0021BED7 /* libsqlite3.dylib */; };
+		5498FD1318CB10FA0021BED7 /* JS in Resources */ = {isa = PBXBuildFile; fileRef = 5418A74618CAEAD6000AE94A /* JS */; };
 		549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */; };
 		549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */; };
 		54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */; };
@@ -100,6 +112,10 @@
 		54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CF1889284F008BA6BB /* CFBFormation.cpp */; };
 		54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
 		54D9CD6F189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
+		54DE0DB618C8687900C076D3 /* CFBCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB418C8687900C076D3 /* CFBCard.cpp */; };
+		54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB418C8687900C076D3 /* CFBCard.cpp */; };
+		54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
+		54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
 		54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */; };
 		54F159B01884DAD3008AF575 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 54F159AE1884DAD3008AF575 /* Icon.icns */; };
 		54F159C01884DADF008AF575 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B21884DADF008AF575 /* Icon-29.png */; };
@@ -149,6 +165,11 @@
 		54027EF6187D77220061A96E /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../../libpomelo/libMac/libuv.a; sourceTree = "<group>"; };
 		5408321918976BBB00B0E101 /* CFlip3DEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFlip3DEx.cpp; path = ../Classes/CFlip3DEx.cpp; sourceTree = "<group>"; };
 		5408321A18976BBB00B0E101 /* CFlip3DEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFlip3DEx.h; path = ../Classes/CFlip3DEx.h; sourceTree = "<group>"; };
+		5418A74618CAEAD6000AE94A /* JS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JS; path = ../JS; sourceTree = "<group>"; };
+		5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBFunctionsJS.cpp; path = ../Classes/CFBFunctionsJS.cpp; sourceTree = "<group>"; };
+		5418A74A18CAEB1D000AE94A /* CFBFunctionsJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBFunctionsJS.h; path = ../Classes/CFBFunctionsJS.h; sourceTree = "<group>"; };
+		5418A74D18CAED65000AE94A /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../cocos2d-x/external/spidermonkey/prebuilt/ios/libjs_static.a"; sourceTree = "<group>"; };
+		5418A74F18CAED7B000AE94A /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../cocos2d-x/external/spidermonkey/prebuilt/mac/libjs_static.a"; sourceTree = "<group>"; };
 		542650B4187E3B9C008113ED /* CCPomelo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPomelo.cpp; path = ../Classes/CCPomelo.cpp; sourceTree = "<group>"; };
 		542650B5187E3B9C008113ED /* CCPomelo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPomelo.h; path = ../Classes/CCPomelo.h; sourceTree = "<group>"; };
 		542650B9187E3BAE008113ED /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -198,6 +219,10 @@
 		5472F730187DA5440001FD79 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		5472F782187DAB940001FD79 /* FootBallXTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "FootBallXTests-Info.plist"; path = "FootBallXTests/FootBallXTests-Info.plist"; sourceTree = "<group>"; };
 		5472F785187DAB9E0001FD79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = FootBallXTests/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		54764CAC18CB25F200C551CB /* libjsbindings iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libjsbindings iOS.a"; path = "../../cocos2d-x/libs/libjsbindings iOS.a"; sourceTree = "<group>"; };
+		54764CAE18CB260B00C551CB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCardJSBinds.cpp; path = ../JSBinds/CFBCardJSBinds.cpp; sourceTree = "<group>"; };
+		54764CB218CB4C1D00C551CB /* CFBCardJSBinds.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CFBCardJSBinds.hpp; path = ../JSBinds/CFBCardJSBinds.hpp; sourceTree = "<group>"; };
 		54814C471890002100B47B80 /* FootBallAITest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FootBallAITest.mm; path = FootBallXTests/FootBallAITest.mm; sourceTree = "<group>"; };
 		5484C1C7187D0E2A00AA8AFB /* FootBallX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootBallX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5484C1CA187D0E2A00AA8AFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -217,6 +242,8 @@
 		5484C242187D23E000AA8AFB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		54908205187EA8D000F11AFE /* PomeloTestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestBase.h; path = FootBallXTests/PomeloTestBase.h; sourceTree = "<group>"; };
 		54908206187EA8D000F11AFE /* PomeloTestBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestBase.mm; path = FootBallXTests/PomeloTestBase.mm; sourceTree = "<group>"; };
+		5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libjsbindings Mac.a"; path = "../../cocos2d-x/libsMac/libjsbindings Mac.a"; sourceTree = "<group>"; };
+		5498FD1118CAFCEF0021BED7 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayerAI.cpp; path = ../Classes/CFBPlayerAI.cpp; sourceTree = "<group>"; };
 		549C82B2188BA41C0080E249 /* CFBPlayerAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayerAI.h; path = ../Classes/CFBPlayerAI.h; sourceTree = "<group>"; };
 		54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSpriteEx.cpp; path = ../Classes/CSpriteEx.cpp; sourceTree = "<group>"; };
@@ -230,6 +257,10 @@
 		54D375D01889284F008BA6BB /* CFBFormation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBFormation.h; path = ../Classes/CFBFormation.h; sourceTree = "<group>"; };
 		54D9CD6C189605B500F7B888 /* CFBBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBBall.cpp; path = ../Classes/CFBBall.cpp; sourceTree = "<group>"; };
 		54D9CD6D189605B500F7B888 /* CFBBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBBall.h; path = ../Classes/CFBBall.h; sourceTree = "<group>"; };
+		54DE0DB418C8687900C076D3 /* CFBCard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCard.cpp; path = ../Classes/CFBCard.cpp; sourceTree = "<group>"; };
+		54DE0DB518C8687900C076D3 /* CFBCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCard.h; path = ../Classes/CFBCard.h; sourceTree = "<group>"; };
+		54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCardManager.cpp; path = ../Classes/CFBCardManager.cpp; sourceTree = "<group>"; };
+		54DE0DB918C869C600C076D3 /* CFBCardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCardManager.h; path = ../Classes/CFBCardManager.h; sourceTree = "<group>"; };
 		54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsConnectorServer.h; path = FootBallXTests/PomeloTestsConnectorServer.h; sourceTree = "<group>"; };
 		54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsConnectorServer.mm; path = FootBallXTests/PomeloTestsConnectorServer.mm; sourceTree = "<group>"; };
 		54F159AE1884DAD3008AF575 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = mac/Icon.icns; sourceTree = "<group>"; };
@@ -258,6 +289,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54764CAF18CB260B00C551CB /* libsqlite3.dylib in Frameworks */,
+				54764CAD18CB25F200C551CB /* libjsbindings iOS.a in Frameworks */,
+				5418A74E18CAED65000AE94A /* libjs_static.a in Frameworks */,
 				54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */,
 				54027EE4187D72C50061A96E /* libjansson.a in Frameworks */,
 				54027EE5187D72C50061A96E /* libpomelo.a in Frameworks */,
@@ -290,6 +324,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5498FD1218CAFCEF0021BED7 /* libsqlite3.dylib in Frameworks */,
+				5498FD0E18CAFB6F0021BED7 /* libjsbindings Mac.a in Frameworks */,
+				5498FD0C18CAF7790021BED7 /* libjs_static.a in Frameworks */,
 				5472F731187DA5440001FD79 /* AudioToolbox.framework in Frameworks */,
 				5472F72D187DA5330001FD79 /* OpenAL.framework in Frameworks */,
 				5472F72B187DA52A0001FD79 /* QuartzCore.framework in Frameworks */,
@@ -313,6 +350,8 @@
 		54027EFA187D773D0061A96E /* FrameworksMac */ = {
 			isa = PBXGroup;
 			children = (
+				5498FD1118CAFCEF0021BED7 /* libsqlite3.dylib */,
+				5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */,
 				5472F730187DA5440001FD79 /* AudioToolbox.framework */,
 				5472F72E187DA53C0001FD79 /* AVFoundation.framework */,
 				5472F72C187DA5330001FD79 /* OpenAL.framework */,
@@ -328,6 +367,7 @@
 				54027EEE187D77150061A96E /* libcocos2dx Mac.a */,
 				54027EEF187D77150061A96E /* libcocos2dx-extensions Mac.a */,
 				54027EF0187D77150061A96E /* libCocosDenshion Mac.a */,
+				5418A74F18CAED7B000AE94A /* libjs_static.a */,
 			);
 			name = FrameworksMac;
 			sourceTree = "<group>";
@@ -412,6 +452,8 @@
 				54C5F7361893789E00E246AD /* FBDefs.h */,
 				54D9CD6C189605B500F7B888 /* CFBBall.cpp */,
 				54D9CD6D189605B500F7B888 /* CFBBall.h */,
+				5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */,
+				5418A74A18CAEB1D000AE94A /* CFBFunctionsJS.h */,
 			);
 			name = FootBallGamePlay;
 			sourceTree = "<group>";
@@ -450,6 +492,15 @@
 			name = support;
 			sourceTree = "<group>";
 		};
+		54764CB018CB4C0600C551CB /* JSBinds */ = {
+			isa = PBXGroup;
+			children = (
+				54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */,
+				54764CB218CB4C1D00C551CB /* CFBCardJSBinds.hpp */,
+			);
+			name = JSBinds;
+			sourceTree = "<group>";
+		};
 		5484C1BE187D0E2A00AA8AFB = {
 			isa = PBXGroup;
 			children = (
@@ -476,12 +527,15 @@
 		5484C1C9187D0E2A00AA8AFB /* FrameworksIOS */ = {
 			isa = PBXGroup;
 			children = (
+				54764CAE18CB260B00C551CB /* libsqlite3.dylib */,
 				54027EE1187D72C50061A96E /* libjansson.a */,
 				54027EE2187D72C50061A96E /* libpomelo.a */,
 				54027EE3187D72C50061A96E /* libuv.a */,
 				54027ED3187D721F0061A96E /* libcocos2dx iOS.a */,
 				54027ED4187D721F0061A96E /* libcocos2dx-extensions iOS.a */,
 				54027ED5187D721F0061A96E /* libCocosDenshion iOS.a */,
+				5418A74D18CAED65000AE94A /* libjs_static.a */,
+				54764CAC18CB25F200C551CB /* libjsbindings iOS.a */,
 				54F159CE1884DD08008AF575 /* CoreMotion.framework */,
 				54027EDF187D726E0061A96E /* OpenAL.framework */,
 				54027EDD187D72660061A96E /* QuartzCore.framework */,
@@ -499,6 +553,8 @@
 		5484C220187D1B3A00AA8AFB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				54764CB018CB4C0600C551CB /* JSBinds */,
+				54DE0DB318C8683C00C076D3 /* PlayerCardGamePlay */,
 				543D49BB18815EA50076C7EB /* CocosExt */,
 				543D49B618815D1E0076C7EB /* Manager */,
 				542EC2DD1880FD4900EB100C /* Common */,
@@ -537,9 +593,21 @@
 		5484C22F187D1BC000AA8AFB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5418A74618CAEAD6000AE94A /* JS */,
 				543BF4C21884E073006BC0F6 /* Resources.ios */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		54DE0DB318C8683C00C076D3 /* PlayerCardGamePlay */ = {
+			isa = PBXGroup;
+			children = (
+				54DE0DB418C8687900C076D3 /* CFBCard.cpp */,
+				54DE0DB518C8687900C076D3 /* CFBCard.h */,
+				54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */,
+				54DE0DB918C869C600C076D3 /* CFBCardManager.h */,
+			);
+			name = PlayerCardGamePlay;
 			sourceTree = "<group>";
 		};
 		54F159AC1884DAC2008AF575 /* Icons */ = {
@@ -673,6 +741,7 @@
 				54F159C71884DADF008AF575 /* Icon-80.png in Resources */,
 				54F159C81884DADF008AF575 /* Icon-100.png in Resources */,
 				54F159C91884DADF008AF575 /* Icon-114.png in Resources */,
+				5418A74718CAEAD6000AE94A /* JS in Resources */,
 				54F159CA1884DADF008AF575 /* Icon-120.png in Resources */,
 				54F159CB1884DADF008AF575 /* Icon-144.png in Resources */,
 				54F159CC1884DADF008AF575 /* Icon-152.png in Resources */,
@@ -692,6 +761,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5498FD1318CB10FA0021BED7 /* JS in Resources */,
 				54F159B01884DAD3008AF575 /* Icon.icns in Resources */,
 				543BF4C41884E073006BC0F6 /* Resources.ios in Resources */,
 			);
@@ -740,6 +810,8 @@
 				542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BC187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */,
+				5418A74B18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */,
+				54DE0DB618C8687900C076D3 /* CFBCard.cpp in Sources */,
 				542650C1187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */,
 				543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */,
@@ -749,8 +821,10 @@
 				543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */,
 				543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
+				54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */,
 				543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
+				54764CB318CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */,
 				5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */,
 				543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
@@ -786,6 +860,7 @@
 				5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */,
 				5484C238187D1D3B00AA8AFB /* main.cpp in Sources */,
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
+				54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */,
 				542650BD187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */,
@@ -797,12 +872,15 @@
 				543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
+				54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */,
 				543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,
 				54D9CD6F189605B500F7B888 /* CFBBall.cpp in Sources */,
+				54764CB418CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */,
 				543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
+				5418A74C18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */,
 				54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
 				5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */,
@@ -876,6 +954,7 @@
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/scripting/javascript/bindings\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
 				);
@@ -919,6 +998,7 @@
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/scripting/javascript/bindings\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
 				);
@@ -945,15 +1025,18 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
+					"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
-					"\"$(SRCROOT)/../../libpomelo/lib\"",
+					"$(SRCROOT)/../../cocos2d-x/libs",
+					"$(SRCROOT)/../../libpomelo/lib",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/ios",
+					"/Users/matakashi/Documents/Project/FootBallX/FootBallXClient/cocos2d-x/libs",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -976,15 +1059,18 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios\"",
+					"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/libs\"",
-					"\"$(SRCROOT)/../../libpomelo/lib\"",
+					"$(SRCROOT)/../../cocos2d-x/libs",
+					"$(SRCROOT)/../../libpomelo/lib",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/ios",
+					"/Users/matakashi/Documents/Project/FootBallX/FootBallXClient/cocos2d-x/libs",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -1080,12 +1166,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/libsMac\"",
-					"\"$(SRCROOT)/../../libpomelo/libMac\"",
+					"$(SRCROOT)/../../cocos2d-x/libsMac",
+					"$(SRCROOT)/../../libpomelo/libMac",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
@@ -1119,12 +1207,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
+					"\"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../cocos2d-x/libsMac\"",
-					"\"$(SRCROOT)/../../libpomelo/libMac\"",
+					"$(SRCROOT)/../../cocos2d-x/libsMac",
+					"$(SRCROOT)/../../libpomelo/libMac",
+					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (

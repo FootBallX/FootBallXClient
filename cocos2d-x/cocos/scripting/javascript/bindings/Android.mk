@@ -36,9 +36,11 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += spidermonkey_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_localstorage_static
 
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,spidermonkey/prebuilt/android)
 $(call import-module,2d)
 $(call import-module,audio/android)
+$(call import-module,storage/local-storage)

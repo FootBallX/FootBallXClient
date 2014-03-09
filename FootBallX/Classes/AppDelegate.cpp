@@ -18,10 +18,11 @@
 //#include "CDataCenterManager.h"
 //#include "CBackgroundManager.h"
 #include "CGameSceneManager.h"
+#include "CFBCardManager.h"
 //#include "CTimeProfile.h"
 //#include "CShopManager.h"
 #include <time.h>
-
+#include "CFBFunctionsJS.h"
 
 AppDelegate::AppDelegate()
 {
@@ -69,9 +70,14 @@ bool AppDelegate::applicationDidFinishLaunching()
 //        BREAK_IF_FAILED(SCENE_MANAGER->initialize());
 //
 //        TP_INIT();
-//        
+//
+        
+        BREAK_IF_FAILED(CARD_MGR->init());
+        
         SCENE_MANAGER->go(ST_MATCH);
 
+        FB_FUNC_JS->init();
+        
         return true;
     } while (false);
         
@@ -147,6 +153,7 @@ void AppDelegate::setupMultipleResolutionSupport()
     std::vector<std::string> searchPaths;
     std::vector<std::string> resDirOrders;
     
+    resDirOrders.push_back("JS");
     
     Application::Platform platform = Application::getInstance()->getTargetPlatform();
     if (platform == Application::Platform::OS_IPHONE || platform == Application::Platform::OS_IPAD)

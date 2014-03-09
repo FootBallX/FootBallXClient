@@ -11,16 +11,17 @@
 
 #include "Common.h"
 #include "CFBTeam.h"
+#include "CFBCard.h"
 
 class CFBPlayer
 {
 public:
-    CFBPlayer();
+    CFBPlayer(const string& cid);
+    CFBPlayer(const CFBCard& card);
     
     virtual void update (float dt);
     
-    virtual float getSpeed() const;
-    virtual void setSpeed(float speed);
+    virtual float getSpeed();
 #pragma mark -- player actions
     virtual void gainBall();
     virtual void loseBall();
@@ -37,7 +38,9 @@ public:
 protected:
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
-    float m_speed = 0.f;
+    const CFBCard& m_playerCard;
+    
+    float m_speedCache = -FLT_MAX;
 };
 
 #endif /* defined(__FootBallX__CFBPlayer__) */

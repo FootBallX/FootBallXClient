@@ -47,6 +47,8 @@ public:
     virtual void thinkHomePosition() = 0;
     
     virtual void thinkDefending();
+    
+//    virtual void influenceGrid();
 protected:
     virtual void updatePlayerStates();
     virtual bool isOnPosition(const Point& pos);
@@ -66,6 +68,8 @@ protected:
     FBDefs::AI_STATE m_state = FBDefs::AI_STATE::NONE;
     float m_changeStateCD = 0.f;
     float m_waitTime = 0.f;
+    
+    int m_passBallScore = 0;
 protected:      // ai logic functions
     virtual void returnToHome(float dt);
     virtual void moveTo(const Point& pos, float dt);

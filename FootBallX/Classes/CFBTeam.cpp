@@ -18,14 +18,14 @@ CFBTeam::CFBTeam()
 
 
 
-bool CFBTeam::init()
+bool CFBTeam::init(const vector<string>& cardPlayers)
 {
     do
     {
         // player 对象应该从哪里来？服务器？这里暂时创建一下。
-        for (int i = 0; i < 20; ++i)
+        for (int i = 0; i < 11; ++i)
         {
-            auto player = new CFBPlayer();
+            auto player = new CFBPlayer(cardPlayers[i]);
             player->m_ownerTeam = this;
             m_teamMembers.push_back(player);
         }

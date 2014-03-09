@@ -110,6 +110,10 @@ def copy_resources(app_android_root):
     resource_android_dir = os.path.join(app_android_root, "../Resources.android")
     if os.path.isdir(resource_android_dir):
         copy_files(resource_android_dir, assets_dir)
+        
+    resource_android_dir = os.path.join(app_android_root, "../JS")
+    if os.path.isdir(resource_android_dir):
+        copy_files(resource_android_dir, assets_dir)
 
 def build(ndk_build_param,android_platform,build_mode):
 

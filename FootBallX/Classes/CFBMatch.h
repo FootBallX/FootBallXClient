@@ -27,7 +27,7 @@ public:
     CFBMatch();
     ~CFBMatch();
     
-    bool init();
+    bool init(float pitchWidth, float pitchHeight);
     void update(float dt);
     
     bool startMatch(FBDefs::SIDE side = FBDefs::SIDE::LEFT);
@@ -39,8 +39,22 @@ public:
     
     bool isBallOnTheSide(FBDefs::SIDE side);
     float getBallPosRateBySide(FBDefs::SIDE side);
+    
+    void setOnAtkMenuCallback(function<void(const vector<int>&)> cb);
+    void setOnDefMenuCallback(function<void(const vector<int>&)> cb);
+    
+    bool checkEncounter(float dt);
 protected:
     CFBTeam* m_teams[(int)FBDefs::SIDE::NONE];
+    
+    function<void(const vector<int>&)> m_onAtkMenu;
+    function<void(const vector<int>&)> m_onDefMenu;
+    
+    float m_playerDistanceSq = FLT_MAX;
+    
+    float m_encounterTime = FLT_MAX;
+    
+    vector<int> m_defendPlayerIds;
 };
 
 #define FBMATCH     (CFBMatch::getInstance())

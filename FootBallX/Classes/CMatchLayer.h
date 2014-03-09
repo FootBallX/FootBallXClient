@@ -49,6 +49,17 @@ protected:
     
 //    void onMsg(Node* node, void* resp);
     
+    void onPass(Object* pSender);
+    void onDribble(Object* pSender);
+    void onShoot(Object* pSender);
+    void onOneTwo(Object* pSender);
+    void onTackle(Object* pSender);
+    void onIntercept(Object* pSender);
+    void onPlug(Object* pSender);
+    
+    void onAtkMenuCallback(const vector<int>& defPlayers);
+    void onDefMenuCallback(const vector<int>& defPlayers);
+    
     void togglePitchLieDown();
     int getSelectedPlayerId(const Point& pt, bool isBlack);
 #ifdef SHOW_GRID
@@ -63,6 +74,9 @@ protected:
     Sprite* m_arrow = nullptr;
     
     MenuItem* m_menuPassBall = nullptr;
+    
+    Node* m_atkMenu = nullptr;
+    Node* m_defMenu = nullptr;
     
     bool m_isTouchDown = false;
     bool m_isPitchViewLieDown = false;

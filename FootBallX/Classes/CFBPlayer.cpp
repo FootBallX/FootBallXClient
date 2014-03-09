@@ -8,11 +8,17 @@
 
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
+#include "CFBCardManager.h"
+#include "CFBFunctionsJS.h"
 
-
-CFBPlayer::CFBPlayer()
+CFBPlayer::CFBPlayer(const string& cid) : m_playerCard(CARD_MGR->getCardById(cid))
 {
-    setSpeed(0.1);
+}
+
+
+
+CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
+{
 }
 
 
@@ -52,19 +58,16 @@ void CFBPlayer::loseBall()
 
 
 
-void CFBPlayer::setSpeed(float speed)
+float CFBPlayer::getSpeed()
 {
-    auto p = FBMATCH->getPitch();
-    CC_ASSERT(p);
-    
-    m_speed = p->transformPersentageX(speed);
-}
+    if (m_speedCache < 0)
+    {
+        auto p = FBMATCH->getPitch();
+        float speed = FB_FUNC_JS->getSpeed(m_playerCard);
+        m_speedCache = p->transformPersentageX(speed);
+    }
 
-
-
-float CFBPlayer::getSpeed() const
-{
-    return m_speed;
+    return m_speedCache;
 }
 
 

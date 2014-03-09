@@ -17,6 +17,7 @@ class CFBPitchGrid
 public:
     cocos2d::Point m_position;
     int m_score = 0;
+    int m_defenceScore = 0;     // 用于计算格子带球路线。
     int m_index = -1;
     int m_shootAngleScore = 0;
     int m_shootDistanceScore = 0;

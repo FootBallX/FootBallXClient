@@ -24,7 +24,7 @@ public:
     CFBTeam();
     virtual ~CFBTeam() = default;
     
-    virtual bool init();
+    virtual bool init(const vector<string>& cardPlayers);
     virtual void update(float dt);
     virtual bool onStartMatch();
     virtual void kickOff();

@@ -3827,6 +3827,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>430</real>
+									<real>70</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -3864,8 +3876,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnDribble</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -3884,7 +3896,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_dribble.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -3928,6 +3940,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>360</real>
+									<real>70</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -3965,8 +3989,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnPass</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -3985,7 +4009,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_pass.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4029,6 +4053,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>430</real>
+									<real>45</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -4066,8 +4102,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnShoot</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4086,7 +4122,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_shoot.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4130,6 +4166,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>360</real>
+									<real>45</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -4167,8 +4215,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnOneTwo</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4187,7 +4235,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_onetow.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4218,11 +4266,11 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>Atk_Interfupt</string>
+				<string>Atk_Interrupt</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>AtkMenu</string>
 				<key>memberVarAssignmentType</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>properties</key>
 				<array>
 					<dict>
@@ -4234,7 +4282,7 @@
 						<array>
 							<real>0.0</real>
 							<real>0.0</real>
-							<integer>0</integer>
+							<integer>5</integer>
 						</array>
 					</dict>
 					<dict>
@@ -4313,6 +4361,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>360</real>
+									<real>70</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -4350,8 +4410,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnTackle</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4370,7 +4430,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_tackle.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4414,6 +4474,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>430</real>
+									<real>70</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -4451,8 +4523,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnIntercept</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4471,7 +4543,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_intercept.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4515,6 +4587,18 @@
 						<array>
 							<dict>
 								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>360</real>
+									<real>45</real>
+									<integer>5</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
 								<string>anchorPoint</string>
 								<key>type</key>
 								<string>Point</string>
@@ -4552,8 +4636,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>OnPlug</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4572,7 +4656,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string></string>
+									<string>Menu/menu_plug.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -4598,18 +4682,28 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>Def_Interfupt</string>
+				<string>Def_Interrupt</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>DefMenu</string>
 				<key>memberVarAssignmentType</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>properties</key>
 				<array>
+					<dict>
+						<key>name</key>
+						<string>visible</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
 					<dict>
 						<key>name</key>
 						<string>position</string>
@@ -4619,7 +4713,7 @@
 						<array>
 							<real>0.0</real>
 							<real>0.0</real>
-							<integer>0</integer>
+							<integer>5</integer>
 						</array>
 					</dict>
 					<dict>

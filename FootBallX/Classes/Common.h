@@ -132,6 +132,7 @@ enum GBCollisionType {
 #include "cocos2d.h"
 #include "extensions/cocos-ext.h"
 #include "cocosbuilder/CocosBuilder.h"
+#include "ScriptingCore.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
