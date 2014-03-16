@@ -9,6 +9,7 @@
 #include "CFBTeam.h"
 #include "CFBFormation.h"
 #include "CFBPlayer.h"
+#include "CFBMatch.h"
 
 CFBTeam::CFBTeam()
 : m_side(FBDefs::SIDE::NONE)
@@ -43,6 +44,15 @@ bool CFBTeam::init(const vector<string>& cardPlayers)
 
 void CFBTeam::update(float dt)
 {
+    if (this->isAttacking())
+    {
+        updateFieldStatusOnAttack();
+    }
+    else if (this->isDefending())
+    {
+        updateFieldStatusOnDefend();
+    }
+    
     m_formation->update(dt);
     
     function<bool(float, float)> comp =
@@ -154,3 +164,167 @@ bool CFBTeam::changeFormation(FBDefs::FORMATION formationId)
     
     return false;
 }
+
+
+
+void CFBTeam::updateFieldStatusOnAttack()
+{
+    auto pp = this->getPlayingPlayer();
+    auto pitch = FBMATCH->getPitch();
+    
+    float size = pitch->transformPersentageX(0.4);
+    size *= size;
+    
+    vector<int> gridsAroundPlayer;
+    
+    for (auto player : m_teamMembers)
+    {
+        auto ai = m_formation->getPlayerAIById(player->m_positionInFormation);
+        ai->setPassBallScore(INT_MIN);
+        
+        if (player->m_isOnDuty)
+        {
+            if (!player->m_isGoalKeeper && pp != player)
+            {
+                ai->setPassBallScore(0);
+                
+                // can shoot directly?
+                if (canShootDirectly(player))
+                {
+                    ai->increasePassBallScore(50);
+                }
+                
+                int num = getNumberOfDefenderBetweenPlayerAndBall(player);
+                ai->increasePassBallScore(-20 * num);
+                
+                num = getNumberOfDefenderAroundPlayer(player);
+                ai->increasePassBallScore(-10 * num);
+                
+                float dist = pp->m_curPosition.getDistanceSq(player->m_curPosition);
+                if (dist > size)
+                {
+                    ai->increasePassBallScore((dist - size) * (-1));
+                }
+            }
+            
+            if (pitch->getGridsAroundPosition(player->m_curPosition, gridsAroundPlayer))
+            {
+                for (auto gid : gridsAroundPlayer)
+                {
+                    pitch->increaseGridDefenceScore(gid, -10);
+                }
+            }
+        }
+    }
+    
+    auto side = getSide();
+    auto otherSide = pitch->getOtherSide(side);
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto teamMembers = otherTeam->getTeamMembers();
+    for (auto player : teamMembers)
+    {
+        if (player->m_isOnDuty)
+        {
+            if (pitch->getGridsAroundPosition(player->m_curPosition, gridsAroundPlayer))
+            {
+                for (auto gid : gridsAroundPlayer)
+                {
+                    pitch->increaseGridDefenceScore(gid, -20);
+                }
+            }
+        }
+    }
+}
+
+
+
+void CFBTeam::updateFieldStatusOnDefend()
+{
+    
+}
+
+
+
+bool CFBTeam::canShootDirectly(CFBPlayer* player)
+{
+    auto side = getSide();
+    auto pitch = FBMATCH->getPitch();
+    auto otherSide = pitch->getOtherSide(side);
+    auto gp = pitch->getGoalPos(otherSide);
+    
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto teamMember = otherTeam->getTeamMembers();
+    for (auto t : teamMember)
+    {
+        if (t->m_isOnDuty && FBDefs::isPointOnTheWay(player->m_curPosition, gp, t->m_curPosition))
+        {
+            return false;
+        }
+    }
+    
+    teamMember = getTeamMembers();
+    for (auto t : teamMember)
+    {
+        if (t != player && t->m_isOnDuty && FBDefs::isPointOnTheWay(player->m_curPosition, gp, t->m_curPosition))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+int CFBTeam::getNumberOfDefenderBetweenPlayerAndBall(CFBPlayer* player)
+{
+    int num = 0;
+    auto side = getSide();
+    auto pitch = FBMATCH->getPitch();
+    auto otherSide = pitch->getOtherSide(side);
+    auto ball = FBMATCH->getBall();
+    auto& ballPos = ball->getBallPos();
+    
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto teamMember = otherTeam->getTeamMembers();
+    for (auto t : teamMember)
+    {
+        if (t->m_isOnDuty && FBDefs::isPointOnTheWay(player->m_curPosition, ballPos, t->m_curPosition))
+        {
+            num++;
+        }
+    }
+    
+    return num;
+}
+
+
+
+int CFBTeam::getNumberOfDefenderAroundPlayer(CFBPlayer* player)
+{
+    int num = 0;
+    auto side = getSide();
+    auto pitch = FBMATCH->getPitch();
+    auto otherSide = pitch->getOtherSide(side);
+    
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto teamMember = otherTeam->getTeamMembers();
+    
+    float size = pitch->transformPersentageX(0.4);
+    size *= size;
+    
+    for (auto t : teamMember)
+    {
+        if (t->m_isOnDuty)
+        {
+            float dist = t->m_curPosition.getDistanceSq(player->m_curPosition);
+            if (dist < size)
+            {
+                num++;
+            }
+        }
+    }
+    
+    return num;
+}
+
+

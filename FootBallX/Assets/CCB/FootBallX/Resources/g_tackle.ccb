@@ -89,11 +89,13 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Animation/1.png</string>
+							<string>Animation/11.png</string>
 						</array>
 					</dict>
 				</array>
 				<key>selected</key>
+				<true/>
+				<key>seqExpanded</key>
 				<true/>
 			</dict>
 		</array>

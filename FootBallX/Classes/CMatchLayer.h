@@ -11,6 +11,8 @@
 #include "CBaseLayer.h"
 #include "CSpriteEx.h"
 
+class CFBAnimationLayer;
+
 class CMatchLayer
 : public CBaseLayer
 , public cocosbuilder::CCBSelectorResolver
@@ -35,6 +37,7 @@ public:
     virtual bool onAssignCCBMemberVariable(Object * pTarget, const char* pMemberVariableName, Node * pNode);
     
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
+    
 protected:
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -59,8 +62,11 @@ protected:
     
     void onAtkMenuCallback(const vector<int>& defPlayers);
     void onDefMenuCallback(const vector<int>& defPlayers);
+    void playAnimation(const string& name, float delay);
+    void onAnimationEnd();
+
+    void togglePitchLieDown(bool lieDown);
     
-    void togglePitchLieDown();
     int getSelectedPlayerId(const Point& pt, bool isBlack);
 #ifdef SHOW_GRID
     void refreshGrids();
@@ -68,7 +74,7 @@ protected:
     
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
-    CSpriteEx* m_pitchSprite = nullptr;
+    Sprite* m_pitchSprite = nullptr;
     
     Sprite* m_ball = nullptr;
     Sprite* m_arrow = nullptr;
@@ -79,11 +85,12 @@ protected:
     Node* m_defMenu = nullptr;
     
     bool m_isTouchDown = false;
-    bool m_isPitchViewLieDown = false;
+    bool m_isPitchViewLieDown = true;
     
     Point m_ballMovingVec;
     Point m_screenCenter;
     
+    CFBAnimationLayer* m_animationRoot = nullptr;
     
     enum class OP
     {

@@ -162,7 +162,7 @@ void CFBPitch::calcBestShootPosition(FBDefs::SIDE side)
         {
 //            log("angle: %d", grid.m_shootAngleScore);
             increaseGridScore(x, grid.m_shootAngleScore);
-            if (!FBDefs::isPlayersOnTheWay(players, &grid))
+            if (!FBDefs::isPlayersOnTheWayToGoal(players, &grid))
             {
                 increaseGridScore(x, 10);
             }
@@ -260,5 +260,39 @@ Point CFBPitch::getBestAssistantDeffendingPosition(const Point& targetPos, FBDef
     float dist = 0.075;
 
     return targetPos + (gp * transformPersentageX(dist));
+}
+
+
+
+bool CFBPitch::getGridsAroundPosition(const Point& pos, vector<int>& out_grids)
+{
+    out_grids.clear();
+    
+    auto gw = m_gridWidth - 2;
+    auto gh = m_gridHeight - 2;
+    
+    auto gpw = m_width / m_gridWidth;
+    auto gph = m_height / m_gridHeight;
+    
+    int origX = (pos.x / gpw) - 1;
+    int origY = (pos.y / gph) - 1;
+    
+    auto func = [&](int x, int y)
+    {
+        if (x >= 0 && x < gw && y >= 0 && y < gh)
+        {
+            out_grids.push_back(x + gw * y);
+        }
+    };
+    
+    for (int i = -2; i <= 2; ++i)
+    {
+        for (int j = -2; j <= 2; ++j)
+        {
+            func(origX + i, origY + j);
+        }
+    }
+
+    return out_grids.size() > 0;
 }
 

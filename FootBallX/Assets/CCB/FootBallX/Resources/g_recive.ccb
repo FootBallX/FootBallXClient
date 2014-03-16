@@ -89,12 +89,10 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Animation/1.png</string>
+							<string>Animation/29.png</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

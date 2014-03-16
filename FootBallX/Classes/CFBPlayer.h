@@ -22,6 +22,8 @@ public:
     virtual void update (float dt);
     
     virtual float getSpeed();
+    
+    virtual const CFBCard& getPlayerCard() const { return m_playerCard; }
 #pragma mark -- player actions
     virtual void gainBall();
     virtual void loseBall();

@@ -42,6 +42,13 @@ public:
     virtual int getAssistantPlayer() const { return m_assistantPlayerId; }
     virtual void setActivePlayer(int p) { m_activePlayerId = p; }
     virtual void setAssistantPlayer(int p) { m_assistantPlayerId = p; }
+    
+    virtual void updateFieldStatusOnAttack();
+    virtual void updateFieldStatusOnDefend();
+    
+    virtual bool canShootDirectly(CFBPlayer* player);
+    virtual int getNumberOfDefenderBetweenPlayerAndBall(CFBPlayer* player);
+    virtual int getNumberOfDefenderAroundPlayer(CFBPlayer* player);
 protected:
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
     vector<CFBPlayer*> m_teamMembers;

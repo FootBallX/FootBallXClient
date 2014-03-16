@@ -10,6 +10,10 @@
 #include "CFBPlayer.h"
 #include "CFBTeam.h"
 #include "CFBMatch.h"
+#include "CFBGoalkeeperAI.h"
+#include "CFBBackAI.h"
+#include "CFBHalfBackAI.h"
+#include "CFBForwardAI.h"
 
 #pragma mark ----- FormationBase
 
@@ -97,6 +101,47 @@ CFBPlayer* CFBFormation::getPlayer(int pos)
 
 
 
+CFBPlayerAI* CFBFormation::getPassBallTarget()
+{
+    int max = INT_MIN;
+    CFBPlayerAI* player = nullptr;
+    for (int i = 0; i < m_playerNumber; ++i)
+    {
+        int score = m_playerAIs[i]->getPassBallScore();
+        if (score > max)
+        {
+            max = score;
+            player = m_playerAIs[i];
+        }
+    }
+    
+    return player;
+}
+
+
+
+//Point CFBFormation::getDribbleTargetPos()
+//{
+//    auto pitch = FBMATCH->getPitch();
+//    auto& grids = pitch->getGrids();
+//    
+//    int max = INT_MIN;
+//    int index = -1;
+//    for (auto g : grids)
+//    {
+//        if (g.m_defenceScore > max)
+//        {
+//            max = g.m_defenceScore;
+//            index = g.m_index;
+//        }
+//    }
+//    
+//    CC_ASSERT(index != -1);
+//    
+//    return pitch->getGrid(index).m_position;
+//}
+
+
 #pragma mark ----- 442
 
 CFBFormation442::CFBFormation442()
@@ -127,9 +172,6 @@ bool CFBFormation442::init(CFBTeam* team)
         m_playerAIs[8] = new CFBHalfBackAI();
         m_playerAIs[9] = new CFBForwardAI();
         m_playerAIs[10] = new CFBForwardAI();
-        
-        auto pitch = FBMATCH->getPitch();
-        auto side = team->getSide();
 
         return true;
     } while (false);

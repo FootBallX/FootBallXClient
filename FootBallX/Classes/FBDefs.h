@@ -86,8 +86,34 @@ namespace FBDefs
         NONE,
     };
     
+    enum class AI_STATE_SUPPORT
+    {
+        FIND_POS,
+        MOVE_TO_POS,
+        NONE,
+    };
+    
+    enum class AI_STATE_CONTROL
+    {
+        DRIBBLE,
+        NONE,
+    };
+    
+    enum class MATCH_EVENT_STATE
+    {
+        PASS_BALL,
+        PLAY_CLIP,
+        NONE,
+    };
+    
+    enum class MATCH_CLIP
+    {
+        PASS_BALL_SUCCESS,
+        PASS_BALL_FAIL,
+    };
+    
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
-    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid);
+    bool isPlayersOnTheWayToGoal(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid);
     bool computeGridShootAngleAndMat(const cocos2d::Point& goalPos, CFBPitchGrid* grid);
 }
 

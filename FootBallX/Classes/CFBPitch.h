@@ -34,9 +34,15 @@ public:
     const CFBPitchGrid& getGrid(int index) const { return m_grids[index]; }
     void setGridScore(int index, int s) { m_grids[index].m_score = s; }
     void increaseGridScore(int index, int s) {m_grids[index].m_score += s; }
+    
+    void setGridDefenceScore(int index, int s) { m_grids[index].m_defenceScore = s; }
+    void increaseGridDefenceScore(int index, int s) { m_grids[index].m_defenceScore += s; }
+    
     int getGridScore(int index) { return m_grids[index].m_score; }
     const vector<int>& getGridsInPenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsInPenaltyArea[(int)side]; }
     const vector<int>& getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsOutsidePenaltyArea[(int)side]; }
+    
+    bool getGridsAroundPosition(const Point& pos, vector<int>& out_grids);
     
     Point getBestSupportPosition(FBDefs::SIDE side);
     Point getBestAssistantDeffendingPosition(const Point& targetPos, FBDefs::SIDE side);

@@ -11,6 +11,7 @@
 #include "../JSBinds/CFBCardJSBinds.hpp"
 #include "CFBCardManager.h"
 #include "CRandomManager.h"
+#include "CFBMatch.h"
 
 IMPLEMENT_SINGLETON(CFBFunctionsJS);
 
@@ -21,7 +22,7 @@ JSBool JSlog(JSContext* cx, uint32_t argc, jsval *vp)
         JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "S", &string);
         if (string) {
             JSStringWrapper wrapper(string);
-            log("%s", wrapper.get());
+            cocos2d::log("%s", wrapper.get());
         }
     }
     return JS_TRUE;
@@ -33,6 +34,25 @@ JSBool JSRand(JSContext* cx, uint32_t argc, jsval *vp)
 	jsval out = INT_TO_JSVAL(RANDOM_MGR->getRand());
 	JS_SET_RVAL(cx, vp, out);
     return JS_TRUE;
+}
+
+
+JSBool JSPlayAnimation(JSContext* cx, uint32_t argc, jsval *vp)
+{
+    if (argc == 2)
+    {
+        JSString *name = NULL;
+        double delay;
+        JS_ConvertArguments(cx, argc, JS_ARGV(cx, vp), "Sd", &name, &delay);
+        if (name) {
+            JSStringWrapper wrapper(name);
+            FBMATCH->playAnimation(wrapper.get(), (float)delay);
+        }
+        
+        return JS_TRUE;
+    }
+    
+    return JS_FALSE;
 }
 
 
@@ -57,6 +77,8 @@ bool CFBFunctionsJS::init()
         
         JS_DefineFunction(_cx, _go, "Log", JSlog, 0, JSPROP_READONLY | JSPROP_PERMANENT);
         JS_DefineFunction(_cx, _go, "Rand", JSRand, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+        JS_DefineFunction(_cx, _go, "PlayAnimation", JSPlayAnimation, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+        
         return true;
     } while (false);
     
@@ -145,3 +167,59 @@ float CFBFunctionsJS::getSpeed(const CFBCard& co)
     
     return 0.f;
 }
+
+
+
+void CFBFunctionsJS::startPassBall(const CFBCard& co1)
+{
+    callJSFunc1Obj("StartPassBall", co1);
+}
+
+
+
+bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
+{
+    auto res = callJSFunc2Obj("TackleBall", co1, co2);
+    if (JSVAL_IS_INT(res))
+    {
+        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+    }
+    
+    return false;
+}
+
+
+
+bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
+{
+    auto res = callJSFunc2Obj("InterceptBall", co1, co2);
+    if (JSVAL_IS_INT(res))
+    {
+        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+    }
+    
+    return false;
+}
+
+
+
+bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
+{
+    auto res = callJSFunc2Obj("BlockBall", co1, co2);
+    if (JSVAL_IS_INT(res))
+    {
+        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+    }
+    
+    return false;
+}
+
+
+
+void CFBFunctionsJS::recieveBall(const CFBCard& co1)
+{
+    callJSFunc1Obj("RecieveBall", co1);
+}
+
+
+

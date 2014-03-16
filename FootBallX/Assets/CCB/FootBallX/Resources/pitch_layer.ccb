@@ -3544,7 +3544,7 @@
 					</dict>
 				</array>
 				<key>customClass</key>
-				<string>SpriteEx</string>
+				<string></string>
 				<key>displayName</key>
 				<string>pitch</string>
 				<key>memberVarAssignmentName</key>
@@ -3609,6 +3609,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>baseClass</key>
@@ -4682,8 +4684,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
