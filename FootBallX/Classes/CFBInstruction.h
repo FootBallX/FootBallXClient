@@ -24,13 +24,13 @@ public:
 
     virtual void update(float dt) = 0;
     virtual void start(function<CALLBACK_TYPE> callback);
-    virtual void addPlayer(const CFBPlayer* player);
+    virtual void addPlayer(CFBPlayer* player);
 
     virtual void onAnimationEnd() = 0;
 protected:
-    virtual void CallCallback();
+    virtual void onInstructionEnd();
     
-    vector<const CFBPlayer*> m_players;
+    vector<CFBPlayer*> m_players;
     function<CALLBACK_TYPE> m_callback;
 };
 

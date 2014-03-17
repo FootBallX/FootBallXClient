@@ -180,7 +180,7 @@ void CFBFunctionsJS::startPassBall(const CFBCard& co1)
 bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc2Obj("TackleBall", co1, co2);
-    if (JSVAL_IS_INT(res))
+    if (JSVAL_TO_BOOLEAN(res))
     {
         return JS_TRUE == JSVAL_TO_BOOLEAN(res);
     }
@@ -193,7 +193,7 @@ bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
 bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc2Obj("InterceptBall", co1, co2);
-    if (JSVAL_IS_INT(res))
+    if (JSVAL_TO_BOOLEAN(res))
     {
         return JS_TRUE == JSVAL_TO_BOOLEAN(res);
     }
@@ -206,7 +206,7 @@ bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
 bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc2Obj("BlockBall", co1, co2);
-    if (JSVAL_IS_INT(res))
+    if (JSVAL_TO_BOOLEAN(res))
     {
         return JS_TRUE == JSVAL_TO_BOOLEAN(res);
     }

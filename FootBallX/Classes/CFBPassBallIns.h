@@ -21,6 +21,8 @@ public:
     virtual void start(function<CALLBACK_TYPE> callback) override;
     virtual void onAnimationEnd() override;
 protected:
+    virtual void onInstructionEnd() override;
+    
     int m_step = 0;
     bool m_animationPlaying = false;
     bool m_success = true;

@@ -15,11 +15,12 @@ void CFBPassBallIns::start(function<CALLBACK_TYPE> callback)
     CC_ASSERT(m_players.size() >= 2);
     
     CFBInstruction::start(callback);
-    auto& o1 = m_players[0]->getPlayerCard();
+    auto player = m_players[0];
+    auto& o1 = player->getPlayerCard();
     FB_FUNC_JS->startPassBall(o1);
     m_animationPlaying = true;
-    m_step++;
-
+    m_step = 1;
+    m_success = true;
 }
 
 
@@ -35,34 +36,42 @@ void CFBPassBallIns::update(float dt)
             {
                 auto& o1 = m_players[0]->getPlayerCard();
                 auto& o2 = m_players[m_step]->getPlayerCard();
-                m_success = FB_FUNC_JS->tackleBall(o1, o2);
+                m_success = FB_FUNC_JS->tackleBall(o1, o2);     // TODO: or slideBall or interceptBall,But how to decide?
                 m_animationPlaying = true;
                 m_step++;
             }
             else if (m_step == (count -1))
             {
-                auto& o1 = m_players[m_step]->getPlayerCard();
+                auto player = m_players[m_step];
+                auto& o1 = player->getPlayerCard();
                 FB_FUNC_JS->recieveBall(o1);
                 m_animationPlaying = true;
                 m_step++;
+                
+                m_players[0]->loseBall();
+                player->gainBall();
             }
             else
             {
-                CallCallback();
+                onInstructionEnd();
             }
         }
         else
         {
             if (m_step == count)
             {
-                CallCallback();
+                onInstructionEnd();
             }
             else
             {
-                auto& o1 = m_players[m_step-1]->getPlayerCard();
+                auto player = m_players[m_step - 1];
+                auto& o1 = player->getPlayerCard();
                 FB_FUNC_JS->recieveBall(o1);    // TODO: 这里可能要用个专门的抢到球的函数
                 m_animationPlaying = true;
                 m_step = (int)count;
+                
+                m_players[0]->loseBall();
+                player->gainBall();
             }
         }
     }
@@ -73,4 +82,13 @@ void CFBPassBallIns::update(float dt)
 void CFBPassBallIns::onAnimationEnd()
 {
     m_animationPlaying = false;
+}
+
+
+
+void CFBPassBallIns::onInstructionEnd()
+{
+    CFBInstruction::onInstructionEnd();
+    
+    m_players.clear();
 }

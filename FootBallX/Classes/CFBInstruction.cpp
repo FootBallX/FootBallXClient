@@ -9,7 +9,7 @@
 #include "CFBInstruction.h"
 #include "CFBPassBAllIns.h"
 
-void CFBInstruction::addPlayer(const CFBPlayer* player)
+void CFBInstruction::addPlayer(CFBPlayer* player)
 {
     m_players.push_back(player);
 }
@@ -23,7 +23,7 @@ void CFBInstruction::start(function<CALLBACK_TYPE> callback)
 
 
 
-void CFBInstruction::CallCallback()
+void CFBInstruction::onInstructionEnd()
 {
     if (m_callback)
     {

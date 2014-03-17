@@ -109,7 +109,7 @@ void CFBTeam::kickOff()
 
 
 void CFBTeam::passBall(int passTo)
-{
+{   
     CC_ASSERT(passTo >=0 && passTo < m_teamMembers.size());
     auto pp = getPlayingPlayer();
     pp->loseBall();
