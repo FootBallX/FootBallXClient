@@ -15,7 +15,7 @@
 
 IMPLEMENT_SINGLETON(CFBFunctionsJS);
 
-JSBool JSlog(JSContext* cx, uint32_t argc, jsval *vp)
+bool JSlog(JSContext* cx, uint32_t argc, jsval *vp)
 {
     if (argc > 0) {
         JSString *string = NULL;
@@ -25,19 +25,19 @@ JSBool JSlog(JSContext* cx, uint32_t argc, jsval *vp)
             cocos2d::log("%s", wrapper.get());
         }
     }
-    return JS_TRUE;
+    return true;
 }
 
 
-JSBool JSRand(JSContext* cx, uint32_t argc, jsval *vp)
+bool JSRand(JSContext* cx, uint32_t argc, jsval *vp)
 {
 	jsval out = INT_TO_JSVAL(RANDOM_MGR->getRand());
 	JS_SET_RVAL(cx, vp, out);
-    return JS_TRUE;
+    return true;
 }
 
 
-JSBool JSPlayAnimation(JSContext* cx, uint32_t argc, jsval *vp)
+bool JSPlayAnimation(JSContext* cx, uint32_t argc, jsval *vp)
 {
     if (argc == 2)
     {
@@ -49,10 +49,10 @@ JSBool JSPlayAnimation(JSContext* cx, uint32_t argc, jsval *vp)
             FBMATCH->playAnimation(wrapper.get(), (float)delay);
         }
         
-        return JS_TRUE;
+        return true;
     }
     
-    return JS_FALSE;
+    return false;
 }
 
 
@@ -66,9 +66,9 @@ bool CFBFunctionsJS::init()
         sc->addRegisterCallback(register_all_CFBCardJSBinds);
         sc->start();
         
-        JSBool ret;
+        bool ret;
         ret = sc->runScript("CompactFunctions.js");
-        BREAK_IF(ret == JS_FALSE);
+        BREAK_IF(ret == false);
         
         this->_cx = sc->getGlobalContext();
         this->_go = sc->getGlobalObject();
@@ -182,7 +182,7 @@ bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
     auto res = callJSFunc2Obj("TackleBall", co1, co2);
     if (JSVAL_TO_BOOLEAN(res))
     {
-        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+        return true == JSVAL_TO_BOOLEAN(res);
     }
     
     return false;
@@ -195,7 +195,7 @@ bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
     auto res = callJSFunc2Obj("InterceptBall", co1, co2);
     if (JSVAL_TO_BOOLEAN(res))
     {
-        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+        return true == JSVAL_TO_BOOLEAN(res);
     }
     
     return false;
@@ -208,7 +208,7 @@ bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
     auto res = callJSFunc2Obj("BlockBall", co1, co2);
     if (JSVAL_TO_BOOLEAN(res))
     {
-        return JS_TRUE == JSVAL_TO_BOOLEAN(res);
+        return true == JSVAL_TO_BOOLEAN(res);
     }
     
     return false;

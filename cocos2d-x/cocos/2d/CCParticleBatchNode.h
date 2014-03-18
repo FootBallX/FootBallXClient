@@ -32,7 +32,7 @@
 
 #include "CCNode.h"
 #include "CCProtocols.h"
-#include "renderer/CCQuadCommand.h"
+#include "renderer/CCBatchCommand.h"
 
 NS_CC_BEGIN
 
@@ -97,13 +97,13 @@ public:
     inline void setTextureAtlas(TextureAtlas* atlas) { _textureAtlas = atlas; };
     
     // Overrides
-    void visit();
+    virtual void visit(Renderer *renderer, const kmMat4 &parentTransform, bool parentTransformUpdated) override;
 
     using Node::addChild;
     virtual void addChild(Node * child, int zOrder, int tag) override;
     virtual void removeChild(Node* child, bool cleanup) override;
     virtual void reorderChild(Node * child, int zOrder) override;
-    virtual void draw(void) override;
+    virtual void draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated) override;
     virtual Texture2D* getTexture(void) const override;
     virtual void setTexture(Texture2D *texture) override;
     /**
@@ -146,7 +146,7 @@ private:
     /** the blend function used for drawing the quads */
     BlendFunc _blendFunc;
     // quad command
-    QuadCommand _quadCommand;
+    BatchCommand _batchCommand;
 };
 
 // end of particle_nodes group

@@ -23,6 +23,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
+#include "CCPlatformConfig.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
 #include "platform/CCCommon.h"
 #include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #include <android/log.h>
@@ -32,28 +35,6 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 #define MAX_LEN         (cocos2d::kMaxLogLen + 1)
-
-// XXX deprecated
-void CCLog(const char * pszFormat, ...)
-{
-    va_list args;
-    va_start(args, pszFormat);        
-    __android_log_vprint(ANDROID_LOG_DEBUG, "cocos2d-x debug info", pszFormat, args);
-    va_end(args);
-
-}
-
-void log(const char * pszFormat, ...)
-{
-    char buf[MAX_LEN];
-
-    va_list args;
-    va_start(args, pszFormat);        
-    vsnprintf(buf, MAX_LEN, pszFormat, args);
-    va_end(args);
-
-    __android_log_print(ANDROID_LOG_DEBUG, "cocos2d-x debug info",  "%s", buf);
-}
 
 void MessageBox(const char * pszMsg, const char * pszTitle)
 {
@@ -66,3 +47,6 @@ void LuaLog(const char * pszFormat)
 }
 
 NS_CC_END
+
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+

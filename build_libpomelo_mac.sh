@@ -2,9 +2,9 @@ rm -rf ./libpomelo/build
 rm -rf ./libpomelo/deps/jansson/build
 rm -rf ./libpomelo/deps/uv/build
 
-xcodebuild -project ./libpomelo/deps/jansson/janssonMac.xcodeproj -arch x86_64
-xcodebuild -project ./libpomelo/deps/uv/uvMac.xcodeproj -arch x86_64
-xcodebuild -target "libpomelo" -project ./libpomelo/pomeloMac.xcodeproj -arch x86_64
+xcodebuild -project ./libpomelo/deps/jansson/janssonMac.xcodeproj
+xcodebuild -project ./libpomelo/deps/uv/uvMac.xcodeproj
+xcodebuild -target "libpomelo" -project ./libpomelo/pomeloMac.xcodeproj
 
 rm -rf ./libpomelo/libMac
 mkdir ./libpomelo/libMac

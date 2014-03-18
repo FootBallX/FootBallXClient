@@ -278,7 +278,7 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     
     m_eventState = FBDefs::MATCH_EVENT_STATE::PASS_BALL;
     std::sort(involvePlayers.begin(), involvePlayers.end(),
-              [&](pair<float, CFBPlayer*>& o1, pair<float, CFBPlayer*> o2)-> bool
+              [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
               {
                   return o1.first < o2.first;
               });

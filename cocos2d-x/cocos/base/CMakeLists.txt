@@ -3,7 +3,7 @@ set(COCOS_BASE_SRC
   CCAutoreleasePool.cpp
   CCGeometry.cpp
   CCNS.cpp
-  CCObject.cpp
+  CCRef.cpp
   CCSet.cpp
   CCArray.cpp
   CCDictionary.cpp
@@ -20,6 +20,12 @@ set(COCOS_BASE_SRC
 add_library(cocosbase STATIC
   ${COCOS_BASE_SRC}
 )
+
+if(WIN32)
+target_link_libraries(cocosbase
+  Ws2_32
+)
+endif()
 
 set_target_properties(cocosbase
     PROPERTIES

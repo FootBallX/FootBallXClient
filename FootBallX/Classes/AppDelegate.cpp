@@ -38,8 +38,15 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching()
 {
     // initialize director
-    Director *pDirector = Director::getInstance();
-    pDirector->setOpenGLView(EGLView::getInstance());
+    auto pDirector = Director::getInstance();
+    
+    auto glview = pDirector->getOpenGLView();
+    if(!glview) {
+        glview = GLView::create("FootBallX");
+        pDirector->setOpenGLView(glview);
+    }
+    
+    pDirector->setOpenGLView(glview);
     
     pDirector->setProjection(Director::Projection::_3D);
     
@@ -143,7 +150,10 @@ void AppDelegate::setupMultipleResolutionSupport()
     
     Size designSize = sizeIphoneHD;
     Size resourceSize = sizeIphoneHD;
-    Size screenSize = EGLView::getInstance()->getFrameSize();
+    
+    auto director = Director::getInstance();
+    auto glView = director->getOpenGLView();
+    Size screenSize = glView->getFrameSize();
     
     if (screenSize.width < screenSize.height)
     {
@@ -230,10 +240,10 @@ void AppDelegate::setupMultipleResolutionSupport()
     FileUtils::getInstance()->setSearchResolutionsOrder(resDirOrders);
     
     Director* pDirector = Director::getInstance();
-    pDirector->setContentScaleFactor(resourceSize.width / designSize.width); 
-    EGLView::getInstance()->setDesignResolutionSize(
-                                                      designSize.width, designSize.height, 
-                                                      ResolutionPolicy::EXACT_FIT);
+    pDirector->setContentScaleFactor(resourceSize.width / designSize.width);
+    glView->setDesignResolutionSize(
+                                    designSize.width, designSize.height,
+                                    ResolutionPolicy::EXACT_FIT);
     
 }
 
