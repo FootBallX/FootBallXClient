@@ -33,6 +33,7 @@ public:
     virtual bool changeFormation(FBDefs::FORMATION formationId);
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
+    virtual void setAttacking(bool attacking) { m_state = attacking ? FBDefs::TEAM_STATE::ATTACKING : FBDefs::TEAM_STATE::DEFENDING; }
     
     virtual const vector<CFBPlayer*>& getTeamMembers() const { return m_teamMembers; }
     

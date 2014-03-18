@@ -47,8 +47,16 @@ function StartPassBall(o1)
 
 function TackleBall(o1, o2)
 {
-    PlayAnimation("g_tackle.ccbi", 0);
-	return true;
+    if (RAnd() % 100 > 50)  // 铲球成功
+    {
+        PlayAnimation("g_tackle.ccbi", 0);
+        return true;
+    }
+    else
+    {
+        PlayAnimation("g_tackle.ccbi", 0);
+        return false;
+    }
 }
 
 

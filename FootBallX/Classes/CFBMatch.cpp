@@ -291,6 +291,8 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     m_currentInstruction->addPlayer(to);
     
     m_currentInstruction->start(bind(&CFBMatch::onInstructionEnd, this));
+    
+    pauseGame(true);
 }
 
 

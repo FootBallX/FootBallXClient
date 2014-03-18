@@ -42,6 +42,7 @@ void CFBPlayer::gainBall()
     
     FBMATCH->getBall()->m_ownerPlayer = this;
     FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
+    m_ownerTeam->setAttacking(true);
 }
 
 
@@ -53,7 +54,8 @@ void CFBPlayer::loseBall()
     m_isBallController = false;
     
     FBMATCH->getBall()->m_ownerPlayer = nullptr;
-    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
+    FBMATCH->getBall()->m_ownerTeam = nullptr;
+    m_ownerTeam->setAttacking(false);
 }
 
 

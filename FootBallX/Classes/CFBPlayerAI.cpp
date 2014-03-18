@@ -311,7 +311,8 @@ void CFBPlayerAI::thinkControlBall()
             auto target = m_formation->getPassBallTarget();
             if (target)
             {
-                team->passBall(target->getPlayer()->m_positionInFormation);
+//                team->passBall(target->getPlayer()->m_positionInFormation);
+                FBMATCH->tryPassBall(m_player, target->getPlayer());
             }
         }
     }
@@ -402,7 +403,8 @@ void CFBPlayerAI::thinkPassBall()
     
     if (target)
     {
-        team->passBall(target->getPlayer()->m_positionInFormation);
+//        team->passBall(target->getPlayer()->m_positionInFormation);
+        FBMATCH->tryPassBall(m_player, target->getPlayer());
     }
 }
 
