@@ -133,7 +133,7 @@ void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 
 
 
-SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName)
+SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
     CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onPassBall", CMatchLayer::onPassBall);
     CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnPass", CMatchLayer::onPass);
@@ -148,15 +148,15 @@ SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, co
 
 
 
-//函数定义类型为：void pressTitle(Object *pSender);
-Control::Handler CMatchLayer::onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName)
+//函数定义类型为：void pressTitle(Ref*pSender);
+Control::Handler CMatchLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
 {
     return nullptr;
 }
 
 
 
-bool CMatchLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMemberVariableName, Node* pNode)
+bool CMatchLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
 {
     CCB_MEMBERVARIABLEASSIGNER_GLUE( this, "b0", Sprite*, m_blackPlayers[0]);
     CCB_MEMBERVARIABLEASSIGNER_GLUE( this, "b1", Sprite*, m_blackPlayers[1]);
@@ -358,7 +358,7 @@ void CMatchLayer::togglePitchLieDown(bool lieDown)
 }
 
 
-void CMatchLayer::onPassBall(Object* pSender)
+void CMatchLayer::onPassBall(Ref* pSender)
 {
     FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
@@ -493,44 +493,44 @@ void CMatchLayer::onDefMenuCallback(const vector<int>& defPlayers)
 
 
 
-void CMatchLayer::onPass(Object* pSender)
+void CMatchLayer::onPass(Ref* pSender)
 {
     m_operator = OP::PASS_BALL;
 }
 
 
 
-void CMatchLayer::onDribble(Object* pSender)
+void CMatchLayer::onDribble(Ref* pSender)
 {
 }
 
 
 
-void CMatchLayer::onShoot(Object* pSender)
+void CMatchLayer::onShoot(Ref* pSender)
 {
 }
 
 
 
-void CMatchLayer::onOneTwo(Object* pSender)
+void CMatchLayer::onOneTwo(Ref* pSender)
 {
 }
 
 
 
-void CMatchLayer::onTackle(Object* pSender)
+void CMatchLayer::onTackle(Ref* pSender)
 {
 }
 
 
 
-void CMatchLayer::onIntercept(Object* pSender)
+void CMatchLayer::onIntercept(Ref* pSender)
 {
 }
 
 
 
-void CMatchLayer::onPlug(Object* pSender)
+void CMatchLayer::onPlug(Ref* pSender)
 {
 }
 

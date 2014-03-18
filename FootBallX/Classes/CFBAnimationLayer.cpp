@@ -20,22 +20,22 @@ public:
 
 
 
-SEL_MenuHandler CFBAnimationLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName)
+SEL_MenuHandler CFBAnimationLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
     return nullptr;
 }
 
 
 
-//函数定义类型为：void pressTitle(Object *pSender);
-Control::Handler CFBAnimationLayer::onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName)
+//函数定义类型为：void pressTitle(Ref*pSender);
+Control::Handler CFBAnimationLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
 {
     return nullptr;
 }
 
 
 
-cocos2d::SEL_CallFuncN CFBAnimationLayer::onResolveCCBCCCallFuncSelector(cocos2d::Object * pTarget, const char* pSelectorName)
+cocos2d::SEL_CallFuncN CFBAnimationLayer::onResolveCCBCCCallFuncSelector(cocos2d::Ref* pTarget, const char* pSelectorName)
 {
     CCB_SELECTORRESOLVER_CALLFUNC_GLUE(this, "AnimationEnd", CFBAnimationLayer::onAnimationEnd);
     return nullptr;

@@ -38,7 +38,7 @@ public:
 protected:
     virtual Scene* wrap(LAYERS layer);
     virtual void addCloseButton();
-    virtual void menuCloseCallback(Object* pSender);
+    virtual void menuCloseCallback(Ref* pSender);
     
 private:
 };

@@ -50,7 +50,7 @@ bool CMessageBoxLayer::init()
 }
 
 
-void CMessageBoxLayer::onButtonClicked(Object* sender, Control::EventType type)
+void CMessageBoxLayer::onButtonClicked(Ref* sender, Control::EventType type)
 {
     ControlButton* btn = static_cast<ControlButton*>(sender);
     if (m_callback)

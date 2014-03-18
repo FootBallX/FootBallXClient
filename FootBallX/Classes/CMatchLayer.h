@@ -30,11 +30,11 @@ public:
     virtual void update(float dt);
     
     //CCBSelectorResolver
-    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName) ;
-    virtual Control::Handler onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName) ;
+    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) ;
+    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) ;
     
     //CCBMemberVariableAssigner
-    virtual bool onAssignCCBMemberVariable(Object * pTarget, const char* pMemberVariableName, Node * pNode);
+    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode);
     
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
     
@@ -44,21 +44,21 @@ protected:
     void onTouchEnded(Touch* touch, Event* event);
     void onTouchCancelled(Touch* touch, Event* event);
     
-    void onPassBall(Object* pSender);
-//    virtual void onFormation(Object *pSender);
-//    virtual void onBattle(Object* pSender);
-//    virtual void onHome(Object* pSender);
-//    virtual void onTestSocket(Object* pSender);
+    void onPassBall(Ref* pSender);
+//    virtual void onFormation(Ref*pSender);
+//    virtual void onBattle(Ref* pSender);
+//    virtual void onHome(Ref* pSender);
+//    virtual void onTestSocket(Ref* pSender);
     
 //    void onMsg(Node* node, void* resp);
     
-    void onPass(Object* pSender);
-    void onDribble(Object* pSender);
-    void onShoot(Object* pSender);
-    void onOneTwo(Object* pSender);
-    void onTackle(Object* pSender);
-    void onIntercept(Object* pSender);
-    void onPlug(Object* pSender);
+    void onPass(Ref* pSender);
+    void onDribble(Ref* pSender);
+    void onShoot(Ref* pSender);
+    void onOneTwo(Ref* pSender);
+    void onTackle(Ref* pSender);
+    void onIntercept(Ref* pSender);
+    void onPlug(Ref* pSender);
     
     void onAtkMenuCallback(const vector<int>& defPlayers);
     void onDefMenuCallback(const vector<int>& defPlayers);
