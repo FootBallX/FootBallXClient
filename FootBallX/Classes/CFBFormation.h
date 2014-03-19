@@ -48,6 +48,10 @@ public:
     virtual CFBPlayerAI* getPlayerAIById(int idx) { return m_playerAIs[idx]; }
     
     virtual FBDefs::FORMATION getFormationId() const { return m_formationId; }
+    
+    virtual CFBPlayerAI* getPassBallTarget();
+    
+//    virtual Point getDribbleTargetPos();
 protected:
     FBDefs::FORMATION m_formationId = FBDefs::FORMATION::NONE;
     CFBTeam* m_team;        // weak reference to the team object;

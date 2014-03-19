@@ -22,6 +22,12 @@ public:
     bool init();
 
     float getSpeed(const CFBCard& co);
+
+    void startPassBall(const CFBCard& co1);
+    bool tackleBall(const CFBCard& co1, const CFBCard& co2);
+    bool interceptBall(const CFBCard& co1, const CFBCard& co2);
+    bool blockBall(const CFBCard& co1, const CFBCard& co2);
+    void recieveBall(const CFBCard& co1);
 protected:
     jsval callJSFunc(const char *name, int count, ...);
     jsval callJSFunc2Obj(const char *name, const CFBCard& c1, const CFBCard& c2);

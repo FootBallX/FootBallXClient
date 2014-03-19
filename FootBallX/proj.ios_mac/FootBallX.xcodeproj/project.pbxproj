@@ -25,10 +25,19 @@
 		54027EF9187D77220061A96E /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF6187D77220061A96E /* libuv.a */; };
 		5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
 		5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
+		54131E9F18D74A32009C8BAE /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54131E9E18D74A32009C8BAE /* libjs_static.a */; };
+		54131EA918D7DF1F009C8BAE /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54131EA818D7DF1F009C8BAE /* libjs_static.a */; };
 		5418A74718CAEAD6000AE94A /* JS in Resources */ = {isa = PBXBuildFile; fileRef = 5418A74618CAEAD6000AE94A /* JS */; };
 		5418A74B18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */; };
 		5418A74C18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */; };
-		5418A74E18CAED65000AE94A /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418A74D18CAED65000AE94A /* libjs_static.a */; };
+		5420554918D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420554718D090FA001551BF /* CFBGoalkeeperAI.cpp */; };
+		5420554A18D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420554718D090FA001551BF /* CFBGoalkeeperAI.cpp */; };
+		5420554E18D091DE001551BF /* CFBBackAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420554C18D091DE001551BF /* CFBBackAI.cpp */; };
+		5420554F18D091DE001551BF /* CFBBackAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420554C18D091DE001551BF /* CFBBackAI.cpp */; };
+		5420555218D091F5001551BF /* CFBHalfBackAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420555018D091F5001551BF /* CFBHalfBackAI.cpp */; };
+		5420555318D091F5001551BF /* CFBHalfBackAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420555018D091F5001551BF /* CFBHalfBackAI.cpp */; };
+		5420555618D09204001551BF /* CFBForwardAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420555418D09204001551BF /* CFBForwardAI.cpp */; };
+		5420555718D09204001551BF /* CFBForwardAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5420555418D09204001551BF /* CFBForwardAI.cpp */; };
 		542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
 		542650B8187E3B9C008113ED /* CCPomelo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650B4187E3B9C008113ED /* CCPomelo.cpp */; };
@@ -41,6 +50,10 @@
 		542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */; };
 		5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
 		5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
+		5436BB0C18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */; };
+		5436BB0D18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */; };
+		5436BB1018D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */; };
+		5436BB1118D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */; };
 		543BF4C31884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
 		543BF4C41884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
 		543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D499E18815CB80076C7EB /* CMatchLayer.cpp */; };
@@ -96,7 +109,6 @@
 		5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5484C23E187D1D4B00AA8AFB /* RootViewController.mm */; };
 		5484C243187D23E000AA8AFB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C242187D23E000AA8AFB /* OpenGLES.framework */; };
 		54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54908206187EA8D000F11AFE /* PomeloTestBase.mm */; };
-		5498FD0C18CAF7790021BED7 /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418A74F18CAED7B000AE94A /* libjs_static.a */; };
 		5498FD0E18CAFB6F0021BED7 /* libjsbindings Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */; };
 		5498FD1218CAFCEF0021BED7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5498FD1118CAFCEF0021BED7 /* libsqlite3.dylib */; };
 		5498FD1318CB10FA0021BED7 /* JS in Resources */ = {isa = PBXBuildFile; fileRef = 5418A74618CAEAD6000AE94A /* JS */; };
@@ -104,6 +116,7 @@
 		549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */; };
 		54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */; };
 		54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54C1EBBF18963EA000DC5E0F /* CSpriteEx.cpp */; };
+		54C9E25D18D5921000EF55A5 /* CFBAnimationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */; };
 		54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375C71889239C008BA6BB /* CFBPlayer.cpp */; };
 		54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375C71889239C008BA6BB /* CFBPlayer.cpp */; };
 		54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CB188923AC008BA6BB /* CFBTeam.cpp */; };
@@ -116,6 +129,7 @@
 		54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB418C8687900C076D3 /* CFBCard.cpp */; };
 		54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
 		54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
+		54E630B318D58FAB0033E43A /* CFBAnimationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */; };
 		54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */; };
 		54F159B01884DAD3008AF575 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 54F159AE1884DAD3008AF575 /* Icon.icns */; };
 		54F159C01884DADF008AF575 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B21884DADF008AF575 /* Icon-29.png */; };
@@ -165,11 +179,19 @@
 		54027EF6187D77220061A96E /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../../libpomelo/libMac/libuv.a; sourceTree = "<group>"; };
 		5408321918976BBB00B0E101 /* CFlip3DEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFlip3DEx.cpp; path = ../Classes/CFlip3DEx.cpp; sourceTree = "<group>"; };
 		5408321A18976BBB00B0E101 /* CFlip3DEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFlip3DEx.h; path = ../Classes/CFlip3DEx.h; sourceTree = "<group>"; };
+		54131E9E18D74A32009C8BAE /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac/libjs_static.a"; sourceTree = "<group>"; };
+		54131EA818D7DF1F009C8BAE /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/ios/libjs_static.a"; sourceTree = "<group>"; };
 		5418A74618CAEAD6000AE94A /* JS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JS; path = ../JS; sourceTree = "<group>"; };
 		5418A74918CAEB1D000AE94A /* CFBFunctionsJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBFunctionsJS.cpp; path = ../Classes/CFBFunctionsJS.cpp; sourceTree = "<group>"; };
 		5418A74A18CAEB1D000AE94A /* CFBFunctionsJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBFunctionsJS.h; path = ../Classes/CFBFunctionsJS.h; sourceTree = "<group>"; };
-		5418A74D18CAED65000AE94A /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../cocos2d-x/external/spidermonkey/prebuilt/ios/libjs_static.a"; sourceTree = "<group>"; };
-		5418A74F18CAED7B000AE94A /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../cocos2d-x/external/spidermonkey/prebuilt/mac/libjs_static.a"; sourceTree = "<group>"; };
+		5420554718D090FA001551BF /* CFBGoalkeeperAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBGoalkeeperAI.cpp; path = ../Classes/CFBGoalkeeperAI.cpp; sourceTree = "<group>"; };
+		5420554818D090FA001551BF /* CFBGoalkeeperAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBGoalkeeperAI.h; path = ../Classes/CFBGoalkeeperAI.h; sourceTree = "<group>"; };
+		5420554C18D091DE001551BF /* CFBBackAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBBackAI.cpp; path = ../Classes/CFBBackAI.cpp; sourceTree = "<group>"; };
+		5420554D18D091DE001551BF /* CFBBackAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBBackAI.h; path = ../Classes/CFBBackAI.h; sourceTree = "<group>"; };
+		5420555018D091F5001551BF /* CFBHalfBackAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBHalfBackAI.cpp; path = ../Classes/CFBHalfBackAI.cpp; sourceTree = "<group>"; };
+		5420555118D091F5001551BF /* CFBHalfBackAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBHalfBackAI.h; path = ../Classes/CFBHalfBackAI.h; sourceTree = "<group>"; };
+		5420555418D09204001551BF /* CFBForwardAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBForwardAI.cpp; path = ../Classes/CFBForwardAI.cpp; sourceTree = "<group>"; };
+		5420555518D09204001551BF /* CFBForwardAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBForwardAI.h; path = ../Classes/CFBForwardAI.h; sourceTree = "<group>"; };
 		542650B4187E3B9C008113ED /* CCPomelo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPomelo.cpp; path = ../Classes/CCPomelo.cpp; sourceTree = "<group>"; };
 		542650B5187E3B9C008113ED /* CCPomelo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPomelo.h; path = ../Classes/CCPomelo.h; sourceTree = "<group>"; };
 		542650B9187E3BAE008113ED /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -181,6 +203,10 @@
 		542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsGateServer.mm; path = FootBallXTests/PomeloTestsGateServer.mm; sourceTree = "<group>"; };
 		5432C98318B9C2070066919A /* CRandomManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRandomManager.cpp; path = ../Classes/CRandomManager.cpp; sourceTree = "<group>"; };
 		5432C98418B9C2070066919A /* CRandomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRandomManager.h; path = ../Classes/CRandomManager.h; sourceTree = "<group>"; };
+		5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBInstruction.cpp; path = ../Classes/CFBInstruction.cpp; sourceTree = "<group>"; };
+		5436BB0B18D35E0A005FBF60 /* CFBInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBInstruction.h; path = ../Classes/CFBInstruction.h; sourceTree = "<group>"; };
+		5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPassBallIns.cpp; path = ../Classes/CFBPassBallIns.cpp; sourceTree = "<group>"; };
+		5436BB0F18D35E4F005FBF60 /* CFBPassBallIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPassBallIns.h; path = ../Classes/CFBPassBallIns.h; sourceTree = "<group>"; };
 		543BF4C21884E073006BC0F6 /* Resources.ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources.ios; path = ../Resources.ios; sourceTree = "<group>"; };
 		543D499E18815CB80076C7EB /* CMatchLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMatchLayer.cpp; path = ../Classes/CMatchLayer.cpp; sourceTree = "<group>"; };
 		543D499F18815CB80076C7EB /* CMatchLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMatchLayer.h; path = ../Classes/CMatchLayer.h; sourceTree = "<group>"; };
@@ -261,6 +287,8 @@
 		54DE0DB518C8687900C076D3 /* CFBCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCard.h; path = ../Classes/CFBCard.h; sourceTree = "<group>"; };
 		54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCardManager.cpp; path = ../Classes/CFBCardManager.cpp; sourceTree = "<group>"; };
 		54DE0DB918C869C600C076D3 /* CFBCardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCardManager.h; path = ../Classes/CFBCardManager.h; sourceTree = "<group>"; };
+		54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBAnimationLayer.cpp; path = ../Classes/CFBAnimationLayer.cpp; sourceTree = "<group>"; };
+		54E630B218D58FAB0033E43A /* CFBAnimationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBAnimationLayer.h; path = ../Classes/CFBAnimationLayer.h; sourceTree = "<group>"; };
 		54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsConnectorServer.h; path = FootBallXTests/PomeloTestsConnectorServer.h; sourceTree = "<group>"; };
 		54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsConnectorServer.mm; path = FootBallXTests/PomeloTestsConnectorServer.mm; sourceTree = "<group>"; };
 		54F159AE1884DAD3008AF575 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = mac/Icon.icns; sourceTree = "<group>"; };
@@ -289,9 +317,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54131EA918D7DF1F009C8BAE /* libjs_static.a in Frameworks */,
 				54764CAF18CB260B00C551CB /* libsqlite3.dylib in Frameworks */,
 				54764CAD18CB25F200C551CB /* libjsbindings iOS.a in Frameworks */,
-				5418A74E18CAED65000AE94A /* libjs_static.a in Frameworks */,
 				54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */,
 				54027EE4187D72C50061A96E /* libjansson.a in Frameworks */,
 				54027EE5187D72C50061A96E /* libpomelo.a in Frameworks */,
@@ -324,9 +352,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54131E9F18D74A32009C8BAE /* libjs_static.a in Frameworks */,
 				5498FD1218CAFCEF0021BED7 /* libsqlite3.dylib in Frameworks */,
 				5498FD0E18CAFB6F0021BED7 /* libjsbindings Mac.a in Frameworks */,
-				5498FD0C18CAF7790021BED7 /* libjs_static.a in Frameworks */,
 				5472F731187DA5440001FD79 /* AudioToolbox.framework in Frameworks */,
 				5472F72D187DA5330001FD79 /* OpenAL.framework in Frameworks */,
 				5472F72B187DA52A0001FD79 /* QuartzCore.framework in Frameworks */,
@@ -367,9 +395,26 @@
 				54027EEE187D77150061A96E /* libcocos2dx Mac.a */,
 				54027EEF187D77150061A96E /* libcocos2dx-extensions Mac.a */,
 				54027EF0187D77150061A96E /* libCocosDenshion Mac.a */,
-				5418A74F18CAED7B000AE94A /* libjs_static.a */,
+				54131E9E18D74A32009C8BAE /* libjs_static.a */,
 			);
 			name = FrameworksMac;
+			sourceTree = "<group>";
+		};
+		5420554B18D091C6001551BF /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */,
+				549C82B2188BA41C0080E249 /* CFBPlayerAI.h */,
+				5420554718D090FA001551BF /* CFBGoalkeeperAI.cpp */,
+				5420554818D090FA001551BF /* CFBGoalkeeperAI.h */,
+				5420554C18D091DE001551BF /* CFBBackAI.cpp */,
+				5420554D18D091DE001551BF /* CFBBackAI.h */,
+				5420555018D091F5001551BF /* CFBHalfBackAI.cpp */,
+				5420555118D091F5001551BF /* CFBHalfBackAI.h */,
+				5420555418D09204001551BF /* CFBForwardAI.cpp */,
+				5420555518D09204001551BF /* CFBForwardAI.h */,
+			);
+			name = AI;
 			sourceTree = "<group>";
 		};
 		542EC2DC1880FC1700EB100C /* Layers */ = {
@@ -405,6 +450,17 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		5436BB0918D35DDD005FBF60 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */,
+				5436BB0B18D35E0A005FBF60 /* CFBInstruction.h */,
+				5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */,
+				5436BB0F18D35E4F005FBF60 /* CFBPassBallIns.h */,
+			);
+			name = Instructions;
+			sourceTree = "<group>";
+		};
 		543D49B618815D1E0076C7EB /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +483,8 @@
 				54C1EBC018963EA000DC5E0F /* CSpriteEx.h */,
 				5408321918976BBB00B0E101 /* CFlip3DEx.cpp */,
 				5408321A18976BBB00B0E101 /* CFlip3DEx.h */,
+				54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */,
+				54E630B218D58FAB0033E43A /* CFBAnimationLayer.h */,
 			);
 			name = CocosExt;
 			sourceTree = "<group>";
@@ -434,6 +492,8 @@
 		544955EE187F8862002FB29B /* FootBallGamePlay */ = {
 			isa = PBXGroup;
 			children = (
+				5436BB0918D35DDD005FBF60 /* Instructions */,
+				5420554B18D091C6001551BF /* AI */,
 				54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */,
 				54FC876218A3AAC100A320EC /* CFBPitchGrid.h */,
 				544955EF187F8924002FB29B /* CFBPitch.cpp */,
@@ -444,8 +504,6 @@
 				54D375CC188923AC008BA6BB /* CFBTeam.h */,
 				54D375CF1889284F008BA6BB /* CFBFormation.cpp */,
 				54D375D01889284F008BA6BB /* CFBFormation.h */,
-				549C82B1188BA41C0080E249 /* CFBPlayerAI.cpp */,
-				549C82B2188BA41C0080E249 /* CFBPlayerAI.h */,
 				544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */,
 				544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */,
 				545BC7D418AA0660001DD728 /* FBDefs.cpp */,
@@ -527,6 +585,7 @@
 		5484C1C9187D0E2A00AA8AFB /* FrameworksIOS */ = {
 			isa = PBXGroup;
 			children = (
+				54131EA818D7DF1F009C8BAE /* libjs_static.a */,
 				54764CAE18CB260B00C551CB /* libsqlite3.dylib */,
 				54027EE1187D72C50061A96E /* libjansson.a */,
 				54027EE2187D72C50061A96E /* libpomelo.a */,
@@ -534,7 +593,6 @@
 				54027ED3187D721F0061A96E /* libcocos2dx iOS.a */,
 				54027ED4187D721F0061A96E /* libcocos2dx-extensions iOS.a */,
 				54027ED5187D721F0061A96E /* libCocosDenshion iOS.a */,
-				5418A74D18CAED65000AE94A /* libjs_static.a */,
 				54764CAC18CB25F200C551CB /* libjsbindings iOS.a */,
 				54F159CE1884DD08008AF575 /* CoreMotion.framework */,
 				54027EDF187D726E0061A96E /* OpenAL.framework */,
@@ -807,6 +865,7 @@
 				544B6E2B188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,
 				5484C240187D1D4B00AA8AFB /* main.m in Sources */,
 				5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */,
+				5436BB1018D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */,
 				542650B6187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BC187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */,
@@ -819,22 +878,28 @@
 				54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */,
 				543D49AE18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
 				543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */,
+				5420555218D091F5001551BF /* CFBHalfBackAI.cpp in Sources */,
 				543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
+				5420554918D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */,
 				54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */,
 				543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				54764CB318CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */,
 				5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */,
+				5436BB0C18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */,
 				543D49C218815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */,
+				54E630B318D58FAB0033E43A /* CFBAnimationLayer.cpp in Sources */,
 				54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */,
 				54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
+				5420554E18D091DE001551BF /* CFBBackAI.cpp in Sources */,
 				54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
+				5420555618D09204001551BF /* CFBForwardAI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,10 +922,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54C9E25D18D5921000EF55A5 /* CFBAnimationLayer.cpp in Sources */,
+				5436BB0D18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */,
 				5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */,
+				5420555318D091F5001551BF /* CFBHalfBackAI.cpp in Sources */,
 				5484C238187D1D3B00AA8AFB /* main.cpp in Sources */,
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */,
+				5420554F18D091DE001551BF /* CFBBackAI.cpp in Sources */,
 				542650BD187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */,
@@ -872,6 +941,7 @@
 				543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
+				5420554A18D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */,
 				54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */,
 				543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,
@@ -881,11 +951,13 @@
 				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,
 				54C1EBC218963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				5418A74C18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */,
+				5420555718D09204001551BF /* CFBForwardAI.cpp in Sources */,
 				54D375CA1889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
 				5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */,
 				54D375CE188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */,
+				5436BB1118D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */,
 				549C82B4188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -948,20 +1020,21 @@
 					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/base\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/physics\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/gui\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/scripting/javascript/bindings\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
+					"\"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/bindings/manual\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -992,21 +1065,22 @@
 					"\"$(SRCROOT)/../../cocos2d-x/cocos\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/base\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/physics\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath/include\"",
+					"\"$(SRCROOT)/../../cocos2d-x/cocos/math/kazmath\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/gui\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/network\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/audio/include\"",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/editor-support\"",
-					"\"$(SRCROOT)/../../cocos2d-x/cocos/scripting/javascript/bindings\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/chipmunk/include/chipmunk\"",
+					"\"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/bindings/manual\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -1026,7 +1100,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/include/ios",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -1035,14 +1109,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/libs",
 					"$(SRCROOT)/../../libpomelo/lib",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/ios",
-					"/Users/matakashi/Documents/Project/FootBallX/FootBallXClient/cocos2d-x/libs",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/ios",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1060,7 +1134,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/ios",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/include/ios",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -1069,14 +1143,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/libs",
 					"$(SRCROOT)/../../libpomelo/lib",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/ios",
-					"/Users/matakashi/Documents/Project/FootBallX/FootBallXClient/cocos2d-x/libs",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/ios",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1166,14 +1240,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac\"",
+					"\"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/include/mac\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/libsMac",
 					"$(SRCROOT)/../../libpomelo/libMac",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/mac",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
@@ -1182,6 +1256,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1207,14 +1282,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../cocos2d-x/cocos/2d/platform/mac\"",
 					"\"$(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac\"",
-					"\"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac\"",
+					"\"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/include/mac\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../cocos2d-x/libsMac",
 					"$(SRCROOT)/../../libpomelo/libMac",
-					"$(SRCROOT)/../../cocos2d-x/external/spidermonkey/prebuilt/mac",
+					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
@@ -1223,6 +1298,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

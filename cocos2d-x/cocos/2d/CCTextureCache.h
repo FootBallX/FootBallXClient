@@ -37,7 +37,7 @@ THE SOFTWARE.
 #include <unordered_map>
 #include <functional>
 
-#include "CCObject.h"
+#include "CCRef.h"
 #include "CCTexture2D.h"
 #include "platform/CCImage.h"
 
@@ -61,7 +61,7 @@ NS_CC_BEGIN
 * Once the texture is loaded, the next time it will return
 * a reference of the previously loaded texture reducing GPU & CPU memory
 */
-class CC_DLL TextureCache : public Object
+class CC_DLL TextureCache : public Ref
 {
 public:
     /** Returns the shared instance of the cache */
@@ -106,7 +106,7 @@ public:
     * If the filename was not previously loaded, it will create a new Texture2D
     *  object and it will return it. It will use the filename as a key.
     * Otherwise it will return a reference of a previously loaded image.
-    * Supported image extensions: .png, .bmp, .tiff, .jpeg, .pvr, .gif
+    * Supported image extensions: .png, .bmp, .tiff, .jpeg, .pvr
     */
     Texture2D* addImage(const std::string &filepath);
 
@@ -133,6 +133,14 @@ public:
     */
     Texture2D* getTextureForKey(const std::string& key) const;
     CC_DEPRECATED_ATTRIBUTE Texture2D* textureForKey(const std::string& key) const { return getTextureForKey(key); }
+
+    /** Reload texture from the image file
+    * If the file image hasn't loaded before, load it.
+    * Otherwise the texture will be reloaded from the file image.
+    * The "filenName" parameter is the related/absolute path of the file image.
+    * Return true if the reloading is succeed, otherwise return false.
+    */
+    bool reloadTexture(const std::string& fileName);
 
     /** Purges the dictionary of loaded textures.
     * Call this method if you receive the "Memory Warning"
@@ -163,7 +171,7 @@ public:
     *
     * @since v1.0
     */
-    void dumpCachedTextureInfo() const;
+    std::string getCachedTextureInfo() const;
 
     //wait for texture cahe to quit befor destroy instance
     //called by director, please do not called outside

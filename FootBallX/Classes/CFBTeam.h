@@ -33,6 +33,7 @@ public:
     virtual bool changeFormation(FBDefs::FORMATION formationId);
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
+    virtual void setAttacking(bool attacking) { m_state = attacking ? FBDefs::TEAM_STATE::ATTACKING : FBDefs::TEAM_STATE::DEFENDING; }
     
     virtual const vector<CFBPlayer*>& getTeamMembers() const { return m_teamMembers; }
     
@@ -42,6 +43,13 @@ public:
     virtual int getAssistantPlayer() const { return m_assistantPlayerId; }
     virtual void setActivePlayer(int p) { m_activePlayerId = p; }
     virtual void setAssistantPlayer(int p) { m_assistantPlayerId = p; }
+    
+    virtual void updateFieldStatusOnAttack();
+    virtual void updateFieldStatusOnDefend();
+    
+    virtual bool canShootDirectly(CFBPlayer* player);
+    virtual int getNumberOfDefenderBetweenPlayerAndBall(CFBPlayer* player);
+    virtual int getNumberOfDefenderAroundPlayer(CFBPlayer* player);
 protected:
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
     vector<CFBPlayer*> m_teamMembers;

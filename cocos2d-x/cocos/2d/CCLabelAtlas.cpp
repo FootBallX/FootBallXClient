@@ -38,20 +38,36 @@ THE SOFTWARE.
 #include "platform/CCFileUtils.h"
 // external
 #include "kazmath/GL/matrix.h"
+#include "CCString.h"
 
 NS_CC_BEGIN
 
 //CCLabelAtlas - Creation & Init
 
+LabelAtlas* LabelAtlas::create()
+{
+    LabelAtlas* ret = new LabelAtlas();
+    if (ret)
+    {
+        ret->autorelease();
+    }
+    else
+    {
+        CC_SAFE_RELEASE_NULL(ret);
+    }
+    
+    return ret;
+}
+
 LabelAtlas* LabelAtlas::create(const std::string& string, const std::string& charMapFile, int itemWidth, int itemHeight, int startCharMap)
 {
-    LabelAtlas *pRet = new LabelAtlas();
-    if(pRet && pRet->initWithString(string, charMapFile, itemWidth, itemHeight, startCharMap))
+    LabelAtlas* ret = new LabelAtlas();
+    if(ret && ret->initWithString(string, charMapFile, itemWidth, itemHeight, startCharMap))
     {
-        pRet->autorelease();
-        return pRet;
+        ret->autorelease();
+        return ret;
     }
-    CC_SAFE_DELETE(pRet);
+    CC_SAFE_DELETE(ret);
     return nullptr;
 }
 
@@ -208,6 +224,24 @@ void LabelAtlas::setString(const std::string &label)
 const std::string& LabelAtlas::getString(void) const
 {
     return _string;
+}
+
+void LabelAtlas::updateColor()
+{
+    if (_textureAtlas)
+    {
+        Color4B color4( _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity );
+        auto quads = _textureAtlas->getQuads();
+        ssize_t length = _string.length();
+        for (int index = 0; index < length; index++)
+        {
+            quads[index].bl.colors = color4;
+            quads[index].br.colors = color4;
+            quads[index].tl.colors = color4;
+            quads[index].tr.colors = color4;
+            _textureAtlas->updateQuad(&quads[index], index);
+        }
+    }
 }
 
 //CCLabelAtlas - draw

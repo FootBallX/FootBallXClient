@@ -295,7 +295,7 @@ void CBaseLayer::addCloseButton()
 }
 
 
-void CBaseLayer::menuCloseCallback(Object* pSender)
+void CBaseLayer::menuCloseCallback(Ref* pSender)
 {
     Director::getInstance()->end();
     

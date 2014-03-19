@@ -26,11 +26,11 @@ public:
     virtual bool init();
     
     //CCBSelectorResolver
-    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName) ;
-    virtual Control::Handler onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName) ;
+    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) ;
+    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) ;
     
     //CCBMemberVariableAssigner
-    virtual bool onAssignCCBMemberVariable(Object * pTarget, const char* pMemberVariableName, Node * pNode);
+    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode);
     
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
 protected:
@@ -41,8 +41,8 @@ protected:
     EditBox* m_password = nullptr;
 
     
-    virtual void onLogin(Object* sender, Control::EventType event);
-    virtual void onCancel(Object* sender, Control::EventType event);
+    virtual void onLogin(Ref* sender, Control::EventType event);
+    virtual void onCancel(Ref* sender, Control::EventType event);
 
     void connectToConnector(const char* ip, int port);
     void getPlayerInfo(void);

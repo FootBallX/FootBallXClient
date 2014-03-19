@@ -1,6 +1,6 @@
 #include "CFBCardJSBinds.hpp"
 #include "cocos2d_specifics.hpp"
-#include "CFBCardManager.h"
+#include "CFBCard.h"
 
 enum CARD_PROP
 {
@@ -20,7 +20,7 @@ enum CARD_PROP
 };
 
 
-static JSBool
+static bool
 card_getProperty(JSContext *cx, JS::Handle<JSObject*> obj, JS::Handle<jsid> id, JS::MutableHandle<JS::Value> vp)
 {
     jsval property;
@@ -45,15 +45,14 @@ card_getProperty(JSContext *cx, JS::Handle<JSObject*> obj, JS::Handle<jsid> id, 
             case CARD_PROP::AIR: vp.set(DOUBLE_TO_JSVAL(ptr->m_airSkill)); break;
         }
     }
-    return JS_TRUE;
+    return true;
 }
 
 
-
 template<class T>
-static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
+static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
     JS::RootedValue initializing(cx);
-    JSBool isNewValid = JS_TRUE;
+    bool isNewValid = true;
 	if (isNewValid)
 	{
 		TypeTest<T> t;
@@ -69,68 +68,106 @@ static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 		js_proxy_t *pp = jsb_new_proxy(cobj, _tmp);
 		JS_AddObjectRoot(cx, &pp->obj);
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
-		return JS_TRUE;
+		return true;
 	}
 
-    return JS_FALSE;
+    return false;
 }
 
-static JSBool empty_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
-	return JS_FALSE;
+static bool empty_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
+	return false;
 }
 
+//static bool js_is_native_obj(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp)
+//{
+//	vp.set(BOOLEAN_TO_JSVAL(true));
+//	return true;	
+//}
 JSClass  *jsb_CFBCard_class;
 JSObject *jsb_CFBCard_prototype;
 
-JSBool js_CFBCardJSBinds_CFBCard_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_CFBCardJSBinds_CFBCard_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	jsval *argv = JS_ARGV(cx, vp);
-	JSBool ok = JS_TRUE;
-	if (argc == 13) {
-		std::string arg0;
-		int arg1;
-		double arg2;
-		double arg3;
-		double arg4;
-		double arg5;
-		double arg6;
-		double arg7;
-		double arg8;
-		double arg9;
-		double arg10;
-		double arg11;
-		double arg12;
-		ok &= jsval_to_std_string(cx, argv[0], &arg0);
-		ok &= jsval_to_int32(cx, argv[1], (int32_t *)&arg1);
-		ok &= JS_ValueToNumber(cx, argv[2], &arg2);
-		ok &= JS_ValueToNumber(cx, argv[3], &arg3);
-		ok &= JS_ValueToNumber(cx, argv[4], &arg4);
-		ok &= JS_ValueToNumber(cx, argv[5], &arg5);
-		ok &= JS_ValueToNumber(cx, argv[6], &arg6);
-		ok &= JS_ValueToNumber(cx, argv[7], &arg7);
-		ok &= JS_ValueToNumber(cx, argv[8], &arg8);
-		ok &= JS_ValueToNumber(cx, argv[9], &arg9);
-		ok &= JS_ValueToNumber(cx, argv[10], &arg10);
-		ok &= JS_ValueToNumber(cx, argv[11], &arg11);
-		ok &= JS_ValueToNumber(cx, argv[12], &arg12);
-		JSB_PRECONDITION2(ok, cx, JS_FALSE, "js_CFBCardJSBinds_CFBCard_constructor : Error processing arguments");
-		CFBCard* cobj = new CFBCard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
-		TypeTest<CFBCard> t;
-		js_type_class_t *typeClass = nullptr;
-		std::string typeName = t.s_name();
-		auto typeMapIter = _js_global_type_map.find(typeName);
-		CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-		typeClass = typeMapIter->second;
-		CCASSERT(typeClass, "The value is null.");
-		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
-		// link the native object with the javascript object
-		js_proxy_t* p = jsb_new_proxy(cobj, obj);
-		return JS_TRUE;
-	}
+	bool ok = true;
 
-	JS_ReportError(cx, "js_CFBCardJSBinds_CFBCard_constructor : wrong number of arguments: %d, was expecting %d", argc, 13);
-	return JS_FALSE;
+	JSObject *obj = NULL;
+	CFBCard* cobj = NULL;
+	do {
+		if (argc == 13) {
+			std::string arg0;
+			ok &= jsval_to_std_string(cx, argv[0], &arg0);
+			if (!ok) { ok = true; break; }
+			int arg1;
+			ok &= jsval_to_int32(cx, argv[1], (int32_t *)&arg1);
+			if (!ok) { ok = true; break; }
+			double arg2;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[2]), &arg2);
+			if (!ok) { ok = true; break; }
+			double arg3;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[3]), &arg3);
+			if (!ok) { ok = true; break; }
+			double arg4;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[4]), &arg4);
+			if (!ok) { ok = true; break; }
+			double arg5;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[5]), &arg5);
+			if (!ok) { ok = true; break; }
+			double arg6;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[6]), &arg6);
+			if (!ok) { ok = true; break; }
+			double arg7;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[7]), &arg7);
+			if (!ok) { ok = true; break; }
+			double arg8;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[8]), &arg8);
+			if (!ok) { ok = true; break; }
+			double arg9;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[9]), &arg9);
+			if (!ok) { ok = true; break; }
+			double arg10;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[10]), &arg10);
+			if (!ok) { ok = true; break; }
+			double arg11;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[11]), &arg11);
+			if (!ok) { ok = true; break; }
+			double arg12;
+			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[12]), &arg12);
+			if (!ok) { ok = true; break; }
+			cobj = new CFBCard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+			TypeTest<CFBCard> t;
+			js_type_class_t *typeClass = nullptr;
+			std::string typeName = t.s_name();
+			auto typeMapIter = _js_global_type_map.find(typeName);
+			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+			typeClass = typeMapIter->second;
+			CCASSERT(typeClass, "The value is null.");
+			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		}
+	} while(0);
+
+	do {
+		if (argc == 0) {
+			cobj = new CFBCard();
+			TypeTest<CFBCard> t;
+			js_type_class_t *typeClass = nullptr;
+			std::string typeName = t.s_name();
+			auto typeMapIter = _js_global_type_map.find(typeName);
+			CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+			typeClass = typeMapIter->second;
+			CCASSERT(typeClass, "The value is null.");
+			obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+			js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		}
+	} while(0);
+
+	if (cobj) {
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		return true;
+	}
+	JS_ReportError(cx, "js_CFBCardJSBinds_CFBCard_constructor : wrong number of arguments");
+	return false;
 }
 
 
@@ -165,9 +202,10 @@ void js_register_CFBCardJSBinds_CFBCard(JSContext *cx, JSObject *global) {
 	jsb_CFBCard_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	static JSPropertySpec properties[] = {
+//		{"__nativeObj", 0, JSPROP_ENUMERATE | JSPROP_PERMANENT, JSOP_WRAPPER(js_is_native_obj), JSOP_NULLWRAPPER},
         {"id", (int8_t)CARD_PROP::ID, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"type", (int8_t)CARD_PROP::TYPE, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
-        {"str", (int8_t)CARD_PROP::STR, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
+        {"strength", (int8_t)CARD_PROP::STR, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"speed", (int8_t)CARD_PROP::SPD, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"dribble", (int8_t)CARD_PROP::DRB, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"pass", (int8_t)CARD_PROP::PAS, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
@@ -181,7 +219,9 @@ void js_register_CFBCardJSBinds_CFBCard(JSContext *cx, JSObject *global) {
 		{0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
 	};
 
-	JSFunctionSpec *funcs = NULL;
+	static JSFunctionSpec funcs[] = {
+        JS_FS_END
+	};
 
 	JSFunctionSpec *st_funcs = NULL;
 
@@ -195,8 +235,9 @@ void js_register_CFBCardJSBinds_CFBCard(JSContext *cx, JSObject *global) {
 		NULL, // no static properties
 		st_funcs);
 	// make the class enumerable in the registered namespace
-	JSBool found;
-	JS_SetPropertyAttributes(cx, global, "CFBCard", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+//	bool found;
+//FIXME: Removed in Firefox v27	
+//	JS_SetPropertyAttributes(cx, global, "CFBCard", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 
 	// add the proto and JSClass to the type->js info hash table
 	TypeTest<CFBCard> t;

@@ -43,7 +43,7 @@ THE SOFTWARE.
 #include "CCProfiling.h"
 #include "CCLayer.h"
 #include "CCScene.h"
-#include "CCRenderer.h"
+#include "renderer/CCRenderer.h"
 #include "renderer/CCQuadCommand.h"
 // external
 #include "kazmath/GL/matrix.h"
@@ -99,7 +99,7 @@ bool SpriteBatchNode::initWithTexture(Texture2D *tex, ssize_t capacity)
 
     _descendants.reserve(capacity);
     
-    setShaderProgram(ShaderCache::getInstance()->getProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP));
+    setShaderProgram(ShaderCache::getInstance()->getProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR));
     return true;
 }
 
@@ -131,7 +131,7 @@ SpriteBatchNode::~SpriteBatchNode()
 
 // override visit
 // don't call visit on it's children
-void SpriteBatchNode::visit(void)
+void SpriteBatchNode::visit(Renderer *renderer, const kmMat4 &parentTransform, bool parentTransformUpdated)
 {
     CC_PROFILER_START_CATEGORY(kProfilerCategoryBatchSprite, "CCSpriteBatchNode - visit");
 
@@ -147,12 +147,20 @@ void SpriteBatchNode::visit(void)
         return;
     }
 
-    kmGLPushMatrix();
-
     sortAllChildren();
-    transform();
 
-    draw();
+    bool dirty = parentTransformUpdated || _transformUpdated;
+    if(dirty)
+        _modelViewTransform = transform(parentTransform);
+    _transformUpdated = false;
+
+    // IMPORTANT:
+    // To ease the migration to v3.0, we still support the kmGL stack,
+    // but it is deprecated and your code should not rely on it
+    kmGLPushMatrix();
+    kmGLLoadMatrix(&_modelViewTransform);
+
+    draw(renderer, _modelViewTransform, dirty);
 
     kmGLPopMatrix();
     setOrderOfArrival(0);
@@ -179,7 +187,7 @@ void SpriteBatchNode::reorderChild(Node *child, int zOrder)
     CCASSERT(child != nullptr, "the child should not be null");
     CCASSERT(_children.contains(child), "Child doesn't belong to Sprite");
 
-    if (zOrder == child->getZOrder())
+    if (zOrder == child->getLocalZOrder())
     {
         return;
     }
@@ -277,7 +285,7 @@ void SpriteBatchNode::updateAtlasIndex(Sprite* sprite, ssize_t* curIndex)
     {
         bool needNewIndex=true;
 
-        if (array.at(0)->getZOrder() >= 0)
+        if (array.at(0)->getLocalZOrder() >= 0)
         {
             //all children are in front of the parent
             oldIndex = sprite->getAtlasIndex();
@@ -294,7 +302,7 @@ void SpriteBatchNode::updateAtlasIndex(Sprite* sprite, ssize_t* curIndex)
 
         for(const auto &child: array) {
             Sprite* sp = static_cast<Sprite*>(child);
-            if (needNewIndex && sp->getZOrder() >= 0)
+            if (needNewIndex && sp->getLocalZOrder() >= 0)
             {
                 oldIndex = sprite->getAtlasIndex();
                 sprite->setAtlasIndex(*curIndex);
@@ -345,7 +353,7 @@ void SpriteBatchNode::reorderBatch(bool reorder)
     _reorderChildDirty=reorder;
 }
 
-void SpriteBatchNode::draw()
+void SpriteBatchNode::draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated)
 {
     // Optimization: Fast Dispatch
     if( _textureAtlas->getTotalQuads() == 0 )
@@ -356,18 +364,13 @@ void SpriteBatchNode::draw()
     for(const auto &child: _children)
         child->updateTransform();
 
-    kmMat4 mv;
-    kmGLGetMatrix(KM_GL_MODELVIEW, &mv);
-
-    _quadCommand.init(0,
-              _vertexZ,
-              _textureAtlas->getTexture()->getName(),
-              _shaderProgram,
-              _blendFunc,
-              _textureAtlas->getQuads(),
-              _textureAtlas->getTotalQuads(),
-              mv);
-    Director::getInstance()->getRenderer()->addCommand(&_quadCommand);
+    _batchCommand.init(
+                       _globalZOrder,
+                       _shaderProgram,
+                       _blendFunc,
+                       _textureAtlas,
+                       transform);
+    renderer->addCommand(&_batchCommand);
 }
 
 void SpriteBatchNode::increaseAtlasCapacity(void)
@@ -396,14 +399,14 @@ ssize_t SpriteBatchNode::rebuildIndexInOrder(Sprite *parent, ssize_t index)
     auto& children = parent->getChildren();
     for(const auto &child: children) {
         Sprite* sp = static_cast<Sprite*>(child);
-        if (sp && (sp->getZOrder() < 0))
+        if (sp && (sp->getLocalZOrder() < 0))
         {
             index = rebuildIndexInOrder(sp, index);
         }
     }
 
     // ignore self (batch node)
-    if (! parent->isEqual(this))
+    if (parent != static_cast<Ref*>(this))
     {
         parent->setAtlasIndex(index);
         index++;
@@ -411,7 +414,7 @@ ssize_t SpriteBatchNode::rebuildIndexInOrder(Sprite *parent, ssize_t index)
 
     for(const auto &child: children) {
         Sprite* sp = static_cast<Sprite*>(child);
-        if (sp && (sp->getZOrder() >= 0))
+        if (sp && (sp->getLocalZOrder() >= 0))
         {
             index = rebuildIndexInOrder(sp, index);
         }
@@ -492,7 +495,7 @@ ssize_t SpriteBatchNode::atlasIndexForChild(Sprite *sprite, int nZ)
     else
     {
         // previous & sprite belong to the same branch
-        if ((prev->getZOrder() < 0 && nZ < 0) || (prev->getZOrder() >= 0 && nZ >= 0))
+        if ((prev->getLocalZOrder() < 0 && nZ < 0) || (prev->getLocalZOrder() >= 0 && nZ >= 0))
         {
             return highestAtlasIndexInChild(prev) + 1;
         }
@@ -546,8 +549,9 @@ void SpriteBatchNode::removeSpriteFromAtlas(Sprite *sprite)
     {
         auto next = std::next(it);
 
+        Sprite *spr = nullptr;
         for(; next != _descendants.end(); ++next) {
-            Sprite *spr = *next;
+            spr = *next;
             spr->setAtlasIndex( spr->getAtlasIndex() - 1 );
         }
 
@@ -654,10 +658,11 @@ SpriteBatchNode * SpriteBatchNode::addSpriteWithoutQuad(Sprite*child, int z, int
     child->setAtlasIndex(z);
 
     // XXX: optimize with a binary search
-    auto it = std::begin(_descendants);
-    for(const auto &sprite: _descendants) {
-        if(sprite->getAtlasIndex() >= z)
-            std::next(it);
+    auto it = _descendants.begin();
+    for (; it != _descendants.end(); ++it)
+    {
+        if((*it)->getAtlasIndex() >= z)
+            break;
     }
 
     _descendants.insert(it, child);

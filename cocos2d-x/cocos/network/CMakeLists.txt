@@ -1,6 +1,27 @@
+if(WIN32)
+  set(PLATFORM_SRC
+    WebSocket.cpp
+  )
+
+  set(PLATFORM_LINK
+    websockets
+  )
+elseif(NOT APPLE)
+  set(PLATFORM_SRC
+    WebSocket.cpp
+  )
+
+  set(PLATFORM_LINK
+    websockets
+    ssl
+    crypto
+  )
+endif()
+
 set(NETWORK_SRC
   HttpClient.cpp
   SocketIO.cpp
+  ${PLATFORM_SRC}
 )
 
 add_library(network STATIC
@@ -9,10 +30,7 @@ add_library(network STATIC
 
 target_link_libraries(network
   curl
-  ldap
-  lber
-  idn
-  rtmp
+  ${PLATFORM_LINK}
 )
 
 set_target_properties(network

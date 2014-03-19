@@ -23,24 +23,89 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCFontAtlasCache.h"
-#include "CCFontAtlasFactory.h"
+#include <sstream>
 
+#include "CCFontAtlasCache.h"
+
+#include "CCFontFNT.h"
+#include "CCFontFreeType.h"
+#include "CCFontCharMap.h"
+#include "CCDirector.h"
 
 NS_CC_BEGIN
 
 std::unordered_map<std::string, FontAtlas *> FontAtlasCache::_atlasMap;
 
-FontAtlas * FontAtlasCache::getFontAtlasTTF(const std::string& fontFileName, int size, GlyphCollection glyphs, const char *customGlyphs, bool useDistanceField)
+void FontAtlasCache::purgeCachedData()
 {
-    std::string atlasName = generateFontName(fontFileName, size, glyphs, useDistanceField);
+    for (auto & atlas:_atlasMap)
+    {
+        atlas.second->purgeTexturesAtlas();
+    }
+}
+
+FontAtlas * FontAtlasCache::getFontAtlasTTF(const TTFConfig & config)
+{  
+    bool useDistanceField = config.distanceFieldEnabled;
+    if(config.outlineSize > 0)
+    {
+        useDistanceField = false;
+    }
+    int fontSize = config.fontSize;
+    if (useDistanceField)
+    {
+        fontSize = Label::DistanceFieldFontSize / CC_CONTENT_SCALE_FACTOR();
+    }
+
+    std::string atlasName = generateFontName(config.fontFilePath, fontSize, GlyphCollection::DYNAMIC, useDistanceField);
+    atlasName.append("_outline_");
+    std::stringstream ss;
+    ss << config.outlineSize;
+    atlasName.append(ss.str());
+
     FontAtlas  *tempAtlas = _atlasMap[atlasName];
+
+    if ( !tempAtlas )
+    {
+        FontFreeType *font = FontFreeType::create(config.fontFilePath, fontSize * CC_CONTENT_SCALE_FACTOR(), config.glyphs, config.customGlyphs,useDistanceField,config.outlineSize);
+        if (font)
+        {
+            tempAtlas = font->createFontAtlas();
+            if (tempAtlas)
+                _atlasMap[atlasName] = tempAtlas;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+    else
+    {
+        tempAtlas->retain();
+    }
+
+    return tempAtlas;
+}
+
+FontAtlas * FontAtlasCache::getFontAtlasFNT(const std::string& fontFileName, const Point& imageOffset /* = Point::ZERO */)
+{
+    std::string atlasName = generateFontName(fontFileName, 0, GlyphCollection::CUSTOM,false);
+    FontAtlas *tempAtlas = _atlasMap[atlasName];
     
     if ( !tempAtlas )
     {
-        tempAtlas = FontAtlasFactory::createAtlasFromTTF(fontFileName, size, glyphs, customGlyphs, useDistanceField);
-        if (tempAtlas)
-            _atlasMap[atlasName] = tempAtlas;
+        Font *font = FontFNT::create(fontFileName,imageOffset);
+
+        if(font)
+        {
+            tempAtlas = font->createFontAtlas();
+            if (tempAtlas)
+                _atlasMap[atlasName] = tempAtlas;
+        }
+        else
+        {
+            return nullptr;
+        }
     }
     else
     {
@@ -50,22 +115,89 @@ FontAtlas * FontAtlasCache::getFontAtlasTTF(const std::string& fontFileName, int
     return tempAtlas;
 }
 
-FontAtlas * FontAtlasCache::getFontAtlasFNT(const std::string& fontFileName)
+FontAtlas * FontAtlasCache::getFontAtlasCharMap(const std::string& plistFile)
 {
-    std::string atlasName = generateFontName(fontFileName, 0, GlyphCollection::CUSTOM,false);
+    std::string atlasName = generateFontName(plistFile, 0, GlyphCollection::CUSTOM,false);
     FontAtlas *tempAtlas = _atlasMap[atlasName];
-    
+
     if ( !tempAtlas )
     {
-        tempAtlas = FontAtlasFactory::createAtlasFromFNT(fontFileName);
-        if (tempAtlas)
-            _atlasMap[atlasName] = tempAtlas;
+        Font *font = FontCharMap::create(plistFile);
+
+        if(font)
+        {
+            tempAtlas = font->createFontAtlas();
+            if (tempAtlas)
+                _atlasMap[atlasName] = tempAtlas;
+        }
+        else
+        {
+            return nullptr;
+        }
     }
     else
     {
         tempAtlas->retain();
     }
-    
+
+    return tempAtlas;
+}
+
+FontAtlas * FontAtlasCache::getFontAtlasCharMap(Texture2D* texture, int itemWidth, int itemHeight, int startCharMap)
+{
+    char tmp[30];
+    sprintf(tmp,"name:%u_%d_%d_%d",texture->getName(),itemWidth,itemHeight,startCharMap);
+    std::string atlasName = generateFontName(tmp, 0, GlyphCollection::CUSTOM,false);
+    FontAtlas *tempAtlas = _atlasMap[atlasName];
+
+    if ( !tempAtlas )
+    {
+        Font *font = FontCharMap::create(texture,itemWidth,itemHeight,startCharMap);
+
+        if(font)
+        {
+            tempAtlas = font->createFontAtlas();
+            if (tempAtlas)
+                _atlasMap[atlasName] = tempAtlas;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+    else
+    {
+        tempAtlas->retain();
+    }
+
+    return tempAtlas;
+}
+
+FontAtlas * FontAtlasCache::getFontAtlasCharMap(const std::string& charMapFile, int itemWidth, int itemHeight, int startCharMap)
+{
+    std::string atlasName = generateFontName(charMapFile, 0, GlyphCollection::CUSTOM,false);
+    FontAtlas *tempAtlas = _atlasMap[atlasName];
+
+    if ( !tempAtlas )
+    {
+        Font *font = FontCharMap::create(charMapFile,itemWidth,itemHeight,startCharMap);
+
+        if(font)
+        {
+            tempAtlas = font->createFontAtlas();
+            if (tempAtlas)
+                _atlasMap[atlasName] = tempAtlas;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+    else
+    {
+        tempAtlas->retain();
+    }
+
     return tempAtlas;
 }
 
@@ -110,7 +242,7 @@ bool FontAtlasCache::releaseFontAtlas(FontAtlas *atlas)
         {
             if ( item.second == atlas )
             {
-                if( atlas->isSingleReference() )
+                if (atlas->getReferenceCount() == 1)
                 {
                   _atlasMap.erase(item.first);
                 }

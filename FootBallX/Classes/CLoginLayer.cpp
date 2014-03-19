@@ -35,7 +35,7 @@ CLoginLayer::~CLoginLayer()
 
 
 
-SEL_MenuHandler CLoginLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, const char* pSelectorName)
+SEL_MenuHandler CLoginLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
 //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onLogin", CLoginLayer::onLogin);
 //    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onCancel", CLoginLayer::onCancel);
@@ -43,8 +43,8 @@ SEL_MenuHandler CLoginLayer::onResolveCCBCCMenuItemSelector(Object * pTarget, co
     return nullptr;
 }
 
-//函数定义类型为：void pressTitle(Object *pSender);
-Control::Handler CLoginLayer::onResolveCCBCCControlSelector(Object * pTarget, const char* pSelectorName)
+//函数定义类型为：void pressTitle(Ref*pSender);
+Control::Handler CLoginLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
 {
     CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onLogin", CLoginLayer::onLogin);
     CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onCancel", CLoginLayer::onCancel);
@@ -52,7 +52,7 @@ Control::Handler CLoginLayer::onResolveCCBCCControlSelector(Object * pTarget, co
     return nullptr;
 }
 
-bool CLoginLayer::onAssignCCBMemberVariable(Object* pTarget, const char* pMemberVariableName, Node* pNode)
+bool CLoginLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
 {
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "m_edtUserNameLayer", Layer*, m_editUserNameLayer);
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "m_edtPasswordLayer", Layer*, m_editPasswordLayer);
@@ -95,7 +95,7 @@ bool CLoginLayer::init()
 
 
 
-void CLoginLayer::onLogin(Object* sender, Control::EventType event)
+void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
 {
     std::string ip = "127.0.0.1";
     int port = 3017;
@@ -140,7 +140,7 @@ void CLoginLayer::onLogin(Object* sender, Control::EventType event)
 
 
 
-void CLoginLayer::onCancel(Object* sender, Control::EventType event)
+void CLoginLayer::onCancel(Ref* sender, Control::EventType event)
 {
     SCENE_MANAGER->go(ST_MATCH);
 }

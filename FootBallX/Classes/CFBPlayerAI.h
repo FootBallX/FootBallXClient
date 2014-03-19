@@ -15,7 +15,6 @@
 class CFBPlayer;
 class CFBFormation;
 
-#pragma mark ----- AI Base
 
 class CFBPlayerAI
 {
@@ -43,14 +42,27 @@ public:
     virtual void initPlayerStates();
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
+
+    virtual int getPassBallScore() const { return m_passBallScore; }
+    
+    virtual void setPassBallScore(int s) { m_passBallScore = s; }
+    
+    virtual void increasePassBallScore(int inc);
+protected:
+    virtual void thinkControlBall();        // AI控制，带球球员的AI
+    virtual void thinkNoBall();             // 无求跑位，这个函数再调用进攻和防守的无球跑动函数
+    virtual void thinkNoBallOnAttacking();  // 进攻时，无球队员AI
+    virtual void thinkNoBallOnDefending();  // 防守时，无球队员AI
     
     virtual void thinkHomePosition() = 0;
-    
     virtual void thinkDefending();
     
-//    virtual void influenceGrid();
-protected:
-    virtual void updatePlayerStates();
+    virtual void thinkDribbleBall();
+    virtual void thinkPassBall();
+    
+    virtual void updateAIControlBall(float dt);
+    
+    virtual void updatePlayerStates();  // TODO: 这个函数基本没用，应该和think函数合并。
     virtual bool isOnPosition(const Point& pos);
     virtual void applyStateCD() { m_changeStateCD = 1.f; }
     virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
@@ -66,6 +78,10 @@ protected:
     float m_defendOrbitRadiusx2Sq;
     
     FBDefs::AI_STATE m_state = FBDefs::AI_STATE::NONE;
+    FBDefs::AI_STATE_CONTROL m_controlState = FBDefs::AI_STATE_CONTROL::NONE;
+    
+    Point m_moveToTarget;
+    
     float m_changeStateCD = 0.f;
     float m_waitTime = 0.f;
     
@@ -76,86 +92,6 @@ protected:      // ai logic functions
     virtual void chaseBall(float dt);
 };
 
-#pragma mark ----- GoalKeeper AI
 
-class CFBGoalkeeperAI
-: public CFBPlayerAI
-{
-public:
-    CFBGoalkeeperAI() = default;
-    virtual ~CFBGoalkeeperAI() = default;
-    
-    virtual void update(float dt) override;
-    
-protected:
-    virtual void thinkHomePosition() override;
-    virtual void updatePlayerStates() override;
-    virtual void initPlayerStates() override;
-};
-
-#pragma mark ----- Back AI
-
-class CFBBackAI
-: public CFBPlayerAI
-{
-public:
-    CFBBackAI() = default;
-    virtual ~CFBBackAI() = default;
-    
-    virtual void update(float dt) override;
-    
-protected:
-    virtual void thinkHomePosition() override;
-    virtual void updatePlayerStates() override;
-    virtual void initPlayerStates() override;
-    
-};
-
-#pragma mark ----- Half back AI
-
-class CFBHalfBackAI
-: public CFBPlayerAI
-{
-public:
-    CFBHalfBackAI() = default;
-    virtual ~CFBHalfBackAI() = default;
-
-    virtual void update(float dt) override;
-    
-    virtual void initPlayerStates() override;
-    
-protected:
-    virtual void thinkHomePosition() override;
-    virtual void updatePlayerStates() override;
-    
-};
-
-#pragma mark ----- Forward AI
-
-class CFBForwardAI
-: public CFBPlayerAI
-{
-public:
-    CFBForwardAI() = default;
-    virtual ~CFBForwardAI() = default;
-
-    virtual void update(float dt) override;
-    
-protected:
-    virtual void thinkHomePosition() override;
-    virtual void updatePlayerStates() override;
-    virtual void initPlayerStates() override;
-    
-    // suport
-    enum class SUPPORT_STATE
-    {
-        FIND_POS,
-        MOVE_TO_POS,
-    } m_supportState = SUPPORT_STATE::FIND_POS;
-    
-    virtual void updateSupport(float dt);
-    
-    Point m_moveToTarget;
-};
 
 #endif /* defined(__FootBallX__CFBPlayerAI__) */

@@ -8,7 +8,8 @@
 
 #include "CFBMatch.h"
 #include "CFBPitch.h"
-
+#include "CFBFunctionsJS.h"
+#include "CFBInstruction.h"
 
 IMPLEMENT_SINGLETON(CFBMatch);
 
@@ -68,12 +69,18 @@ CFBTeam* CFBMatch::getTeam(FBDefs::SIDE side)
 
 void CFBMatch::update(float dt)
 {
-    for (auto x : m_teams)
+    if (!m_isPause)
     {
-        x->update(dt);
+        for (auto x : m_teams)
+        {
+            x->update(dt);
+        }
     }
     
-    checkEncounter(dt);
+    if (m_currentInstruction != nullptr)
+    {
+        m_currentInstruction->update(dt);
+    }
 }
 
 
@@ -170,6 +177,20 @@ void CFBMatch::setOnDefMenuCallback(function<void(const vector<int>&)> cb)
 
 
 
+void CFBMatch::setOnPlayAnimationCallback(function<void(const string& name, float delay)> cb)
+{
+    m_onPlayAnimation = cb;
+}
+
+
+
+void CFBMatch::pauseGame(bool p)
+{
+    m_isPause = p;
+}
+
+
+
 bool CFBMatch::checkEncounter(float dt)
 {
     m_encounterTime -= dt;
@@ -226,5 +247,93 @@ bool CFBMatch::checkEncounter(float dt)
     return false;
 }
 
+
+
+void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
+{
+    CC_ASSERT(from->m_ownerTeam == to->m_ownerTeam);
+    auto& team = from->m_ownerTeam;
+    auto size = team->getSide();
+    auto pitch = FBMATCH->getPitch();
+    auto otherSide = pitch->getOtherSide(size);
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto& otherTeamMembers = otherTeam->getTeamMembers();
+    
+    m_currentInstruction = INS_FAC->getPassBallIns();
+    m_currentInstruction->addPlayer(from);
+    
+    vector<pair<float, CFBPlayer*>> involvePlayers;
+    
+    for (auto player : otherTeamMembers)
+    {
+        if (player->m_isOnDuty && !player->m_isGoalKeeper)
+        {
+            if (FBDefs::isPointOnTheWay(from->m_curPosition, to->m_curPosition, player->m_curPosition))
+            {
+                float dist = from->m_curPosition.getDistanceSq(player->m_curPosition);
+                involvePlayers.push_back(pair<float, CFBPlayer*>(dist, player));
+            }
+        }
+    }
+    
+    m_eventState = FBDefs::MATCH_EVENT_STATE::PASS_BALL;
+    std::sort(involvePlayers.begin(), involvePlayers.end(),
+              [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
+              {
+                  return o1.first < o2.first;
+              });
+    
+    for (auto a : involvePlayers)
+    {
+        m_currentInstruction->addPlayer(a.second);
+    }
+    
+    m_currentInstruction->addPlayer(to);
+    
+    m_currentInstruction->start(bind(&CFBMatch::onInstructionEnd, this));
+    
+    pauseGame(true);
+}
+
+
+
+//void CFBMatch::updatePassBall(float dt)
+//{
+//    if (m_involvePlayers.size() == 0)
+//    {
+//        m_eventFromRole->m_ownerTeam->passBall(m_eventToRole->m_positionInFormation);
+//    }
+//    else
+//    {
+//        for (auto p : m_involvePlayers)
+//        {
+//            auto player = p.second;
+//            float rate = FB_FUNC_JS->compute(m_eventFromRole->getPlayerCard(), player->getPlayerCard());
+//            if (rate < 50)
+//            {
+//                m_eventFromRole->m_ownerTeam->passBall(m_eventToRole->m_positionInFormation);
+//                break;
+//            }
+//        }
+//    }
+//}
+
+
+
+void CFBMatch::onInstructionEnd()
+{
+    pauseGame(false);
+    m_currentInstruction = nullptr;
+}
+
+
+
+void CFBMatch::playAnimation(const string& name, float delay)
+{
+    if (m_onPlayAnimation)
+    {
+        m_onPlayAnimation(name, delay);
+    }
+}
 
 

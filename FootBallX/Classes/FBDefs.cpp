@@ -51,7 +51,7 @@ namespace FBDefs
     }
     
     
-    bool isPlayersOnTheWay(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid)
+    bool isPlayersOnTheWayToGoal(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid)
     {        
         const kmMat3& mat = grid->m_shootLineMat;
         kmVec2 vP;

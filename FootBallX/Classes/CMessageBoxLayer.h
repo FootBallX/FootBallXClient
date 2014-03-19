@@ -40,7 +40,7 @@ public:
     virtual void doModal();
     virtual void closeModal();
 protected:
-    virtual void onButtonClicked(Object* sender, Control::EventType type);
+    virtual void onButtonClicked(Ref* sender, Control::EventType type);
     virtual void adjustBoxSize();
     
     function<bool(int)> m_callback;

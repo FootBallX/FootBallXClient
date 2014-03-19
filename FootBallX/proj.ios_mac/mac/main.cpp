@@ -23,14 +23,15 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "CCEGLView.h"
+//#include "CCEGLView.h"
 
 USING_NS_CC;
 
 int main(int argc, char *argv[])
 {
+//    AppDelegate app;
+//    EGLView eglView;
+//    eglView.init("FootBallX", 960, 640);
     AppDelegate app;
-    EGLView eglView;
-    eglView.init("FootBallX", 960, 640);
     return Application::getInstance()->run();
 }
