@@ -42,7 +42,7 @@ function StartDribble(o1)
 
 function StartPassBall(o1)
 {
-    PlayAnimation("g_daiqiu.ccbi", 0);
+    PlayAnimation("ground_daiqiu.ccbi", 0);
     ballSpeed = 100;
     type = 0;
     return;
@@ -55,12 +55,12 @@ function TackleBall(o1, o2)
 {
     if (Rand() % 1000 > 500)
     {
-        PlayAnimation("g_tackle.ccbi", 0);
+        PlayAnimation("ground_chanqiu_success.ccbi", 0);
         return true;
     }
     else
     {
-        PlayAnimation("g_tackle.ccbi", 0);
+        PlayAnimation("ground_chanqiu_failed.ccbi", 0);
         return false;
     }
 }
@@ -83,6 +83,6 @@ function BlockBall(o1, o2)
 
 function RecieveBall(o1)
 {
-    PlayAnimation("g_recive.ccbi", 0);
+    PlayAnimation("ground_tingqiu.ccbi", 0);
 	return;
 }
