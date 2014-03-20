@@ -5,7 +5,7 @@
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>0</integer>
+	<integer>7</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>fileType</key>
@@ -89,7 +89,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Animation/1.png</string>
+							<string>Animation_ground/ground_fengdu_randomball.png</string>
 						</array>
 					</dict>
 				</array>
@@ -304,7 +304,7 @@
 							<integer>0</integer>
 						</dict>
 						<key>time</key>
-						<real>1</real>
+						<real>3</real>
 						<key>type</key>
 						<integer>10</integer>
 						<key>value</key>
@@ -320,13 +320,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>1</real>
+			<real>3</real>
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>1</real>
+			<real>3</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
