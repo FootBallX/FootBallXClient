@@ -1249,7 +1249,7 @@
 					"$(SRCROOT)/../../libpomelo/libMac",
 					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
@@ -1291,7 +1291,7 @@
 					"$(SRCROOT)/../../libpomelo/libMac",
 					"$(SRCROOT)/../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lz",
