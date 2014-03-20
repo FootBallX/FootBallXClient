@@ -304,11 +304,7 @@
 							<integer>0</integer>
 						</dict>
 						<key>time</key>
-<<<<<<< HEAD:FootBallX/Assets/CCB/FootBallX/Resources/air_zaoyu.ccb
 						<real>3</real>
-=======
-						<real>1</real>
->>>>>>> ce2e02cc4d863548f3faf784bdac67b8513498f4:FootBallX/Assets/CCB/FootBallX/Resources/g_daiqiu.ccb
 						<key>type</key>
 						<integer>10</integer>
 						<key>value</key>
@@ -324,21 +320,13 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-<<<<<<< HEAD:FootBallX/Assets/CCB/FootBallX/Resources/air_zaoyu.ccb
 			<real>3</real>
-=======
-			<real>1</real>
->>>>>>> ce2e02cc4d863548f3faf784bdac67b8513498f4:FootBallX/Assets/CCB/FootBallX/Resources/g_daiqiu.ccb
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-<<<<<<< HEAD:FootBallX/Assets/CCB/FootBallX/Resources/air_zaoyu.ccb
 			<real>3</real>
-=======
-			<real>1</real>
->>>>>>> ce2e02cc4d863548f3faf784bdac67b8513498f4:FootBallX/Assets/CCB/FootBallX/Resources/g_daiqiu.ccb
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
