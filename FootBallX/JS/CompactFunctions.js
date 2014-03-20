@@ -4,7 +4,7 @@
 // PlayAnimation(ccbi_name, delay);     // 播放动画，参数1是动画的ccbi文件名，delay是以秒为单位，表示动画播放的延迟开始时间。
 
 var ballSpeed = 0;  // 球减速修正,需要在适当的时候初始化
-
+var type = 0;       // 0 传球，1 盘带
 
 
 function GetSpeed(o1)
@@ -35,19 +35,25 @@ function ComputePassBallSuccessRate(o1, o2)
 }
 
 
+function StartDribble(o1)
+{
+    type = 1;
+}
 
 function StartPassBall(o1)
 {
     PlayAnimation("g_daiqiu.ccbi", 0);
+    ballSpeed = 100;
+    type = 0;
     return;
 }
 
 
 
-
+// 铲球
 function TackleBall(o1, o2)
 {
-    if (RAnd() % 100 > 50)  // 铲球成功
+    if (Rand() % 1000 > 500)
     {
         PlayAnimation("g_tackle.ccbi", 0);
         return true;
@@ -60,14 +66,14 @@ function TackleBall(o1, o2)
 }
 
 
-
+// 拦截
 function InterceptBall(o1, o2)
 {
 	return true;
 }
 
 
-
+// 封堵
 function BlockBall(o1, o2)
 {
 	return true;
