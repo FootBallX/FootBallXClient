@@ -9,18 +9,33 @@
 #include "CFBPassBallIns.h"
 #include "CFBFunctionsJS.h"
 #include "CFBPlayer.h"
+#include "CFBMatch.h"
 
 void CFBPassBallIns::start(function<CALLBACK_TYPE> callback)
 {
     CC_ASSERT(m_players.size() >= 2);
     
     CFBInstruction::start(callback);
+
+    checkAirBall();
+    
     auto player = m_players[0];
     auto& o1 = player->getPlayerCard();
-    FB_FUNC_JS->startPassBall(o1);
+    FB_FUNC_JS->startPassBall(o1, m_isAirBall);
     m_animationPlaying = true;
     m_step = 1;
     m_success = true;
+
+}
+
+
+
+void CFBPassBallIns::checkAirBall()
+{
+    auto player = m_players[m_players.size() - 1];
+    auto pitch = FBMATCH->getPitch();
+    auto side = player->m_ownerTeam->getSide();
+    m_isAirBall = pitch->isInPenaltyArea(player->m_curPosition, pitch->getOtherSide(side));
 }
 
 
@@ -44,7 +59,7 @@ void CFBPassBallIns::update(float dt)
             {
                 auto player = m_players[m_step];
                 auto& o1 = player->getPlayerCard();
-                FB_FUNC_JS->recieveBall(o1);
+                FB_FUNC_JS->receiveBall(o1);
                 m_animationPlaying = true;
                 m_step++;
                 
@@ -66,7 +81,7 @@ void CFBPassBallIns::update(float dt)
             {
                 auto player = m_players[m_step - 1];
                 auto& o1 = player->getPlayerCard();
-                FB_FUNC_JS->recieveBall(o1);    // TODO: 这里可能要用个专门的抢到球的函数
+                FB_FUNC_JS->receiveBall(o1);    // TODO: 这里可能要用个专门的抢到球的函数
                 m_animationPlaying = true;
                 m_step = (int)count;
                 

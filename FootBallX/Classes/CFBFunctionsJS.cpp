@@ -104,54 +104,45 @@ jsval CFBFunctionsJS::createJsvalFromCard(const CFBCard& co)
 }
 
 
-jsval CFBFunctionsJS::callJSFunc2Obj(const char* name, const CFBCard& c1, const CFBCard& c2)
+
+jsval CFBFunctionsJS::callJSFunc(const char* name, const char* format, ...)
 {
-    jsval res;
-    jsval argv[2];
-    argv[0] = createJsvalFromCard(c1);
-    argv[1] = createJsvalFromCard(c2);
-
-    JSAutoCompartment ac(_cx, _go);
-    JS_CallFunctionName(_cx, _go, name, 2, argv, &res);
-
-    auto sc = ScriptingCore::getInstance();
-    sc->forceGC(_cx, 0, nullptr);
-    return res ;
-}
-
-
-
-jsval CFBFunctionsJS::callJSFunc1Obj(const char *name, const CFBCard& c1)
-{
-    jsval res;
-    jsval argv[1];
-    argv[0] = createJsvalFromCard(c1);
-    
-    JSAutoCompartment ac(_cx, _go);
-    JS_CallFunctionName(_cx, _go, name, 1, argv, &res);
-    
-    auto sc = ScriptingCore::getInstance();
-    sc->forceGC(_cx, 0, nullptr);
-    return res ;
-}
-
-
-
-jsval CFBFunctionsJS::callJSFunc(const char *name, int count, ...)
-{
-    ScriptingCore* sc = ScriptingCore::getInstance();
-    int argc = count;
-    jsval res;
-    jsval *argv = new jsval[count];
+    int count = (int)strlen(format);
+    jsval* argv = new jsval[count];
     va_list insvalist;
-    va_start(insvalist,count);
+    va_start(insvalist, format);
     for (int i = 0; i < count; ++i)
     {
-        argv[i] = std_string_to_jsval(sc->getGlobalContext(),std::string(va_arg(insvalist,const char *)));
+        switch (format[i])
+        {
+            case 'j': // jsval
+                argv[i] = va_arg(insvalist, jsval);
+                break;
+            case 'b':   // bool
+                argv[i] = BOOLEAN_TO_JSVAL(va_arg(insvalist, int));
+                break;
+            case 'd':   // int
+                argv[i] = INT_TO_JSVAL(va_arg(insvalist, int));
+                break;
+            case 'f':   //float
+                argv[i] = DOUBLE_TO_JSVAL(va_arg(insvalist, double));
+                break;
+            case 's':   // c style string
+                argv[i] = c_string_to_jsval(_cx, va_arg(insvalist, const char*));
+                break;
+            default:
+                CC_ASSERT(false);
+        }
     }
-    va_end(insvalist) ;
-    JS_CallFunctionName(sc->getGlobalContext(), sc->getGlobalObject(), name, argc, argv, &res);
-    delete [] argv;
+    va_end(insvalist);
+    
+    
+    jsval res;
+    JSAutoCompartment ac(_cx, _go);
+    JS_CallFunctionName(_cx, _go, name, count, argv, &res);
+    
+    auto sc = ScriptingCore::getInstance();
+    sc->forceGC(_cx, 0, nullptr);
     return res ;
 }
 
@@ -159,7 +150,7 @@ jsval CFBFunctionsJS::callJSFunc(const char *name, int count, ...)
 
 float CFBFunctionsJS::getSpeed(const CFBCard& co)
 {
-    auto res = callJSFunc1Obj("GetSpeed", co);
+    auto res = callJSFunc("GetSpeed", "j", createJsvalFromCard(co));
     if (JSVAL_IS_DOUBLE(res))
     {
         return (float)JSVAL_TO_DOUBLE(res);
@@ -170,16 +161,16 @@ float CFBFunctionsJS::getSpeed(const CFBCard& co)
 
 
 
-void CFBFunctionsJS::startPassBall(const CFBCard& co1)
+void CFBFunctionsJS::startPassBall(const CFBCard& co1, bool isAir)
 {
-    callJSFunc1Obj("StartPassBall", co1);
+    callJSFunc("StartPassBall", "jb", createJsvalFromCard(co1), isAir);
 }
 
 
 
 bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
 {
-    auto res = callJSFunc2Obj("TackleBall", co1, co2);
+    auto res = callJSFunc("TackleBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
     if (JSVAL_TO_BOOLEAN(res))
     {
         return true == JSVAL_TO_BOOLEAN(res);
@@ -192,7 +183,7 @@ bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
 
 bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
 {
-    auto res = callJSFunc2Obj("InterceptBall", co1, co2);
+    auto res = callJSFunc("InterceptBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
     if (JSVAL_TO_BOOLEAN(res))
     {
         return true == JSVAL_TO_BOOLEAN(res);
@@ -205,7 +196,7 @@ bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
 
 bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
 {
-    auto res = callJSFunc2Obj("BlockBall", co1, co2);
+    auto res = callJSFunc("BlockBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
     if (JSVAL_TO_BOOLEAN(res))
     {
         return true == JSVAL_TO_BOOLEAN(res);
@@ -216,9 +207,9 @@ bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
 
 
 
-void CFBFunctionsJS::recieveBall(const CFBCard& co1)
+void CFBFunctionsJS::receiveBall(const CFBCard& co1)
 {
-    callJSFunc1Obj("RecieveBall", co1);
+    callJSFunc("ReceiveBall", "j", createJsvalFromCard(co1));
 }
 
 

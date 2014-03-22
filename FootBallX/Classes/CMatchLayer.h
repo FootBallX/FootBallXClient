@@ -72,6 +72,8 @@ protected:
     void refreshGrids();
 #endif
     
+    void onInstructionEnd();
+    
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
     Sprite* m_pitchSprite = nullptr;

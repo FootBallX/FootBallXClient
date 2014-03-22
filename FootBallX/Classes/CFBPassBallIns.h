@@ -22,10 +22,12 @@ public:
     virtual void onAnimationEnd() override;
 protected:
     virtual void onInstructionEnd() override;
+    virtual void checkAirBall();
     
     int m_step = 0;
     bool m_animationPlaying = false;
     bool m_success = true;
+    bool m_isAirBall = false;
 };
 
 #endif /* defined(__FootBallX__CFBPassBallIns__) */

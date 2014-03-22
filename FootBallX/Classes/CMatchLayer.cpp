@@ -230,6 +230,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         FBMATCH->setOnAtkMenuCallback(std::bind(&CMatchLayer::onAtkMenuCallback, this, std::placeholders::_1));
         FBMATCH->setOnDefMenuCallback(std::bind(&CMatchLayer::onDefMenuCallback, this, std::placeholders::_1));
         FBMATCH->setOnPlayAnimationCallback(std::bind(&CMatchLayer::playAnimation, this, std::placeholders::_1, std::placeholders::_2));
+        FBMATCH->setOnInstructionEnd(std::bind(&CMatchLayer::onInstructionEnd, this));
         
         vector<string> redPlayercards =
         {
@@ -561,10 +562,17 @@ void CMatchLayer::playAnimation(const string& name, float delay)
 
 
 
+void CMatchLayer::onInstructionEnd()
+{
+    togglePitchLieDown(true);
+}
+
+
+
 void CMatchLayer::onAnimationEnd()
 {
     removeChild(m_animationRoot);
     m_animationRoot = nullptr;
-    
+
     INS_FAC->getPassBallIns()->onAnimationEnd();
 }

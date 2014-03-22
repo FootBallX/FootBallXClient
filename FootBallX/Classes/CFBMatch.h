@@ -44,7 +44,8 @@ public:
     
     void setOnAtkMenuCallback(function<void(const vector<int>&)> cb);
     void setOnDefMenuCallback(function<void(const vector<int>&)> cb);
-    void setOnPlayAnimationCallback(function<void(const string& name, float delay)> cb);
+    void setOnPlayAnimationCallback(function<void(const string&, float)> cb);
+    void setOnInstructionEnd(function<void(void)> cb);
     void pauseGame(bool p);
     
     bool checkEncounter(float dt);
@@ -58,7 +59,8 @@ protected:
     
     function<void(const vector<int>&)> m_onAtkMenu;
     function<void(const vector<int>&)> m_onDefMenu;
-    function<void(const string& name, float delay)> m_onPlayAnimation;
+    function<void(const string&, float)> m_onPlayAnimation;
+    function<void(void)> m_onInstructionEnd;
     
     float m_playerDistanceSq = FLT_MAX;
     

@@ -23,15 +23,13 @@ public:
 
     float getSpeed(const CFBCard& co);
 
-    void startPassBall(const CFBCard& co1);
+    void startPassBall(const CFBCard& co1, bool isAir);
     bool tackleBall(const CFBCard& co1, const CFBCard& co2);
     bool interceptBall(const CFBCard& co1, const CFBCard& co2);
     bool blockBall(const CFBCard& co1, const CFBCard& co2);
-    void recieveBall(const CFBCard& co1);
+    void receiveBall(const CFBCard& co1);
 protected:
-    jsval callJSFunc(const char *name, int count, ...);
-    jsval callJSFunc2Obj(const char *name, const CFBCard& c1, const CFBCard& c2);
-    jsval callJSFunc1Obj(const char *name, const CFBCard& c1);
+    jsval callJSFunc(const char* name, const char* format, ...);
     jsval createJsvalFromCard(const CFBCard& co);
 private:
     JSContext* _cx = nullptr;

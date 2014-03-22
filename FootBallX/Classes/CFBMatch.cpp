@@ -184,6 +184,13 @@ void CFBMatch::setOnPlayAnimationCallback(function<void(const string& name, floa
 
 
 
+void CFBMatch::setOnInstructionEnd(function<void(void)> cb)
+{
+    m_onInstructionEnd = cb;
+}
+
+
+
 void CFBMatch::pauseGame(bool p)
 {
     m_isPause = p;
@@ -324,6 +331,11 @@ void CFBMatch::onInstructionEnd()
 {
     pauseGame(false);
     m_currentInstruction = nullptr;
+    
+    if (m_onInstructionEnd)
+    {
+        m_onInstructionEnd();
+    }
 }
 
 

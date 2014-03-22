@@ -40,7 +40,7 @@ function StartDribble(o1)
     type = 1;
 }
 
-function StartPassBall(o1)
+function StartPassBall(o1, isAir)
 {
     PlayAnimation("ground_daiqiu.ccbi", 0);
     ballSpeed = 100;
@@ -81,7 +81,7 @@ function BlockBall(o1, o2)
 
 
 
-function RecieveBall(o1)
+function ReceiveBall(o1)
 {
     PlayAnimation("ground_tingqiu.ccbi", 0);
 	return;

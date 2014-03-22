@@ -60,6 +60,7 @@ public:
     
     void calcBestShootPosition(FBDefs::SIDE side);
     bool isOffside(cocos2d::Point pos, FBDefs::SIDE side);
+    bool isInPenaltyArea(cocos2d::Point pos, FBDefs::SIDE side);
     
     FBDefs::SIDE getOtherSide(FBDefs::SIDE side) const;
     

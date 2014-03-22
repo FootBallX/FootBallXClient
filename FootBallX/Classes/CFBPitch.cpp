@@ -296,3 +296,9 @@ bool CFBPitch::getGridsAroundPosition(const Point& pos, vector<int>& out_grids)
     return out_grids.size() > 0;
 }
 
+
+
+bool CFBPitch::isInPenaltyArea(cocos2d::Point pos, FBDefs::SIDE side)
+{
+    return m_penaltyArea[int(side)].containsPoint(pos);
+}
