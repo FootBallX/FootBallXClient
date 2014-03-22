@@ -21,14 +21,14 @@
 // ground   地面
 // air      空中
 
-
 var ballSpeed = 0;              //球减速修正,需要在适当的时候初始化
 
 var type = 0;
 
 //0 = 传球
 //1 = 射门
-
+//2 = 盘带
+//3 = 二过一
 
 //指令修正
 var OrderParam_1 = 0;             //地面 传球vs铲球
@@ -92,33 +92,74 @@ function StartPassBall(o1, isAir)
 // 铲球
 function TackleBall(o1, o2)
 {
-	if (type == 0)
-    {
-        var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + OrderParam_1;
-        if (v >= WinParam_2)
-        {
-            PlayAnimation("ground_chanqiu_failed.ccbi", 0);
-            return false;
-        }
-        else if (v >= RandomParam_2)
-        {
-            PlayAnimation("ground_chanqiu_randomball.ccbi", 0);
-            return false;
-        }
-        else if (v >= ReducedParam_2)
-        {
-            PlayAnimation("ground_lanjie_reduced.ccbi", 0);//临时文件，应该是ground_chanqiu_reduced.ccbi
-            return false;
-        }
-        else
-        {
-            PlayAnimation("ground_chanqiu_success.ccbi", 0);
-            return true;
-        }
+	if (type == 0)		//铲球vs传球
+    	{
+       		var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + OrderParam_1;
+        	if (v >= WinParam_2)
+        	{
+            		PlayAnimation("ground_chanqiu_failed.ccbi", 0);
+       			return false;
+       		}
+       		else if (v >= RandomParam_2)
+        	{
+            		PlayAnimation("ground_chanqiu_randomball.ccbi", 0);
+            		return false;
+        	}
+        	else if (v >= ReducedParam_2)
+        	{
+           		PlayAnimation("ground_lanjie_reduced.ccbi", 0);//临时文件，应该是ground_chanqiu_reduced.ccbi
+               		return false;
+        	}
+        	else
+        	{
+            		PlayAnimation("ground_chanqiu_success.ccbi", 0);
+           		return true;
+        	}
 	}
-
+	else if（type == 1)	//铲球vs射门
+	{
+		var v = Rand() % 1000 + ( o1.shoot + o2.ground ) - ( o2.defence + o2.ground ) + OrderParam_10;
+        	if (v >= WinParam_2)
+        	{
+            		PlayAnimation("ground_chanqiu_failed.ccbi", 0);
+       			return false;
+       		}
+       		else if (v >= RandomParam_2)
+        	{
+            		PlayAnimation("ground_chanqiu_randomball.ccbi", 0);
+            		return false;
+        	}
+        	else if (v >= ReducedParam_2)
+        	{
+           		PlayAnimation("ground_lanjie_reduced.ccbi", 0);//临时文件，应该是ground_chanqiu_reduced.ccbi
+               		return false;
+        	}
+        	else
+        	{
+            		PlayAnimation("ground_chanqiu_success.ccbi", 0);
+           		return true;
+        	}
+	}
+	else if (type == 2)	//铲球vs盘带
+	{
+		var v = Rand() % 1000 + ( o1.dribble + o2.ground ) - ( o2.defence + o2.ground ) + OrderParam_4;
+        	if (v >= WinParam_1)
+        	{
+            		PlayAnimation("ground_chanqiu_failed.ccbi", 0);
+       			return false;
+       		}
+       		else if (v >= RandomParam_1)
+        	{
+            		PlayAnimation("ground_chanqiu_randomball.ccbi", 0);
+            		return false;
+        	}
+        	else
+        	{
+            		PlayAnimation("ground_chanqiu_success.ccbi", 0);
+           		return true;
+        	}
+	}
 }
-
 
 // 拦截
 function InterceptBall(o1, o2)
