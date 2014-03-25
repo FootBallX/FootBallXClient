@@ -8,7 +8,7 @@
 // 
 // 属性包括:
 // id       ID
-// type     司职
+// g_type     司职
 // strength 体力
 // speed    速度
 // dribble  盘带
@@ -104,7 +104,7 @@ function StartPassBall(o1, isAir)
 // 铲球
 function TackleBall(o1, o2)
 {
-  switch (type)		
+  switch (g_type)		
 	{
     case 0 :  //铲球vs传球
     var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_1 + g_ballSpeed;
@@ -201,7 +201,7 @@ function TackleBall(o1, o2)
 // 拦截
 function InterceptBall(o1, o2)
 {
-	switch (type)
+	switch (g_type)
   {
     case 0 :    //拦截vs传球
     var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_2 + g_ballSpeed;
@@ -307,7 +307,7 @@ function InterceptBall(o1, o2)
 // 封堵
 function BlockBall(o1, o2)
 {
-	switch (type)
+	switch (g_type)
   {
     case 0 :   //封堵vs传球
     {
