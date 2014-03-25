@@ -210,8 +210,6 @@ bool CFBMatch::checkEncounter(float dt)
         }
     }
     
-    m_defendPlayerIds.clear();
-    
     auto ball = getBall();
     auto side = ball->m_ownerTeam->getSide();
     auto pitch = getPitch();
@@ -269,16 +267,26 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     m_currentInstruction = INS_FAC->getPassBallIns();
     m_currentInstruction->addPlayer(from);
     
+    
+    for (auto x : m_defendPlayerIds)
+    {
+        m_currentInstruction->addPlayer(otherTeam->getFormation()->getPlayer(x));
+    }
+    
     vector<pair<float, CFBPlayer*>> involvePlayers;
     
     for (auto player : otherTeamMembers)
     {
         if (player->m_isOnDuty && !player->m_isGoalKeeper)
         {
-            if (FBDefs::isPointOnTheWay(from->m_curPosition, to->m_curPosition, player->m_curPosition))
+            auto it = std::find(m_defendPlayerIds.begin(), m_defendPlayerIds.end(), player->m_positionInFormation);
+            if (it == m_defendPlayerIds.end())
             {
-                float dist = from->m_curPosition.getDistanceSq(player->m_curPosition);
-                involvePlayers.push_back(pair<float, CFBPlayer*>(dist, player));
+                if (FBDefs::isPointOnTheWay(from->m_curPosition, to->m_curPosition, player->m_curPosition))
+                {
+                    float dist = from->m_curPosition.getDistanceSq(player->m_curPosition);
+                    involvePlayers.push_back(pair<float, CFBPlayer*>(dist, player));
+                }
             }
         }
     }
@@ -331,6 +339,7 @@ void CFBMatch::onInstructionEnd()
 {
     pauseGame(false);
     m_currentInstruction = nullptr;
+    m_defendPlayerIds.clear();
     
     if (m_onInstructionEnd)
     {
