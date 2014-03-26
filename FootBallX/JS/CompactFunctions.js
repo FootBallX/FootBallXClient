@@ -8,7 +8,7 @@
 // 
 // 属性包括:
 // id       ID
-// g_type     司职
+// type     司职
 // strength 体力
 // speed    速度
 // dribble  盘带
@@ -33,46 +33,46 @@ var g_type = 0;
 //6 = 空中 盘带（停球）
 
 //指令修正
-var g_OrderParam_1 = 0;             //地面 传球vs铲球
-var g_OrderParam_2 = 0;             //地面 传球vs拦截
-var g_OrderParam_3 = 0;             //地面 传球vs封堵
-var g_OrderParam_4 = 100;           //地面 盘带vs铲球
-var g_OrderParam_5 = -100;          //地面 盘带vs拦截
-var g_OrderParam_6 = 300;           //地面 盘带vs封堵
-var g_OrderParam_7 = -300;          //地面 二过一vs铲球
-var g_OrderParam_8 = 0;             //地面 二过一vs拦截
-var g_OrderParam_9 = 0;             //地面 二过一vs封堵
-var g_OrderParam_10 = -300;         //地面 射门vs铲球
-var g_OrderParam_11 = -50;          //地面 射门vs拦截
-var g_OrderParam_12 = 150;          //地面 射门vs封堵
-var g_OrderParam_13 = 150;          //进攻空中 盘带vs解围
-var g_OrderParam_14 = -100;         //进攻空中 盘带vs拦截
-var g_OrderParam_15 = -300;         //进攻空中 盘带vs封堵
-var g_OrderParam_16 = 150;          //进攻空中 盘带vs出击
+var g_OrderParam_1 = -150;              //地面 传球vs铲球
+var g_OrderParam_2 = 0;              //地面 传球vs拦截
+var g_OrderParam_3 = 0;              //地面 传球vs封堵
+var g_OrderParam_4 = -50;             //地面 盘带vs铲球
+var g_OrderParam_5 = 50;            //地面 盘带vs拦截
+var g_OrderParam_6 = 150;            //地面 盘带vs封堵
+var g_OrderParam_7 = -150;           //地面 二过一vs铲球
+var g_OrderParam_8 = 0;              //地面 二过一vs拦截
+var g_OrderParam_9 = 0;              //地面 二过一vs封堵
+var g_OrderParam_10 = -150;          //地面 射门vs铲球
+var g_OrderParam_11 = -25;           //地面 射门vs拦截
+var g_OrderParam_12 = 75;            //地面 射门vs封堵
+var g_OrderParam_13 = 75;            //进攻空中 盘带vs解围
+var g_OrderParam_14 = -50;           //进攻空中 盘带vs拦截
+var g_OrderParam_15 = -150;         //进攻空中 盘带vs封堵
+var g_OrderParam_16 = 75;          //进攻空中 盘带vs出击
 var g_OrderParam_17 = 0;            //进攻空中 传球vs解围
 var g_OrderParam_18 = 0;            //进攻空中 传球vs拦截
 var g_OrderParam_19 = 0;            //进攻空中 传球vs封堵
-var g_OrderParam_20 = 150;          //进攻空中 传球vs出击
-var g_OrderParam_21 = -300;         //进攻空中 射门vs解围
-var g_OrderParam_22 = -50;          //进攻空中 射门vs拦截
-var g_OrderParam_23 = 150;          //进攻空中 射门vs封堵
-var g_OrderParam_24 = 150;          //进攻空中 射门vs出击
+var g_OrderParam_20 = 75;          //进攻空中 传球vs出击
+var g_OrderParam_21 = -150;         //进攻空中 射门vs解围
+var g_OrderParam_22 = -25;          //进攻空中 射门vs拦截
+var g_OrderParam_23 = 75;          //进攻空中 射门vs封堵
+var g_OrderParam_24 = 75;          //进攻空中 射门vs出击
 var g_OrderParam_25 = 0;            //防守空中 传球vs拦截
 var g_OrderParam_26 = 0;            //防守空中 传球vs封堵
-var g_OrderParam_27 = -50;          //防守空中 解围vs拦截
-var g_OrderParam_28 = 150;          //防守空中 解围vs封堵
-var g_OrderParam_29 = -100;         //守门 接球
+var g_OrderParam_27 = -25;          //防守空中 解围vs拦截
+var g_OrderParam_28 = 75;          //防守空中 解围vs封堵
+var g_OrderParam_29 = -50;         //守门 接球
 var g_OrderParam_30 = 0;            //守门 击球
-var g_OrderParam_31 = 250;          //单刀 封堵盘带vs盘带
-var g_OrderParam_32 = -250;         //单刀 封堵盘带vs射门
-var g_OrderParam_33 = -250;         //单刀 封堵射门vs盘带
-var g_OrderParam_34 = 250;          //单刀 封堵射门vs射门
+var g_OrderParam_31 = 125;          //单刀 封堵盘带vs盘带
+var g_OrderParam_32 = -125;         //单刀 封堵盘带vs射门
+var g_OrderParam_33 = -125;         //单刀 封堵射门vs盘带
+var g_OrderParam_34 = 125;          //单刀 封堵射门vs射门
 
 //计算结果参数
-var g_WinParam_1 = 600;		          //无减速，进攻方胜利
-var g_RandomParam_1 = 400;	        //无减速，随机球
+var g_WinParam_1 = 650;		          //无减速，进攻方胜利
+var g_RandomParam_1 = 350;	        //无减速，随机球
 var g_WinParam_2 = 750;		          //有减速，进攻方胜利
-var g_RandomParam_2 = 600;	        //有减速，随机球
+var g_RandomParam_2 = 500;	        //有减速，随机球
 var g_ReducedParam_2 = 250;         //有减速，减速
 var g_ReducedParam = 100;           //减速修正
 
@@ -104,7 +104,7 @@ function StartPassBall(o1, isAir)
 // 铲球
 function TackleBall(o1, o2)
 {
-  switch (g_type)		
+  switch (g_type)
 	{
     case 0 :  //铲球vs传球
     var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_1 + g_ballSpeed;
@@ -415,10 +415,14 @@ function ReceiveBall(o1)
   if (g_isAir)
   {
     PlayAnimation("air_tingqiu.ccbi", 0);
+    g_ballSpeed = 0;
+    g_type = 0;
   }
   else
   {
     PlayAnimation("ground_tingqiu.ccbi", 0);
+    g_ballSpeed = 0;
+    g_type = 0;
   }
 	return;
 }
