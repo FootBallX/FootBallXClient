@@ -33,44 +33,54 @@ var g_type = 0;
 //6 = 空中 盘带（停球）
 
 //指令修正
-var g_OrderParam_1 = -150;              //地面 传球vs铲球
-var g_OrderParam_2 = 0;              //地面 传球vs拦截
-var g_OrderParam_3 = 0;              //地面 传球vs封堵
-var g_OrderParam_4 = -50;             //地面 盘带vs铲球
+var g_OrderParam_1 = 150;           //地面 传球vs铲球
+var g_OrderParam_2 = -100;          //地面 传球vs拦截
+var g_OrderParam_3 = 50;            //地面 传球vs封堵
+
+var g_OrderParam_4 = -100;          //地面 盘带vs铲球
 var g_OrderParam_5 = 50;            //地面 盘带vs拦截
-var g_OrderParam_6 = 150;            //地面 盘带vs封堵
-var g_OrderParam_7 = -150;           //地面 二过一vs铲球
-var g_OrderParam_8 = 0;              //地面 二过一vs拦截
-var g_OrderParam_9 = 0;              //地面 二过一vs封堵
-var g_OrderParam_10 = -150;          //地面 射门vs铲球
-var g_OrderParam_11 = -25;           //地面 射门vs拦截
-var g_OrderParam_12 = 75;            //地面 射门vs封堵
-var g_OrderParam_13 = 75;            //进攻空中 盘带vs解围
-var g_OrderParam_14 = -50;           //进攻空中 盘带vs拦截
-var g_OrderParam_15 = -150;         //进攻空中 盘带vs封堵
-var g_OrderParam_16 = 75;          //进攻空中 盘带vs出击
-var g_OrderParam_17 = 0;            //进攻空中 传球vs解围
-var g_OrderParam_18 = 0;            //进攻空中 传球vs拦截
-var g_OrderParam_19 = 0;            //进攻空中 传球vs封堵
-var g_OrderParam_20 = 75;          //进攻空中 传球vs出击
-var g_OrderParam_21 = -150;         //进攻空中 射门vs解围
-var g_OrderParam_22 = -25;          //进攻空中 射门vs拦截
-var g_OrderParam_23 = 75;          //进攻空中 射门vs封堵
-var g_OrderParam_24 = 75;          //进攻空中 射门vs出击
-var g_OrderParam_25 = 0;            //防守空中 传球vs拦截
-var g_OrderParam_26 = 0;            //防守空中 传球vs封堵
-var g_OrderParam_27 = -25;          //防守空中 解围vs拦截
-var g_OrderParam_28 = 75;          //防守空中 解围vs封堵
-var g_OrderParam_29 = -50;         //守门 接球
+var g_OrderParam_6 = 150;           //地面 盘带vs封堵
+
+var g_OrderParam_7 = 150;           //地面 二过一vs铲球
+var g_OrderParam_8 = 0;             //地面 二过一vs拦截
+var g_OrderParam_9 = 0;             //地面 二过一vs封堵
+
+var g_OrderParam_10 = 100;          //地面 射门vs铲球
+var g_OrderParam_11 = -50;          //地面 射门vs拦截
+var g_OrderParam_12 = -150;         //地面 射门vs封堵
+
+var g_OrderParam_13 = -150;         //进攻空中 盘带vs解围
+var g_OrderParam_14 = 50;           //进攻空中 盘带vs拦截
+var g_OrderParam_15 = 50;           //进攻空中 盘带vs封堵
+var g_OrderParam_16 = -150;         //进攻空中 盘带vs出击
+
+var g_OrderParam_17 = -50;          //进攻空中 传球vs解围
+var g_OrderParam_18 = -100;         //进攻空中 传球vs拦截
+var g_OrderParam_19 = 50;           //进攻空中 传球vs封堵
+var g_OrderParam_20 = -150;         //进攻空中 传球vs出击
+
+var g_OrderParam_21 = 0;            //进攻空中 射门vs解围
+var g_OrderParam_22 = -50;          //进攻空中 射门vs拦截
+var g_OrderParam_23 = -100;         //进攻空中 射门vs封堵
+var g_OrderParam_24 = -150;         //进攻空中 射门vs出击
+
+var g_OrderParam_25 = -100;         //防守空中 传球vs拦截
+var g_OrderParam_26 = 50;           //防守空中 传球vs封堵
+var g_OrderParam_27 = 50;           //防守空中 解围vs拦截
+var g_OrderParam_28 = -100;         //防守空中 解围vs封堵
+
+var g_OrderParam_29 = -100;         //守门 接球
 var g_OrderParam_30 = 0;            //守门 击球
-var g_OrderParam_31 = 125;          //单刀 封堵盘带vs盘带
-var g_OrderParam_32 = -125;         //单刀 封堵盘带vs射门
-var g_OrderParam_33 = -125;         //单刀 封堵射门vs盘带
-var g_OrderParam_34 = 125;          //单刀 封堵射门vs射门
+
+var g_OrderParam_31 = -200;         //单刀 盘带vs封堵盘带
+var g_OrderParam_32 = 200;          //单刀 盘带vs封堵射门
+var g_OrderParam_33 = -200;         //单刀 射门vs封堵盘带
+var g_OrderParam_34 = 200;          //单刀 射门vs封堵射门
 
 //计算结果参数
 var g_WinParam_1 = 650;		          //无减速，进攻方胜利
 var g_RandomParam_1 = 350;	        //无减速，随机球
+
 var g_WinParam_2 = 750;		          //有减速，进攻方胜利
 var g_RandomParam_2 = 500;	        //有减速，随机球
 var g_ReducedParam_2 = 250;         //有减速，减速
