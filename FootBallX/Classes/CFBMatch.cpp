@@ -271,8 +271,6 @@ void CFBMatch::pauseGame(bool p)
 
 bool CFBMatch::checkEncounter(float dt)
 {
-    return false;
-    
     m_encounterTime -= dt;
     if (m_encounterTime < 0)
     {

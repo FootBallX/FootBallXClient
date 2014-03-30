@@ -282,7 +282,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
         
         FBMATCH->setControlSide(FBDefs::SIDE::LEFT);
-        BREAK_IF_FAILED(FBMATCH->startMatch(FBDefs::SIDE::RIGHT));
+        BREAK_IF_FAILED(FBMATCH->startMatch(FBDefs::SIDE::LEFT));
         
 #ifdef SHOW_GRID
         auto draw = DrawNode::create();
