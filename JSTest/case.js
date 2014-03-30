@@ -39,7 +39,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsPass_failed');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsPass_failed');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_failed.ccbi"), 'ground_chanqiu_failed.ccbi');
 	}
 },
@@ -52,7 +52,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsPass_randomball');
+		assert.ok(RET_RANDOM_BALL == TackleBall(o1, o2), 'TackleVsPass_randomball');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_randomball.ccbi"), 'ground_chanqiu_randomball.ccbi');
 	}
 },
@@ -65,7 +65,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsPass_reduced');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsPass_reduced');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_reduced.ccbi"), 'ground_chanqiu_reduced.ccbi');
 	}
 },
@@ -78,7 +78,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(TackleBall(o1, o2), 'TackleVsPass_success');
+		assert.ok(RET_SUCCESS == TackleBall(o1, o2), 'TackleVsPass_success');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_success.ccbi"), 'ground_chanqiu_success.ccbi');
 	}
 },
@@ -100,7 +100,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsShoot_failed');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsShoot_failed');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_failed.ccbi"), 'ground_chanqiu_failed.ccbi');
 	}
 },
@@ -113,7 +113,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsShoot_randomball');
+		assert.ok(RET_RANDOM_BALL == TackleBall(o1, o2), 'TackleVsShoot_randomball');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_randomball.ccbi"), 'ground_chanqiu_randomball.ccbi');
 	}
 },
@@ -126,7 +126,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsShoot_reduced');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsShoot_reduced');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_reduced.ccbi"), 'ground_chanqiu_reduced.ccbi');
 	}
 },
@@ -139,7 +139,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(TackleBall(o1, o2), 'TackleVsShoot_success');
+		assert.ok(RET_SUCCESS == TackleBall(o1, o2), 'TackleVsShoot_success');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_success.ccbi"), 'ground_chanqiu_success.ccbi');
 	}
 },
@@ -161,7 +161,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsDribble_failed');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsDribble_failed');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_failed.ccbi"), 'ground_chanqiu_failed.ccbi');
 	}
 },
@@ -174,7 +174,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsDribble_randomball');
+		assert.ok(RET_RANDOM_BALL == TackleBall(o1, o2), 'TackleVsDribble_randomball');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_randomball.ccbi"), 'ground_chanqiu_randomball.ccbi');
 	}
 },
@@ -187,7 +187,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(TackleBall(o1, o2), 'TackleVsDribble_success');
+		assert.ok(RET_SUCCESS == TackleBall(o1, o2), 'TackleVsDribble_success');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_success.ccbi"), 'ground_chanqiu_success.ccbi');
 	}
 },
@@ -209,7 +209,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsOneTwo_failed');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsOneTwo_failed');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_failed.ccbi"), 'ground_chanqiu_failed.ccbi');
 	}
 },
@@ -222,7 +222,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsOneTwo_randomball');
+		assert.ok(RET_RANDOM_BALL == TackleBall(o1, o2), 'TackleVsOneTwo_randomball');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_randomball.ccbi"), 'ground_chanqiu_randomball.ccbi');
 	}
 },
@@ -235,7 +235,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!TackleBall(o1, o2), 'TackleVsOneTwo_reduced');
+		assert.ok(RET_FAIL == TackleBall(o1, o2), 'TackleVsOneTwo_reduced');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_reduced.ccbi"), 'ground_chanqiu_reduced.ccbi');
 	}
 },
@@ -248,7 +248,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(TackleBall(o1, o2), 'TackleVsOneTwo_success');
+		assert.ok(RET_SUCCESS == TackleBall(o1, o2), 'TackleVsOneTwo_success');
 		assert.ok(CheckExpectAnimation("ground_chanqiu_success.ccbi"), 'ground_chanqiu_success.ccbi');
 	}
 },
@@ -270,7 +270,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsPass_failed');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsPass_failed');
 		assert.ok(CheckExpectAnimation("ground_lanjie_failed.ccbi"), 'ground_lanjie_failed.ccbi');
 	}
 },
@@ -283,7 +283,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsPass_randomball');
+		assert.ok(RET_RANDOM_BALL == InterceptBall(o1, o2), 'InterceptVsPass_randomball');
 		assert.ok(CheckExpectAnimation("ground_lanjie_randomball.ccbi"), 'ground_lanjie_randomball.ccbi');
 	}
 },
@@ -296,7 +296,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsPass_reduced');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsPass_reduced');
 		assert.ok(CheckExpectAnimation("ground_lanjie_reduced.ccbi"), 'ground_lanjie_reduced.ccbi');
 	}
 },
@@ -309,7 +309,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(InterceptBall(o1, o2), 'InterceptVsPass_success');
+		assert.ok(RET_SUCCESS == InterceptBall(o1, o2), 'InterceptVsPass_success');
 		assert.ok(CheckExpectAnimation("ground_lanjie_success.ccbi"), 'ground_lanjie_success.ccbi');
 	}
 },
@@ -331,7 +331,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsShoot_failed');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsShoot_failed');
 		assert.ok(CheckExpectAnimation("ground_lanjie_failed.ccbi"), 'ground_lanjie_failed.ccbi');
 	}
 },
@@ -344,7 +344,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsShoot_randomball');
+		assert.ok(RET_RANDOM_BALL == InterceptBall(o1, o2), 'InterceptVsShoot_randomball');
 		assert.ok(CheckExpectAnimation("ground_lanjie_randomball.ccbi"), 'ground_lanjie_randomball.ccbi');
 	}
 },
@@ -357,7 +357,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsShoot_reduced');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsShoot_reduced');
 		assert.ok(CheckExpectAnimation("ground_lanjie_reduced.ccbi"), 'ground_lanjie_reduced.ccbi');
 	}
 },
@@ -370,7 +370,7 @@ var test_case = [
 		g_type = 1;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(InterceptBall(o1, o2), 'InterceptVsShoot_success');
+		assert.ok(RET_SUCCESS == InterceptBall(o1, o2), 'InterceptVsShoot_success');
 		assert.ok(CheckExpectAnimation("ground_lanjie_success.ccbi"), 'ground_lanjie_success.ccbi');
 	}
 },
@@ -392,7 +392,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsDribble_failed');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsDribble_failed');
 		assert.ok(CheckExpectAnimation("ground_lanjie_failed.ccbi"), 'ground_lanjie_failed.ccbi');
 	}
 },
@@ -405,7 +405,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsDribble_randomball');
+		assert.ok(RET_RANDOM_BALL == InterceptBall(o1, o2), 'InterceptVsDribble_randomball');
 		assert.ok(CheckExpectAnimation("ground_lanjie_randomball.ccbi"), 'ground_lanjie_randomball.ccbi');
 	}
 },
@@ -418,7 +418,7 @@ var test_case = [
 		g_type = 2;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(InterceptBall(o1, o2), 'InterceptVsDribble_success');
+		assert.ok(RET_SUCCESS == InterceptBall(o1, o2), 'InterceptVsDribble_success');
 		assert.ok(CheckExpectAnimation("ground_lanjie_success.ccbi"), 'ground_lanjie_success.ccbi');
 	}
 },
@@ -440,7 +440,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsOneTwo_failed');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsOneTwo_failed');
 		assert.ok(CheckExpectAnimation("ground_lanjie_failed.ccbi"), 'ground_lanjie_failed.ccbi');
 	}
 },
@@ -453,7 +453,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsOneTwo_randomball');
+		assert.ok(RET_RANDOM_BALL == InterceptBall(o1, o2), 'InterceptVsOneTwo_randomball');
 		assert.ok(CheckExpectAnimation("ground_lanjie_randomball.ccbi"), 'ground_lanjie_randomball.ccbi');
 	}
 },
@@ -466,7 +466,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(!InterceptBall(o1, o2), 'InterceptVsOneTwo_reduced');
+		assert.ok(RET_FAIL == InterceptBall(o1, o2), 'InterceptVsOneTwo_reduced');
 		assert.ok(CheckExpectAnimation("ground_lanjie_reduced.ccbi"), 'ground_lanjie_reduced.ccbi');
 	}
 },
@@ -479,7 +479,7 @@ var test_case = [
 		g_type = 0;
 		g_ballSpeed = 0;
 		SetRand(500);
-		assert.ok(InterceptBall(o1, o2), 'InterceptVsOneTwo_success');
+		assert.ok(RET_SUCCESS == InterceptBall(o1, o2), 'InterceptVsOneTwo_success');
 		assert.ok(CheckExpectAnimation("ground_lanjie_success.ccbi"), 'ground_lanjie_success.ccbi');
 	}
 },
@@ -514,13 +514,6 @@ var test_case = [
 		assert.ok(CheckExpectAnimation("air_tingqiu.ccbi"), 'air_tingqiu.ccbi');
 	}
 },
-
-
-
-
-
-
-
 
 
 

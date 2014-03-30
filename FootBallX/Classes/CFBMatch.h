@@ -60,7 +60,7 @@ public:
     bool checkEncounter(float dt);
     
     void tryPassBall(CFBPlayer* from, CFBPlayer* to);
-    void updatePassBall(float dt);  // 负责播放传球动画
+    void tryShootBall(CFBPlayer* player, bool isAir);
     
     void playAnimation(const string& name, float delay);
 protected:

@@ -1,29 +1,28 @@
 //
-//  CFBPassBallIns.h
+//  CFBShootBallGroundIns.h
 //  FootBallX
 //
-//  Created by 马 俊 on 14-3-14.
+//  Created by 马 俊 on 14-3-30.
 //  Copyright (c) 2014年 马 俊. All rights reserved.
 //
 
-#ifndef __FootBallX__CFBPassBallIns__
-#define __FootBallX__CFBPassBallIns__
+#ifndef __FootBallX__CFBShootBallGroundIns__
+#define __FootBallX__CFBShootBallGroundIns__
 
 #include "CFBInstruction.h"
 #include "FBDefs.h"
 
-class CFBPassBallIns : public CFBInstruction
+class CFBShootBallGroundIns : public CFBInstruction
 {
 public:
-    CFBPassBallIns() = default;
-    virtual ~CFBPassBallIns() = default;
+    CFBShootBallGroundIns() = default;
+    virtual ~CFBShootBallGroundIns() = default;
     
     virtual void update(float dt) override;
     virtual void start(function<CALLBACK_TYPE> callback) override;
     virtual void onAnimationEnd() override;
 protected:
     virtual void onInstructionEnd() override;
-    virtual void checkAirBall();
     
     int m_step = 0;
     bool m_animationPlaying = false;
@@ -31,4 +30,4 @@ protected:
     bool m_isAirBall = false;
 };
 
-#endif /* defined(__FootBallX__CFBPassBallIns__) */
+#endif /* defined(__FootBallX__CFBShootBallGroundIns__) */

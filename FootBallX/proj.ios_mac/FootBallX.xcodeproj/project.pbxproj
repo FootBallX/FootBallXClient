@@ -80,6 +80,10 @@
 		544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		544B6E2B188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */; };
 		544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */; };
+		54555F6218E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F5E18E8096D00C351D5 /* CFBShootBallAirIns.cpp */; };
+		54555F6318E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F5E18E8096D00C351D5 /* CFBShootBallAirIns.cpp */; };
+		54555F6418E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */; };
+		54555F6518E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */; };
 		545BC7D318A9E8BC001DD728 /* FootBallMathTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */; };
 		545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
 		545BC7D618AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
@@ -232,6 +236,10 @@
 		544955F0187F8924002FB29B /* CFBPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitch.h; path = ../Classes/CFBPitch.h; sourceTree = "<group>"; };
 		544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBMatch.cpp; path = ../Classes/CFBMatch.cpp; sourceTree = "<group>"; };
 		544B6E2A188E9A8500A1EBB4 /* CFBMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBMatch.h; path = ../Classes/CFBMatch.h; sourceTree = "<group>"; };
+		54555F5E18E8096D00C351D5 /* CFBShootBallAirIns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBShootBallAirIns.cpp; path = ../Classes/CFBShootBallAirIns.cpp; sourceTree = "<group>"; };
+		54555F5F18E8096D00C351D5 /* CFBShootBallAirIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBShootBallAirIns.h; path = ../Classes/CFBShootBallAirIns.h; sourceTree = "<group>"; };
+		54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBShootBallGroundIns.cpp; path = ../Classes/CFBShootBallGroundIns.cpp; sourceTree = "<group>"; };
+		54555F6118E8096D00C351D5 /* CFBShootBallGroundIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBShootBallGroundIns.h; path = ../Classes/CFBShootBallGroundIns.h; sourceTree = "<group>"; };
 		545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FootBallMathTest.mm; path = FootBallXTests/FootBallMathTest.mm; sourceTree = "<group>"; };
 		545BC7D418AA0660001DD728 /* FBDefs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBDefs.cpp; path = ../Classes/FBDefs.cpp; sourceTree = "<group>"; };
 		5472F720187DA4EB0001FD79 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -453,6 +461,10 @@
 		5436BB0918D35DDD005FBF60 /* Instructions */ = {
 			isa = PBXGroup;
 			children = (
+				54555F5E18E8096D00C351D5 /* CFBShootBallAirIns.cpp */,
+				54555F5F18E8096D00C351D5 /* CFBShootBallAirIns.h */,
+				54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */,
+				54555F6118E8096D00C351D5 /* CFBShootBallGroundIns.h */,
 				5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */,
 				5436BB0B18D35E0A005FBF60 /* CFBInstruction.h */,
 				5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */,
@@ -893,12 +905,14 @@
 				54E630B318D58FAB0033E43A /* CFBAnimationLayer.cpp in Sources */,
 				54D375C91889239C008BA6BB /* CFBPlayer.cpp in Sources */,
 				545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */,
+				54555F6218E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */,
 				54D375CD188923AC008BA6BB /* CFBTeam.cpp in Sources */,
 				54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */,
 				5420554E18D091DE001551BF /* CFBBackAI.cpp in Sources */,
 				54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
+				54555F6418E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */,
 				5420555618D09204001551BF /* CFBForwardAI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -942,6 +956,8 @@
 				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				5420554A18D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */,
+				54555F6318E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */,
+				54555F6518E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */,
 				54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */,
 				543D49BF18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				544B6E2C188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,

@@ -10,6 +10,7 @@
 #include "CFBPitch.h"
 #include "CFBFunctionsJS.h"
 #include "CFBInstruction.h"
+#include "CRandomManager.h"
 
 IMPLEMENT_SINGLETON(CFBMatch);
 
@@ -271,6 +272,7 @@ void CFBMatch::pauseGame(bool p)
 
 bool CFBMatch::checkEncounter(float dt)
 {
+    return false;
     m_encounterTime -= dt;
     if (m_encounterTime < 0)
     {
@@ -336,7 +338,21 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     
     for (auto x : m_defendPlayerIds)
     {
-        m_currentInstruction->addPlayer(otherTeam->getFormation()->getPlayer(x));
+        auto pO = otherTeam->getFormation()->getPlayer(x);
+        int roll = RANDOM_MGR->getRand() % 300;
+        if (roll > 200)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::TAKCLE);
+        }
+        else if (roll > 100)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::INTERCEPT);
+        }
+        else
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::BLOCK);
+        }
+        m_currentInstruction->addPlayer(pO);
     }
     
     auto& fpos = from->getPosition();
@@ -370,7 +386,21 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     
     for (auto a : involvePlayers)
     {
-        m_currentInstruction->addPlayer(a.second);
+        auto pO = a.second;
+        int roll = RANDOM_MGR->getRand() % 300;
+        if (roll > 200)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::TAKCLE);
+        }
+        else if (roll > 100)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::INTERCEPT);
+        }
+        else
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::BLOCK);
+        }
+        m_currentInstruction->addPlayer(pO);
     }
     
     m_currentInstruction->addPlayer(to);
@@ -382,26 +412,110 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
 
 
 
-//void CFBMatch::updatePassBall(float dt)
-//{
-//    if (m_involvePlayers.size() == 0)
-//    {
-//        m_eventFromRole->m_ownerTeam->passBall(m_eventToRole->m_positionInFormation);
-//    }
-//    else
-//    {
-//        for (auto p : m_involvePlayers)
-//        {
-//            auto player = p.second;
-//            float rate = FB_FUNC_JS->compute(m_eventFromRole->getPlayerCard(), player->getPlayerCard());
-//            if (rate < 50)
-//            {
-//                m_eventFromRole->m_ownerTeam->passBall(m_eventToRole->m_positionInFormation);
-//                break;
-//            }
-//        }
-//    }
-//}
+void CFBMatch::tryShootBall(CFBPlayer* shooter, bool isAir)
+{
+    auto& team = shooter->m_ownerTeam;
+    auto size = team->getSide();
+    auto pitch = FBMATCH->getPitch();
+    auto otherSide = pitch->getOtherSide(size);
+    auto otherTeam = FBMATCH->getTeam(otherSide);
+    auto& otherTeamMembers = otherTeam->getTeamMembers();
+    Point goalPos = pitch->getGoalPos(otherSide);
+    
+    m_currentInstruction = isAir ? INS_FAC->getShootBallAirIns() : INS_FAC->getShootBallGroundIns();
+    m_currentInstruction->addPlayer(shooter);
+    
+    for (auto x : m_defendPlayerIds)
+    {
+        auto pO = otherTeam->getFormation()->getPlayer(x);
+        int roll = RANDOM_MGR->getRand() % 300;
+        if (roll > 200)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::TAKCLE);
+        }
+        else if (roll > 100)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::INTERCEPT);
+        }
+        else
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::BLOCK);
+        }
+        m_currentInstruction->addPlayer(pO);
+    }
+    
+    auto& fpos = shooter->getPosition();
+    
+    vector<pair<float, CFBPlayer*>> involvePlayers;
+    
+    CFBPlayer* goalKeeper = nullptr;
+    for (auto player : otherTeamMembers)
+    {
+        if (player->m_isOnDuty)
+        {
+            if (player->m_isGoalKeeper)
+            {
+                goalKeeper = player;
+            }
+            else
+            {
+                auto it = std::find(m_defendPlayerIds.begin(), m_defendPlayerIds.end(), player->m_positionInFormation);
+                if (it == m_defendPlayerIds.end())
+                {
+                    auto& ppos = player->getPosition();
+                    if (FBDefs::isPointOnTheWay(fpos, goalPos, ppos))
+                    {
+                        float dist = fpos.getDistanceSq(ppos);
+                        involvePlayers.push_back(pair<float, CFBPlayer*>(dist, player));
+                    }
+                }
+            }
+        }
+    }
+    
+    m_eventState = FBDefs::MATCH_EVENT_STATE::PASS_BALL;
+    std::sort(involvePlayers.begin(), involvePlayers.end(),
+              [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
+              {
+                  return o1.first < o2.first;
+              });
+    
+    for (auto a : involvePlayers)
+    {
+        auto pO = a.second;
+        int roll = RANDOM_MGR->getRand() % 300;
+        if (roll > 200)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::TAKCLE);
+        }
+        else if (roll > 100)
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::INTERCEPT);
+        }
+        else
+        {
+            pO->setInstruction(FBDefs::PLAYER_INS::BLOCK);
+        }
+        m_currentInstruction->addPlayer(pO);
+    }
+    
+    CC_ASSERT(goalKeeper);
+    int roll = RANDOM_MGR->getRand() % 1000;
+    if (roll > 500)
+    {
+        goalKeeper->setInstruction(FBDefs::PLAYER_INS::HIT);
+    }
+    else
+    {
+        goalKeeper->setInstruction(FBDefs::PLAYER_INS::TAKE);
+    }
+    m_currentInstruction->addPlayer(goalKeeper);
+    
+    m_currentInstruction->start(bind(&CFBMatch::onInstructionEnd, this));
+    
+    pauseGame(true);
+
+}
 
 
 

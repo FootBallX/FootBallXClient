@@ -7,7 +7,9 @@
 //
 
 #include "CFBInstruction.h"
-#include "CFBPassBAllIns.h"
+#include "CFBPassBallIns.h"
+#include "CFBShootBallAirIns.h"
+#include "CFBShootBallGroundIns.h"
 
 void CFBInstruction::addPlayer(CFBPlayer* player)
 {
@@ -48,8 +50,34 @@ CFBInstruction* CFBInstructionFactory::getPassBallIns()
     {
         m_passBallIns = new CFBPassBallIns();
     }
+    m_activeIns = m_passBallIns;
     
     return m_passBallIns;
 }
 
+
+
+CFBInstruction* CFBInstructionFactory::getShootBallAirIns()
+{
+    if (nullptr == m_shootBallAirIns)
+    {
+        m_shootBallAirIns = new CFBShootBallAirIns();
+    }
+    m_activeIns = m_shootBallAirIns;
+    
+    return m_shootBallAirIns;
+}
+
+
+
+CFBInstruction* CFBInstructionFactory::getShootBallGroundIns()
+{
+    if (nullptr == m_shootBallGroundIns)
+    {
+        m_shootBallGroundIns = new CFBShootBallGroundIns();
+    }
+    m_activeIns = m_shootBallGroundIns;
+    
+    return m_shootBallGroundIns;
+}
 

@@ -112,6 +112,25 @@ namespace FBDefs
         PASS_BALL_FAIL,
     };
     
+    enum class PLAYER_INS
+    {
+        TAKCLE,
+        BLOCK,
+        INTERCEPT,
+        HIT,
+        TAKE,
+        NONE,
+    };
+    
+    
+    enum class JS_RET_VAL
+    {
+        FAIL = 0,
+        SUCCESS = 1,
+        RANDOM_BALL = 2,
+        NONE,
+    };
+    
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
     bool isPlayersOnTheWayToGoal(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid);
     bool computeGridShootAngleAndMat(const cocos2d::Point& goalPos, CFBPitchGrid* grid);

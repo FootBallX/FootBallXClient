@@ -4,7 +4,7 @@ var fs = require('fs');
 var cp = require('child_process');
 var assert= require('assert');
 
-testFiles = ['../FootBallXClient/FootBallX/JS/CompactFunctions.js'];
+testFiles = ['../FootBallX/JS/CompactFunctions.js'];
 
 var rand_num = 0;
 var expectAnimation = [];

@@ -15,6 +15,13 @@
 
 IMPLEMENT_SINGLETON(CFBFunctionsJS);
 
+static FBDefs::JS_RET_VAL g_Ret[(int)FBDefs::JS_RET_VAL::NONE] =
+{
+    FBDefs::JS_RET_VAL::FAIL,
+    FBDefs::JS_RET_VAL::SUCCESS,
+    FBDefs::JS_RET_VAL::RANDOM_BALL,
+};
+
 bool JSlog(JSContext* cx, uint32_t argc, jsval *vp)
 {
     if (argc > 0) {
@@ -168,41 +175,47 @@ void CFBFunctionsJS::startPassBall(const CFBCard& co1, bool isAir)
 
 
 
-bool CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
+FBDefs::JS_RET_VAL CFBFunctionsJS::tackleBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc("TackleBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
-    if (JSVAL_TO_BOOLEAN(res))
+    if (JSVAL_IS_INT(res))
     {
-        return true == JSVAL_TO_BOOLEAN(res);
+        int ret = JSVAL_TO_INT(res);
+        CC_ASSERT(ret >= 0 && ret < (int)FBDefs::JS_RET_VAL::NONE);
+        return g_Ret[ret];
     }
     
-    return false;
+    return FBDefs::JS_RET_VAL::NONE;
 }
 
 
 
-bool CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
+FBDefs::JS_RET_VAL CFBFunctionsJS::interceptBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc("InterceptBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
-    if (JSVAL_TO_BOOLEAN(res))
+    if (JSVAL_IS_INT(res))
     {
-        return true == JSVAL_TO_BOOLEAN(res);
+        int ret = JSVAL_TO_INT(res);
+        CC_ASSERT(ret >= 0 && ret < (int)FBDefs::JS_RET_VAL::NONE);
+        return g_Ret[ret];
     }
     
-    return false;
+    return FBDefs::JS_RET_VAL::NONE;
 }
 
 
 
-bool CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
+FBDefs::JS_RET_VAL CFBFunctionsJS::blockBall(const CFBCard& co1, const CFBCard& co2)
 {
     auto res = callJSFunc("BlockBall", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
-    if (JSVAL_TO_BOOLEAN(res))
+    if (JSVAL_IS_INT(res))
     {
-        return true == JSVAL_TO_BOOLEAN(res);
+        int ret = JSVAL_TO_INT(res);
+        CC_ASSERT(ret >= 0 && ret < (int)FBDefs::JS_RET_VAL::NONE);
+        return g_Ret[ret];
     }
     
-    return false;
+    return FBDefs::JS_RET_VAL::NONE;
 }
 
 
@@ -211,6 +224,45 @@ void CFBFunctionsJS::receiveBall(const CFBCard& co1)
 {
     callJSFunc("ReceiveBall", "j", createJsvalFromCard(co1));
 }
+
+
+
+void CFBFunctionsJS::startShootBall(const CFBCard& co1, bool isAir)
+{
+    callJSFunc("StartShootBall", "jb", createJsvalFromCard(co1), isAir);
+}
+
+
+
+FBDefs::JS_RET_VAL CFBFunctionsJS::hitBallGP(const CFBCard& co1, const CFBCard& co2)
+{
+    auto res = callJSFunc("HitBallGP", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
+    if (JSVAL_IS_INT(res))
+    {
+        int ret = JSVAL_TO_INT(res);
+        CC_ASSERT(ret >= 0 && ret < (int)FBDefs::JS_RET_VAL::NONE);
+        return g_Ret[ret];
+    }
+    
+    return FBDefs::JS_RET_VAL::NONE;
+}
+
+
+
+FBDefs::JS_RET_VAL CFBFunctionsJS::takeBallGP(const CFBCard& co1, const CFBCard& co2)
+{
+    auto res = callJSFunc("TakeBallGP", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
+    if (JSVAL_IS_INT(res))
+    {
+        int ret = JSVAL_TO_INT(res);
+        CC_ASSERT(ret >= 0 && ret < (int)FBDefs::JS_RET_VAL::NONE);
+        return g_Ret[ret];
+    }
+    
+    return FBDefs::JS_RET_VAL::NONE;
+}
+
+
 
 
 

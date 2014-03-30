@@ -99,6 +99,7 @@ protected:
     enum class OP
     {
         PASS_BALL,
+        SHOOT_BALL,
         NONE,
     };
     

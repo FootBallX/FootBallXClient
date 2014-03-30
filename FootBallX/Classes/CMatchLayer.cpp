@@ -553,6 +553,11 @@ void CMatchLayer::onDribble(Ref* pSender)
 
 void CMatchLayer::onShoot(Ref* pSender)
 {
+    m_operator = OP::SHOOT_BALL;
+    auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
+    auto from = team->getHilightPlayer();
+    FBMATCH->tryShootBall(from, false);
+    
 }
 
 
@@ -608,6 +613,7 @@ void CMatchLayer::playAnimation(const string& name, float delay)
 
 void CMatchLayer::onInstructionEnd()
 {
+    m_operator = OP::NONE;
     togglePitchLieDown(true);
 }
 
@@ -618,7 +624,11 @@ void CMatchLayer::onAnimationEnd()
     removeChild(m_animationRoot);
     m_animationRoot = nullptr;
 
-    INS_FAC->getPassBallIns()->onAnimationEnd();
+    auto ins = INS_FAC->getActiveIns();
+    if (ins)
+    {
+        ins->onAnimationEnd();
+    }
 }
 
 
