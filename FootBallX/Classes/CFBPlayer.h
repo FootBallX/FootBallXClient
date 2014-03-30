@@ -24,11 +24,14 @@ public:
     virtual float getSpeed();
     
     virtual const CFBCard& getPlayerCard() const { return m_playerCard; }
+    
+    virtual void setPosition(const Point& pos);
+    virtual const Point& getPosition() { return m_curPosition; }
 #pragma mark -- player actions
     virtual void gainBall();
     virtual void loseBall();
 #pragma mark -- Player states
-    cocos2d::Point m_curPosition;
+    
     CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
     bool m_isOnDuty = false;        // 上场
@@ -38,6 +41,8 @@ public:
     bool m_isGoalKeeper = false;
 
 protected:
+    cocos2d::Point m_curPosition;
+    
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
     const CFBCard& m_playerCard;

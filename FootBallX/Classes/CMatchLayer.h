@@ -60,8 +60,10 @@ protected:
     void onIntercept(Ref* pSender);
     void onPlug(Ref* pSender);
     
-    void onAtkMenuCallback(const vector<int>& defPlayers);
-    void onDefMenuCallback(const vector<int>& defPlayers);
+    void onAtkMenuCallback(const set<int>& defPlayers);
+    void onDefMenuCallback(const set<int>& defPlayers);
+    void onPauseGameCallback(bool p);
+    
     void playAnimation(const string& name, float delay);
     void onAnimationEnd();
 

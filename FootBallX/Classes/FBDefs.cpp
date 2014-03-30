@@ -63,7 +63,7 @@ namespace FBDefs
         {
             if (x->m_isOnDuty && !x->m_isGoalKeeper)
             {
-                const auto& p = x->m_curPosition;
+                const auto& p = x->getPosition();
                 kmVec2Fill(&vP, p.x, p.y);
                 kmVec2Transform(&vP, &vP, &mat);
                 

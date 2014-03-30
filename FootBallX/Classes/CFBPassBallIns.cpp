@@ -10,6 +10,7 @@
 #include "CFBFunctionsJS.h"
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
+#include "CRandomManager.h"
 
 void CFBPassBallIns::start(function<CALLBACK_TYPE> callback)
 {
@@ -35,7 +36,7 @@ void CFBPassBallIns::checkAirBall()
     auto player = m_players[m_players.size() - 1];
     auto pitch = FBMATCH->getPitch();
     auto side = player->m_ownerTeam->getSide();
-    m_isAirBall = pitch->isInPenaltyArea(player->m_curPosition, pitch->getOtherSide(side));
+    m_isAirBall = pitch->isInPenaltyArea(player->getPosition(), pitch->getOtherSide(side));
 }
 
 
@@ -51,7 +52,20 @@ void CFBPassBallIns::update(float dt)
             {
                 auto& o1 = m_players[0]->getPlayerCard();
                 auto& o2 = m_players[m_step]->getPlayerCard();
-                m_success = FB_FUNC_JS->tackleBall(o1, o2);     // TODO: or slideBall or interceptBall,But how to decide?
+                int roll = RANDOM_MGR->getRand() % 300;
+                if (roll > 200)
+                {
+                    m_success = FB_FUNC_JS->tackleBall(o1, o2);
+                }
+                else if (roll > 100)
+                {
+                    m_success = FB_FUNC_JS->interceptBall(o1, o2);
+                }
+                else
+                {
+                    m_success = FB_FUNC_JS->blockBall(o1, o2);
+                }
+                
                 m_animationPlaying = true;
                 m_step++;
             }

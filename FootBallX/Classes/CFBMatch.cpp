@@ -58,11 +58,84 @@ void CFBMatch::setTeam(FBDefs::SIDE side, CFBTeam* team)
 
 
 
+void CFBMatch::setControlSide(FBDefs::SIDE side)
+{
+    CC_ASSERT(side != FBDefs::SIDE::NONE);
+    m_controlSide = side;
+}
+
+
+
+bool CFBMatch::checkControlSide(FBDefs::SIDE side)
+{
+    return m_controlSide == side;
+}
+
+
+
+FBDefs::SIDE CFBMatch::getControlSide()
+{
+    return m_controlSide;
+}
+
+
+
+CFBTeam* CFBMatch::getControlSideTeam()
+{
+    return getTeam(m_controlSide);
+}
+
+
+
 CFBTeam* CFBMatch::getTeam(FBDefs::SIDE side)
 {
     CC_ASSERT(side < FBDefs::SIDE::NONE);
     
     return m_teams[(int)side];
+}
+
+
+
+CFBTeam* CFBMatch::getAttackingTeam()
+{
+    auto team = getTeam(FBDefs::SIDE::LEFT);
+    auto player = team->getHilightPlayer();
+    if (player && player->m_isBallController)
+    {
+        return team;
+    }
+    
+    team = getTeam(FBDefs::SIDE::RIGHT);
+    player = team->getHilightPlayer();
+    if (player && player->m_isBallController)
+    {
+        return team;
+    }
+    
+    CC_ASSERT(false);
+    return nullptr;
+}
+
+
+
+CFBTeam* CFBMatch::getDefendingTeam()
+{
+    auto team = getTeam(FBDefs::SIDE::LEFT);
+    auto player = team->getHilightPlayer();
+    if (!player || !player->m_isBallController)
+    {
+        return team;
+    }
+    
+    team = getTeam(FBDefs::SIDE::RIGHT);
+    player = team->getHilightPlayer();
+    if (!player || !player->m_isBallController)
+    {
+        return team;
+    }
+    
+    CC_ASSERT(false);
+    return nullptr;
 }
 
 
@@ -76,10 +149,14 @@ void CFBMatch::update(float dt)
             x->update(dt);
         }
     }
-    
+
     if (m_currentInstruction != nullptr)
     {
         m_currentInstruction->update(dt);
+    }
+    else
+    {
+        checkEncounter(dt);
     }
 }
 
@@ -101,39 +178,10 @@ bool CFBMatch::startMatch(FBDefs::SIDE side)
 }
 
 
-CFBTeam* CFBMatch::getPlayingTeam()
-{
-    for (auto x : m_teams)
-    {
-        if (x->getPlayingPlayer())
-        {
-            return x;
-        }
-    }
-    return nullptr;
-}
-
-
-
-CFBPlayer* CFBMatch::getPlayingPlayer()
-{
-    for (auto x : m_teams)
-    {
-        auto player = x->getPlayingPlayer();
-        if (player)
-        {
-            return player;
-        }
-    }
-    return nullptr;
-}
-
-
-
 
 bool CFBMatch::isBallOnTheSide(FBDefs::SIDE side)
 {
-    auto& pos = this->getBall()->getBallPos();
+    auto& pos = this->getBallPosition();
     auto pitch = getPitch();
     if (side == FBDefs::SIDE::LEFT)
     {
@@ -150,7 +198,7 @@ bool CFBMatch::isBallOnTheSide(FBDefs::SIDE side)
 
 float CFBMatch::getBallPosRateBySide(FBDefs::SIDE side)
 {
-    auto& pos = this->getBall()->getBallPos();
+    auto& pos = this->getBallPosition();
     auto pitch = getPitch();
     float rate = pos.x / pitch->getPitchWidth();
     if (side == FBDefs::SIDE::RIGHT)
@@ -163,14 +211,27 @@ float CFBMatch::getBallPosRateBySide(FBDefs::SIDE side)
 
 
 
-void CFBMatch::setOnAtkMenuCallback(function<void(const vector<int>&)> cb)
+void CFBMatch::setBallPosition(const Point& pos)
+{
+    m_ball->setBallPos(pos);
+}
+
+
+
+const Point& CFBMatch::getBallPosition()
+{
+    return m_ball->getBallPos();
+}
+
+
+void CFBMatch::setOnAtkMenuCallback(function<void(const set<int>&)> cb)
 {
     m_onAtkMenu = cb;
 }
 
 
 
-void CFBMatch::setOnDefMenuCallback(function<void(const vector<int>&)> cb)
+void CFBMatch::setOnDefMenuCallback(function<void(const set<int>&)> cb)
 {
     m_onDefMenu = cb;
 }
@@ -191,15 +252,27 @@ void CFBMatch::setOnInstructionEnd(function<void(void)> cb)
 
 
 
+void CFBMatch::setOnPauseGame(function<void(bool)> cb)
+{
+    m_onPauseGame = cb;
+}
+
+
 void CFBMatch::pauseGame(bool p)
 {
     m_isPause = p;
+    if (m_onPauseGame)
+    {
+        m_onPauseGame(p);
+    }
 }
 
 
 
 bool CFBMatch::checkEncounter(float dt)
 {
+    return false;
+    
     m_encounterTime -= dt;
     if (m_encounterTime < 0)
     {
@@ -209,24 +282,19 @@ bool CFBMatch::checkEncounter(float dt)
             m_onAtkMenu(m_defendPlayerIds);
         }
     }
+
+    auto ballPos = FBMATCH->getBallPosition();
     
-    auto ball = getBall();
-    auto side = ball->m_ownerTeam->getSide();
-    auto pitch = getPitch();
-    
-    auto otherSide = pitch->getOtherSide(side);
-    auto ballPos = ball->getBallPos();
-    
-    auto defTeam = getTeam(otherSide);
+    auto defTeam = getDefendingTeam();
     auto& teamMembers = defTeam->getTeamMembers();
     
     for (auto tm : teamMembers)
     {
         if (tm->m_isOnDuty && !tm->m_isGoalKeeper)
         {
-            if (FLT_LE(ballPos.getDistanceSq(tm->m_curPosition), m_playerDistanceSq))
+            if (FLT_LE(ballPos.getDistanceSq(tm->getPosition()), m_playerDistanceSq))
             {
-                m_defendPlayerIds.push_back(tm->m_positionInFormation);
+                m_defendPlayerIds.insert(tm->m_positionInFormation);
             }
         }
     }
@@ -273,6 +341,9 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
         m_currentInstruction->addPlayer(otherTeam->getFormation()->getPlayer(x));
     }
     
+    auto& fpos = from->getPosition();
+    auto& tpos = to->getPosition();
+    
     vector<pair<float, CFBPlayer*>> involvePlayers;
     
     for (auto player : otherTeamMembers)
@@ -282,9 +353,10 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
             auto it = std::find(m_defendPlayerIds.begin(), m_defendPlayerIds.end(), player->m_positionInFormation);
             if (it == m_defendPlayerIds.end())
             {
-                if (FBDefs::isPointOnTheWay(from->m_curPosition, to->m_curPosition, player->m_curPosition))
+                auto& ppos = player->getPosition();
+                if (FBDefs::isPointOnTheWay(fpos, tpos, ppos))
                 {
-                    float dist = from->m_curPosition.getDistanceSq(player->m_curPosition);
+                    float dist = fpos.getDistanceSq(ppos);
                     involvePlayers.push_back(pair<float, CFBPlayer*>(dist, player));
                 }
             }

@@ -14,11 +14,10 @@ void CFBBackAI::thinkHomePosition()
 {
     auto team = m_formation->getTeam();
     auto pitch = FBMATCH->getPitch();
-    auto ball = FBMATCH->getBall();
     
     int pitchHeight = pitch->getPitchHeight();
     int halfPitchHeight = pitchHeight * 0.5f;
-    auto ballPos = ball->getBallPos();
+    auto& ballPos = FBMATCH->getBallPosition();
     
     float yRate = (ballPos.y - halfPitchHeight) / halfPitchHeight;
     float yOffset = yRate * .2;

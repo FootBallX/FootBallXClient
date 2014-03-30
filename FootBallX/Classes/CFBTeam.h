@@ -28,8 +28,7 @@ public:
     virtual void update(float dt);
     virtual bool onStartMatch();
     virtual void kickOff();
-    virtual void passBall(int passTo);
-    virtual CFBPlayer* getPlayingPlayer();
+    virtual CFBPlayer* getHilightPlayer();
     virtual bool changeFormation(FBDefs::FORMATION formationId);
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
@@ -50,6 +49,11 @@ public:
     virtual bool canShootDirectly(CFBPlayer* player);
     virtual int getNumberOfDefenderBetweenPlayerAndBall(CFBPlayer* player);
     virtual int getNumberOfDefenderAroundPlayer(CFBPlayer* player);
+    
+    virtual void setHilightPlayerId(int pid) { m_hilightPlayerId = pid; }
+    virtual int getHilightPlayerId() { return m_hilightPlayerId; }
+    
+    virtual void switchHilightPlayer();
 protected:
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
     vector<CFBPlayer*> m_teamMembers;
@@ -58,6 +62,7 @@ protected:
     float m_lastPosOfPlayer = 0.f;
     int m_activePlayerId = -1;   // 进攻时是控球队员，防守时是上前逼抢的球员
     int m_assistantPlayerId = -1;  // 进攻时是助攻接应球员（前锋除外），防守时是协防球员
+    int m_hilightPlayerId = -1;     // 进攻方就是控球队员，防守方是当前可以控制移动的球员。
 };
 
 

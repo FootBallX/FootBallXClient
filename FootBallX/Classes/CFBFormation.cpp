@@ -85,6 +85,8 @@ bool CFBFormation::onStartMatch()
             m_playerAIs[i]->initPlayerStates();
         }
         
+        m_team->setHilightPlayerId(m_playerNumber - 1);
+        
         return true;
     } while (false);
     

@@ -25,13 +25,13 @@ CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
 
 void CFBPlayer::update(float dt)
 {
-    if (m_isBallController)
-    {
-        auto ball = FBMATCH->getBall();
-        CC_ASSERT(ball->m_ownerPlayer == this);
-        
-        ball->setBallPos(m_curPosition);
-    }
+//    if (m_isBallController)
+//    {
+//        auto ball = FBMATCH->getBall();
+//        CC_ASSERT(ball->m_ownerPlayer == this);
+//        
+//        ball->setBallPos(m_curPosition);
+//    }
 }
 
 void CFBPlayer::gainBall()
@@ -40,9 +40,11 @@ void CFBPlayer::gainBall()
     
     m_isBallController = true;
     
-    FBMATCH->getBall()->m_ownerPlayer = this;
-    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
+//    FBMATCH->getBall()->m_ownerPlayer = this;
+//    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
     m_ownerTeam->setAttacking(true);
+    
+    m_ownerTeam->setHilightPlayerId(this->m_positionInFormation);
 }
 
 
@@ -53,8 +55,8 @@ void CFBPlayer::loseBall()
     
     m_isBallController = false;
     
-    FBMATCH->getBall()->m_ownerPlayer = nullptr;
-    FBMATCH->getBall()->m_ownerTeam = nullptr;
+//    FBMATCH->getBall()->m_ownerPlayer = nullptr;
+//    FBMATCH->getBall()->m_ownerTeam = nullptr;
     m_ownerTeam->setAttacking(false);
 }
 
@@ -73,4 +75,13 @@ float CFBPlayer::getSpeed()
 }
 
 
+
+void CFBPlayer::setPosition(const Point& pos)
+{
+    m_curPosition = pos;
+    if (m_isBallController)
+    {
+        FBMATCH->setBallPosition(pos);
+    }
+}
 

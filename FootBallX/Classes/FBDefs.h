@@ -51,7 +51,7 @@ namespace FBDefs
     static const float PLAYER_DISTANCE = 0.04f;
     
     // 抢球队员接近球多久后触发
-    static const float PLAYER_ENCOUNTER_TRIGGER_TIME = 2.f;
+    static const float PLAYER_ENCOUNTER_TRIGGER_TIME = 1.f;
     
     enum class SIDE
     {
