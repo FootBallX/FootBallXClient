@@ -39,21 +39,36 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, float posX, f
 
 void CFBPlayerAI::think()
 {
-    if (this->m_player->m_isBallController)
+    auto team = m_formation->getTeam();
+    if (!FBMATCH->checkControlSide(team->getSide()) ||
+        team->getHilightPlayer() != m_player)
     {
-        m_state = FBDefs::AI_STATE::CONTROL;
-        thinkControlBall();
-    }
-    else
-    {
-        if (m_state == FBDefs::AI_STATE::CONTROL)   // TODO: 不好，应该在某个think函数中得出明确指令，这里要切什么状态。
+        if (m_state == FBDefs::AI_STATE::NONE)
         {
             m_state = FBDefs::AI_STATE::BACKHOME;
         }
-        thinkHomePosition();
-        thinkDefending();
+        
+        if (this->m_player->m_isBallController)
+        {
+            m_state = FBDefs::AI_STATE::CONTROL;
+            thinkControlBall();
+        }
+        else
+        {
+            if (m_state == FBDefs::AI_STATE::CONTROL)   // TODO: 不好，应该在某个think函数中得出明确指令，这里要切什么状态。
+            {
+                m_state = FBDefs::AI_STATE::BACKHOME;
+            }
+            thinkHomePosition();
+            thinkDefending();
+        }
+        
+        updatePlayerStates();       // TODO: 这个函数功能和think重复，考虑以后合并。
     }
-    updatePlayerStates();
+    else
+    {
+        m_state = FBDefs::AI_STATE::NONE;
+    }
 }
 
 
@@ -92,7 +107,7 @@ void CFBPlayerAI::initPlayerStates()
 {
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
-    m_player->m_curPosition = pitch->transformPersentage(m_homePosition, team->getSide());
+    m_player->setPosition(pitch->transformPersentage(m_homePosition, team->getSide()));
     m_player->m_isOnDuty = true;
     m_state = FBDefs::AI_STATE::BACKHOME;
 }
@@ -115,8 +130,10 @@ void CFBPlayerAI::returnToHome(float dt)
 
 void CFBPlayerAI::moveTo(const Point& pos, float dt)
 {
-    auto v = (pos - m_player->m_curPosition).normalize();
-    m_player->m_curPosition += v * m_player->getSpeed() * dt;
+    auto position = m_player->getPosition();
+    auto v = (pos - position).normalize();
+    position += v * m_player->getSpeed() * dt;
+    m_player->setPosition(position);
 }
 
 
@@ -130,9 +147,9 @@ void CFBPlayerAI::chaseBall(float dt)
     
     if (m_formation->getTeam()->isDefending())
     {
-        auto ballPos = FBMATCH->getBall()->getBallPos();
+        auto ballPos = FBMATCH->getBallPosition();
         
-        auto ls = (homePos - m_player->m_curPosition).getLengthSq();
+        auto ls = (homePos - m_player->getPosition()).getLengthSq();
         if (ls >= m_defendOrbitRadiusx2Sq && isNotInStateCD())
         {
             applyStateCD();
@@ -193,7 +210,7 @@ void CFBPlayerAI::chaseBall(float dt)
 
 bool CFBPlayerAI::isOnPosition(const Point& pos)
 {
-    auto pt = m_player->m_curPosition - pos;
+    auto pt = m_player->getPosition() - pos;
     if (pt.getLengthSq() < 10)
     {
         return true;
@@ -208,7 +225,7 @@ void CFBPlayerAI::thinkDefending()
 {
     if (m_formation->getTeam()->isDefending() && m_state != FBDefs::AI_STATE::CHASE)
     {
-        const Point& ballPos = FBMATCH->getBall()->getBallPos();
+        const Point& ballPos = FBMATCH->getBallPosition();
         auto pitch = FBMATCH->getPitch();
         auto team = m_formation->getTeam();
         auto homePos = pitch->transformPersentage(m_homePosition, team->getSide());
@@ -311,7 +328,6 @@ void CFBPlayerAI::thinkControlBall()
             auto target = m_formation->getPassBallTarget();
             if (target)
             {
-//                team->passBall(target->getPlayer()->m_positionInFormation);
                 FBMATCH->tryPassBall(m_player, target->getPlayer());
             }
         }
@@ -332,7 +348,7 @@ void CFBPlayerAI::thinkDribbleBall()
     auto& otherTeamMembers = otherTeam->getTeamMembers();
     auto& teamMembers = team->getTeamMembers();
     
-    auto& p1 = m_player->m_curPosition;
+    auto& p1 = m_player->getPosition();
     Point aheadPos = p1;
     
     auto checkLength = pitch->transformPersentageX(0.2f);       // TODO: 常数配置要集中
@@ -355,7 +371,7 @@ void CFBPlayerAI::thinkDribbleBall()
     {
         if (player->m_isOnDuty)
         {
-            if (FBDefs::isPointOnTheWay(p1, goalDirPos, player->m_curPosition))
+            if (FBDefs::isPointOnTheWay(p1, goalDirPos, player->getPosition()))
             {
                 ok = false;
                 break;
@@ -374,7 +390,7 @@ void CFBPlayerAI::thinkDribbleBall()
     {
         if (player->m_isOnDuty)
         {
-            if (FBDefs::isPointOnTheWay(p1, aheadPos, player->m_curPosition))
+            if (FBDefs::isPointOnTheWay(p1, aheadPos, player->getPosition()))
             {
                 ok = false;
                 break;
@@ -403,7 +419,6 @@ void CFBPlayerAI::thinkPassBall()
     
     if (target)
     {
-//        team->passBall(target->getPlayer()->m_positionInFormation);
         FBMATCH->tryPassBall(m_player, target->getPlayer());
     }
 }

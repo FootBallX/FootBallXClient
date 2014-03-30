@@ -42,10 +42,17 @@ public:
     CFBInstructionFactory() = default;
     ~CFBInstructionFactory();
     
-    CFBInstruction* getPassBallIns();
+    CFBInstruction* getActiveIns() { return m_activeIns; }
     
+    CFBInstruction* getPassBallIns();
+    CFBInstruction* getShootBallAirIns();
+    CFBInstruction* getShootBallGroundIns();
 protected:
     CFBInstruction* m_passBallIns = nullptr;
+    CFBInstruction* m_shootBallAirIns = nullptr;
+    CFBInstruction* m_shootBallGroundIns = nullptr;
+    
+    CFBInstruction* m_activeIns = nullptr;
 };
 
 

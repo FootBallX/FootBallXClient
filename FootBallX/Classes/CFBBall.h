@@ -22,9 +22,7 @@ public:
     
     void setBallPos(const cocos2d::Point& pos);
     const cocos2d::Point& getBallPos() const { return m_curPosition;};
-    
-    CFBPlayer* m_ownerPlayer = nullptr;
-    CFBTeam* m_ownerTeam = nullptr;
+
 protected:
     cocos2d::Point m_curPosition;
 };

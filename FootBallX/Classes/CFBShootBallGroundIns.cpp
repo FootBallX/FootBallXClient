@@ -1,48 +1,35 @@
 //
-//  CFBPassBallIns.cpp
+//  CFBShootBallGroundIns.cpp
 //  FootBallX
 //
-//  Created by 马 俊 on 14-3-14.
+//  Created by 马 俊 on 14-3-30.
 //  Copyright (c) 2014年 马 俊. All rights reserved.
 //
 
-#include "CFBPassBallIns.h"
+#include "CFBShootBallGroundIns.h"
 #include "CFBFunctionsJS.h"
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
 #include "CRandomManager.h"
-#include "FBDefs.h"
 
-void CFBPassBallIns::start(function<CALLBACK_TYPE> callback)
+void CFBShootBallGroundIns::start(function<CALLBACK_TYPE> callback)
 {
     CC_ASSERT(m_players.size() >= 2);
     
     CFBInstruction::start(callback);
     
-    checkAirBall();
-    
     auto player = m_players[0];
     auto& o1 = player->getPlayerCard();
-    FB_FUNC_JS->startPassBall(o1, m_isAirBall);
+    FB_FUNC_JS->startShootBall(o1, false);
     m_animationPlaying = true;
     m_step = 1;
-    
     m_ret = FBDefs::JS_RET_VAL::FAIL;
+    
 }
 
 
 
-void CFBPassBallIns::checkAirBall()
-{
-    auto player = m_players[m_players.size() - 1];
-    auto pitch = FBMATCH->getPitch();
-    auto side = player->m_ownerTeam->getSide();
-    m_isAirBall = pitch->isInPenaltyArea(player->getPosition(), pitch->getOtherSide(side));
-}
-
-
-
-void CFBPassBallIns::update(float dt)
+void CFBShootBallGroundIns::update(float dt)
 {
     if (!m_animationPlaying)
     {
@@ -78,8 +65,21 @@ void CFBPassBallIns::update(float dt)
                 else if (m_step == (count -1))
                 {
                     auto player = m_players[m_step];
-                    auto& o1 = player->getPlayerCard();
-                    FB_FUNC_JS->receiveBall(o1);
+                    auto& o1 = m_players[0]->getPlayerCard();
+                    auto& o2 = player->getPlayerCard();
+                    switch (player->getInstruction())
+                    {
+                        case FBDefs::PLAYER_INS::HIT:
+                            m_ret = FB_FUNC_JS->hitBallGP(o1, o2);
+                            break;
+                        case FBDefs::PLAYER_INS::TAKE:
+                            m_ret = FB_FUNC_JS->takeBallGP(o1, o2);
+                            break;
+                        default:
+                            CC_ASSERT(false);
+                            break;
+                    }
+                    
                     m_animationPlaying = true;
                     m_step++;
                     
@@ -93,24 +93,8 @@ void CFBPassBallIns::update(float dt)
                 
                 break;
             }
-                
             case FBDefs::JS_RET_VAL::SUCCESS:
             {
-                if (m_step == count)
-                {
-                    onInstructionEnd();
-                }
-                else
-                {
-                    auto player = m_players[m_step - 1];
-                    auto& o1 = player->getPlayerCard();
-                    FB_FUNC_JS->receiveBall(o1);    // TODO: 这里可能要用个专门的抢到球的函数
-                    m_animationPlaying = true;
-                    m_step = (int)count;
-                    
-                    m_players[0]->loseBall();
-                    player->gainBall();
-                }
                 
                 break;
             }
@@ -120,14 +104,14 @@ void CFBPassBallIns::update(float dt)
 
 
 
-void CFBPassBallIns::onAnimationEnd()
+void CFBShootBallGroundIns::onAnimationEnd()
 {
     m_animationPlaying = false;
 }
 
 
 
-void CFBPassBallIns::onInstructionEnd()
+void CFBShootBallGroundIns::onInstructionEnd()
 {
     CFBInstruction::onInstructionEnd();
     

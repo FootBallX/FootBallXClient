@@ -51,7 +51,7 @@ namespace FBDefs
     static const float PLAYER_DISTANCE = 0.04f;
     
     // 抢球队员接近球多久后触发
-    static const float PLAYER_ENCOUNTER_TRIGGER_TIME = 2.f;
+    static const float PLAYER_ENCOUNTER_TRIGGER_TIME = 1.f;
     
     enum class SIDE
     {
@@ -110,6 +110,25 @@ namespace FBDefs
     {
         PASS_BALL_SUCCESS,
         PASS_BALL_FAIL,
+    };
+    
+    enum class PLAYER_INS
+    {
+        TAKCLE,
+        BLOCK,
+        INTERCEPT,
+        HIT,
+        TAKE,
+        NONE,
+    };
+    
+    
+    enum class JS_RET_VAL
+    {
+        FAIL = 0,
+        SUCCESS = 1,
+        RANDOM_BALL = 2,
+        NONE,
     };
     
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);

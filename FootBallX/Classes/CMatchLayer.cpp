@@ -72,29 +72,33 @@ bool CMatchLayer::init()
 
 bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
 {
-    auto loc = touch->getLocation();
-    
-    switch (m_operator)
+    auto team = FBMATCH->getControlSideTeam();
+    if (team)
     {
-        case OP::PASS_BALL:
+        auto loc = touch->getLocation();
+        switch (m_operator)
         {
-            int idx = getSelectedPlayerId(loc, true);
-            if (idx != -1)
+            case OP::PASS_BALL:
             {
-                auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
-                auto from = team->getPlayingPlayer();
-                auto to = team->getFormation()->getPlayer(idx);
-                FBMATCH->tryPassBall(from, to);
-                //                FBMATCH->getTeam(FBDefs::SIDE::LEFT)->passBall(idx);
-                m_operator = OP::NONE;
-                //                togglePitchLieDown();
-                m_atkMenu->setVisible(false);
+                int idx = getSelectedPlayerId(loc, true);
+                if (idx != -1)
+                {
+                    auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
+                    auto from = team->getHilightPlayer();
+                    auto to = team->getFormation()->getPlayer(idx);
+                    FBMATCH->tryPassBall(from, to);
+                    m_operator = OP::NONE;
+                    m_atkMenu->setVisible(false);
+                }
+                break;
             }
-            break;
+            case OP::NONE:
+                if (!FBMATCH->isPausing())
+                {
+                    m_ballMovingVec = (loc - m_screenCenter).normalize();
+                }
+                break;
         }
-        case OP::NONE:
-            m_ballMovingVec = (loc - m_screenCenter).normalize();
-            break;
     }
     
     return true;
@@ -104,14 +108,20 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
 
 void CMatchLayer::onTouchMoved(Touch* touch, Event* event)
 {
-    auto loc = touch->getLocation();
-    switch (m_operator)
+    if (FBMATCH->isPausing()) return;
+    
+    auto team = FBMATCH->getControlSideTeam();
+    if (team)
     {
-        case OP::PASS_BALL:
-            break;
-        case OP::NONE:
-            m_ballMovingVec = (loc - m_screenCenter).normalize();
-            break;
+        auto loc = touch->getLocation();
+        switch (m_operator)
+        {
+            case OP::PASS_BALL:
+                break;
+            case OP::NONE:
+                m_ballMovingVec = (loc - m_screenCenter).normalize();
+                break;
+        }
     }
 }
 
@@ -231,6 +241,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         FBMATCH->setOnDefMenuCallback(std::bind(&CMatchLayer::onDefMenuCallback, this, std::placeholders::_1));
         FBMATCH->setOnPlayAnimationCallback(std::bind(&CMatchLayer::playAnimation, this, std::placeholders::_1, std::placeholders::_2));
         FBMATCH->setOnInstructionEnd(std::bind(&CMatchLayer::onInstructionEnd, this));
+        FBMATCH->setOnPauseGame(std::bind(&CMatchLayer::onPauseGameCallback, this, std::placeholders::_1));
         
         vector<string> redPlayercards =
         {
@@ -270,6 +281,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         
         BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
         
+        FBMATCH->setControlSide(FBDefs::SIDE::LEFT);
         BREAK_IF_FAILED(FBMATCH->startMatch(FBDefs::SIDE::LEFT));
         
 #ifdef SHOW_GRID
@@ -287,28 +299,51 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
 void CMatchLayer::update(float dt)
 {
     CBaseLayer::update(dt);
-    
-    
+
     FBMATCH->update(dt);
     
     auto black = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
     auto blackFmt = black->getFormation();
+    auto blackTeam = blackFmt->getTeam();
+    
     int i;
     for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
     {
-        m_blackPlayers[i]->setVisible(true);
-        m_blackPlayers[i]->setPosition(blackFmt->getPlayer(i)->m_curPosition);
+        auto player = blackFmt->getPlayer(i);
+        auto spr = m_blackPlayers[i];
+        spr->setVisible(true);
+        spr->setPosition(player->getPosition());
+        if (blackTeam->getHilightPlayer() == player)
+        {
+            spr->setOpacity(50);
+        }
+        else
+        {
+            spr->setOpacity(255);
+        }
     }
     
     auto red = FBMATCH->getTeam(FBDefs::SIDE::RIGHT);
     auto redFmt = red->getFormation();
+    auto redTeam = redFmt->getTeam();
     for (i = 0; i < redFmt->getPlayerNumber(); ++i)
     {
-        m_redPlayers[i]->setVisible(true);
-        m_redPlayers[i]->setPosition(redFmt->getPlayer(i)->m_curPosition);
+        auto player = redFmt->getPlayer(i);
+        auto spr = m_redPlayers[i];
+        spr->setVisible(true);
+        spr->setPosition(player->getPosition());
+        if (redTeam->getHilightPlayer() == player)
+        {
+            spr->setOpacity(50);
+        }
+        else
+        {
+            spr->setOpacity(255);
+        }
     }
     
-    auto ball = FBMATCH->getBall();
+    auto team = FBMATCH->getControlSideTeam();
+    auto player = team->getHilightPlayer();
     
     if (m_ballMovingVec.equals(Point(0, 0)))
     {
@@ -321,14 +356,14 @@ void CMatchLayer::update(float dt)
         float angle = CC_RADIANS_TO_DEGREES(m_ballMovingVec.getAngle(base));
         m_arrow->setRotation(angle);
         
-        Point pos = ball->getBallPos();
-        pos += m_ballMovingVec * ball->m_ownerPlayer->getSpeed() * dt;
-        ball->setBallPos(pos);
+        auto pos = player->getPosition();
+        pos += m_ballMovingVec * player->getSpeed() * dt;
+        player->setPosition(pos);
     }
     
     m_ball->setVisible(true);
-    m_ball->setPosition(ball->getBallPos());
-    m_arrow->setPosition(ball->getBallPos());
+    m_ball->setPosition(FBMATCH->getBallPosition());
+    m_arrow->setPosition(player->getPosition());
 }
 
 
@@ -361,16 +396,25 @@ void CMatchLayer::togglePitchLieDown(bool lieDown)
 
 void CMatchLayer::onPassBall(Ref* pSender)
 {
-    FBMATCH->pauseGame(true);
-    togglePitchLieDown(false);
-    
+    auto team = FBMATCH->getControlSideTeam();
+    if (team->isAttacking())
+    {
+        FBMATCH->pauseGame(true);
+        togglePitchLieDown(false);
+        
 #ifdef SHOW_GRID
-    FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::RIGHT);
-    FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::LEFT);
-    refreshGrids();
+        FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::RIGHT);
+        FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::LEFT);
+        refreshGrids();
 #endif
-    
-    m_atkMenu->setVisible(true);
+        
+        m_atkMenu->setVisible(true);
+    }
+    else
+    {
+        team->switchHilightPlayer();
+    }
+
 }
 
 
@@ -477,9 +521,9 @@ void CMatchLayer::refreshGrids()
 }
 #endif
 
-void CMatchLayer::onAtkMenuCallback(const vector<int>& defPlayers)
+void CMatchLayer::onAtkMenuCallback(const set<int>& defPlayers)
 {
-    pause();
+    FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
     
     m_atkMenu->setVisible(true);
@@ -487,7 +531,7 @@ void CMatchLayer::onAtkMenuCallback(const vector<int>& defPlayers)
 
 
 
-void CMatchLayer::onDefMenuCallback(const vector<int>& defPlayers)
+void CMatchLayer::onDefMenuCallback(const set<int>& defPlayers)
 {
     
 }
@@ -509,6 +553,11 @@ void CMatchLayer::onDribble(Ref* pSender)
 
 void CMatchLayer::onShoot(Ref* pSender)
 {
+    m_operator = OP::SHOOT_BALL;
+    auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
+    auto from = team->getHilightPlayer();
+    FBMATCH->tryShootBall(from, false);
+    
 }
 
 
@@ -564,6 +613,7 @@ void CMatchLayer::playAnimation(const string& name, float delay)
 
 void CMatchLayer::onInstructionEnd()
 {
+    m_operator = OP::NONE;
     togglePitchLieDown(true);
 }
 
@@ -574,5 +624,16 @@ void CMatchLayer::onAnimationEnd()
     removeChild(m_animationRoot);
     m_animationRoot = nullptr;
 
-    INS_FAC->getPassBallIns()->onAnimationEnd();
+    auto ins = INS_FAC->getActiveIns();
+    if (ins)
+    {
+        ins->onAnimationEnd();
+    }
+}
+
+
+
+void CMatchLayer::onPauseGameCallback(bool p)
+{
+    m_ballMovingVec.setPoint(0, 0);
 }

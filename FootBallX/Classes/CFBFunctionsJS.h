@@ -12,6 +12,7 @@
 #include "Common.h"
 #include "CSingleton.h"
 #include "CFBCard.h"
+#include "FBDefs.h"
 
 class CFBFunctionsJS : public CSingleton<CFBFunctionsJS>
 {
@@ -24,9 +25,15 @@ public:
     float getSpeed(const CFBCard& co);
 
     void startPassBall(const CFBCard& co1, bool isAir);
-    bool tackleBall(const CFBCard& co1, const CFBCard& co2);
-    bool interceptBall(const CFBCard& co1, const CFBCard& co2);
-    bool blockBall(const CFBCard& co1, const CFBCard& co2);
+    void startShootBall(const CFBCard& co1, bool isAir);
+    
+    FBDefs::JS_RET_VAL tackleBall(const CFBCard& co1, const CFBCard& co2);
+    FBDefs::JS_RET_VAL interceptBall(const CFBCard& co1, const CFBCard& co2);
+    FBDefs::JS_RET_VAL blockBall(const CFBCard& co1, const CFBCard& co2);
+    
+    FBDefs::JS_RET_VAL hitBallGP(const CFBCard& co1, const CFBCard& co2);
+    FBDefs::JS_RET_VAL takeBallGP(const CFBCard& co1, const CFBCard& co2);
+    
     void receiveBall(const CFBCard& co1);
 protected:
     jsval callJSFunc(const char* name, const char* format, ...);

@@ -12,6 +12,7 @@
 #include "Common.h"
 #include "CFBTeam.h"
 #include "CFBCard.h"
+#include "FBDefs.h"
 
 class CFBPlayer
 {
@@ -24,11 +25,17 @@ public:
     virtual float getSpeed();
     
     virtual const CFBCard& getPlayerCard() const { return m_playerCard; }
+    
+    virtual void setPosition(const Point& pos);
+    virtual const Point& getPosition() { return m_curPosition; }
+    
+    virtual void setInstruction(FBDefs::PLAYER_INS ins) { m_instruction = ins; }
+    virtual FBDefs::PLAYER_INS getInstruction() { return m_instruction; }
 #pragma mark -- player actions
     virtual void gainBall();
     virtual void loseBall();
 #pragma mark -- Player states
-    cocos2d::Point m_curPosition;
+    
     CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
     bool m_isOnDuty = false;        // 上场
@@ -38,6 +45,10 @@ public:
     bool m_isGoalKeeper = false;
 
 protected:
+    cocos2d::Point m_curPosition;
+    
+    FBDefs::PLAYER_INS m_instruction;
+    
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
     const CFBCard& m_playerCard;

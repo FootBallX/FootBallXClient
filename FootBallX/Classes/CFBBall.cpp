@@ -11,7 +11,5 @@
 
 void CFBBall::setBallPos(const Point& pos)
 {
-    CC_ASSERT(m_ownerPlayer);
     m_curPosition = pos;
-    m_ownerPlayer->m_curPosition = pos;
 }

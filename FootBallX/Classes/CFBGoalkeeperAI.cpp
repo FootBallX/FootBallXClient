@@ -13,11 +13,10 @@
 void CFBGoalkeeperAI::thinkHomePosition()
 {
     auto pitch = FBMATCH->getPitch();
-    auto ball = FBMATCH->getBall();
     
     int pitchHeight = pitch->getPitchHeight();
     int halfPitchHeight = pitchHeight * 0.5f;
-    auto ballPos = ball->getBallPos();
+    auto& ballPos = FBMATCH->getBallPosition();
     
     float yRate = (ballPos.y - halfPitchHeight) / halfPitchHeight;
     float yOffset = yRate * .2;
@@ -87,7 +86,7 @@ void CFBGoalkeeperAI::thinkControlBall()
             auto target = m_formation->getPassBallTarget();
             if (target)
             {
-                team->passBall(target->getPlayer()->m_positionInFormation);
+                FBMATCH->tryPassBall(m_player, target->getPlayer());
             }
         }
     }
