@@ -42,8 +42,8 @@ var g_OrderParam_5 = 50;            //地面 盘带vs拦截
 var g_OrderParam_6 = 150;           //地面 盘带vs封堵
 
 var g_OrderParam_7 = 150;           //地面 二过一vs铲球
-var g_OrderParam_8 = 0;             //地面 二过一vs拦截
-var g_OrderParam_9 = 0;             //地面 二过一vs封堵
+var g_OrderParam_8 = -100;          //地面 二过一vs拦截
+var g_OrderParam_9 = 50;            //地面 二过一vs封堵
 
 var g_OrderParam_10 = 100;          //地面 射门vs铲球
 var g_OrderParam_11 = -50;          //地面 射门vs拦截
@@ -307,9 +307,9 @@ function InterceptBall(o1, o2)
       }
     }
 
-    case 4 :    //空中传球vs拦截
-    PlayAnimation ("ground_paowei.ccbi", 0);
-    var v = Rand() % 1000 + ( o1.pass + o2.air ) - ( o2.defence + o2.air ) + g_OrderParam_2 + g_ballSpeed;
+    // case 4 :    //空中传球vs拦截
+    // PlayAnimation ("ground_paowei.ccbi", 0);
+    // var v = Rand() % 1000 + ( o1.pass + o2.air ) - ( o2.defence + o2.air ) + g_OrderParam_2 + g_ballSpeed;
 
   }
 }
