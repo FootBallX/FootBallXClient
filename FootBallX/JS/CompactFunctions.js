@@ -139,6 +139,7 @@ function TackleBall(o1, o2)
       PlayAnimation("ground_chanqiu_success.ccbi", 0);
       return true;
     }
+    break;
    
     case 1 : //铲球vs射门
     var v = Rand() % 1000 + ( o1.shoot + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_10 + g_ballSpeed;
@@ -163,7 +164,8 @@ function TackleBall(o1, o2)
       PlayAnimation("ground_chanqiu_success.ccbi", 0);
       return true;
     }
-    
+    break;
+
     case 2 :  //铲球vs盘带
     var v = Rand() % 1000 + ( o1.dribble + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_4;
     if (v >= g_WinParam_1)
@@ -181,7 +183,8 @@ function TackleBall(o1, o2)
       PlayAnimation("ground_chanqiu_success.ccbi", 0);
       return true;
     }
-    
+    break;
+
     case 3 :  //铲球vs二过一
     var v = Rand() % 1000 + ( o1.pass + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_7 + g_ballSpeed;
     if (v >= g_WinParam_2)
@@ -205,6 +208,7 @@ function TackleBall(o1, o2)
       PlayAnimation("ground_chanqiu_success.ccbi", 0);
       return true;
     }
+    break;
   }
 }
 
@@ -236,6 +240,7 @@ function InterceptBall(o1, o2)
       PlayAnimation("ground_lanjie_success.ccbi", 0);
       return true;
     }
+    break;
 
     case 1 :    //拦截vs射门
     var v = Rand() % 1000 + ( o1.shoot + o2.ground ) - ( o2.defence + o2.ground ) + g_OrderParam_11 + g_ballSpeed;
@@ -260,6 +265,7 @@ function InterceptBall(o1, o2)
       PlayAnimation("ground_lanjie_success.ccbi", 0);
       return true;
     }
+    break;
 
     case 2 :    //拦截vs盘带
     {
@@ -280,6 +286,7 @@ function InterceptBall(o1, o2)
         return true;
       }
     }
+    break;
 
     case 3 :    //拦截vs二过一
     {
@@ -306,6 +313,7 @@ function InterceptBall(o1, o2)
         return true;
       }
     }
+    break;
 
     // case 4 :    //空中传球vs拦截
     // PlayAnimation ("ground_paowei.ccbi", 0);
@@ -344,6 +352,7 @@ function BlockBall(o1, o2)
         return true;
       }
     }
+    break;
     
     case 1 :  //封堵vs射门
     {
@@ -370,6 +379,7 @@ function BlockBall(o1, o2)
         return true;
       }
     }
+    break;
     
     case 2 :    //封堵vs盘带
     {
@@ -390,6 +400,7 @@ function BlockBall(o1, o2)
         return true;
       }
     }
+    break;
     
     case 3 :     //封堵vs二过一
     {
@@ -416,6 +427,7 @@ function BlockBall(o1, o2)
         return true;
       }
     }
+    break;
   }
 }
 
