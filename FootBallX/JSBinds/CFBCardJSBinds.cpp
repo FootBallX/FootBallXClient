@@ -12,8 +12,6 @@ enum CARD_PROP
     PAS,
     SHT,
     DEF,
-    TAK,
-    HIT,
     ATK,
     GRD,
     AIR,
@@ -38,8 +36,6 @@ card_getProperty(JSContext *cx, JS::Handle<JSObject*> obj, JS::Handle<jsid> id, 
             case CARD_PROP::PAS: vp.set(DOUBLE_TO_JSVAL(ptr->m_passSkill)); break;
             case CARD_PROP::SHT: vp.set(DOUBLE_TO_JSVAL(ptr->m_shootSkill)); break;
             case CARD_PROP::DEF: vp.set(DOUBLE_TO_JSVAL(ptr->m_defenceSkill)); break;
-            case CARD_PROP::TAK: vp.set(DOUBLE_TO_JSVAL(ptr->m_takeBallSkill)); break;
-            case CARD_PROP::HIT: vp.set(DOUBLE_TO_JSVAL(ptr->m_takeBallSkill)); break;
             case CARD_PROP::ATK: vp.set(DOUBLE_TO_JSVAL(ptr->m_attackSkill)); break;
             case CARD_PROP::GRD: vp.set(DOUBLE_TO_JSVAL(ptr->m_groundSkill)); break;
             case CARD_PROP::AIR: vp.set(DOUBLE_TO_JSVAL(ptr->m_airSkill)); break;
@@ -128,13 +124,7 @@ bool js_CFBCardJSBinds_CFBCard_constructor(JSContext *cx, uint32_t argc, jsval *
 			double arg10;
 			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[10]), &arg10);
 			if (!ok) { ok = true; break; }
-			double arg11;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[11]), &arg11);
-			if (!ok) { ok = true; break; }
-			double arg12;
-			ok &= JS::ToNumber( cx, JS::RootedValue(cx, argv[12]), &arg12);
-			if (!ok) { ok = true; break; }
-			cobj = new CFBCard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
+			cobj = new CFBCard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
 			TypeTest<CFBCard> t;
 			js_type_class_t *typeClass = nullptr;
 			std::string typeName = t.s_name();
@@ -211,8 +201,6 @@ void js_register_CFBCardJSBinds_CFBCard(JSContext *cx, JSObject *global) {
         {"pass", (int8_t)CARD_PROP::PAS, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"shoot", (int8_t)CARD_PROP::SHT, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"defence", (int8_t)CARD_PROP::DEF, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
-        {"take", (int8_t)CARD_PROP::TAK, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
-        {"hit", (int8_t)CARD_PROP::HIT, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"attack", (int8_t)CARD_PROP::ATK, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"ground", (int8_t)CARD_PROP::GRD, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},
         {"air", (int8_t)CARD_PROP::AIR, JSPROP_ENUMERATE, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER},

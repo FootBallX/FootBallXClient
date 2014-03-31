@@ -147,14 +147,6 @@ var test_case = [
 
 
 
-
-<<<<<<< HEAD
-=======
-
-
-
-
-
 {'name':'TackleVsDribble_failed',
 'func':function()
 	{
@@ -518,13 +510,5 @@ var test_case = [
 },
 
 
-
-
-
-
-
-
-
->>>>>>> FETCH_HEAD
 ];
 
