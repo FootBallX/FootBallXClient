@@ -553,7 +553,7 @@ function HitBallGP(o1, o2)
       else
       {
         PlayAnimation("keeper_jiqiu_success.ccbi", 0);
-        return RET_SUCCESS;
+        return RET_RANDOM_BALL;
       }
       break;
     }
@@ -574,7 +574,7 @@ function HitBallGP(o1, o2)
       else
       {
         PlayAnimation("keeper_jiqiu_success.ccbi", 0);
-        return RET_SUCCESS;
+        return RET_RANDOM_BALL;
       }
       break;
     }
