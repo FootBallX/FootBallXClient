@@ -50,7 +50,6 @@ CFBInstruction* CFBInstructionFactory::getPassBallIns()
     {
         m_passBallIns = new CFBPassBallIns();
     }
-    m_activeIns = m_passBallIns;
     
     return m_passBallIns;
 }
@@ -63,7 +62,6 @@ CFBInstruction* CFBInstructionFactory::getShootBallAirIns()
     {
         m_shootBallAirIns = new CFBShootBallAirIns();
     }
-    m_activeIns = m_shootBallAirIns;
     
     return m_shootBallAirIns;
 }
@@ -76,7 +74,6 @@ CFBInstruction* CFBInstructionFactory::getShootBallGroundIns()
     {
         m_shootBallGroundIns = new CFBShootBallGroundIns();
     }
-    m_activeIns = m_shootBallGroundIns;
     
     return m_shootBallGroundIns;
 }

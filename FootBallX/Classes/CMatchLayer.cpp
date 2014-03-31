@@ -623,12 +623,8 @@ void CMatchLayer::onAnimationEnd()
 {
     removeChild(m_animationRoot);
     m_animationRoot = nullptr;
-
-    auto ins = INS_FAC->getActiveIns();
-    if (ins)
-    {
-        ins->onAnimationEnd();
-    }
+    
+    FBMATCH->onAnimationEnd();
 }
 
 

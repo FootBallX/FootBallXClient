@@ -63,6 +63,7 @@ public:
     void tryShootBall(CFBPlayer* player, bool isAir);
     
     void playAnimation(const string& name, float delay);
+    void onAnimationEnd();
 protected:
     CFBBall* m_ball = nullptr;
     

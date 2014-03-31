@@ -542,3 +542,13 @@ void CFBMatch::playAnimation(const string& name, float delay)
 }
 
 
+
+void CFBMatch::onAnimationEnd()
+{
+    if (m_currentInstruction)
+    {
+        m_currentInstruction->onAnimationEnd();
+    }
+}
+
+
