@@ -150,7 +150,7 @@
 								<key>type</key>
 								<string>String</string>
 								<key>value</key>
-								<string>盘    带</string>
+								<string>盘     带</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1360,8 +1360,6 @@
 								<string>99999</string>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
