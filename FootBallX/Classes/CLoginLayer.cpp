@@ -222,7 +222,7 @@ void CLoginLayer::getPlayerInfo(void)
 //            PLAYER_INFO->setMineral(json_integer_value(json_object_get(player, "mineral")));
 //            PLAYER_INFO->setGas(json_integer_value(json_object_get(player, "gas")));
             
-            SCENE_MANAGER->go(ST_MATCH);
+            SCENE_MANAGER->go(ST_LOBBY);
         }
     });
 }

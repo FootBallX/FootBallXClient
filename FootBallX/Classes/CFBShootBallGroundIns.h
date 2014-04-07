@@ -21,6 +21,9 @@ public:
     virtual void update(float dt) override;
     virtual void start(function<CALLBACK_TYPE> callback) override;
     virtual void onAnimationEnd() override;
+    
+    virtual FBDefs::MATCH_FLOW_TYPE getInstructionType() override { return FBDefs::MATCH_FLOW_TYPE::SHOOT_GROUND; }
+
 protected:
     virtual void onInstructionEnd() override;
     

@@ -48,7 +48,7 @@ void CFBForwardAI::thinkHomePosition()
     auto& ballPos = FBMATCH->getBallPosition();
     
     float yRate = (ballPos.y - halfPitchHeight) / halfPitchHeight;
-    float yOffset = yRate * .2;
+    float yOffset = yRate * FBDefs::OFFSET_Y;
     m_homePosition.y = m_origHomePosition.y + yOffset;
     
     FBDefs::SIDE side = team->getSide();
@@ -81,7 +81,7 @@ void CFBForwardAI::thinkHomePosition()
         }
     }
     
-    PreventOffsideInRate(m_homePosition.x);
+    PreventOffside(m_homePosition.x);
 }
 
 

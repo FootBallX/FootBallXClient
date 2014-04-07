@@ -150,6 +150,8 @@
 		54F159CB1884DADF008AF575 /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BD1884DADF008AF575 /* Icon-144.png */; };
 		54F159CC1884DADF008AF575 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BE1884DADF008AF575 /* Icon-152.png */; };
 		54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F159CE1884DD08008AF575 /* CoreMotion.framework */; };
+		54F895BD18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */; };
+		54F895BE18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */; };
 		54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */; };
 		54FC876418A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */; };
 /* End PBXBuildFile section */
@@ -316,6 +318,8 @@
 		54F159BE1884DADF008AF575 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-152.png"; path = "ios/Icon-152.png"; sourceTree = "<group>"; };
 		54F159BF1884DADF008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Info.plist; sourceTree = "<group>"; };
 		54F159CE1884DD08008AF575 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CLobbyLayer.cpp; path = ../Classes/CLobbyLayer.cpp; sourceTree = "<group>"; };
+		54F895BC18EFBA6400518F3D /* CLobbyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLobbyLayer.h; path = ../Classes/CLobbyLayer.h; sourceTree = "<group>"; };
 		54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitchGrid.cpp; path = ../Classes/CFBPitchGrid.cpp; sourceTree = "<group>"; };
 		54FC876218A3AAC100A320EC /* CFBPitchGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitchGrid.h; path = ../Classes/CFBPitchGrid.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -428,6 +432,8 @@
 		542EC2DC1880FC1700EB100C /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */,
+				54F895BC18EFBA6400518F3D /* CLobbyLayer.h */,
 				543D49C018815EE60076C7EB /* CTransitLayer.cpp */,
 				543D49C118815EE60076C7EB /* CTransitLayer.h */,
 				543D49B718815D7A0076C7EB /* CLoginLayer.cpp */,
@@ -875,6 +881,7 @@
 			files = (
 				5484C23F187D1D4B00AA8AFB /* AppController.mm in Sources */,
 				544B6E2B188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */,
+				54F895BD18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */,
 				5484C240187D1D4B00AA8AFB /* main.m in Sources */,
 				5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */,
 				5436BB1018D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */,
@@ -952,6 +959,7 @@
 				543D49AD18815D0F0076C7EB /* CBaseLayer.cpp in Sources */,
 				543D49AF18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
 				543D49B118815D0F0076C7EB /* CMemPool.cpp in Sources */,
+				54F895BE18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */,
 				543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,

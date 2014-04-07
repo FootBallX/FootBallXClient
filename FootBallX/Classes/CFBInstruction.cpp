@@ -44,7 +44,7 @@ CFBInstructionFactory::~CFBInstructionFactory()
 }
 
 
-CFBInstruction* CFBInstructionFactory::getPassBallIns()
+CFBPassBallIns* CFBInstructionFactory::getPassBallIns()
 {
     if (nullptr == m_passBallIns)
     {
@@ -56,7 +56,7 @@ CFBInstruction* CFBInstructionFactory::getPassBallIns()
 
 
 
-CFBInstruction* CFBInstructionFactory::getShootBallAirIns()
+CFBShootBallAirIns* CFBInstructionFactory::getShootBallAirIns()
 {
     if (nullptr == m_shootBallAirIns)
     {
@@ -68,7 +68,7 @@ CFBInstruction* CFBInstructionFactory::getShootBallAirIns()
 
 
 
-CFBInstruction* CFBInstructionFactory::getShootBallGroundIns()
+CFBShootBallGroundIns* CFBInstructionFactory::getShootBallGroundIns()
 {
     if (nullptr == m_shootBallGroundIns)
     {

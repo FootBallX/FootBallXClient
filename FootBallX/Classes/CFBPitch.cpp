@@ -11,75 +11,63 @@
 #include "kazmath/kazmath.h"
 #include "CRandomManager.h"
 
-Point CFBPitch::transformPersentage(const Point& pt, FBDefs::SIDE side)
+
+Point CFBPitch::transformBySide(Point pos, FBDefs::SIDE side)
 {
-    Point point(pt);
     if (side == FBDefs::SIDE::RIGHT)
     {
-        point.x = 1 - point.x;
-        point.y = point.y;
+        pos.x = m_width - pos.x;
     }
-    return Point(point.x * m_width, point.y * m_height);
+    return pos;
 }
 
 
 
-float CFBPitch::transformPersentageX(float x, FBDefs::SIDE side)
+float CFBPitch::transformBySide(float x, FBDefs::SIDE side)
 {
     if (side == FBDefs::SIDE::RIGHT)
     {
-        x = 1 - x;
+        x = m_width - x;
     }
-    return x * m_width;
+    return x;
 }
 
 
 
-float CFBPitch::transformToPersentageX(float x, FBDefs::SIDE side)
-{
-    float rate = x / (float)m_width;
-    
-    if (side == FBDefs::SIDE::RIGHT)
-    {
-        rate = 1 - rate;
-    }
-    
-    return rate;
-}
-
-
-bool CFBPitch::init(int w, int h)
+bool CFBPitch::init(int ww, int hh)
 {
     do
     {
-        m_width = w;
-        m_height = h;
+        m_width = 1000;
+        m_height = 650;
+        
+        m_pitchScale = (float)ww / (float)m_width;
         
         {
             Rect& rc = m_penaltyArea[(int)FBDefs::SIDE::LEFT];
-            rc.origin.x = w * .02f;
-            rc.origin.y = h * .27f;
-            rc.size.width = w * .17f;
-            rc.size.height = h * .46f;
+            rc.origin.x = 0;
+            rc.origin.y = 175;
+            rc.size.width = 150;
+            rc.size.height = 300;
         }
         {
             Rect& rc = m_penaltyArea[(int)FBDefs::SIDE::RIGHT];
-            rc.origin.x = w * .78f;
-            rc.origin.y = h * .27f;
-            rc.size.width = w * .17f;
-            rc.size.height = h * .46f;
+            rc.origin.x = 850;
+            rc.origin.y = 175;
+            rc.size.width = 150;
+            rc.size.height = 300;
         }
         
         {
             Point& pt = m_Goals[(int)FBDefs::SIDE::LEFT];
-            pt.x = w * .02f;
-            pt.y = .1f;     // range
+            pt.x = 0;
+            pt.y = 170;     // range
         }
         
         {
             Point& pt = m_Goals[(int)FBDefs::SIDE::RIGHT];
-            pt.x = w * .98f;
-            pt.y = .1f;
+            pt.x = 1000;
+            pt.y = 170;
         }
         
         auto gw = m_gridWidth - 2;
@@ -87,8 +75,8 @@ bool CFBPitch::init(int w, int h)
         
         float midW = gw / 2.f - 0.5f;
         
-        auto gpw = w / m_gridWidth;
-        auto gph = h / m_gridHeight;
+        auto gpw = m_width / m_gridWidth;
+        auto gph = m_height / m_gridHeight;
         
         m_grids.resize(gw * gh);
         for (int y = 0; y < gh; ++y)
@@ -257,9 +245,7 @@ Point CFBPitch::getBestAssistantDeffendingPosition(const Point& targetPos, FBDef
     gp = gp - targetPos;
     gp = gp.normalize();
     
-    float dist = 0.075;
-
-    return targetPos + (gp * transformPersentageX(dist));
+    return targetPos + (gp * FBDefs::ASSIST_DEFEND_DIST);
 }
 
 
@@ -301,4 +287,11 @@ bool CFBPitch::getGridsAroundPosition(const Point& pos, vector<int>& out_grids)
 bool CFBPitch::isInPenaltyArea(cocos2d::Point pos, FBDefs::SIDE side)
 {
     return m_penaltyArea[int(side)].containsPoint(pos);
+}
+
+
+
+Point CFBPitch::transToScreen(Point pos)
+{
+    return pos * m_pitchScale;
 }

@@ -10,6 +10,7 @@
 #define __FootBallX__CMatchLayer__
 #include "CBaseLayer.h"
 #include "CSpriteEx.h"
+#include "FBDefs.h"
 
 class CFBAnimationLayer;
 
@@ -59,9 +60,8 @@ protected:
     void onTackle(Ref* pSender);
     void onIntercept(Ref* pSender);
     void onPlug(Ref* pSender);
-    
-    void onAtkMenuCallback(const set<int>& defPlayers);
-    void onDefMenuCallback(const set<int>& defPlayers);
+
+    void onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers);
     void onPauseGameCallback(bool p);
     
     void playAnimation(const string& name, float delay);

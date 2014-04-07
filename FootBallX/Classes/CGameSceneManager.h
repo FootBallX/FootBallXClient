@@ -16,6 +16,7 @@
 enum SCENE_TYPE
 {
     ST_LOGIN,
+    ST_LOBBY,
     ST_MATCH,
     ST_NUM,
 };

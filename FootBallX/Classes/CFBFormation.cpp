@@ -184,41 +184,43 @@ bool CFBFormation442::init(CFBTeam* team)
 
 void CFBFormation442::addPlayer(CFBPlayer* player, int pos)
 {
-    player->m_positionInFormation = pos;
+    auto initPos = FBDefs::InitFormation[(int)FBDefs::FORMATION::F_4_4_2];
+    auto homePos = FBDefs::HomeFormation[(int)FBDefs::FORMATION::F_4_4_2];
+    
     switch (pos)
     {
         case 0:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, GOALKEEPER_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], GOALKEEPER_ORBIT_RATE);
             break;
         case 1:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.8f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 2:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.6f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 3:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.4f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 4:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.2f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 5:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.8f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 6:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.6f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 7:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.4f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 8:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.2f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 9:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.667f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
             break;
         case 10:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.333f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
             break;
         default:
             CC_ASSERT(false);
@@ -235,13 +237,13 @@ void CFBFormation442::addPlayer(CFBPlayer* player, int pos)
 CFBFormation352::CFBFormation352()
 {
     m_playerNumber = 11;
-    m_formationId = FBDefs::FORMATION::F_3_5_2;
+    m_formationId = FBDefs::FORMATION::F_3_2_3_2;
 }
 
 
 const char* CFBFormation352::description()
 {
-    return "3-5-2";
+    return "3-2_3-2";
 }
 
 
@@ -272,40 +274,42 @@ bool CFBFormation352::init(CFBTeam* team)
 
 void CFBFormation352::addPlayer(CFBPlayer* player, int pos)
 {
+    auto initPos = FBDefs::InitFormation[(int)FBDefs::FORMATION::F_3_2_3_2];
+    auto homePos = FBDefs::HomeFormation[(int)FBDefs::FORMATION::F_3_2_3_2];
     switch (pos)
     {
         case 0:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, GOALKEEPER_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], GOALKEEPER_ORBIT_RATE);
             break;
         case 1:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.75f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 2:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.5f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 3:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.25f, BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
             break;
         case 4:
-            m_playerAIs[pos]->init(this, player, -0.05f, 0.65f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 5:
-            m_playerAIs[pos]->init(this, player, -0.05f, 0.35f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 6:
-            m_playerAIs[pos]->init(this, player, 0.05f, 0.75f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 7:
-            m_playerAIs[pos]->init(this, player, 0.05f, 0.5f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 8:
-            m_playerAIs[pos]->init(this, player, 0.05f, 0.25f, HALF_BACK_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
             break;
         case 9:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.667f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
             break;
         case 10:
-            m_playerAIs[pos]->init(this, player, 0.f, 0.333f, FORWARD_ORBIT_RATE);
+            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
             break;
         default:
             CC_ASSERT(false);

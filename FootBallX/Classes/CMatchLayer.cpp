@@ -205,6 +205,7 @@ bool CMatchLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVar
 }
 
 
+
 void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoader)
 {
     for (auto x : m_blackPlayers)
@@ -237,8 +238,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         
         BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height));
         
-        FBMATCH->setOnAtkMenuCallback(std::bind(&CMatchLayer::onAtkMenuCallback, this, std::placeholders::_1));
-        FBMATCH->setOnDefMenuCallback(std::bind(&CMatchLayer::onDefMenuCallback, this, std::placeholders::_1));
+        FBMATCH->setOnMenuCallback(std::bind(&CMatchLayer::onMenuCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         FBMATCH->setOnPlayAnimationCallback(std::bind(&CMatchLayer::playAnimation, this, std::placeholders::_1, std::placeholders::_2));
         FBMATCH->setOnInstructionEnd(std::bind(&CMatchLayer::onInstructionEnd, this));
         FBMATCH->setOnPauseGame(std::bind(&CMatchLayer::onPauseGameCallback, this, std::placeholders::_1));
@@ -279,7 +279,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
         FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
         
-        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_5_2))
+        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_2_3_2))
         
         FBMATCH->setControlSide(FBDefs::SIDE::LEFT);
         BREAK_IF_FAILED(FBMATCH->startMatch(FBDefs::SIDE::LEFT));
@@ -305,6 +305,9 @@ void CMatchLayer::update(float dt)
     auto black = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
     auto blackFmt = black->getFormation();
     auto blackTeam = blackFmt->getTeam();
+    auto team = FBMATCH->getControlSideTeam();
+    auto player = team->getHilightPlayer();
+    auto pitch = FBMATCH->getPitch();
     
     int i;
     for (i = 0; i < blackFmt->getPlayerNumber(); ++i)
@@ -312,7 +315,7 @@ void CMatchLayer::update(float dt)
         auto player = blackFmt->getPlayer(i);
         auto spr = m_blackPlayers[i];
         spr->setVisible(true);
-        spr->setPosition(player->getPosition());
+        spr->setPosition(pitch->transToScreen(player->getPosition()));
         if (blackTeam->getHilightPlayer() == player)
         {
             spr->setOpacity(50);
@@ -331,7 +334,7 @@ void CMatchLayer::update(float dt)
         auto player = redFmt->getPlayer(i);
         auto spr = m_redPlayers[i];
         spr->setVisible(true);
-        spr->setPosition(player->getPosition());
+        spr->setPosition(pitch->transToScreen(player->getPosition()));
         if (redTeam->getHilightPlayer() == player)
         {
             spr->setOpacity(50);
@@ -341,9 +344,6 @@ void CMatchLayer::update(float dt)
             spr->setOpacity(255);
         }
     }
-    
-    auto team = FBMATCH->getControlSideTeam();
-    auto player = team->getHilightPlayer();
     
     if (m_ballMovingVec.equals(Point(0, 0)))
     {
@@ -362,8 +362,8 @@ void CMatchLayer::update(float dt)
     }
     
     m_ball->setVisible(true);
-    m_ball->setPosition(FBMATCH->getBallPosition());
-    m_arrow->setPosition(player->getPosition());
+    m_ball->setPosition(pitch->transToScreen(FBMATCH->getBallPosition()));
+    m_arrow->setPosition(pitch->transToScreen(player->getPosition()));
 }
 
 
@@ -521,19 +521,12 @@ void CMatchLayer::refreshGrids()
 }
 #endif
 
-void CMatchLayer::onAtkMenuCallback(const set<int>& defPlayers)
+void CMatchLayer::onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers)
 {
     FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
     
     m_atkMenu->setVisible(true);
-}
-
-
-
-void CMatchLayer::onDefMenuCallback(const set<int>& defPlayers)
-{
-    
 }
 
 

@@ -44,20 +44,17 @@ public:
     CFBTeam* getDefendingTeam();
     
     bool isBallOnTheSide(FBDefs::SIDE side);
-    float getBallPosRateBySide(FBDefs::SIDE side);
     void setBallPosition(const Point& pos);
+    float getBallPosRateBySide(FBDefs::SIDE side);
     const Point& getBallPosition();
     
-    void setOnAtkMenuCallback(function<void(const set<int>&)> cb);
-    void setOnDefMenuCallback(function<void(const set<int>&)> cb);
+    void setOnMenuCallback(function<void(FBDefs::MENU_TYPE, bool, const vector<int>&)> cb);
     void setOnPlayAnimationCallback(function<void(const string&, float)> cb);
     void setOnInstructionEnd(function<void(void)> cb);
     void setOnPauseGame(function<void(bool)> cb);
     
     void pauseGame(bool p);
     bool isPausing() { return m_isPause; }
-    
-    bool checkEncounter(float dt);
     
     void tryPassBall(CFBPlayer* from, CFBPlayer* to);
     void tryShootBall(CFBPlayer* player, bool isAir);
@@ -69,8 +66,7 @@ protected:
     
     CFBTeam* m_teams[(int)FBDefs::SIDE::NONE];
     
-    function<void(const set<int>&)> m_onAtkMenu;
-    function<void(const set<int>&)> m_onDefMenu;
+    function<void(FBDefs::MENU_TYPE, bool, const vector<int>&)> m_onMenu;
     function<void(const string&, float)> m_onPlayAnimation;
     function<void(void)> m_onInstructionEnd;
     function<void(bool)> m_onPauseGame;
@@ -78,18 +74,27 @@ protected:
     float m_playerDistanceSq = FLT_MAX;
     
     float m_encounterTime = FLT_MAX;
+    FBDefs::MENU_TYPE m_menuType = FBDefs::MENU_TYPE::NONE;
+    bool m_isAir = false;
+    
+    FBDefs::MATCH_FLOW_TYPE m_recentEndedFlow = FBDefs::MATCH_FLOW_TYPE::NONE;
     
     set<int> m_defendPlayerIds;
     
-    FBDefs::MATCH_EVENT_STATE m_eventState = FBDefs::MATCH_EVENT_STATE::NONE;
+    vector<int> m_involvePlayerIds;
     
     CFBInstruction* m_currentInstruction = nullptr;
-    
-    void onInstructionEnd();
-    
+
     bool m_isPause = false;
     
     FBDefs::SIDE m_controlSide = FBDefs::SIDE::NONE;
+    
+    void onInstructionEnd();
+    
+    void updateEncounter(float dt);
+    void checkEncounterInDribble();
+    void checkEncounterInPenaltyArea();
+    void updateDefendPlayerAroundBall();
 };
 
 #define FBMATCH     (CFBMatch::getInstance())

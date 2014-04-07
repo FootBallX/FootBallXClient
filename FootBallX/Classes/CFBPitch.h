@@ -18,10 +18,10 @@
 class CFBPitch
 {
 public:
-    cocos2d::Point transformPersentage(const cocos2d::Point& pt, FBDefs::SIDE side);
-    float transformPersentageX(float x, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    Point transformBySide(Point pos, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    float transformBySide(float x, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
     
-    float transformToPersentageX(float x, FBDefs::SIDE side);
+    Point transToScreen(Point pos);
     
     bool init(int w, int h);
     int getPitchWidth() const { return m_width; }
@@ -78,6 +78,8 @@ protected:
     vector<int> m_GridsOfSide[(int)FBDefs::SIDE::NONE];
     vector<int> m_GridsInPenaltyArea[(int)FBDefs::SIDE::NONE];
     vector<int> m_GridsOutsidePenaltyArea[(int)FBDefs::SIDE::NONE];
+    
+    float m_pitchScale = 0.f;
 };
 
 #endif /* defined(__FootBallX__CFBPitch__) */

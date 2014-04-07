@@ -81,7 +81,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         
         BREAK_IF_FAILED(CARD_MGR->init());
         
-        SCENE_MANAGER->go(ST_MATCH);
+        SCENE_MANAGER->go(ST_LOGIN);
 
         FB_FUNC_JS->init();
         

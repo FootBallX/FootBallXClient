@@ -136,7 +136,7 @@ bool CFBTeam::changeFormation(FBDefs::FORMATION formationId)
                 return true;
             } while (false);
             return false;
-        case FBDefs::FORMATION::F_3_5_2:
+        case FBDefs::FORMATION::F_3_2_3_2:
             do
             {
                 CC_SAFE_DELETE(m_formation);
@@ -160,8 +160,7 @@ void CFBTeam::updateFieldStatusOnAttack()
     auto pp = getHilightPlayer();
     CC_ASSERT(pp && pp->m_isBallController);
     
-    float size = pitch->transformPersentageX(0.4);
-    size *= size;
+    float sizeSq = FBDefs::PASS_BALL_REDUCTION * FBDefs::PASS_BALL_REDUCTION;
     
     vector<int> gridsAroundPlayer;
     
@@ -191,9 +190,9 @@ void CFBTeam::updateFieldStatusOnAttack()
                 ai->increasePassBallScore(-10 * num);
                 
                 float dist = pp->getPosition().getDistanceSq(pos);
-                if (dist > size)
+                if (dist > sizeSq)
                 {
-                    ai->increasePassBallScore((dist - size) * (-1));
+                    ai->increasePassBallScore((dist - sizeSq) * (-1));
                 }
             }
             
@@ -298,15 +297,14 @@ int CFBTeam::getNumberOfDefenderAroundPlayer(CFBPlayer* player)
     auto otherTeam = FBMATCH->getTeam(otherSide);
     auto teamMember = otherTeam->getTeamMembers();
     
-    float size = pitch->transformPersentageX(0.4);
-    size *= size;
+    float sizeSq = FBDefs::DEFENDER_PLAYER_RADIUS * FBDefs::DEFENDER_PLAYER_RADIUS;
     
     for (auto t : teamMember)
     {
         if (t->m_isOnDuty)
         {
             float dist = t->getPosition().getDistanceSq(player->getPosition());
-            if (dist < size)
+            if (dist < sizeSq)
             {
                 num++;
             }

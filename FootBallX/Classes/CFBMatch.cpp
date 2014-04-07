@@ -11,6 +11,9 @@
 #include "CFBFunctionsJS.h"
 #include "CFBInstruction.h"
 #include "CRandomManager.h"
+#include "CFBPassBallIns.h"
+#include "CFBShootBallAirIns.h"
+#include "CFBShootBallGroundIns.h"
 
 IMPLEMENT_SINGLETON(CFBMatch);
 
@@ -40,8 +43,8 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight)
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
         
-        m_playerDistanceSq = m_pitch->transformPersentageX(FBDefs::PLAYER_DISTANCE);
-        m_playerDistanceSq *= m_playerDistanceSq;
+        m_playerDistanceSq = FBDefs::PLAYER_DISTANCE * FBDefs::PLAYER_DISTANCE;
+
         return true;
     } while (false);
     
@@ -149,16 +152,15 @@ void CFBMatch::update(float dt)
         {
             x->update(dt);
         }
+        
+        updateEncounter(dt);
     }
 
     if (m_currentInstruction != nullptr)
     {
         m_currentInstruction->update(dt);
     }
-    else
-    {
-        checkEncounter(dt);
-    }
+
 }
 
 
@@ -186,11 +188,11 @@ bool CFBMatch::isBallOnTheSide(FBDefs::SIDE side)
     auto pitch = getPitch();
     if (side == FBDefs::SIDE::LEFT)
     {
-        return pos.x < pitch->transformPersentageX(0.5f);
+        return pos.x < pitch->getPitchWidth() * 0.5f;
     }
     else
     {
-        return pos.x > pitch->transformPersentageX(0.5f);
+        return pos.x > pitch->getPitchWidth() * 0.5f;
     }
 	return false;
 }
@@ -225,16 +227,10 @@ const Point& CFBMatch::getBallPosition()
 }
 
 
-void CFBMatch::setOnAtkMenuCallback(function<void(const set<int>&)> cb)
+
+void CFBMatch::setOnMenuCallback(function<void(FBDefs::MENU_TYPE, bool, const vector<int>&)> cb)
 {
-    m_onAtkMenu = cb;
-}
-
-
-
-void CFBMatch::setOnDefMenuCallback(function<void(const set<int>&)> cb)
-{
-    m_onDefMenu = cb;
+    m_onMenu = cb;
 }
 
 
@@ -270,19 +266,10 @@ void CFBMatch::pauseGame(bool p)
 
 
 
-bool CFBMatch::checkEncounter(float dt)
+void CFBMatch::updateDefendPlayerAroundBall()
 {
-    return false;
-    m_encounterTime -= dt;
-    if (m_encounterTime < 0)
-    {
-        m_encounterTime = FLT_MAX;
-        if (m_onAtkMenu)
-        {
-            m_onAtkMenu(m_defendPlayerIds);
-        }
-    }
-
+    m_defendPlayerIds.clear();
+    
     auto ballPos = FBMATCH->getBallPosition();
     
     auto defTeam = getDefendingTeam();
@@ -298,26 +285,6 @@ bool CFBMatch::checkEncounter(float dt)
             }
         }
     }
-    
-    auto size = m_defendPlayerIds.size();
-    if (size > 0)
-    {
-        if (size >= 4)
-        {
-            m_encounterTime = -1;
-        }
-        else if (m_encounterTime > FBDefs::PLAYER_ENCOUNTER_TRIGGER_TIME)
-        {
-            m_encounterTime = FBDefs::PLAYER_ENCOUNTER_TRIGGER_TIME;
-        }
-        return true;
-    }
-    else
-    {
-        m_encounterTime = FLT_MAX;
-    }
-    
-    return false;
 }
 
 
@@ -377,7 +344,6 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
         }
     }
     
-    m_eventState = FBDefs::MATCH_EVENT_STATE::PASS_BALL;
     std::sort(involvePlayers.begin(), involvePlayers.end(),
               [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
               {
@@ -422,7 +388,15 @@ void CFBMatch::tryShootBall(CFBPlayer* shooter, bool isAir)
     auto& otherTeamMembers = otherTeam->getTeamMembers();
     Point goalPos = pitch->getGoalPos(otherSide);
     
-    m_currentInstruction = isAir ? INS_FAC->getShootBallAirIns() : INS_FAC->getShootBallGroundIns();
+    if (isAir)
+    {
+        m_currentInstruction = INS_FAC->getShootBallAirIns();
+    }
+    else
+    {
+        m_currentInstruction = INS_FAC->getShootBallGroundIns();
+    }
+
     m_currentInstruction->addPlayer(shooter);
     
     for (auto x : m_defendPlayerIds)
@@ -473,7 +447,6 @@ void CFBMatch::tryShootBall(CFBPlayer* shooter, bool isAir)
         }
     }
     
-    m_eventState = FBDefs::MATCH_EVENT_STATE::PASS_BALL;
     std::sort(involvePlayers.begin(), involvePlayers.end(),
               [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
               {
@@ -522,13 +495,16 @@ void CFBMatch::tryShootBall(CFBPlayer* shooter, bool isAir)
 void CFBMatch::onInstructionEnd()
 {
     pauseGame(false);
+    
+    m_recentEndedFlow = m_currentInstruction->getInstructionType();
     m_currentInstruction = nullptr;
-    m_defendPlayerIds.clear();
     
     if (m_onInstructionEnd)
     {
         m_onInstructionEnd();
     }
+    
+    checkEncounterInPenaltyArea();
 }
 
 
@@ -551,4 +527,113 @@ void CFBMatch::onAnimationEnd()
     }
 }
 
+
+#pragma mark - encounter
+
+void CFBMatch::updateEncounter(float dt)
+{
+    m_encounterTime -= dt;
+    
+    if (m_menuType != FBDefs::MENU_TYPE::NONE)
+    {
+        if (m_encounterTime < 0)
+        {
+            m_encounterTime = FLT_MAX;
+            if (m_onMenu)
+            {
+                m_onMenu(m_menuType, m_isAir, m_involvePlayerIds);
+            }
+            
+            m_menuType = FBDefs::MENU_TYPE::NONE;
+        }
+    }
+    else
+    {
+        updateDefendPlayerAroundBall();
+        checkEncounterInDribble();
+        checkEncounterInPenaltyArea();
+        
+        m_recentEndedFlow = FBDefs::MATCH_FLOW_TYPE::NONE;
+    }
+}
+
+
+
+void CFBMatch::checkEncounterInDribble()
+{
+    if (m_menuType != FBDefs::MENU_TYPE::NONE) return;
+    
+    auto size = m_defendPlayerIds.size();
+    if (size > 0)
+    {
+        if (size >= 4)
+        {
+            m_encounterTime = -1;
+        }
+        else if (m_encounterTime > FBDefs::PLAYER_ENCOUNTER_TRIGGER_TIME)
+        {
+            m_encounterTime = FBDefs::PLAYER_ENCOUNTER_TRIGGER_TIME;
+        }
+        
+        auto team = getControlSideTeam();
+        if (team->isAttacking())
+        {
+            m_menuType = FBDefs::MENU_TYPE::ENCOUNTER_ATK_G;
+            m_involvePlayerIds.clear();
+            m_involvePlayerIds.push_back(team->getHilightPlayerId());
+        }
+        else
+        {
+            m_menuType = FBDefs::MENU_TYPE::ENCOUTNER_DEF_G;
+            m_involvePlayerIds.clear();
+            for (auto p : m_defendPlayerIds)
+            {
+                m_involvePlayerIds.push_back(p);
+            }
+        }
+        m_isAir = false;
+    }
+    else
+    {
+        m_encounterTime = FLT_MAX;
+        
+        m_menuType = FBDefs::MENU_TYPE::NONE;
+    }
+}
+
+
+// 进攻方对方禁区拿球，强制触发一次空中遭遇。
+void CFBMatch::checkEncounterInPenaltyArea()
+{
+    // TODO: 仅当传球，二过一，随机球 刚刚结束，否则直接返回。二过一和随机球还未做判断
+    if (m_recentEndedFlow != FBDefs::MATCH_FLOW_TYPE::PASSBALL) return;
+    
+    if (m_menuType != FBDefs::MENU_TYPE::NONE) return;
+    
+    auto team = this->getAttackingTeam();
+    auto side = team->getSide();
+    auto ballPos = getBallPosition();
+    if (m_pitch->isInPenaltyArea(ballPos, m_pitch->getOtherSide(side)))
+    {
+        m_encounterTime = -1;
+        m_isAir = true;
+        
+        auto conTeam = getControlSideTeam();
+        if (conTeam->isAttacking())
+        {
+            m_menuType = FBDefs::ENCOUNTER_ATK_OPPSITE_A;
+            m_involvePlayerIds.clear();
+            m_involvePlayerIds.push_back(conTeam->getHilightPlayerId());
+        }
+        else
+        {
+            m_menuType = FBDefs::ENCOUNTER_DEF_SELF_A;
+            m_involvePlayerIds.clear();
+            for (auto p : m_defendPlayerIds)
+            {
+                m_involvePlayerIds.push_back(p);
+            }
+        }
+    }
+}
 

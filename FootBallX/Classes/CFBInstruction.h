@@ -11,8 +11,12 @@
 
 #include "Common.h"
 #include "CSingleton.h"
+#include "FBDefs.h"
 
 class CFBPlayer;
+class CFBPassBallIns;
+class CFBShootBallGroundIns;
+class CFBShootBallAirIns;
 
 class CFBInstruction
 {
@@ -27,6 +31,8 @@ public:
     virtual void addPlayer(CFBPlayer* player);
 
     virtual void onAnimationEnd() = 0;
+    
+    virtual FBDefs::MATCH_FLOW_TYPE getInstructionType() = 0;
 protected:
     virtual void onInstructionEnd();
     
@@ -42,13 +48,13 @@ public:
     CFBInstructionFactory() = default;
     ~CFBInstructionFactory();
     
-    CFBInstruction* getPassBallIns();
-    CFBInstruction* getShootBallAirIns();
-    CFBInstruction* getShootBallGroundIns();
+    CFBPassBallIns* getPassBallIns();
+    CFBShootBallAirIns* getShootBallAirIns();
+    CFBShootBallGroundIns* getShootBallGroundIns();
 protected:
-    CFBInstruction* m_passBallIns = nullptr;
-    CFBInstruction* m_shootBallAirIns = nullptr;
-    CFBInstruction* m_shootBallGroundIns = nullptr;
+    CFBPassBallIns* m_passBallIns = nullptr;
+    CFBShootBallAirIns* m_shootBallAirIns = nullptr;
+    CFBShootBallGroundIns* m_shootBallGroundIns = nullptr;
 };
 
 

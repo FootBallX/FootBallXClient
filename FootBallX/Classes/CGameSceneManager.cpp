@@ -51,6 +51,13 @@ bool CGameSceneManager::go(SCENE_TYPE st)
             delete pReader;
             break;
         }
+        case ST_LOBBY:
+        {
+            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
+            scene = pReader->createSceneWithNodeGraphFromFile("lobby_layer.ccbi");
+            delete pReader;
+            break;
+        }
         case ST_MATCH:
         {
             cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());

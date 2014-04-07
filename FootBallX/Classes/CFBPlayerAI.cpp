@@ -12,7 +12,7 @@
 #include "CFBFormation.h"
 #include "CRandomManager.h"
 
-bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius)
+bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& pos, const Point& homePos, float radius)
 {
     do
     {
@@ -21,12 +21,13 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, float posX, f
         m_formation = formation;
         m_player = player;
         
-        Point pt(posX, posY);
-        auto pitch = FBMATCH->getPitch();
-        m_homePosition.setPoint(posX, posY);
+        m_player->setPosition(pos);
+        
+        m_initPosition = pos;
+        m_homePosition = homePos;
         m_origHomePosition = m_homePosition;
         
-        m_defendOrbitRadius = pitch->transformPersentageX(radius);
+        m_defendOrbitRadius = radius;
         m_defendOrbitRadiusSq = m_defendOrbitRadius * m_defendOrbitRadius;
         m_defendOrbitRadiusx2Sq = (2 * m_defendOrbitRadius) * (2 * m_defendOrbitRadius);
         return true;
@@ -107,7 +108,7 @@ void CFBPlayerAI::initPlayerStates()
 {
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
-    m_player->setPosition(pitch->transformPersentage(m_homePosition, team->getSide()));
+    m_player->setPosition(pitch->transformBySide(m_initPosition, team->getSide()));
     m_player->m_isOnDuty = true;
     m_state = FBDefs::AI_STATE::BACKHOME;
 }
@@ -119,7 +120,7 @@ void CFBPlayerAI::returnToHome(float dt)
     CC_ASSERT(m_player);
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
-    auto homePos = pitch->transformPersentage(m_homePosition, team->getSide());
+    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
     if (!isOnPosition(homePos))
     {
         moveTo(homePos, dt);
@@ -143,7 +144,7 @@ void CFBPlayerAI::chaseBall(float dt)
     CC_ASSERT(m_player);
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
-    auto homePos = pitch->transformPersentage(m_homePosition, team->getSide());
+    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
     
     if (m_formation->getTeam()->isDefending())
     {
@@ -228,7 +229,7 @@ void CFBPlayerAI::thinkDefending()
         const Point& ballPos = FBMATCH->getBallPosition();
         auto pitch = FBMATCH->getPitch();
         auto team = m_formation->getTeam();
-        auto homePos = pitch->transformPersentage(m_homePosition, team->getSide());
+        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
 
         if ((homePos - ballPos).getLengthSq() < m_defendOrbitRadiusSq && isNotInStateCD())
         {
@@ -268,31 +269,20 @@ void CFBPlayerAI::updateAIControlBall(float dt)
 
 
 
-void CFBPlayerAI::PreventOffsideInRate(float& x)
-{
-    auto pitch = FBMATCH->getPitch();
-    auto team = m_formation->getTeam();
-    FBDefs::SIDE side = team->getSide();
-    FBDefs::SIDE otherSide = pitch->getOtherSide(side);
-    float offsideLine = FBMATCH->getTeam(otherSide)->getLastPosOfPlayer();
-    offsideLine = 1 - pitch->transformToPersentageX(offsideLine, otherSide);
-    
-    if (x > offsideLine)
-    {
-        x = offsideLine;
-    }
-}
-
-
-
 void CFBPlayerAI::PreventOffside(float& x)
 {
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
     FBDefs::SIDE side = team->getSide();
-    x = pitch->transformToPersentageX(x, side);
-    PreventOffsideInRate(x);
-    x = pitch->transformPersentageX(x, side);
+    FBDefs::SIDE otherSide = pitch->getOtherSide(side);
+    
+    float offsideLine = FBMATCH->getTeam(otherSide)->getLastPosOfPlayer();
+    offsideLine = pitch->getPitchWidth() - pitch->transformBySide(offsideLine, otherSide);
+    
+    if (x > offsideLine)
+    {
+        x = offsideLine;
+    }
 }
 
 
@@ -351,7 +341,7 @@ void CFBPlayerAI::thinkDribbleBall()
     auto& p1 = m_player->getPosition();
     Point aheadPos = p1;
     
-    auto checkLength = pitch->transformPersentageX(0.2f);       // TODO: 常数配置要集中
+    auto checkLength = FBDefs::DRIBBLE_CHECK_DIST;
     
     if (side == FBDefs::SIDE::LEFT)
     {

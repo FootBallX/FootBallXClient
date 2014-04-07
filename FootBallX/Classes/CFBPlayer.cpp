@@ -25,13 +25,6 @@ CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
 
 void CFBPlayer::update(float dt)
 {
-//    if (m_isBallController)
-//    {
-//        auto ball = FBMATCH->getBall();
-//        CC_ASSERT(ball->m_ownerPlayer == this);
-//        
-//        ball->setBallPos(m_curPosition);
-//    }
 }
 
 void CFBPlayer::gainBall()
@@ -40,8 +33,8 @@ void CFBPlayer::gainBall()
     
     m_isBallController = true;
     
-//    FBMATCH->getBall()->m_ownerPlayer = this;
-//    FBMATCH->getBall()->m_ownerTeam = m_ownerTeam;
+    FBMATCH->setBallPosition(getPosition());
+
     m_ownerTeam->setAttacking(true);
     
     m_ownerTeam->setHilightPlayerId(this->m_positionInFormation);
@@ -54,9 +47,7 @@ void CFBPlayer::loseBall()
     CC_ASSERT(m_isOnDuty);
     
     m_isBallController = false;
-    
-//    FBMATCH->getBall()->m_ownerPlayer = nullptr;
-//    FBMATCH->getBall()->m_ownerTeam = nullptr;
+
     m_ownerTeam->setAttacking(false);
 }
 
@@ -68,7 +59,7 @@ float CFBPlayer::getSpeed()
     {
         auto p = FBMATCH->getPitch();
         float speed = FB_FUNC_JS->getSpeed(m_playerCard);
-        m_speedCache = p->transformPersentageX(speed);
+        m_speedCache = speed;
     }
 
     return m_speedCache;

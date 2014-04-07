@@ -30,11 +30,10 @@ public:
     CFBPlayerAI() = default;
     virtual ~CFBPlayerAI() = default;
     
-    virtual bool init(CFBFormation* formation, CFBPlayer* player, float posX, float posY, float radius);
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const Point& intPos, const Point& homePos, float radius);
     
     virtual void think();
     
-    virtual void PreventOffsideInRate(float& x);
     virtual void PreventOffside(float& x);
     
     virtual void update(float dt);
@@ -71,6 +70,7 @@ protected:
 
     CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
     CFBPlayer* m_player = nullptr;
+    cocos2d::Point m_initPosition;
     cocos2d::Point m_origHomePosition;
     cocos2d::Point m_homePosition;
     float m_defendOrbitRadius;

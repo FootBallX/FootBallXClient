@@ -91,7 +91,7 @@ var g_ReducedParam = 100;           //减速修正
 
 function GetSpeed(o1)
 {
-  var spd = o1.speed / 1000;
+  var spd = o1.speed;
   return parseFloat(spd);
 }
 

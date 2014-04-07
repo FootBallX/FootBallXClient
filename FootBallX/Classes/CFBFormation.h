@@ -16,10 +16,10 @@
 class CFBPlayer;
 class CFBTeam;
 
-#define GOALKEEPER_ORBIT_RATE                0.1f        // 10% pitch width
-#define BACK_ORBIT_RATE                      0.15f       // 15%
-#define HALF_BACK_ORBIT_RATE                 0.15f
-#define FORWARD_ORBIT_RATE                   0.1f
+#define GOALKEEPER_ORBIT_RATE                100
+#define BACK_ORBIT_RATE                      150
+#define HALF_BACK_ORBIT_RATE                 150
+#define FORWARD_ORBIT_RATE                   100
 
 
 #pragma mark ----- FormationBase
