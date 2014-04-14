@@ -25,7 +25,6 @@
 #include "CFBFunctionsJS.h"
 #include "CSyncedTime.h"
 
-
 int ct = 0;
 
 int gcount = 0;
@@ -66,6 +65,7 @@ AppDelegate::AppDelegate()
     srand((unsigned) time(&t));
 //    pthread_mutex_init(&mt, NULL);
 //    json_set_alloc_funcs(jm, fr);
+//    pc_json_set_alloc_funcs(jm, fr);
 }
 
 AppDelegate::~AppDelegate()
@@ -81,7 +81,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = pDirector->getOpenGLView();
     if(!glview) {
 //        glview = GLView::create("FootBallX");
-        float scale = 8;
+        float scale = 4;
         glview = GLView::createWithRect("FootBallX", Rect(0, 0, 96 * scale, 64 * scale));
         pDirector->setOpenGLView(glview);
     }

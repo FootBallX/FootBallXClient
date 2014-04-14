@@ -30,6 +30,7 @@ extern "C" {
 #define PC_VERSION "0.0.1"
 
 #define PC_EVENT_DISCONNECT "disconnect"
+#define PC_EVENT_TIMEOUT "timeout"
 #define PC_EVENT_KICK "onKick"
 
 typedef struct pc_client_s pc_client_t;
@@ -469,6 +470,14 @@ void pc_remove_listener(pc_client_t *client, const char *event,
  * @param data   attach data of the event.
  */
 void pc_emit_event(pc_client_t *client, const char *event, void *data);
+
+/**
+ * jansson memory malloc, free self-defined function.
+ *
+ * @param malloc_fn malloc function.
+ * @param free_fn   free function.
+ */
+void pc_json_set_alloc_funcs(json_malloc_t malloc_fn, json_free_t free_fn);
 
 /* Don't export the private CPP symbols. */
 #undef PC_TCP_REQ_FIELDS

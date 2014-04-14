@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		4195A1378573FF28BAE44EC1 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = C2B17D75D3EB57AA81E9D5F7 /* thread.c */; };
 		48F60F494D9BA761985A6B5C /* client.c in Sources */ = {isa = PBXBuildFile; fileRef = D296F173D8BC2522D83B619B /* client.c */; };
 		51923384228C82B1F5AAAC28 /* protocol.c in Sources */ = {isa = PBXBuildFile; fileRef = AA7783075FCDBAF16776B1CB /* protocol.c */; };
+		54CD5DAE18FB897D00A99A60 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 54CD5DAD18FB897D00A99A60 /* memory.c */; };
 		5572037675C86FE90AE3247B /* pb-encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 88DD628F5980E363D6CD7429 /* pb-encode.c */; };
 		578913EA93DD3F1E71C0D7C6 /* pb-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E445EB4DD2E1486E2E4EF058 /* pb-decode.c */; };
 		5B219998380A9C807462DAA9 /* package.c in Sources */ = {isa = PBXBuildFile; fileRef = 46838A97020ABE01515E9686 /* package.c */; };
@@ -38,6 +39,8 @@
 		46838A97020ABE01515E9686 /* package.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = package.c; sourceTree = "<group>"; };
 		4C152036C6CA6853783E4A65 /* network.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = network.c; sourceTree = "<group>"; };
 		4CD908F8AC9AB82D7196D5B7 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		54CD5DAD18FB897D00A99A60 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		54CD5DAF18FB898700A99A60 /* memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
 		63B528C5FC14F0F35FB3D865 /* pb-util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pb-util.h"; sourceTree = "<group>"; };
 		642C33C4778345B0EC88D044 /* message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
 		669696E48600F36F9ACE5505 /* pkg-heartbeat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "pkg-heartbeat.c"; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		0760E814E1D985A5C578BEF8 /* pomelo-private */ = {
 			isa = PBXGroup;
 			children = (
+				54CD5DAF18FB898700A99A60 /* memory.h */,
 				4CD908F8AC9AB82D7196D5B7 /* common.h */,
 				1E7CC53ABF019266ABC4FD38 /* internal.h */,
 				7534114F5F629BD249600852 /* listener.h */,
@@ -105,6 +109,7 @@
 		A14912B826C50E362CD6591D /* src */ = {
 			isa = PBXGroup;
 			children = (
+				54CD5DAD18FB897D00A99A60 /* memory.c */,
 				D296F173D8BC2522D83B619B /* client.c */,
 				16EF87B722016AAC04EE8335 /* common.c */,
 				D990E2390368348ACD74503B /* listener.c */,
@@ -199,7 +204,11 @@
 			};
 			buildConfigurationList = 8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomelo" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = D4A8831A12C91E54580ED81B;
 			projectDirPath = "";
 			projectRoot = "";
@@ -218,6 +227,7 @@
 				8E57CAB0FEB8543DDA6172ED /* common.c in Sources */,
 				122BEC362D7376404265AF67 /* listener.c in Sources */,
 				5BC4B4A6FEABD9BF2526E15B /* map.c in Sources */,
+				54CD5DAE18FB897D00A99A60 /* memory.c in Sources */,
 				3FD8C2DC0EDD36DBA37094EF /* message.c in Sources */,
 				31417B769C8D5D10E9CAD799 /* msg-json.c in Sources */,
 				D45173073B2FDF9E52FB0FB7 /* msg-pb.c in Sources */,

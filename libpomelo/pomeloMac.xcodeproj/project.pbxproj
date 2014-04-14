@@ -48,6 +48,7 @@
 		4BF9877CBF8AD5009E321007 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6ADD425B0036DEE678188C /* libuv.a */; };
 		4D8417F1FC6FAFE1747559B1 /* libpomelo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07390FDF2C637EBD093867CC /* libpomelo.a */; };
 		51679D12C34BCAE4E0008997 /* robot_chat.c in Sources */ = {isa = PBXBuildFile; fileRef = F88A15B68B5CC7C232FB8DE3 /* robot_chat.c */; };
+		54CD5DB218FB8D5B00A99A60 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 54CD5DAB18FB895900A99A60 /* memory.c */; };
 		591F995863D7E29E5E2A3770 /* listener.c in Sources */ = {isa = PBXBuildFile; fileRef = D990E2390368348ACD74503B /* listener.c */; };
 		61DDE0CA0BAA326DEDCB56A3 /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C152036C6CA6853783E4A65 /* network.c */; };
 		61E6156E07791D6F5A788EC8 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 16EF87B722016AAC04EE8335 /* common.c */; };
@@ -333,6 +334,8 @@
 		46838A97020ABE01515E9686 /* package.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = package.c; sourceTree = "<group>"; };
 		4C152036C6CA6853783E4A65 /* network.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = network.c; sourceTree = "<group>"; };
 		4CD908F8AC9AB82D7196D5B7 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		54CD5DAB18FB895900A99A60 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		54CD5DAC18FB896400A99A60 /* memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
 		6201BA87C25025417F3AE79F /* robot_chat */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = robot_chat; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B528C5FC14F0F35FB3D865 /* pb-util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pb-util.h"; sourceTree = "<group>"; };
 		640F5DADDBEA0250854F2CBF /* echo2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = echo2; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,6 +466,7 @@
 		0760E814E1D985A5C578BEF8 /* pomelo-private */ = {
 			isa = PBXGroup;
 			children = (
+				54CD5DAC18FB896400A99A60 /* memory.h */,
 				4CD908F8AC9AB82D7196D5B7 /* common.h */,
 				1E7CC53ABF019266ABC4FD38 /* internal.h */,
 				7534114F5F629BD249600852 /* listener.h */,
@@ -559,6 +563,7 @@
 		A14912B826C50E362CD6591D /* src */ = {
 			isa = PBXGroup;
 			children = (
+				54CD5DAB18FB895900A99A60 /* memory.c */,
 				D296F173D8BC2522D83B619B /* client.c */,
 				16EF87B722016AAC04EE8335 /* common.c */,
 				D990E2390368348ACD74503B /* listener.c */,
@@ -802,7 +807,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 			};
-			buildConfigurationList = 8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomelo" */;
+			buildConfigurationList = 8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomeloMac" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -877,6 +882,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54CD5DB218FB8D5B00A99A60 /* memory.c in Sources */,
 				2579ECB4A873D1FA1B6EAEBD /* client.c in Sources */,
 				61E6156E07791D6F5A788EC8 /* common.c in Sources */,
 				591F995863D7E29E5E2A3770 /* listener.c in Sources */,
@@ -1303,7 +1309,7 @@
 			defaultConfigurationIsVisible = 1;
 			defaultConfigurationName = Default;
 		};
-		8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomelo" */ = {
+		8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomeloMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DF114BE4D4C552186187042 /* Default */,
