@@ -57,7 +57,6 @@ float CFBPlayer::getSpeed()
 {
     if (m_speedCache < 0)
     {
-        auto p = FBMATCH->getPitch();
         float speed = FB_FUNC_JS->getSpeed(m_playerCard);
         m_speedCache = speed;
     }

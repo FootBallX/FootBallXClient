@@ -11,14 +11,17 @@
 #include "CBaseLayer.h"
 #include "CSpriteEx.h"
 #include "FBDefs.h"
+#include "IFBMatchUI.h"
 
 class CFBAnimationLayer;
+class CFBTeam;
 
 class CMatchLayer
 : public CBaseLayer
 , public cocosbuilder::CCBSelectorResolver
 , public cocosbuilder::CCBMemberVariableAssigner
 , public cocosbuilder::NodeLoaderListener
+, public IFBMatchUI
 {
 public:
     CREATE_FUNC(CMatchLayer);
@@ -40,18 +43,14 @@ public:
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
     
 protected:
+    void updateTeam(CFBTeam* team, Sprite** sprites);
+    
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
     void onTouchCancelled(Touch* touch, Event* event);
     
     void onPassBall(Ref* pSender);
-//    virtual void onFormation(Ref*pSender);
-//    virtual void onBattle(Ref* pSender);
-//    virtual void onHome(Ref* pSender);
-//    virtual void onTestSocket(Ref* pSender);
-    
-//    void onMsg(Node* node, void* resp);
     
     void onPass(Ref* pSender);
     void onDribble(Ref* pSender);
@@ -61,6 +60,13 @@ protected:
     void onIntercept(Ref* pSender);
     void onPlug(Ref* pSender);
 
+#pragma mark - IFBMatchUI
+    virtual void onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&);
+    virtual void onPlayAnimation(const string&, float);
+    virtual void onInstrunctionEnd(void);
+    virtual void onPauseGame(bool);
+    virtual void onGameEnd(void);
+    
     void onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers);
     void onPauseGameCallback(bool p);
     
@@ -75,6 +81,12 @@ protected:
 #endif
     
     void onInstructionEnd();
+    
+//    void onSync(Node* node, void* resp);
+    void onEndMatch(Node* node, void* resp);
+//    void syncBall();
+//    void syncTeam();
+//    void syncHilightPlayer(int playerId);
     
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
@@ -91,7 +103,6 @@ protected:
     bool m_isTouchDown = false;
     bool m_isPitchViewLieDown = true;
     
-    Point m_ballMovingVec;
     Point m_screenCenter;
     
     CFBAnimationLayer* m_animationRoot = nullptr;
@@ -104,7 +115,6 @@ protected:
     };
     
     OP m_operator = OP::NONE;
-private:
 };
 
 

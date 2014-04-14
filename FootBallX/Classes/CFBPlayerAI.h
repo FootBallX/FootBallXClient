@@ -47,8 +47,10 @@ public:
     virtual void setPassBallScore(int s) { m_passBallScore = s; }
     
     virtual void increasePassBallScore(int inc);
-protected:
+    
     virtual void thinkControlBall();        // AI控制，带球球员的AI
+    virtual void updateAIControlBall(float dt);
+protected:
     virtual void thinkNoBall();             // 无求跑位，这个函数再调用进攻和防守的无球跑动函数
     virtual void thinkNoBallOnAttacking();  // 进攻时，无球队员AI
     virtual void thinkNoBallOnDefending();  // 防守时，无球队员AI
@@ -58,8 +60,6 @@ protected:
     
     virtual void thinkDribbleBall();
     virtual void thinkPassBall();
-    
-    virtual void updateAIControlBall(float dt);
     
     virtual void updatePlayerStates();  // TODO: 这个函数基本没用，应该和think函数合并。
     virtual bool isOnPosition(const Point& pos);

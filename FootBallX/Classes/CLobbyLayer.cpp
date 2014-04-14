@@ -10,7 +10,7 @@
 #include "CCPomelo.h"
 #include "CGameSceneManager.h"
 #include "CMessageBoxLayer.h"
-//#include "CPlayerInfo.h"
+#include "CPlayerInfo.h"
 
 static class CLobbyLayerRegister
 {
@@ -25,12 +25,14 @@ public:
 
 CLobbyLayer::CLobbyLayer()
 {
+    POMELO->addListener("onPair", bind(&CLobbyLayer::onPair, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
 
 CLobbyLayer::~CLobbyLayer()
 {
+    POMELO->removeListener("onPair");
 }
 
 
@@ -71,54 +73,32 @@ void CLobbyLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
 
 bool CLobbyLayer::init()
 {
-    auto ret = POMELO->addListener("onPair", [&](Node* node, void* resp) -> void
+    do
     {
-        CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-        json_t* code = json_object_get(ccpomeloresp->docs, "code");
-        if (200 != json_integer_value(code))
-        {
-            log("onPair fail");
-            return;
-        }
-        
-        json_t* token = json_object_get(ccpomeloresp->docs, "token");
-        connectMatchServer(json_integer_value(token));
-    });
-    CC_ASSERT(ret == 0);
-    
-    ret = POMELO->addListener("startMatch", [&](Node* node, void* resp) -> void
-    {
-        CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-        json_t* code = json_object_get(ccpomeloresp->docs, "code");
-        if (200 != json_integer_value(code))
-        {
-            return;
-        }
-        
-        log("start match");
-    });
-    CC_ASSERT(ret == 0);
+        BREAK_IF_FAILED(CBaseLayer::init());
+    } while(false);
     
 	return true;
 }
 
 
+#pragma mark - net
 
-void CLobbyLayer::connectMatchServer(json_int_t token)
+
+void CLobbyLayer::onPair(Node* node, void* resp)
 {
-    const char *route = "match.matchHandler.ready";
-    json_t *msg = json_object();
-    json_object_set(msg, "token", json_integer(token));
-    POMELO->request(route, msg, [&](Node* node, void* resp){
-        CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-        json_t* code = json_object_get(ccpomeloresp->docs, "code");
-        if (200 != json_integer_value(code))
-        {
-            return;
-        }
-    });
+    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
+    json_t* code = json_object_get(ccpomeloresp->docs, "code");
+    if (200 != json_integer_value(code))
+    {
+        return;
+    }
+    
+    SCENE_MANAGER->go(ST_MATCH);
 }
 
+
+#pragma mark - ui handler
 
 void CLobbyLayer::onSignUp(Ref* sender, Control::EventType event)
 {

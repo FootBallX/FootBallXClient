@@ -23,11 +23,49 @@
 //#include "CShopManager.h"
 #include <time.h>
 #include "CFBFunctionsJS.h"
+#include "CSyncedTime.h"
+
+
+int ct = 0;
+
+int gcount = 0;
+
+pthread_mutex_t  mt;
+
+void *jm(size_t s)
+{
+    pthread_mutex_lock(&mt);
+    
+    void* p = malloc(s);
+
+    ct++;
+    gcount++;
+    log("%d+++ ct: %d", gcount, ct);
+    pthread_mutex_unlock(&mt);
+    return p;
+}
+
+void fr(void* p)
+{
+    pthread_mutex_lock(&mt);
+    ct--;
+    gcount++;
+    log("%d--- ct: %d", gcount, ct);
+    free(p);
+    if (gcount == 45)
+    {
+        int a = 0;
+        a++;
+    }
+    pthread_mutex_unlock(&mt);
+}
 
 AppDelegate::AppDelegate()
 {
     time_t t;
     srand((unsigned) time(&t));
+//    pthread_mutex_init(&mt, NULL);
+//    json_set_alloc_funcs(jm, fr);
 }
 
 AppDelegate::~AppDelegate()
@@ -42,7 +80,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     auto glview = pDirector->getOpenGLView();
     if(!glview) {
-        glview = GLView::create("FootBallX");
+//        glview = GLView::create("FootBallX");
+        float scale = 8;
+        glview = GLView::createWithRect("FootBallX", Rect(0, 0, 96 * scale, 64 * scale));
         pDirector->setOpenGLView(glview);
     }
     
@@ -78,7 +118,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 //
 //        TP_INIT();
 //
-        
+
         BREAK_IF_FAILED(CARD_MGR->init());
         
         SCENE_MANAGER->go(ST_LOGIN);

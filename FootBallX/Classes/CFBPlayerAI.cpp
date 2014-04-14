@@ -41,8 +41,7 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& 
 void CFBPlayerAI::think()
 {
     auto team = m_formation->getTeam();
-    if (!FBMATCH->checkControlSide(team->getSide()) ||
-        team->getHilightPlayer() != m_player)
+    if (team->getHilightPlayer() != m_player)
     {
         if (m_state == FBDefs::AI_STATE::NONE)
         {
@@ -52,7 +51,7 @@ void CFBPlayerAI::think()
         if (this->m_player->m_isBallController)
         {
             m_state = FBDefs::AI_STATE::CONTROL;
-            thinkControlBall();
+//            thinkControlBall();
         }
         else
         {

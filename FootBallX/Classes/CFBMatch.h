@@ -18,26 +18,29 @@
 #include "CFBBall.H"
 #include "FBDefs.h"
 #include "CFBInstruction.h"
+#include "CFBMatchProxy.h"
+#include "IFBMatchUI.h"
 
 class CFBMatch : public CSingleton<CFBMatch>
 {
 public:
-
     CC_SYNTHESIZE_READONLY(CFBPitch*, m_pitch, Pitch);
     
     CFBMatch();
     ~CFBMatch();
     
-    bool init(float pitchWidth, float pitchHeight);
+    bool init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CFBMatchProxy* proxy);
     void update(float dt);
     
-    bool startMatch(FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    bool startMatch();
     void setControlSide(FBDefs::SIDE side);
     bool checkControlSide(FBDefs::SIDE side);
     CFBTeam* getControlSideTeam();
     FBDefs::SIDE getControlSide();
+    const Point& getControlSidePlayerMovingVec();
     
     CFBTeam* getTeam(FBDefs::SIDE side);
+    CFBTeam* getOtherTeam(CFBTeam* team);
     void setTeam(FBDefs::SIDE side, CFBTeam* team);
     
     CFBTeam* getAttackingTeam();
@@ -48,11 +51,6 @@ public:
     float getBallPosRateBySide(FBDefs::SIDE side);
     const Point& getBallPosition();
     
-    void setOnMenuCallback(function<void(FBDefs::MENU_TYPE, bool, const vector<int>&)> cb);
-    void setOnPlayAnimationCallback(function<void(const string&, float)> cb);
-    void setOnInstructionEnd(function<void(void)> cb);
-    void setOnPauseGame(function<void(bool)> cb);
-    
     void pauseGame(bool p);
     bool isPausing() { return m_isPause; }
     
@@ -61,15 +59,22 @@ public:
     
     void playAnimation(const string& name, float delay);
     void onAnimationEnd();
+    
+    FBDefs::MATCH_STEP getMatchStep();
+    #pragma mark - net or sim
+    void setBallControllerMove(const Point& vec, bool syncImmediately = false);
+    void syncHilightPlayer();
+    void syncTeam();
+    void playerMoveAck(const Point& pos, const Point& vec);
+    void teamPositionAck(const vector<float>& p);
+    void switchHilightPlayerAkc(int playerId);
+    void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
+    void endMatchAck();
 protected:
+    IFBMatchUI* m_matchUI = nullptr;
     CFBBall* m_ball = nullptr;
     
     CFBTeam* m_teams[(int)FBDefs::SIDE::NONE];
-    
-    function<void(FBDefs::MENU_TYPE, bool, const vector<int>&)> m_onMenu;
-    function<void(const string&, float)> m_onPlayAnimation;
-    function<void(void)> m_onInstructionEnd;
-    function<void(bool)> m_onPauseGame;
     
     float m_playerDistanceSq = FLT_MAX;
     
@@ -89,12 +94,29 @@ protected:
     
     FBDefs::SIDE m_controlSide = FBDefs::SIDE::NONE;
     
+#pragma mark - net or sim properties
+    enum class SIDE
+    {
+        SELF,       // 自己
+        OPP,        // 对方
+        NONE,
+    };
+    const float m_SYNC_TIME = 1.f;
+    
+    CFBMatchProxy* m_proxy = nullptr;
+    
+    CFBTeam* m_teamsInMatch[(int)SIDE::NONE];       // 这里重新组织一下，按照己方和对方保存team
+    Point m_movingVec[(int)SIDE::NONE];
+    float m_syncTime[(int)SIDE::NONE];
+
     void onInstructionEnd();
     
     void updateEncounter(float dt);
     void checkEncounterInDribble();
     void checkEncounterInPenaltyArea();
     void updateDefendPlayerAroundBall();
+    
+    FBDefs::MATCH_STEP m_matchStep = FBDefs::MATCH_STEP::NONE;
 };
 
 #define FBMATCH     (CFBMatch::getInstance())

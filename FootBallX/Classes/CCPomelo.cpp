@@ -79,8 +79,9 @@ public:
 
 void   cc_pomelo_on_ansync_connect_cb(pc_connect_t* conn_req, int status)
 {
-    //CCLOG("data = %p\n", conn_req->data);
-    pc_connect_req_destroy(conn_req);
+    if (conn_req) {
+        pc_connect_req_destroy(conn_req);
+    }
     POMELO->connectCallBack(status);
 
 }
@@ -272,7 +273,6 @@ CCPomelo::CCPomelo()
 
 CCPomelo::~CCPomelo()
 {
-    pc_client_destroy(client);
     Director::getInstance()->getScheduler()->unscheduleSelector(schedule_selector(CCPomelo::dispatchCallbacks), POMELO);
 }
 
@@ -285,17 +285,9 @@ int CCPomelo::connect(const char* addr,int port)
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
     address.sin_addr.s_addr = inet_addr(addr);
-    
-    if (client)
-    {
-        client = pc_client_new();
-    }
-    else
-    {
-        pc_client_stop(client);
-        pc_client_destroy(client);
-        client = pc_client_new();
-    }
+
+    client = pc_client_new();
+
     int ret = pc_client_connect(client, &address);
     if(ret)
     {
@@ -307,63 +299,77 @@ int CCPomelo::connect(const char* addr,int port)
 
 
 
-int CCPomelo::asyncConnect(const char* addr, int port, std::function<void(Node*, void*)> f)
+void CCPomelo::asyncConnect(const char* addr, int port, std::function<void(Node*, void*)> f)
 {
+    if (!connect_content) {
+        connect_status = 0;
+        connect_content = new CCPomeloConnect_;
+        connect_content->func = f;
+    }else{
+        CCLOG("can not call again before the first connect callback");
+        return ;
+    }
+    
     struct sockaddr_in address;
     memset(&address, 0, sizeof(struct sockaddr_in));
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
     address.sin_addr.s_addr = inet_addr(addr);
     
-    if (client)
-    {
-        client = pc_client_new();
-    }
-    else
-    {
-        pc_client_stop(client);
-        pc_client_destroy(client);
-        client = pc_client_new();
-    }
-    
+    client = pc_client_new();
+
     pc_connect_t* async = pc_connect_req_new(&address);
     int ret = pc_client_connect2(client,async,cc_pomelo_on_ansync_connect_cb);
     if(ret)
     {
         log("pc_client_connect2 error:%d", errno);
         pc_client_destroy(client);
+        cc_pomelo_on_ansync_connect_cb(NULL,ret);
     }
-    else
-    {
-        if (!connect_content)
-        {
-            connect_status = 0;
-            connect_content = new CCPomeloConnect_;
-            connect_content->func = f;
-        }
-        else
-        {
-            log("can not call again before the first connect callback");
-        }
-    }
-    
-    return ret;
 }
 
 
 
 void CCPomelo::stop()
 {
-    pc_client_stop(client);
+    pc_client_destroy(client);
 }
 
+
+
+void CCPomelo::cleanup(){
+    cleanupEventContent();
+    cleanupNotifyContent();
+    cleanupRequestContent();
+    pthread_mutex_lock(&task_count_mutex);
+    pthread_mutex_unlock(&task_count_mutex);
+}
+
+
+void CCPomelo::cleanupEventContent(){
+    auto iter = event_content.begin();
+    for (;iter != event_content.end();iter++) {
+        pc_remove_listener(client, iter->first.c_str(), cc_pomelo_on_event_cb);
+    }
+    event_content.clear();
+}
+
+
+void CCPomelo::cleanupNotifyContent(){
+    notify_content.clear();
+}
+
+
+void CCPomelo::cleanupRequestContent(){
+    request_content.clear();
+}
 
 
 int CCPomelo::request(const char*route, json_t *msg, std::function<void(Node*, void*)> f)
 {
     pc_request_t *req = pc_request_new();
     request_content[req] = f;
-    pc_request(client,req, route, json_deep_copy(msg), cc_pomelo_on_request_cb);
+    pc_request(client,req, route, msg, cc_pomelo_on_request_cb);
     return 0;
 }
 
@@ -373,7 +379,8 @@ int CCPomelo::notify(const char*route, json_t *msg, std::function<void(Node*, vo
 {
     pc_notify_t *notify = pc_notify_new();
     notify_content[notify] = f;
-    pc_notify(client,notify, route, json_deep_copy(msg), cc_pomelo_on_notify_cb);
+
+    pc_notify(client,notify, route, msg, cc_pomelo_on_notify_cb);
     
     return 0;
 }
@@ -388,6 +395,13 @@ int CCPomelo::addListener(const char* event, std::function<void(Node*, void*)> f
     }
     event_content[event] = f;
     return pc_add_listener(client, event, cc_pomelo_on_event_cb);
+}
+
+
+
+void CCPomelo::removeListener(const char *event){
+    event_content.erase(event);
+    pc_remove_listener(client, event, cc_pomelo_on_event_cb);
 }
 
 

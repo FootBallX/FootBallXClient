@@ -44,7 +44,8 @@ protected:
     virtual void onSignUp(Ref* sender, Control::EventType event);
     virtual void onCancel(Ref* sender, Control::EventType event);
     
-    virtual void connectMatchServer(json_int_t token);
+    void onPair(Node* node, void* resp);
+
 };
 
 

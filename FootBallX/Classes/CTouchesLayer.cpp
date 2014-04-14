@@ -128,8 +128,6 @@ void CTouchesLayer::onTouchesMoved(const std::vector<Touch*>& touches, Event* ev
         }
     }
     
-//    CCLog("Position:%f,%f",location.x,location.y);
-    // Passthrough
     this->touchMoved(location);
     this->touchesMoved(touches, event);
 }

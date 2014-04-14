@@ -10,7 +10,7 @@
 #include "CCPomelo.h"
 #include "CGameSceneManager.h"
 #include "CMessageBoxLayer.h"
-//#include "CPlayerInfo.h"
+#include "CPlayerInfo.h"
 
 static class CLoginLayerRegister
 {
@@ -87,6 +87,9 @@ void CLoginLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
 
 bool CLoginLayer::init()
 {
+    POMELO->stop();
+    delete POMELO;
+    
     SpriteFrameCache* sfc = SpriteFrameCache::getInstance();
     sfc->addSpriteFramesWithFile("huds.plist");
 
@@ -104,7 +107,7 @@ void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
     mb->setMsg("Connecting...");
     mb->doModal();
 
-    if (0 != POMELO->asyncConnect(ip.c_str(), port, [&, mb](Node* node, void* resp)
+    POMELO->asyncConnect(ip.c_str(), port, [&, mb](Node* node, void* resp)
                          {
                              CCPomeloReponse* pr = (CCPomeloReponse*)resp;
                              if (pr->status != 0)
@@ -116,13 +119,20 @@ void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
                              CCLOG("connect ok");
                              const char *route = "gate.gateHandler.queryConnectorEntry";
                              json_t *msg = json_object();
-                             json_object_set(msg, "userName", json_string(m_userName->getText()));
-                             json_object_set(msg, "password", json_string(m_password->getText()));
+                             auto jo = json_string(m_userName->getText());
+                             json_object_set(msg, "userName", jo);
+                             json_decref(jo);
+                             jo = json_string(m_password->getText());
+                             json_object_set(msg, "password", jo);
+                             json_decref(jo);
                              POMELO->request(route, msg, [&, mb](Node* node, void* resp){
                                  mb->closeModal();
                                  CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-                                 CCLOG("entryCB %s",json_dumps(ccpomeloresp->docs, JSON_COMPACT));
-                                 
+#if COCOS2D_DEBUG == 1
+                                 auto jds = json_dumps(ccpomeloresp->docs, JSON_COMPACT);
+                                 CCLOG("entryCB %s", jds);
+                                 free(jds);
+#endif
                                  json_t* code = json_object_get(ccpomeloresp->docs, "code");
                                  if (200 != json_integer_value(code))
                                  {
@@ -132,10 +142,7 @@ void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
                                  json_t* ip = json_object_get(ccpomeloresp->docs, "port");
                                  connectToConnector(json_string_value(host), (int)json_integer_value(ip));
                              });
-                         }))
-    {
-        mb->closeModal();
-    }
+                         });
 }
 
 
@@ -152,8 +159,8 @@ void CLoginLayer::connectToConnector(const char* ip, int port)
     CMessageBoxLayer* mb = CMessageBoxLayer::create();
     mb->setMsg("Entering game ...");
     mb->doModal();
-    
-    if (0 != POMELO->asyncConnect(ip, port, [&, mb](Node* node, void* resp)
+    POMELO->stop();
+    POMELO->asyncConnect(ip, port, [&, mb](Node* node, void* resp)
                                   {
                                       CCPomeloReponse* pr = (CCPomeloReponse*)resp;
                                       if (pr->status != 0)
@@ -165,13 +172,20 @@ void CLoginLayer::connectToConnector(const char* ip, int port)
                                       CCLOG("gate connect ok");
                                       const char *route = "connector.entryHandler.login";;
                                       json_t *msg = json_object();
-                                      json_object_set(msg, "userName", json_string(m_userName->getText()));
-                                      json_object_set(msg, "password", json_string(m_password->getText()));
+                                      auto jo = json_string(m_userName->getText());
+                                      json_object_set(msg, "userName", jo);
+                                      json_decref(jo);
+                                      jo = json_string(m_password->getText());
+                                      json_object_set(msg, "password", jo);
+                                      json_decref(jo);
                                       POMELO->request(route, msg, [&, mb](Node* node, void* resp){
                                           mb->closeModal();
                                           CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-                                          CCLOG("entryCB %s",json_dumps(ccpomeloresp->docs, JSON_COMPACT));
-                                          
+#if COCOS2D_DEBUG == 1
+                                          auto jds = json_dumps(ccpomeloresp->docs, JSON_COMPACT);
+                                          CCLOG("entryCB %s", jds);
+                                          free(jds);
+#endif
                                           json_t* code = json_object_get(ccpomeloresp->docs, "code");
                                           if (json_integer_value(code) != 200)
                                           {
@@ -183,10 +197,7 @@ void CLoginLayer::connectToConnector(const char* ip, int port)
                                               getPlayerInfo();
                                           }
                                       });
-                                  }))
-    {
-        mb->closeModal();
-    }
+                                  });
 }
 
 
@@ -201,7 +212,7 @@ void CLoginLayer::getPlayerInfo(void)
     {
         mb->closeModal();
         CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-        
+
         json_t* code = json_object_get(ccpomeloresp->docs, "code");
         if (json_integer_value(code) != 200)
         {
@@ -210,18 +221,20 @@ void CLoginLayer::getPlayerInfo(void)
         else
         {
             CCLOG("get player info done!");
-            CCLOG("playerInfo: %s",json_dumps(ccpomeloresp->docs, JSON_COMPACT));
+#if COCOS2D_DEBUG == 1
+            auto jds = json_dumps(ccpomeloresp->docs, JSON_COMPACT);
+            CCLOG("playerInfo: %s", jds);
+            free(jds);
+#endif
             json_t* player = json_object_get(ccpomeloresp->docs, "player");
             CC_ASSERT(player);
-//            PLAYER_INFO->setUID(json_integer_value(json_object_get(player, "uid")));
-//            PLAYER_INFO->setPID(json_integer_value(json_object_get(player, "pid")));
-//            const char* nickname = json_string_value(json_object_get(player, "nickname"));
-//            PLAYER_INFO->setNickName(nickname ? nickname : "");
-//            PLAYER_INFO->setLevel(json_integer_value(json_object_get(player, "level")));
-//            PLAYER_INFO->setMoney(json_integer_value(json_object_get(player, "money")));
-//            PLAYER_INFO->setMineral(json_integer_value(json_object_get(player, "mineral")));
-//            PLAYER_INFO->setGas(json_integer_value(json_object_get(player, "gas")));
-            
+            PLAYER_INFO->setUID((int)json_integer_value(json_object_get(player, "uid")));
+            PLAYER_INFO->setPID((int)json_integer_value(json_object_get(player, "pid")));
+            const char* nickname = json_string_value(json_object_get(player, "nickname"));
+            PLAYER_INFO->setNickName(nickname ? nickname : "");
+            PLAYER_INFO->setLevel((int)json_integer_value(json_object_get(player, "level")));
+            PLAYER_INFO->setMoney((int)json_integer_value(json_object_get(player, "money")));
+
             SCENE_MANAGER->go(ST_LOBBY);
         }
     });

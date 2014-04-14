@@ -107,6 +107,13 @@ namespace FBDefs
     // 抢球队员接近球多久后触发
     static const float PLAYER_ENCOUNTER_TRIGGER_TIME = 1.f;
     
+    enum class MATCH_STEP
+    {
+        WAIT_START,
+        MATCHING,
+        NONE,
+    };
+    
     enum class SIDE
     {
         LEFT,

@@ -16,7 +16,7 @@ class CCPomeloNotify_;
 class CCPomeloConnect_;
 
 
-class CCPomeloReponse:public cocos2d::Object
+class CCPomeloReponse:public cocos2d::Ref
 {
 public:
     CCPomeloReponse(){}
@@ -35,17 +35,24 @@ class CCPomelo
 public:
     int connect(const char* addr, int port);
     
-    int asyncConnect(const char* addr, int port, std::function<void(Node*, void*)> f);
+    void asyncConnect(const char* addr, int port, std::function<void(Node*, void*)> f);
 
     void stop();
 
     int request(const char*route, json_t *msg, std::function<void(Node*, void*)> f);
     int notify(const char*route, json_t *msg, std::function<void(Node*, void*)> f);
     int addListener(const char* event, std::function<void(Node*, void*)> f);
+    void removeListener(const char *event);
     
 public:
     CCPomelo();
     virtual ~CCPomelo();
+    
+    void cleanup();
+    
+    void cleanupEventContent();
+    void cleanupNotifyContent();
+    void cleanupRequestContent();
     
     void dispatchCallbacks(float delta);
     
