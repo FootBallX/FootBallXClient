@@ -140,6 +140,8 @@ USING_NS_CC_EXT;
 #pragma mark -- Pomelo
 #include "jansson.h"
 #include "pomelo.h"
+#include "CJsonT.h"
+#include "JsonMemory.h"
 
 #pragma mark -- stl headers and typedefs for stl container
 #include <set>

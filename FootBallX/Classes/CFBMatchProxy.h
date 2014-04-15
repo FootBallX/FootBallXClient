@@ -15,7 +15,7 @@
 class CFBMatchProxy
 {
 public:
-    typedef function<void(const Point&, const Point&)> PLAYER_MOVE_FUNC;
+    typedef function<void(const cocos2d::Point&, const cocos2d::Point&)> PLAYER_MOVE_FUNC;
     typedef function<void(const vector<float>&)> TEAM_POSITION_FUNC;
     typedef function<void(int)> SWITCH_HILIGHT_PLAYER_FUNC;
     typedef function<void(FBDefs::SIDE, FBDefs::SIDE, long long)> START_MATCH_FUNC;
@@ -25,7 +25,7 @@ public:
     virtual ~CFBMatchProxy() = default;
     
     virtual void start() = 0;
-    virtual void sendPlayerMove(const Point&, const Point&) = 0;
+    virtual void sendPlayerMove(const cocos2d::Point&, const cocos2d::Point&) = 0;
     virtual void sendTeamPosition(const vector<float>&) = 0;
     virtual void sendHiligtPlayer(int) = 0;
     

@@ -41,13 +41,10 @@ void CSyncedTime::startSyncTime()
 
 void CSyncedTime::syncTime()
 {
-    // test
-    json_t* msg = json_object();
-    auto jo = json_integer(getClientTime());
-    json_object_set(msg, "cTime", jo);
-    json_decref(jo);
-    
+    CJsonT msg;
+    msg.setChild("cTime", getClientTime());
     POMELO->request("match.matchHandler.time", msg, bind(&CSyncedTime::syncTimeAck, this, std::placeholders::_1, std::placeholders::_2));
+    msg.release();
 }
 
 
@@ -55,9 +52,9 @@ void CSyncedTime::syncTime()
 void CSyncedTime::syncTimeAck(Node*, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-    auto& docs = ccpomeloresp->docs;
-    m_serverTime = json_integer_value(json_object_get(docs, "sTime"));
-    auto lct = json_integer_value(json_object_get(docs, "cTime"));
+    CJsonT docs(ccpomeloresp->docs);
+    m_serverTime = docs.getInt("sTime");
+    auto lct = docs.getInt("cTime");
     auto ct = getClientTime();
     int ping = (ct - lct) * 0.5;
     m_pings.push_back(ping);

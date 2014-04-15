@@ -88,8 +88,8 @@ bool CLobbyLayer::init()
 void CLobbyLayer::onPair(Node* node, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-    json_t* code = json_object_get(ccpomeloresp->docs, "code");
-    if (200 != json_integer_value(code))
+    CJsonT docs(ccpomeloresp->docs);
+    if (200 != docs.getInt("code"))
     {
         return;
     }
@@ -103,18 +103,21 @@ void CLobbyLayer::onPair(Node* node, void* resp)
 void CLobbyLayer::onSignUp(Ref* sender, Control::EventType event)
 {
     const char *route = "league.leagueHandler.signUp";
-    json_t *msg = json_object();
+
+    CJsonT msg;
 
     POMELO->request(route, msg, [&](Node* node, void* resp){
         CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-        json_t* code = json_object_get(ccpomeloresp->docs, "code");
-        if (200 != json_integer_value(code))
+        CJsonT docs(ccpomeloresp->docs);
+        if (200 != docs.getInt("code"))
         {
             return;
         }
         m_logText->setString("You are in queue, please wait for other player.");
         m_singUpButton->setVisible(false);
     });
+    
+    msg.release();
 }
 
 

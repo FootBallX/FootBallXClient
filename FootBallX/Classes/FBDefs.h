@@ -15,7 +15,6 @@ class CFBPlayer;
 class CFBPitchGrid;
 
 
-
 namespace FBDefs
 {
     enum class FORMATION
@@ -25,39 +24,39 @@ namespace FBDefs
         NONE,
     };
     
-    static Point InitFormation[(int)FORMATION::NONE][11] = {
+    static cocos2d::Point InitFormation[(int)FORMATION::NONE][11] = {
         // F_4_4_2
         {
-            Point(25, 325),
-            Point(140, 120), Point(140, 222.5), Point(140, 427.5), Point(140, 530),
-            Point(300, 120), Point(300, 222.5), Point(300, 427.5), Point(300, 530),
-            Point(440, 260), Point(500, 330),
+            cocos2d::Point(25, 325),
+            cocos2d::Point(140, 120), cocos2d::Point(140, 222.5), cocos2d::Point(140, 427.5), cocos2d::Point(140, 530),
+            cocos2d::Point(300, 120), cocos2d::Point(300, 222.5), cocos2d::Point(300, 427.5), cocos2d::Point(300, 530),
+            cocos2d::Point(440, 260), cocos2d::Point(500, 330),
         },
         // F_3_2_3_2
         {
-            Point(25, 325),
-            Point(140, 190), Point(140, 325), Point(140, 460),
-            Point(240, 230), Point(240, 420),
-            Point(340, 190), Point(340, 325), Point(340, 460),
-            Point(440, 260), Point(500, 330),
+            cocos2d::Point(25, 325),
+            cocos2d::Point(140, 190), cocos2d::Point(140, 325), cocos2d::Point(140, 460),
+            cocos2d::Point(240, 230), cocos2d::Point(240, 420),
+            cocos2d::Point(340, 190), cocos2d::Point(340, 325), cocos2d::Point(340, 460),
+            cocos2d::Point(440, 260), cocos2d::Point(500, 330),
         },
     };
     
-    static Point HomeFormation[(int)FORMATION::NONE][11] = {
+    static cocos2d::Point HomeFormation[(int)FORMATION::NONE][11] = {
         // F_4_4_2
         {
-            Point(0, 325),
-            Point(0, 120), Point(0, 222.5), Point(0, 427.5), Point(0, 530),
-            Point(0, 120), Point(0, 222.5), Point(0, 427.5), Point(0, 530),
-            Point(0, 260), Point(0, 330),
+            cocos2d::Point(0, 325),
+            cocos2d::Point(0, 120), cocos2d::Point(0, 222.5), cocos2d::Point(0, 427.5), cocos2d::Point(0, 530),
+            cocos2d::Point(0, 120), cocos2d::Point(0, 222.5), cocos2d::Point(0, 427.5), cocos2d::Point(0, 530),
+            cocos2d::Point(0, 260), cocos2d::Point(0, 330),
         },
         // F_3_2_3_2
         {
-            Point(0, 325),
-            Point(0, 190), Point(0, 325), Point(0, 460),
-            Point(-50, 230), Point(-50, 420),
-            Point(50, 190), Point(50, 325), Point(50, 460),
-            Point(0, 260), Point(0, 330),
+            cocos2d::Point(0, 325),
+            cocos2d::Point(0, 190), cocos2d::Point(0, 325), cocos2d::Point(0, 460),
+            cocos2d::Point(-50, 230), cocos2d::Point(-50, 420),
+            cocos2d::Point(50, 190), cocos2d::Point(50, 325), cocos2d::Point(50, 460),
+            cocos2d::Point(0, 260), cocos2d::Point(0, 330),
         },
     };
     

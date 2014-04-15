@@ -26,8 +26,8 @@ public:
     
     virtual const CFBCard& getPlayerCard() const { return m_playerCard; }
     
-    virtual void setPosition(const Point& pos);
-    virtual const Point& getPosition() { return m_curPosition; }
+    virtual void setPosition(const cocos2d::Point& pos);
+    virtual const cocos2d::Point& getPosition() { return m_curPosition; }
     
     virtual void setInstruction(FBDefs::PLAYER_INS ins) { m_instruction = ins; }
     virtual FBDefs::PLAYER_INS getInstruction() { return m_instruction; }

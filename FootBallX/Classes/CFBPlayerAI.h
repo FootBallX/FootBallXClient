@@ -30,7 +30,7 @@ public:
     CFBPlayerAI() = default;
     virtual ~CFBPlayerAI() = default;
     
-    virtual bool init(CFBFormation* formation, CFBPlayer* player, const Point& intPos, const Point& homePos, float radius);
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius);
     
     virtual void think();
     
@@ -62,7 +62,7 @@ protected:
     virtual void thinkPassBall();
     
     virtual void updatePlayerStates();  // TODO: 这个函数基本没用，应该和think函数合并。
-    virtual bool isOnPosition(const Point& pos);
+    virtual bool isOnPosition(const cocos2d::Point& pos);
     virtual void applyStateCD() { m_changeStateCD = 1.f; }
     virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
     virtual void startWait(float t);
@@ -80,7 +80,7 @@ protected:
     FBDefs::AI_STATE m_state = FBDefs::AI_STATE::NONE;
     FBDefs::AI_STATE_CONTROL m_controlState = FBDefs::AI_STATE_CONTROL::NONE;
     
-    Point m_moveToTarget;
+    cocos2d::Point m_moveToTarget;
     
     float m_changeStateCD = 0.f;
     float m_waitTime = 0.f;
@@ -88,7 +88,7 @@ protected:
     int m_passBallScore = 0;
 protected:      // ai logic functions
     virtual void returnToHome(float dt);
-    virtual void moveTo(const Point& pos, float dt);
+    virtual void moveTo(const cocos2d::Point& pos, float dt);
     virtual void chaseBall(float dt);
 };
 

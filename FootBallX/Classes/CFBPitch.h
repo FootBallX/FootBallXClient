@@ -18,10 +18,10 @@
 class CFBPitch
 {
 public:
-    Point transformBySide(Point pos, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
+    cocos2d::Point transformBySide(cocos2d::Point pos, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
     float transformBySide(float x, FBDefs::SIDE side = FBDefs::SIDE::LEFT);
     
-    Point transToScreen(Point pos);
+    cocos2d::Point transToScreen(cocos2d::Point pos);
     
     bool init(int w, int h);
     int getPitchWidth() const { return m_width; }
@@ -42,10 +42,10 @@ public:
     const vector<int>& getGridsInPenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsInPenaltyArea[(int)side]; }
     const vector<int>& getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE side) const { return m_GridsOutsidePenaltyArea[(int)side]; }
     
-    bool getGridsAroundPosition(const Point& pos, vector<int>& out_grids);
+    bool getGridsAroundPosition(const cocos2d::Point& pos, vector<int>& out_grids);
     
-    Point getBestSupportPosition(FBDefs::SIDE side);
-    Point getBestAssistantDeffendingPosition(const Point& targetPos, FBDefs::SIDE side);
+    cocos2d::Point getBestSupportPosition(FBDefs::SIDE side);
+    cocos2d::Point getBestAssistantDeffendingPosition(const cocos2d::Point& targetPos, FBDefs::SIDE side);
 #ifdef SHOW_GRID
     void setGridDrawNode(int index, DrawNode* node)
     {
@@ -64,7 +64,7 @@ public:
     
     FBDefs::SIDE getOtherSide(FBDefs::SIDE side) const;
     
-    Point getGoalPos(FBDefs::SIDE side) const;
+    cocos2d::Point getGoalPos(FBDefs::SIDE side) const;
 protected:
     int m_width = 0;
     int m_height = 0;

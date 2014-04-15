@@ -38,62 +38,47 @@ void CFBMatchProxyNet::start()
 
 void CFBMatchProxyNet::sendPlayerMove(const Point& playerPos, const Point& moveVec)
 {
-    json_t *msg = json_object();
-    auto jo = json_integer((json_int_t)SYNC_TYPE::CONTROL_PLAYER);
-    json_object_set(msg, "type", jo);
-    json_decref(jo);
-    jo = json_real(moveVec.x);
-    json_object_set(msg, "dirX", jo);
-    json_decref(jo);
-    jo = json_real(moveVec.y);
-    json_object_set(msg, "dirY", jo);
-    json_decref(jo);
-    jo = json_real(playerPos.x);
-    json_object_set(msg, "posX", jo);
-    json_decref(jo);
-    jo = json_real(playerPos.y);
-    json_object_set(msg, "posY", jo);
-    json_decref(jo);
+    CJsonT msg;
+    msg.setChild("type", (json_int_t)SYNC_TYPE::CONTROL_PLAYER);
+    msg.setChild("dirX", moveVec.x);
+    msg.setChild("dirY", moveVec.y);
+    msg.setChild("posX", playerPos.x);
+    msg.setChild("posY", playerPos.y);
     
     POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
+    
+    msg.release();
 }
 
 
 
 void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p)
 {
-    json_t *msg = json_object();
-    json_t* jo = json_integer((json_int_t)SYNC_TYPE::ALL_TEAM);
-    json_object_set(msg, "type", jo);
-    json_decref(jo);
+    CJsonT msg;
+    msg.setChild("type", (json_int_t)SYNC_TYPE::ALL_TEAM);
     
-    json_t* ja = json_array();
+    CJsonTArray ja;
     for (auto x : p)
     {
-        jo = json_real(x);
-        json_array_append(ja, jo);
-        json_decref(jo);
+        ja.append(CJsonT(x));
     }
-    json_object_set(msg, "teamPos", ja);
-    json_decref(ja);
+    msg.setChild("teamPos", ja);
     
     POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
+    
+    msg.release();
 }
 
 
 
 void CFBMatchProxyNet::sendHiligtPlayer(int playerId)
 {
-    json_t *msg = json_object();
-    json_t* jo = json_integer((json_int_t)SYNC_TYPE::SWITCH_HILIGHT);
-    json_object_set(msg, "type", jo);
-    json_decref(jo);
-    
-    jo = json_integer((json_int_t)playerId);
-    json_object_set(msg, "playerId", jo);
-    json_decref(jo);
+    CJsonT msg;
+    msg.setChild("type", (json_int_t)SYNC_TYPE::SWITCH_HILIGHT);
+    msg.setChild("playerId", playerId);
     
     POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
+    msg.release();
 }
 
 
@@ -155,9 +140,10 @@ void CFBMatchProxyNet::update(float dt)
         {
             m_startStep = START_STEP::NONE;
             const char *route = "match.matchHandler.ready";
-            json_t *msg = json_object();
+            CJsonT msg;
             POMELO->request(route, msg, [&](Node* node, void* resp){
             });
+            msg.release();
             break;
         }
         default:
@@ -170,36 +156,35 @@ void CFBMatchProxyNet::update(float dt)
 void CFBMatchProxyNet::onSync(Node*, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
-    auto& docs = ccpomeloresp->docs;
-    
-    SYNC_TYPE type = (SYNC_TYPE)json_integer_value(json_object_get(docs, "type"));
-    
-    switch (type)
+
+    CJsonT docs(ccpomeloresp->docs);
+
+    switch ((SYNC_TYPE)docs.getInt("type"))
     {
         case SYNC_TYPE::CONTROL_PLAYER:
         {
             m_playerMoveAck(
-                            Point(json_number_value(json_object_get(docs, "posX")),
-                                  json_number_value(json_object_get(docs, "posY"))),
-                            Point(json_number_value(json_object_get(docs, "dirX")),
-                                  json_number_value(json_object_get(docs, "dirY"))));
+                            Point(docs.getFloat("posX"),
+                                  docs.getFloat("posY")),
+                            Point(docs.getFloat("dirX"),
+                                  docs.getFloat("dirY")));
             break;
         }
         case SYNC_TYPE::ALL_TEAM:
         {
             vector<float> v;
-            json_t* ja = json_object_get(docs, "teamPos");
-            auto size = json_array_size(ja);
+            CJsonTArray ja(docs.getChild("teamPos"));
+            auto size = ja.size();
             for (int i = 0; i < size; ++i)
             {
-                v.push_back(json_number_value(json_array_get(ja, i)));
+                v.push_back(ja.get(i).toFloat());
             }
             m_teamPositionAck(v);
             break;
         }
         case SYNC_TYPE::SWITCH_HILIGHT:
         {
-            m_switchHilightPlayerAck((int)json_integer_value(json_object_get(docs, "playerId")));
+            m_switchHilightPlayerAck(docs.getInt("playerId"));
             break;
         }
         default:
@@ -212,15 +197,15 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
 void CFBMatchProxyNet::onStartMatch(Node*, void* r)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
-    auto docs = ccpomeloresp->docs;
-    json_t* code = json_object_get(docs, "code");
-    if (200 != json_integer_value(code))
+    CJsonT docs(ccpomeloresp->docs);
+
+    if (200 != docs.getInt("code"))
     {
         return;
     }
     
-    int u1 = (int)json_integer_value(json_object_get(docs, "left"));
-    int u2 = (int)json_integer_value(json_object_get(docs, "right"));
+    int u1 = docs.getInt("left");
+    int u2 = docs.getInt("right");
     FBDefs::SIDE side = FBDefs::SIDE::NONE;
     FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
     

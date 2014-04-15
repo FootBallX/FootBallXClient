@@ -13,7 +13,7 @@
 
 - (void)setUp
 {
-    m_addr = "192.168.1.6";
+    m_addr = "192.168.1.5";
     m_port = 3017;
     
     [super setUp];

@@ -25,47 +25,13 @@
 #include "CFBFunctionsJS.h"
 #include "CSyncedTime.h"
 
-int ct = 0;
-
-int gcount = 0;
-
-pthread_mutex_t  mt;
-
-void *jm(size_t s)
-{
-    pthread_mutex_lock(&mt);
-    
-    void* p = malloc(s);
-
-    ct++;
-    gcount++;
-    log("%d+++ ct: %d", gcount, ct);
-    pthread_mutex_unlock(&mt);
-    return p;
-}
-
-void fr(void* p)
-{
-    pthread_mutex_lock(&mt);
-    ct--;
-    gcount++;
-    log("%d--- ct: %d", gcount, ct);
-    free(p);
-    if (gcount == 45)
-    {
-        int a = 0;
-        a++;
-    }
-    pthread_mutex_unlock(&mt);
-}
 
 AppDelegate::AppDelegate()
 {
     time_t t;
     srand((unsigned) time(&t));
-//    pthread_mutex_init(&mt, NULL);
-//    json_set_alloc_funcs(jm, fr);
-//    pc_json_set_alloc_funcs(jm, fr);
+    
+    json_memory_init();
 }
 
 AppDelegate::~AppDelegate()
