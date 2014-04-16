@@ -26,7 +26,7 @@
 }
 
 
-- (void)testJsonMemPool1
+- (void)testJsonMemPoolFullAlloc
 {
     std::vector<int> v = {128,  64,  64,  32,  32};
     CJsonMemPool mem(v);
@@ -66,6 +66,40 @@
     p = mem.pool_alloc(512);
     STAssertTrue(0 != (int)p, @"");
 }
+
+
+
+- (void)testJsonMemPoolOneAlloc
+{
+    std::vector<int> v = {128,  64,  64,  32,  32};
+    CJsonMemPool mem(v);
+    
+    int totalSize = std::accumulate(v.begin(), v.end(), 0);
+
+    for (int i = 0; i < totalSize-1; ++i)
+    {
+        void* p = mem.pool_alloc(1);
+        if ((int)p == 0)
+        {
+            STFail(@"");
+        }
+        else
+        {
+            memset(p, 0xcc, 1);
+        }
+    }
+    
+    void* p = mem.pool_alloc(1);
+    STAssertTrue(0 != (int)p, @"");
+    
+    void* p1 = mem.pool_alloc(1);
+    STAssertEquals(0, (int)p1, @"");
+    
+    mem.pool_free(p);
+    p = mem.pool_alloc(1);
+    STAssertTrue(0 != (int)p, @"");
+}
+
 
 
 - (void)testJsonMemPool2

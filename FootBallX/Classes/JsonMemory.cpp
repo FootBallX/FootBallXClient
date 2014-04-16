@@ -24,7 +24,9 @@ void json_memory_init()
 void json_memory_dump()
 {
 #ifdef DEBUG
+    pthread_mutex_lock(&mt);
     g_memPool.debugInfo();
+    pthread_mutex_unlock(&mt);
 #endif
 }
 
