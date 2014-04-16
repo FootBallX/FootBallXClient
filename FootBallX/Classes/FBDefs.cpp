@@ -11,7 +11,7 @@
 #include "CFBPlayer.h"
 #include "CFBPitchGrid.h"
 
-#define WAY_WIDTH       (10.f * cocosbuilder::CCBReader::getResolutionScale())
+#define WAY_WIDTH       10.f
 
 namespace FBDefs
 {

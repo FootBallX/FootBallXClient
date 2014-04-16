@@ -34,6 +34,6 @@
 
 - (void)testMath2
 {
-    STAssertTrue(!FBDefs::isPointOnTheWay(cocos2d::Point(0, 30), cocos2d::Point(15, 0), cocos2d::Point(2.5, 2.5)), @"");
+    STAssertTrue(!FBDefs::isPointOnTheWay(cocos2d::Point(0, 50), cocos2d::Point(55, 0), cocos2d::Point(2.5, 2.5)), @"");
 }
 @end

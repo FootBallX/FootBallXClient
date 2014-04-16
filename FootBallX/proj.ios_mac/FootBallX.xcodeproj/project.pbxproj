@@ -47,7 +47,6 @@
 		542650C1187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C2187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
 		542650C3187E3BEB008113ED /* CSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 542650BF187E3BEB008113ED /* CSingleton.cpp */; };
-		542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */; };
 		542BF4AF18FD6C4C00EC72BC /* JsonMemPoolTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 542BF4AE18FD6C4C00EC72BC /* JsonMemPoolTest.mm */; };
 		5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
 		5432C98618B9C2070066919A /* CRandomManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5432C98318B9C2070066919A /* CRandomManager.cpp */; };
@@ -125,7 +124,6 @@
 		548C252318FCC6420016E40F /* CJsonT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 548C252018FCC6420016E40F /* CJsonT.cpp */; };
 		548C252618FD07F20016E40F /* JsonMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 548C252418FD07F20016E40F /* JsonMemory.cpp */; };
 		548C252718FD07F20016E40F /* JsonMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 548C252418FD07F20016E40F /* JsonMemory.cpp */; };
-		54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54908206187EA8D000F11AFE /* PomeloTestBase.mm */; };
 		5490F12218F2EC8800E8C0E3 /* CPlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5490F12018F2EC8800E8C0E3 /* CPlayerInfo.cpp */; };
 		5490F12318F2EC8800E8C0E3 /* CPlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5490F12018F2EC8800E8C0E3 /* CPlayerInfo.cpp */; };
 		5498FD0E18CAFB6F0021BED7 /* libjsbindings Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */; };
@@ -151,7 +149,6 @@
 		54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
 		54DE0DBB18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
 		54E630B318D58FAB0033E43A /* CFBAnimationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */; };
-		54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */; };
 		54F159B01884DAD3008AF575 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 54F159AE1884DAD3008AF575 /* Icon.icns */; };
 		54F159C01884DADF008AF575 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B21884DADF008AF575 /* Icon-29.png */; };
 		54F159C11884DADF008AF575 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159B31884DADF008AF575 /* Icon-40.png */; };
@@ -222,8 +219,6 @@
 		542650BB187E3BAE008113ED /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Common.h; path = ../Classes/Common.h; sourceTree = "<group>"; };
 		542650BF187E3BEB008113ED /* CSingleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSingleton.cpp; path = ../Classes/CSingleton.cpp; sourceTree = "<group>"; };
 		542650C0187E3BEB008113ED /* CSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSingleton.h; path = ../Classes/CSingleton.h; sourceTree = "<group>"; };
-		542650C5187E3DE4008113ED /* PomeloTestsGateServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsGateServer.h; path = FootBallXTests/PomeloTestsGateServer.h; sourceTree = "<group>"; };
-		542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsGateServer.mm; path = FootBallXTests/PomeloTestsGateServer.mm; sourceTree = "<group>"; };
 		542BF4AE18FD6C4C00EC72BC /* JsonMemPoolTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = JsonMemPoolTest.mm; path = FootBallXTests/JsonMemPoolTest.mm; sourceTree = "<group>"; };
 		5432C98318B9C2070066919A /* CRandomManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRandomManager.cpp; path = ../Classes/CRandomManager.cpp; sourceTree = "<group>"; };
 		5432C98418B9C2070066919A /* CRandomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRandomManager.h; path = ../Classes/CRandomManager.h; sourceTree = "<group>"; };
@@ -306,8 +301,6 @@
 		548C252118FCC6420016E40F /* CJsonT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CJsonT.h; path = ../Classes/CJsonT.h; sourceTree = "<group>"; };
 		548C252418FD07F20016E40F /* JsonMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JsonMemory.cpp; path = ../Classes/JsonMemory.cpp; sourceTree = "<group>"; };
 		548C252518FD07F20016E40F /* JsonMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonMemory.h; path = ../Classes/JsonMemory.h; sourceTree = "<group>"; };
-		54908205187EA8D000F11AFE /* PomeloTestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestBase.h; path = FootBallXTests/PomeloTestBase.h; sourceTree = "<group>"; };
-		54908206187EA8D000F11AFE /* PomeloTestBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestBase.mm; path = FootBallXTests/PomeloTestBase.mm; sourceTree = "<group>"; };
 		5490F12018F2EC8800E8C0E3 /* CPlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CPlayerInfo.cpp; path = ../Classes/CPlayerInfo.cpp; sourceTree = "<group>"; };
 		5490F12118F2EC8800E8C0E3 /* CPlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPlayerInfo.h; path = ../Classes/CPlayerInfo.h; sourceTree = "<group>"; };
 		5498FD0D18CAFB6F0021BED7 /* libjsbindings Mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libjsbindings Mac.a"; path = "../../cocos2d-x/libsMac/libjsbindings Mac.a"; sourceTree = "<group>"; };
@@ -333,8 +326,6 @@
 		54DE0DB918C869C600C076D3 /* CFBCardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCardManager.h; path = ../Classes/CFBCardManager.h; sourceTree = "<group>"; };
 		54E630B118D58FAB0033E43A /* CFBAnimationLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBAnimationLayer.cpp; path = ../Classes/CFBAnimationLayer.cpp; sourceTree = "<group>"; };
 		54E630B218D58FAB0033E43A /* CFBAnimationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBAnimationLayer.h; path = ../Classes/CFBAnimationLayer.h; sourceTree = "<group>"; };
-		54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PomeloTestsConnectorServer.h; path = FootBallXTests/PomeloTestsConnectorServer.h; sourceTree = "<group>"; };
-		54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PomeloTestsConnectorServer.mm; path = FootBallXTests/PomeloTestsConnectorServer.mm; sourceTree = "<group>"; };
 		54F159AE1884DAD3008AF575 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = mac/Icon.icns; sourceTree = "<group>"; };
 		54F159AF1884DAD3008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mac/Info.plist; sourceTree = "<group>"; };
 		54F159B21884DADF008AF575 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
@@ -605,12 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				5472F781187DAB740001FD79 /* support */,
-				542650C5187E3DE4008113ED /* PomeloTestsGateServer.h */,
-				542650C6187E3DE4008113ED /* PomeloTestsGateServer.mm */,
-				54908205187EA8D000F11AFE /* PomeloTestBase.h */,
-				54908206187EA8D000F11AFE /* PomeloTestBase.mm */,
-				54EDFABB187ED69200B85859 /* PomeloTestsConnectorServer.h */,
-				54EDFABC187ED69200B85859 /* PomeloTestsConnectorServer.mm */,
 				54814C471890002100B47B80 /* FootBallAITest.mm */,
 				545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */,
 				542BF4AE18FD6C4C00EC72BC /* JsonMemPoolTest.mm */,
@@ -1001,9 +986,6 @@
 				542650B8187E3B9C008113ED /* CCPomelo.cpp in Sources */,
 				542650BE187E3BAE008113ED /* AppDelegate.cpp in Sources */,
 				542650C3187E3BEB008113ED /* CSingleton.cpp in Sources */,
-				542650C7187E3DE4008113ED /* PomeloTestsGateServer.mm in Sources */,
-				54908207187EA8D000F11AFE /* PomeloTestBase.mm in Sources */,
-				54EDFABD187ED69200B85859 /* PomeloTestsConnectorServer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,8 +1248,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 					"COCOS2D_DEBUG=1",
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,

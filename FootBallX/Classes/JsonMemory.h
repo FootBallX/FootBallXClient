@@ -10,6 +10,11 @@
 #define __FootBallX__JsonMemory__
 
 #include <stddef.h>
+#include <vector>
+#ifdef DEBUG
+#include <map>
+#include <numeric>
+#endif
 
 void json_memory_init();
 void* json_malloc(size_t s);
@@ -20,26 +25,31 @@ void json_memory_dump();
 class CJsonMemPool
 {
 public:
-    CJsonMemPool();
+    CJsonMemPool(const std::vector<int>& poolSize);
     ~CJsonMemPool();
     
     void* pool_alloc(size_t s);
     void pool_free(void* p);
+    
+#ifdef DEBUG
+    void debugInfo();
+    bool checkSize(void* p, int s);
+    
+    std::vector<int> m_curAlloc;
+    std::vector<int> m_peakAlloc;
+    std::map<void*, int> m_allocMap;
+#endif
+    
 protected:
-    enum class BlockSizeType
-    {
-        B32,
-        B64,
-        B128,
-        B256,
-        B512,
-        NONE,
-    };
+    void* m_pool;
+
+    std::vector<int> m_poolSize;
     
-    void* m_pool[(int)BlockSizeType::NONE];
+    typedef int BLOCK_HEADER_TYPE;
+    typedef unsigned short UNIT_HEADER_TYPE;
     
-    int m_typeSize[(int)BlockSizeType::NONE] =    { 32,  64, 128, 256, 512};
-    int m_size[(int)BlockSizeType::NONE] =        {128,  64,  64,  32,  32};
+    const int START_BUFFER_SIZE = 32;
+    
 };
 
 #endif /* defined(__FootBallX__JsonMemory__) */
