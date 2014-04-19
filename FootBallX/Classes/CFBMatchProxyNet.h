@@ -12,6 +12,12 @@
 #include "CFBMatchProxy.h"
 #include "CSyncedTime.h"
 
+/* 
+网络同步几个原则：
+ 1. 所有指令发起由进攻方客户端决定，比如主动传球，遭遇检测等。服务器不负责遭遇检测之类主动触发事件的发起。
+ 2. 指令的成功与否是由服务器计算决定的。
+*/
+
 class CFBMatchProxyNet : public CFBMatchProxy
 {
 public:
@@ -50,6 +56,7 @@ protected:
     void onSync(Node*, void*);
     void onStartMatch(Node*, void*);
     void onEndMatch(Node*, void*);
+    void onSwicthDominator(Node*, void*);
     
     PLAYER_MOVE_FUNC m_playerMoveAck;
     TEAM_POSITION_FUNC m_teamPositionAck;
@@ -60,6 +67,8 @@ protected:
     CSyncedTime m_syncedTimer;
     
     START_STEP m_startStep = START_STEP::NONE;
+    
+    bool m_isDominator = false;
 };
 
 #endif /* defined(__FootBallX__CFBMatchProxyNet__) */

@@ -16,6 +16,7 @@ CFBMatchProxyNet::CFBMatchProxyNet()
     POMELO->addListener("sync", std::bind(&CFBMatchProxyNet::onSync, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("startMatch", std::bind(&CFBMatchProxyNet::onStartMatch, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("endMatch", std::bind(&CFBMatchProxyNet::onEndMatch, this, std::placeholders::_1, std::placeholders::_2));
+    POMELO->addListener("switchDominator", std::bind(&CFBMatchProxyNet::onSwicthDominator, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -25,6 +26,7 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
     POMELO->removeListener("sync");
     POMELO->removeListener("startMatch");
     POMELO->removeListener("endMatch");
+    POMELO->removeListener("switchDominator");
 }
 
 
@@ -206,6 +208,16 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
     
     int u1 = docs.getInt("left");
     int u2 = docs.getInt("right");
+
+    if (PLAYER_INFO->getUID() == docs.getInt("dominatorUid"))
+    {
+        m_isDominator = true;
+    }
+    else
+    {
+        m_isDominator = false;
+    }
+    
     FBDefs::SIDE side = FBDefs::SIDE::NONE;
     FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
     
@@ -237,6 +249,16 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
 void CFBMatchProxyNet::onEndMatch(Node*, void* r)
 {
     m_endMatchAck();
+}
+
+
+
+void CFBMatchProxyNet::onSwicthDominator(Node*, void* r)
+{
+    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
+    CJsonT docs(ccpomeloresp->docs);
+    
+    m_isDominator = docs.getBool("gotDominator");
 }
 
 

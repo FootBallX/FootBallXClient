@@ -236,6 +236,8 @@ void CFBMatch::update(float dt)
             }
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -577,7 +579,6 @@ FBDefs::MATCH_STEP CFBMatch::getMatchStep()
 
 void CFBMatch::updateEncounter(float dt)
 {
-    return;
     m_encounterTime -= dt;
     
     if (m_menuType != FBDefs::MENU_TYPE::NONE)
@@ -665,13 +666,13 @@ void CFBMatch::checkEncounterInPenaltyArea()
         auto conTeam = getControlSideTeam();
         if (conTeam->isAttacking())
         {
-            m_menuType = FBDefs::ENCOUNTER_ATK_OPPSITE_A;
+            m_menuType = FBDefs::MENU_TYPE::ENCOUNTER_ATK_OPPSITE_A;
             m_involvePlayerIds.clear();
             m_involvePlayerIds.push_back(conTeam->getHilightPlayerId());
         }
         else
         {
-            m_menuType = FBDefs::ENCOUNTER_DEF_SELF_A;
+            m_menuType = FBDefs::MENU_TYPE::ENCOUNTER_DEF_SELF_A;
             m_involvePlayerIds.clear();
             for (auto p : m_defendPlayerIds)
             {

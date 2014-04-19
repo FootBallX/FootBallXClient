@@ -174,7 +174,7 @@ namespace FBDefs
     };
     
     
-    enum MENU_TYPE
+    enum class MENU_TYPE
     {
         DEFAULT_ATK_G,      // 控球方 地面带球中断: 传球 射门 二过一
         ENCOUNTER_ATK_G,    // 控球方 地面遭遇: 盘带 传球 射门 二过一
@@ -188,6 +188,17 @@ namespace FBDefs
         ONE_ZERO_DEF_G,     // 防守方 单刀门将: 封堵盘带 封堵射门
         GOAL_KEEPER_DEF_A,  // 防守方 守门员空中遭遇: 出击 待机
         NONE,
+    };
+    
+    enum class GAME_EVENT       // 指令的发起事件，这里不分攻防
+    {
+        ACTIVE_PASS,            // 主动传球
+        ACTIVE_SHOOT,           // 主动射门
+        ACTIVE_ONE_TWO_PASS,    // 主动二过一
+        GROUND_ENCOUNTER,       // 普通地面遭遇
+        AIR_ENCOUNTER_ATTACK,   // 控球方对方禁区半空遭遇
+        AIR_ENCOUNTER_DEFFEND,  // 控球方己方禁区半空遭遇
+        ONE_ZERO_ATTACK,        // 单刀球
     };
     
     enum class MATCH_FLOW_TYPE      // 相对应CFBInstruction的类型
