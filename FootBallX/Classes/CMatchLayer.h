@@ -12,6 +12,7 @@
 #include "CSpriteEx.h"
 #include "FBDefs.h"
 #include "IFBMatchUI.h"
+#include "CMatchMenuLayer.h"
 
 class CFBAnimationLayer;
 class CFBTeam;
@@ -24,6 +25,8 @@ class CMatchLayer
 , public IFBMatchUI
 {
 public:
+    friend class CMatchMenuLayer;
+    
     CREATE_FUNC(CMatchLayer);
     
     CMatchLayer();
@@ -34,13 +37,13 @@ public:
     virtual void update(float dt);
     
     //CCBSelectorResolver
-    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) ;
-    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) ;
+    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) override;
+    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) override;
     
     //CCBMemberVariableAssigner
-    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode);
+    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode) override;
     
-    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader);
+    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
     
 protected:
     void updateTeam(CFBTeam* team, Sprite** sprites);
@@ -52,20 +55,21 @@ protected:
     
     void onPassBall(Ref* pSender);
     
-    void onPass(Ref* pSender);
-    void onDribble(Ref* pSender);
-    void onShoot(Ref* pSender);
-    void onOneTwo(Ref* pSender);
-    void onTackle(Ref* pSender);
-    void onIntercept(Ref* pSender);
-    void onPlug(Ref* pSender);
+    virtual void onPass(Ref* pSender);          // 传球
+    virtual void onDribble(Ref* pSender);       // 盘带
+    virtual void onShoot(Ref* pSender);         // 射门
+    virtual void onOneTwo(Ref* pSender);        // 二过一
+    virtual void onTackle(Ref* pSender);        // 铲球
+    virtual void onBlock(Ref* pSender);         // 封堵
+    virtual void onIntercept(Ref* pSender);     // 拦截
+    virtual void onHit(Ref* pSender);           // 击球
 
 #pragma mark - IFBMatchUI
-    virtual void onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&);
-    virtual void onPlayAnimation(const string&, float);
-    virtual void onInstrunctionEnd(void);
-    virtual void onPauseGame(bool);
-    virtual void onGameEnd(void);
+    virtual void onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&) override;
+    virtual void onPlayAnimation(const string&, float) override;
+    virtual void onInstrunctionEnd(void) override;
+    virtual void onPauseGame(bool) override;
+    virtual void onGameEnd(void) override;
     
     void onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers);
     void onPauseGameCallback(bool p);
@@ -81,12 +85,8 @@ protected:
 #endif
     
     void onInstructionEnd();
-    
-//    void onSync(Node* node, void* resp);
+
     void onEndMatch(Node* node, void* resp);
-//    void syncBall();
-//    void syncTeam();
-//    void syncHilightPlayer(int playerId);
     
     Sprite* m_blackPlayers[11] = {nullptr};
     Sprite* m_redPlayers[11] = {nullptr};
@@ -94,11 +94,6 @@ protected:
     
     Sprite* m_ball = nullptr;
     Sprite* m_arrow = nullptr;
-    
-    MenuItem* m_menuPassBall = nullptr;
-    
-    Node* m_atkMenu = nullptr;
-    Node* m_defMenu = nullptr;
     
     bool m_isTouchDown = false;
     bool m_isPitchViewLieDown = true;
@@ -115,6 +110,8 @@ protected:
     };
     
     OP m_operator = OP::NONE;
+    
+    CMatchMenuLayer* m_menuLayer = nullptr;
 };
 
 

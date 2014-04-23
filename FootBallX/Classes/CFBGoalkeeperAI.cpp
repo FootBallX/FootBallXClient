@@ -10,7 +10,7 @@
 #include "CFBMatch.h"
 #include "CRandomManager.h"
 
-void CFBGoalkeeperAI::thinkHomePosition()
+void CFBGoalkeeperAI::updateHomePosition()
 {
     auto pitch = FBMATCH->getPitch();
     
@@ -46,16 +46,9 @@ void CFBGoalkeeperAI::update(float dt)
 
 
 
-void CFBGoalkeeperAI::updatePlayerStates()
+void CFBGoalkeeperAI::initPlayerStates(bool networkControl)
 {
-    CFBPlayerAI::updatePlayerStates();
-}
-
-
-
-void CFBGoalkeeperAI::initPlayerStates()
-{
-    CFBPlayerAI::initPlayerStates();
+    CFBPlayerAI::initPlayerStates(networkControl);
     
     m_player->m_isGoalKeeper = true;
 }

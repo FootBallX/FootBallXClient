@@ -38,23 +38,7 @@ void CFBMatchProxyNet::start()
 
 
 
-void CFBMatchProxyNet::sendPlayerMove(const Point& playerPos, const Point& moveVec)
-{
-    CJsonT msg;
-    msg.setChild("type", (json_int_t)SYNC_TYPE::CONTROL_PLAYER);
-    msg.setChild("dirX", moveVec.x);
-    msg.setChild("dirY", moveVec.y);
-    msg.setChild("posX", playerPos.x);
-    msg.setChild("posY", playerPos.y);
-    
-    POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
-    
-    msg.release();
-}
-
-
-
-void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p)
+void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId)
 {
     CJsonT msg;
     msg.setChild("type", (json_int_t)SYNC_TYPE::ALL_TEAM);
@@ -62,46 +46,22 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p)
     CJsonTArray ja;
     for (auto x : p)
     {
-        ja.append(CJsonT(x));
+        ja.append(CJsonT((int)(FBDefs::FLT_SCALE * (x + (0.5f / FBDefs::FLT_SCALE)))));
     }
     msg.setChild("teamPos", ja);
-    
+    msg.setChild("ballPosPlayerId", CJsonT(ballPlayerId));
+    msg.setChild("timeStamp", CJsonT(m_syncedTimer.getTime()));
     POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
     
     msg.release();
 }
 
-
-
-void CFBMatchProxyNet::sendHiligtPlayer(int playerId)
-{
-    CJsonT msg;
-    msg.setChild("type", (json_int_t)SYNC_TYPE::SWITCH_HILIGHT);
-    msg.setChild("playerId", playerId);
-    
-    POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
-    msg.release();
-}
-
-
-
-void CFBMatchProxyNet::setPlayerMoveAck(PLAYER_MOVE_FUNC f)
-{
-    m_playerMoveAck = f;
-}
 
 
 
 void CFBMatchProxyNet::setTeamPositionAck(TEAM_POSITION_FUNC f)
 {
     m_teamPositionAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setSwitchHilightPlayerAkc(SWITCH_HILIGHT_PLAYER_FUNC f)
-{
-    m_switchHilightPlayerAck = f;
 }
 
 
@@ -163,15 +123,6 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
 
     switch ((SYNC_TYPE)docs.getInt("type"))
     {
-        case SYNC_TYPE::CONTROL_PLAYER:
-        {
-            m_playerMoveAck(
-                            Point(docs.getFloat("posX"),
-                                  docs.getFloat("posY")),
-                            Point(docs.getFloat("dirX"),
-                                  docs.getFloat("dirY")));
-            break;
-        }
         case SYNC_TYPE::ALL_TEAM:
         {
             vector<float> v;
@@ -179,14 +130,9 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
             auto size = ja.size();
             for (int i = 0; i < size; ++i)
             {
-                v.push_back(ja.get(i).toFloat());
+                v.push_back(ja.get(i).toFloat() / FBDefs::FLT_SCALE);
             }
-            m_teamPositionAck(v);
-            break;
-        }
-        case SYNC_TYPE::SWITCH_HILIGHT:
-        {
-            m_switchHilightPlayerAck(docs.getInt("playerId"));
+            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"));
             break;
         }
         default:

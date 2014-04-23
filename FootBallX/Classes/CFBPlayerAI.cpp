@@ -40,76 +40,80 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& 
 
 void CFBPlayerAI::think()
 {
+    if (m_state == FBDefs::AI_STATE::NETWORK) return;
+    
     auto team = m_formation->getTeam();
     if (team->getHilightPlayer() != m_player)
     {
-        if (m_state == FBDefs::AI_STATE::NONE)
+        if (team->isAttacking())
         {
-            m_state = FBDefs::AI_STATE::BACKHOME;
+            thinkOnAttacking();
         }
-        
-        if (this->m_player->m_isBallController)
+        else if (team->isDefending())
         {
-            m_state = FBDefs::AI_STATE::CONTROL;
-//            thinkControlBall();
+            thinkOnDefending();
         }
-        else
-        {
-            if (m_state == FBDefs::AI_STATE::CONTROL)   // TODO: 不好，应该在某个think函数中得出明确指令，这里要切什么状态。
-            {
-                m_state = FBDefs::AI_STATE::BACKHOME;
-            }
-            thinkHomePosition();
-            thinkDefending();
-        }
-        
-        updatePlayerStates();       // TODO: 这个函数功能和think重复，考虑以后合并。
     }
     else
     {
-        m_state = FBDefs::AI_STATE::NONE;
+        m_state = FBDefs::AI_STATE::USER_CONTROL;
     }
 }
 
 
-void CFBPlayerAI::thinkNoBall()
+
+void CFBPlayerAI::thinkOnAttacking()
 {
+    considerSupport();
+    if (m_state == FBDefs::AI_STATE::NONE)
+    {
+        m_state = FBDefs::AI_STATE::BACKHOME;
+    }
 }
 
 
 
-void CFBPlayerAI::thinkNoBallOnAttacking()
+void CFBPlayerAI::thinkOnDefending()
 {
+    considerChase();
+    if (m_state == FBDefs::AI_STATE::NONE)
+    {
+        m_state = FBDefs::AI_STATE::BACKHOME;
+    }
 }
 
-
-
-void CFBPlayerAI::thinkNoBallOnDefending()
-{
-}
 
 
 void CFBPlayerAI::update(float dt)
 {
     m_changeStateCD -= dt;
+    updateHomePosition();
     m_player->update(dt);
 }
 
 
 
-void CFBPlayerAI::updatePlayerStates()
+void CFBPlayerAI::considerSupport()
 {
 }
 
 
 
-void CFBPlayerAI::initPlayerStates()
+void CFBPlayerAI::initPlayerStates(bool networkControl)
 {
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
     m_player->setPosition(pitch->transformBySide(m_initPosition, team->getSide()));
     m_player->m_isOnDuty = true;
-    m_state = FBDefs::AI_STATE::BACKHOME;
+    
+    if (networkControl)
+    {
+        m_state = FBDefs::AI_STATE::NETWORK;
+    }
+    else
+    {
+        m_state = FBDefs::AI_STATE::BACKHOME;
+    }
 }
 
 
@@ -120,20 +124,8 @@ void CFBPlayerAI::returnToHome(float dt)
     auto pitch = FBMATCH->getPitch();
     auto team = m_formation->getTeam();
     auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
-    if (!isOnPosition(homePos))
-    {
-        moveTo(homePos, dt);
-    }
-}
 
-
-
-void CFBPlayerAI::moveTo(const Point& pos, float dt)
-{
-    auto position = m_player->getPosition();
-    auto v = (pos - position).normalize();
-    position += v * m_player->getSpeed() * dt;
-    m_player->setPosition(position);
+    m_player->moveTo(homePos);
 }
 
 
@@ -184,7 +176,7 @@ void CFBPlayerAI::chaseBall(float dt)
             }
             else if (actp == m_player->m_positionInFormation)
             {
-                moveTo(ballPos, dt);
+                m_player->moveTo(ballPos);
             }
             else
             {
@@ -195,7 +187,7 @@ void CFBPlayerAI::chaseBall(float dt)
                 }
                 else if (assp == m_player->m_positionInFormation)
                 {
-                    moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, team->getSide()), dt);
+                    m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, team->getSide()));
                 }
                 else
                 {
@@ -208,22 +200,9 @@ void CFBPlayerAI::chaseBall(float dt)
 
 
 
-bool CFBPlayerAI::isOnPosition(const Point& pos)
+void CFBPlayerAI::considerChase()
 {
-    auto pt = m_player->getPosition() - pos;
-    if (pt.getLengthSq() < 10)
-    {
-        return true;
-    }
-    
-    return false;
-}
-
-
-
-void CFBPlayerAI::thinkDefending()
-{
-    if (m_formation->getTeam()->isDefending() && m_state != FBDefs::AI_STATE::CHASE)
+    if (m_state != FBDefs::AI_STATE::CHASE)
     {
         const Point& ballPos = FBMATCH->getBallPosition();
         auto pitch = FBMATCH->getPitch();
@@ -247,6 +226,12 @@ void CFBPlayerAI::updateWait(float dt)
         m_waitTime -= dt;
         if (FLT_LE(m_waitTime, 0.f))
         {
+            // debug
+            if (m_formation->getTeam()->getSide() == FBDefs::SIDE::LEFT)
+            {
+                log("1");
+            }
+            // end
             this->m_state = FBDefs::AI_STATE::NONE;
         }
     }

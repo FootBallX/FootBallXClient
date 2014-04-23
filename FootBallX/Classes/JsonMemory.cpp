@@ -11,7 +11,8 @@
 
 
 static pthread_mutex_t  mt;
-static CJsonMemPool g_memPool({128,  64,  64,  32,  32});
+//static CJsonMemPool g_memPool({128,  64,  64,  32,  32});
+static CJsonMemPool g_memPool({2048,  1024,  256,  64,  64});
 
 void json_memory_init()
 {

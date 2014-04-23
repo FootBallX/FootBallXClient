@@ -144,6 +144,8 @@
 		54D375D21889284F008BA6BB /* CFBFormation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D375CF1889284F008BA6BB /* CFBFormation.cpp */; };
 		54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
 		54D9CD6F189605B500F7B888 /* CFBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D9CD6C189605B500F7B888 /* CFBBall.cpp */; };
+		54DD27A919026E2F000EC9DC /* CMatchMenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DD27A719026E2F000EC9DC /* CMatchMenuLayer.cpp */; };
+		54DD27AA19026E2F000EC9DC /* CMatchMenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DD27A719026E2F000EC9DC /* CMatchMenuLayer.cpp */; };
 		54DE0DB618C8687900C076D3 /* CFBCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB418C8687900C076D3 /* CFBCard.cpp */; };
 		54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB418C8687900C076D3 /* CFBCard.cpp */; };
 		54DE0DBA18C869C600C076D3 /* CFBCardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */; };
@@ -320,6 +322,8 @@
 		54D375D01889284F008BA6BB /* CFBFormation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBFormation.h; path = ../Classes/CFBFormation.h; sourceTree = "<group>"; };
 		54D9CD6C189605B500F7B888 /* CFBBall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBBall.cpp; path = ../Classes/CFBBall.cpp; sourceTree = "<group>"; };
 		54D9CD6D189605B500F7B888 /* CFBBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBBall.h; path = ../Classes/CFBBall.h; sourceTree = "<group>"; };
+		54DD27A719026E2F000EC9DC /* CMatchMenuLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMatchMenuLayer.cpp; path = ../Classes/CMatchMenuLayer.cpp; sourceTree = "<group>"; };
+		54DD27A819026E2F000EC9DC /* CMatchMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMatchMenuLayer.h; path = ../Classes/CMatchMenuLayer.h; sourceTree = "<group>"; };
 		54DE0DB418C8687900C076D3 /* CFBCard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCard.cpp; path = ../Classes/CFBCard.cpp; sourceTree = "<group>"; };
 		54DE0DB518C8687900C076D3 /* CFBCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBCard.h; path = ../Classes/CFBCard.h; sourceTree = "<group>"; };
 		54DE0DB818C869C600C076D3 /* CFBCardManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCardManager.cpp; path = ../Classes/CFBCardManager.cpp; sourceTree = "<group>"; };
@@ -471,6 +475,8 @@
 				543D49AB18815D0F0076C7EB /* CTouchesLayer.h */,
 				543D499E18815CB80076C7EB /* CMatchLayer.cpp */,
 				543D499F18815CB80076C7EB /* CMatchLayer.h */,
+				54DD27A719026E2F000EC9DC /* CMatchMenuLayer.cpp */,
+				54DD27A819026E2F000EC9DC /* CMatchMenuLayer.h */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -931,6 +937,7 @@
 				5484C241187D1D4B00AA8AFB /* RootViewController.mm in Sources */,
 				548C252218FCC6420016E40F /* CJsonT.cpp in Sources */,
 				543AF66118F8FDDA003B8F94 /* IFBMatchUI.cpp in Sources */,
+				54DD27A919026E2F000EC9DC /* CMatchMenuLayer.cpp in Sources */,
 				5436BB1018D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */,
 				5452C06B18F541F5009347AD /* CFBMatchProxyNet.cpp in Sources */,
 				54C01D8118FA51D70030A94E /* CSyncedTime.cpp in Sources */,
@@ -1001,6 +1008,7 @@
 				5452C07018F5420B009347AD /* CFBMatchProxySim.cpp in Sources */,
 				5484C238187D1D3B00AA8AFB /* main.cpp in Sources */,
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
+				54DD27AA19026E2F000EC9DC /* CMatchMenuLayer.cpp in Sources */,
 				5452C06718F541C7009347AD /* CFBMatchProxy.cpp in Sources */,
 				5452C06C18F541F5009347AD /* CFBMatchProxyNet.cpp in Sources */,
 				54DE0DB718C8687900C076D3 /* CFBCard.cpp in Sources */,

@@ -50,8 +50,6 @@ void CFBFormation::update(float dt)
 {
     CC_ASSERT(m_playerAIs);
     
-//    update3Lines(dt);
-
     m_updateCD++;
     int thinkIndex = int(m_updateCD) % m_playerNumber;
     if (thinkIndex != m_updateIndex)
@@ -74,7 +72,7 @@ void CFBFormation::update(float dt)
 
 
 
-bool CFBFormation::onStartMatch()
+bool CFBFormation::onStartMatch(bool networkControl)
 {
     do
     {
@@ -82,7 +80,7 @@ bool CFBFormation::onStartMatch()
         for (int i = 0; i < m_playerNumber; ++i)
         {
             CC_ASSERT(m_playerAIs[i]);
-            m_playerAIs[i]->initPlayerStates();
+            m_playerAIs[i]->initPlayerStates(networkControl);
         }
         
         m_team->setHilightPlayerId(m_playerNumber - 1);
@@ -318,6 +316,5 @@ void CFBFormation352::addPlayer(CFBPlayer* player, int pos)
     
     player->m_positionInFormation = pos;
 }
-
 
 

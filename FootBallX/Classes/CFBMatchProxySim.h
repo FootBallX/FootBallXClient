@@ -18,22 +18,16 @@ public:
     virtual ~CFBMatchProxySim();
     
     virtual void start() override;
-    virtual void sendPlayerMove(const Point&, const Point&) override;
-    virtual void sendTeamPosition(const vector<float>&) override;
-    virtual void sendHiligtPlayer(int) override;
+    virtual void sendTeamPosition(const vector<float>&, int) override;
     
-    virtual void setPlayerMoveAck(PLAYER_MOVE_FUNC) override;
     virtual void setTeamPositionAck(TEAM_POSITION_FUNC) override;
-    virtual void setSwitchHilightPlayerAkc(SWITCH_HILIGHT_PLAYER_FUNC) override;
     virtual void setStartMatchAck(START_MATCH_FUNC) override;
     virtual void setEndMatchAck(END_MATCH_FUNC) override;
     
     virtual void update(float dt) override;
     
 protected:
-    PLAYER_MOVE_FUNC m_playerMoveAck;
     TEAM_POSITION_FUNC m_teamPositionAck;
-    SWITCH_HILIGHT_PLAYER_FUNC m_switchHilightPlayerAck;
     START_MATCH_FUNC m_startMatchAck;
     END_MATCH_FUNC m_endMatchAck;
 };

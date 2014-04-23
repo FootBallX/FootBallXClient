@@ -17,6 +17,9 @@ class CFBPitchGrid;
 
 namespace FBDefs
 {
+    static const int FLT_SCALE = 1000;      // 保留3位有效数字
+    static const float PITCH_POINT_ALMOST_EQUAL_DISTANCE = 4.0f;
+    
     enum class FORMATION
     {
         F_4_4_2,
@@ -134,9 +137,11 @@ namespace FBDefs
     {
         WAIT,
         BACKHOME,
-        CONTROL,
+        AI_CONTROL,
+        USER_CONTROL,
         SUPPORT,
         CHASE,
+        NETWORK,
         NONE,
     };
     
@@ -209,6 +214,7 @@ namespace FBDefs
         NONE,
     };
     
+    bool isPitchPointAlmostSame(const cocos2d::Point& p1, const cocos2d::Point& p2);
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p);
     bool isPlayersOnTheWayToGoal(const vector<CFBPlayer*>& players, const CFBPitchGrid* grid);
     bool computeGridShootAngleAndMat(const cocos2d::Point& goalPos, CFBPitchGrid* grid);

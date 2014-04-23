@@ -116,4 +116,10 @@ namespace FBDefs
         
         return true;
     }
+    
+    
+    bool isPitchPointAlmostSame(const cocos2d::Point& p1, const cocos2d::Point& p2)
+    {
+        return p1.fuzzyEquals(p2, PITCH_POINT_ALMOST_EQUAL_DISTANCE);
+    }
 }

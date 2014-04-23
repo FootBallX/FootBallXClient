@@ -37,7 +37,6 @@ public:
     bool checkControlSide(FBDefs::SIDE side);
     CFBTeam* getControlSideTeam();
     FBDefs::SIDE getControlSide();
-    const cocos2d::Point& getControlSidePlayerMovingVec();
     
     CFBTeam* getTeam(FBDefs::SIDE side);
     CFBTeam* getOtherTeam(CFBTeam* team);
@@ -61,13 +60,11 @@ public:
     void onAnimationEnd();
     
     FBDefs::MATCH_STEP getMatchStep();
+    void setBallControllerMove(const cocos2d::Point& vec);
+    
     #pragma mark - net or sim
-    void setBallControllerMove(const cocos2d::Point& vec, bool syncImmediately = false);
-    void syncHilightPlayer();
     void syncTeam();
-    void playerMoveAck(const cocos2d::Point& pos, const cocos2d::Point& vec);
-    void teamPositionAck(const vector<float>& p);
-    void switchHilightPlayerAkc(int playerId);
+    void teamPositionAck(const vector<float>& p, int ballPlayerId);
     void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
     void endMatchAck();
 protected:
@@ -106,7 +103,6 @@ protected:
     CFBMatchProxy* m_proxy = nullptr;
     
     CFBTeam* m_teamsInMatch[(int)SIDE::NONE];       // 这里重新组织一下，按照己方和对方保存team
-    cocos2d::Point m_movingVec[(int)SIDE::NONE];
     float m_syncTime[(int)SIDE::NONE];
 
     void onInstructionEnd();

@@ -20,6 +20,16 @@
 #define TAG_GRID_DRAW_NODE          20001
 #endif
 
+enum class Z_ORDER : int
+{
+    PITCH,
+    ANIMATION,
+#ifdef SHOW_GRID
+    GRID_DEBUG,
+#endif
+    MENU,
+};
+
 static class CMatchLayerRegister
 {
 public:
@@ -63,6 +73,12 @@ bool CMatchLayer::init()
         
         m_screenCenter = this->getContentSize() / 2;
         
+        cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
+        m_menuLayer = dynamic_cast<CMatchMenuLayer*>(pReader->readNodeGraphFromFile("fb_menu_0.ccbi"));
+        CC_BREAK_IF(nullptr == m_menuLayer);
+
+        m_menuLayer->setMatchLayer(this);
+        this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
         this->scheduleUpdate();
 
         return true;
@@ -74,7 +90,7 @@ bool CMatchLayer::init()
 
 
 bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
-{
+{    
     auto team = FBMATCH->getControlSideTeam();
     if (team)
     {
@@ -91,14 +107,14 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
                     auto to = team->getFormation()->getPlayer(idx);
                     FBMATCH->tryPassBall(from, to);
                     m_operator = OP::NONE;
-                    m_atkMenu->setVisible(false);
                 }
                 break;
             }
             case OP::NONE:
                 if (!FBMATCH->isPausing())
                 {
-                    FBMATCH->setBallControllerMove((loc - m_screenCenter).normalize(), true);
+                    FBMATCH->setBallControllerMove((loc - m_screenCenter).normalize());
+                    FBMATCH->syncTeam();
                 }
                 break;
         }
@@ -132,7 +148,8 @@ void CMatchLayer::onTouchMoved(Touch* touch, Event* event)
 
 void CMatchLayer::onTouchEnded(Touch* touch, Event* event)
 {
-    FBMATCH->setBallControllerMove(Point(), true);
+    FBMATCH->setBallControllerMove(Point());
+    FBMATCH->syncTeam();
     m_isTouchDown = false;
 }
 
@@ -140,7 +157,8 @@ void CMatchLayer::onTouchEnded(Touch* touch, Event* event)
 
 void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 {
-    FBMATCH->setBallControllerMove(Point(), true);
+    FBMATCH->setBallControllerMove(Point());
+    FBMATCH->syncTeam();
     m_isTouchDown = false;
 }
 
@@ -148,14 +166,6 @@ void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 
 SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onPassBall", CMatchLayer::onPassBall);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnPass", CMatchLayer::onPass);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnDribble", CMatchLayer::onDribble);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnOneTwo", CMatchLayer::onOneTwo);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnShoot", CMatchLayer::onShoot);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnTackle", CMatchLayer::onTackle);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnIntercept", CMatchLayer::onIntercept);
-    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE( this, "OnPlug", CMatchLayer::onPlug);
     return nullptr;
 }
 
@@ -198,12 +208,7 @@ bool CMatchLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVar
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "pitch", Sprite*, m_pitchSprite);
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "ball", Sprite*, m_ball);
     CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "arrow", Sprite*, m_arrow);
-    
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "menuPassBall", MenuItem*, m_menuPassBall);
-    
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "AtkMenu", Node*, m_atkMenu);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "DefMenu", Node*, m_defMenu);
-    
+
     return false;
 }
 
@@ -221,9 +226,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
     }
     
     m_ball->setVisible(false);
-    
-    m_atkMenu->setVisible(false);
-    m_defMenu->setVisible(false);
+
     do
     {
         {
@@ -231,7 +234,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
             FlipX3D* fx3 = CFlip3DYEx::create(1, 90, 90);
             fx3->setTag(TAG_ACTION_FLIP3D);
             ng->runAction(fx3);
-            m_pitchSprite->getParent()->addChild(ng, -1);
+            m_pitchSprite->getParent()->addChild(ng, (int)Z_ORDER::PITCH);
             m_pitchSprite->removeFromParent();
             ng->addChild(m_pitchSprite);
             m_isPitchViewLieDown = true;
@@ -282,7 +285,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         BREAK_IF_FAILED(FBMATCH->startMatch());
 #ifdef SHOW_GRID
         auto draw = DrawNode::create();
-        m_pitchSprite->addChild(draw, 10, TAG_GRID_DRAW_NODE);
+        m_pitchSprite->addChild(draw, (int)Z_ORDER::GRID_DEBUG, TAG_GRID_DRAW_NODE);
         
         refreshGrids();
 #endif // SHOW_GRID
@@ -310,22 +313,22 @@ void CMatchLayer::update(float dt)
             auto pitch = FBMATCH->getPitch();
             auto team = FBMATCH->getControlSideTeam();
             
-            auto& vec = FBMATCH->getControlSidePlayerMovingVec();
+            auto hilitePlayer = team->getHilightPlayer();
+            auto& vec = hilitePlayer->getMovingVector();
             if (vec.x != 0 || vec.y != 0)
             {
                 Point base = {1, 0};
                 float angle = CC_RADIANS_TO_DEGREES(vec.getAngle(base));
                 m_arrow->setRotation(angle);
                 
-                auto hilightPlayer = team->getHilightPlayer();
-                auto pos = hilightPlayer->getPosition();
+                auto pos = hilitePlayer->getPosition();
                 
                 m_arrow->setPosition(pitch->transToScreen(pos));
                 m_arrow->setVisible(true);
             }
             else
             {
-                m_arrow->setVisible(false);
+//                m_arrow->setVisible(false);
             }
             
             m_ball->setVisible(true);
@@ -406,13 +409,10 @@ void CMatchLayer::onPassBall(Ref* pSender)
         FBMATCH->getPitch()->calcBestShootPosition(FBDefs::SIDE::LEFT);
         refreshGrids();
 #endif
-        
-        m_atkMenu->setVisible(true);
     }
     else
     {
         team->switchHilightPlayer();
-        FBMATCH->syncHilightPlayer();
     }
 }
 
@@ -564,8 +564,15 @@ void CMatchLayer::onIntercept(Ref* pSender)
 
 
 
-void CMatchLayer::onPlug(Ref* pSender)
+void CMatchLayer::onBlock(Ref* pSender)
 {
+}
+
+
+
+void CMatchLayer::onHit(Ref* pSender)
+{
+    
 }
 
 
@@ -584,8 +591,6 @@ void CMatchLayer::onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&)
 {
     FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
-    
-    m_atkMenu->setVisible(true);
 }
 
 
@@ -600,7 +605,7 @@ void CMatchLayer::onPlayAnimation(const string& name, float delay)
         if (m_animationRoot == nullptr)
         {
             m_animationRoot = (CFBAnimationLayer*)node;
-            this->addChild(m_animationRoot);
+            this->addChild(m_animationRoot, (int)Z_ORDER::ANIMATION);
             m_animationRoot->setAnimationEndCallback(bind(&CMatchLayer::onAnimationEnd, this));
         }
         else

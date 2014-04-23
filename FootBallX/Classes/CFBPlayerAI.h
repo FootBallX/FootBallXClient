@@ -38,7 +38,7 @@ public:
     
     virtual void update(float dt);
     
-    virtual void initPlayerStates();
+    virtual void initPlayerStates(bool networkControl);
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
 
@@ -51,18 +51,17 @@ public:
     virtual void thinkControlBall();        // AI控制，带球球员的AI
     virtual void updateAIControlBall(float dt);
 protected:
-    virtual void thinkNoBall();             // 无求跑位，这个函数再调用进攻和防守的无球跑动函数
-    virtual void thinkNoBallOnAttacking();  // 进攻时，无球队员AI
-    virtual void thinkNoBallOnDefending();  // 防守时，无球队员AI
+    virtual void updateHomePosition() = 0;
     
-    virtual void thinkHomePosition() = 0;
-    virtual void thinkDefending();
+    virtual void thinkOnAttacking();
+    virtual void thinkOnDefending();
+    
+    virtual void considerChase();
+    virtual void considerSupport();
     
     virtual void thinkDribbleBall();
     virtual void thinkPassBall();
-    
-    virtual void updatePlayerStates();  // TODO: 这个函数基本没用，应该和think函数合并。
-    virtual bool isOnPosition(const cocos2d::Point& pos);
+
     virtual void applyStateCD() { m_changeStateCD = 1.f; }
     virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
     virtual void startWait(float t);
@@ -88,7 +87,6 @@ protected:
     int m_passBallScore = 0;
 protected:      // ai logic functions
     virtual void returnToHome(float dt);
-    virtual void moveTo(const cocos2d::Point& pos, float dt);
     virtual void chaseBall(float dt);
 };
 

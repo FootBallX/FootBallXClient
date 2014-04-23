@@ -79,7 +79,7 @@ void CFBTeam::update(float dt)
 
 
 
-bool CFBTeam::onStartMatch()
+bool CFBTeam::onStartMatch(bool networkControl)
 {
     do
     {
@@ -90,7 +90,7 @@ bool CFBTeam::onStartMatch()
             m_formation->addPlayer(m_teamMembers[i], i);
         }
         
-        BREAK_IF_FAILED(m_formation->onStartMatch());
+        BREAK_IF_FAILED(m_formation->onStartMatch(networkControl));
         
         return true;
     } while (false);

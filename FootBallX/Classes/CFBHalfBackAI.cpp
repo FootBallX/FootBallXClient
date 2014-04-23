@@ -25,7 +25,7 @@ void CFBHalfBackAI::update(float dt)
         case FBDefs::AI_STATE::CHASE:
             chaseBall(dt);
             break;
-        case FBDefs::AI_STATE::CONTROL:
+        case FBDefs::AI_STATE::AI_CONTROL:
             updateAIControlBall(dt);
             break;
         default:
@@ -36,7 +36,7 @@ void CFBHalfBackAI::update(float dt)
 
 
 
-void CFBHalfBackAI::thinkHomePosition()
+void CFBHalfBackAI::updateHomePosition()
 {
     auto team = m_formation->getTeam();
     auto pitch = FBMATCH->getPitch();
@@ -82,17 +82,16 @@ void CFBHalfBackAI::thinkHomePosition()
 
 
 
-void CFBHalfBackAI::updatePlayerStates()
+void CFBHalfBackAI::considerSupport()
 {
-    CFBPlayerAI::updatePlayerStates();
-    
+
 }
 
 
 
-void CFBHalfBackAI::initPlayerStates()
+void CFBHalfBackAI::initPlayerStates(bool networkControl)
 {
-    CFBPlayerAI::initPlayerStates();
+    CFBPlayerAI::initPlayerStates(networkControl);
     
     m_player->m_isGoalKeeper = false;
 }
@@ -112,13 +111,9 @@ void CFBHalfBackAI::updateAIControlBall(float dt)
     switch (m_controlState)
     {
         case FBDefs::AI_STATE_CONTROL::DRIBBLE:
-            if (isOnPosition(m_moveToTarget))
+            if (m_player->moveTo(m_moveToTarget))
             {
                 m_controlState = FBDefs::AI_STATE_CONTROL::NONE;
-            }
-            else
-            {
-                moveTo(m_moveToTarget, dt);
             }
             break;
         default:

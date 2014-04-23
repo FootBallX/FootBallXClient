@@ -21,9 +21,9 @@ public:
     virtual void update(float dt) override;
     
 protected:
-    virtual void thinkHomePosition() override;
-    virtual void updatePlayerStates() override;
-    virtual void initPlayerStates() override;
+    virtual void updateHomePosition() override;
+    virtual void considerSupport() override;
+    virtual void initPlayerStates(bool networkControl) override;
     virtual void thinkControlBall() override;
     
     virtual void updateAIControlBall(float dt) override;

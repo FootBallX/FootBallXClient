@@ -31,30 +31,9 @@ void CFBMatchProxySim::start()
 
 
 
-void CFBMatchProxySim::sendPlayerMove(const Point&, const Point&)
+void CFBMatchProxySim::sendTeamPosition(const vector<float>&, int)
 {
     // do nothing.
-}
-
-
-
-void CFBMatchProxySim::sendTeamPosition(const vector<float>&)
-{
-    // do nothing.
-}
-
-
-
-void CFBMatchProxySim::sendHiligtPlayer(int playerId)
-{
-    m_switchHilightPlayerAck(playerId);
-}
-
-
-
-void CFBMatchProxySim::setPlayerMoveAck(PLAYER_MOVE_FUNC f)
-{
-    m_playerMoveAck = f;
 }
 
 
@@ -62,13 +41,6 @@ void CFBMatchProxySim::setPlayerMoveAck(PLAYER_MOVE_FUNC f)
 void CFBMatchProxySim::setTeamPositionAck(TEAM_POSITION_FUNC f)
 {
     m_teamPositionAck = f;
-}
-
-
-
-void CFBMatchProxySim::setSwitchHilightPlayerAkc(SWITCH_HILIGHT_PLAYER_FUNC f)
-{
-    m_switchHilightPlayerAck = f;
 }
 
 

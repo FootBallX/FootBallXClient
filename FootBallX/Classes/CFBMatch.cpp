@@ -45,10 +45,8 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         
         CC_SAFE_DELETE(m_proxy);
         m_proxy = proxy;
-        m_proxy->setPlayerMoveAck(std::bind(&CFBMatch::playerMoveAck, this, std::placeholders::_1, std::placeholders::_2));
-        m_proxy->setSwitchHilightPlayerAkc(std::bind(&CFBMatch::switchHilightPlayerAkc, this, std::placeholders::_1));
         m_proxy->setEndMatchAck(std::bind(&CFBMatch::endMatchAck, this));
-        m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1));
+        m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2));
         m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
@@ -101,13 +99,6 @@ FBDefs::SIDE CFBMatch::getControlSide()
 CFBTeam* CFBMatch::getControlSideTeam()
 {
     return getTeam(m_controlSide);
-}
-
-
-
-const Point& CFBMatch::getControlSidePlayerMovingVec()
-{
-    return m_movingVec[(int)SIDE::SELF];
 }
 
 
@@ -192,8 +183,6 @@ void CFBMatch::update(float dt)
                 }
                 
                 m_proxy->update(dt);
-                
-                updateEncounter(dt);
             }
             
             if (m_currentInstruction != nullptr)
@@ -203,32 +192,22 @@ void CFBMatch::update(float dt)
             
             for (int i = 0; i < (int)SIDE::NONE; ++i)
             {
-                auto& vec = m_movingVec[i];
-                bool vecValid = false;
-                if (vec.x != 0 || vec.y != 0)
-                {
-                    vecValid = true;
-                    auto hilightPlayer = m_teamsInMatch[i]->getHilightPlayer();
-                    auto pos = hilightPlayer->getPosition();
-                    pos += vec * hilightPlayer->getSpeed() * dt;
-                    hilightPlayer->setPosition(pos);
-                }
-                
                 if (m_syncTime[i] < 0)
                 {
                     if (i == (int)SIDE::SELF)
                     {
+                        syncTeam();
                         m_syncTime[i] = m_SYNC_TIME;
-                        if (vecValid)
-                        {
-                            auto team = getControlSideTeam();
-                            auto player = team->getHilightPlayer();
-                            m_proxy->sendPlayerMove(player->getPosition(), vec);
-                        }
                     }
                     else
                     {
-                        vec.setPoint(0, 0);
+                        auto oppTeam = m_teamsInMatch[(int)SIDE::OPP];
+                        auto fmt = oppTeam->getFormation();
+                        int num = fmt->getPlayerNumber();
+                        for (int i = 0; i < num; ++i)
+                        {
+                            fmt->getPlayer(i)->setMovingVector(0, 0);
+                        }
                     }
                 }
                 
@@ -304,12 +283,6 @@ void CFBMatch::pauseGame(bool p)
     m_isPause = p;
 
     m_matchUI->onPauseGame(p);
-    
-    for (int i = 0; i < (int)SIDE::NONE; ++i)
-    {
-        m_movingVec[i].setPoint(0, 0);
-    }
-    syncTeam();
 }
 
 
@@ -684,32 +657,17 @@ void CFBMatch::checkEncounterInPenaltyArea()
 
 
 
+void CFBMatch::setBallControllerMove(const Point& vec)
+{
+    auto hilightPlayer = m_teamsInMatch[(int)SIDE::SELF]->getHilightPlayer();
+    hilightPlayer->setMovingVector(vec);
+}
+
 #pragma mark - net or sim
-
-void CFBMatch::setBallControllerMove(const Point& vec, bool syncImmediately)
-{
-    m_movingVec[(int)SIDE::SELF] = vec;
-    
-    if (syncImmediately)
-    {
-        auto team = getControlSideTeam();
-        auto player = team->getHilightPlayer();
-        m_proxy->sendPlayerMove(player->getPosition(), vec);
-    }
-}
-
-
-
-void CFBMatch::syncHilightPlayer()
-{
-    m_proxy->sendHiligtPlayer(m_teamsInMatch[(int)SIDE::OPP]->getHilightPlayerId());
-}
-
-
 
 void CFBMatch::syncTeam()
 {
-    auto team = m_teamsInMatch[(int)SIDE::OPP];
+    auto team = m_teamsInMatch[(int)SIDE::SELF];
     auto fmt = team->getFormation();
     
     vector<float> v;
@@ -719,65 +677,66 @@ void CFBMatch::syncTeam()
         auto& pos = player->getPosition();
         v.push_back(pos.x);
         v.push_back(pos.y);
+        auto& vec = player->getMovingVector();
+        v.push_back(vec.x);
+        v.push_back(vec.y);
     }
     
-    m_proxy->sendTeamPosition(v);
+    m_proxy->sendTeamPosition(v, team->isAttacking() ? team->getHilightPlayerId() : -1);
 }
 
 
 
-void CFBMatch::playerMoveAck(const Point& pos, const Point& vec)
+void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId)
 {
-    m_movingVec[(int)SIDE::OPP] = vec;
-    
-    auto team = getControlSideTeam();
-    team= getOtherTeam(team);
-    team->getHilightPlayer()->setPosition(pos);
-    
-    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
-}
-
-
-
-void CFBMatch::teamPositionAck(const vector<float>& p)
-{
-    auto side = getControlSide();
-    auto otherSide = getPitch()->getOtherSide(side);
-    auto team = getTeam(otherSide);
+    auto team = m_teamsInMatch[(int)SIDE::OPP];
     auto fmt = team->getFormation();
     
     int size = fmt->getPlayerNumber();
     
     for (int i = 0; i < size; ++i)
     {
-        Point pos(p[i * 2], p[i * 2 + 1]);
+        Point pos(p[i * 4], p[i * 4 + 1]);
+        Point vec(p[i * 4 + 2], p[i * 4 + 3]);
         auto player = fmt->getPlayer(i);
-        player->setPosition(pos);
+//        player->setPosition(pos);
+//        player->setMovingVector(vec);
+//        
+//        if ( i == ballPlayerId)
+//        {
+//            player->setPosition(pos);
+//        }
+//        else
+        {
+            player->moveTo(pos);
+        }
+        
+//        if (i == 5)
+//        {
+//            auto p = player->getPosition();
+//            log("player pos: %f, %f", p.x, p.y);
+//            log("pos: %f, %f", pos.x, pos.y);
+//        }
     }
-}
-
-
-
-void CFBMatch::switchHilightPlayerAkc(int playerId)
-{
-    auto team = getControlSideTeam();
-    team= getOtherTeam(team);
-    team->setHilightPlayerId(playerId);
+    
+    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
 }
 
 
 
 void CFBMatch::startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st)
 {
+    log("side: %d, kick: %d", (int)mySide, (int)kickOffSide);
+    
     setControlSide(mySide);
-    for (auto x : m_teams)
-    {
-        x->onStartMatch();
-    }
+    m_teamsInMatch[(int)SIDE::SELF]->onStartMatch(false);
+    m_teamsInMatch[(int)SIDE::OPP]->onStartMatch(true);
     
     m_teams[(int)kickOffSide]->kickOff();
     
     m_matchStep = FBDefs::MATCH_STEP::MATCHING;
+    
+    m_syncTime[(int)SIDE::SELF] = m_SYNC_TIME;
 }
 
 

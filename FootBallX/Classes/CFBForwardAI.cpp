@@ -28,7 +28,7 @@ void CFBForwardAI::update(float dt)
         case FBDefs::AI_STATE::SUPPORT:
             this->updateSupport(dt);
             break;
-        case FBDefs::AI_STATE::CONTROL:
+        case FBDefs::AI_STATE::AI_CONTROL:
             updateAIControlBall(dt);
             break;
         default:
@@ -38,7 +38,7 @@ void CFBForwardAI::update(float dt)
 
 
 
-void CFBForwardAI::thinkHomePosition()
+void CFBForwardAI::updateHomePosition()
 {
     auto team = m_formation->getTeam();
     auto pitch = FBMATCH->getPitch();
@@ -86,49 +86,28 @@ void CFBForwardAI::thinkHomePosition()
 
 
 
-void CFBForwardAI::updatePlayerStates()
+void CFBForwardAI::considerSupport()
 {
-    CFBPlayerAI::updatePlayerStates();
-    
-    if (this->m_player->m_ownerTeam->isAttacking())
+    auto team = m_formation->getTeam();
+    if (m_state == FBDefs::AI_STATE::BACKHOME)
     {
-        if (this->m_player->m_isBallController)
+        auto side = team->getSide();
+        if (!FBMATCH->isBallOnTheSide(side))
         {
-            
-        }
-        else
-        {
-            auto team = m_formation->getTeam();
-            FBDefs::SIDE side = team->getSide();
-            
-            if (team->isAttacking())
+            if (this->m_state != FBDefs::AI_STATE::SUPPORT && this->m_state != FBDefs::AI_STATE::WAIT)
             {
-                if (FBMATCH->isBallOnTheSide(side))
-                {
-                    this->m_state = FBDefs::AI_STATE::BACKHOME;
-                }
-                else
-                {
-                    if (this->m_state != FBDefs::AI_STATE::SUPPORT && this->m_state != FBDefs::AI_STATE::WAIT)
-                    {
-                        this->m_state = FBDefs::AI_STATE::SUPPORT;
-                        this->m_supportState = FBDefs::AI_STATE_SUPPORT::FIND_POS;
-                    }
-                }
+                this->m_state = FBDefs::AI_STATE::SUPPORT;
+                this->m_supportState = FBDefs::AI_STATE_SUPPORT::FIND_POS;
             }
         }
-    }
-    else // defending
-    {
-        
     }
 }
 
 
 
-void CFBForwardAI::initPlayerStates()
+void CFBForwardAI::initPlayerStates(bool networkControl)
 {
-    CFBPlayerAI::initPlayerStates();
+    CFBPlayerAI::initPlayerStates(networkControl);
     
     m_player->m_isGoalKeeper = false;
 }
@@ -149,11 +128,7 @@ void CFBForwardAI::updateSupport(float dt)
         }
         case FBDefs::AI_STATE_SUPPORT::MOVE_TO_POS:
         {
-            if (!isOnPosition(m_moveToTarget))
-            {
-                moveTo(m_moveToTarget, dt);
-            }
-            else
+            if (m_player->moveTo(m_moveToTarget))
             {
                 startWait(2.f);
             }
@@ -180,13 +155,9 @@ void CFBForwardAI::updateAIControlBall(float dt)
     switch (m_controlState)
     {
         case FBDefs::AI_STATE_CONTROL::DRIBBLE:
-            if (isOnPosition(m_moveToTarget))
+            if (m_player->moveTo(m_moveToTarget))
             {
                 m_controlState = FBDefs::AI_STATE_CONTROL::NONE;
-            }
-            else
-            {
-                moveTo(m_moveToTarget, dt);
             }
             break;
         default:

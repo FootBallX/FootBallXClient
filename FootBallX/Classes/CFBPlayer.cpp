@@ -25,7 +25,23 @@ CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
 
 void CFBPlayer::update(float dt)
 {
+    if (!m_targetPosition.equals(Point(0, 0)))
+    {
+        if (FBDefs::isPitchPointAlmostSame(m_curPosition, m_targetPosition))
+        {
+            m_movingVector.setPoint(0, 0);
+        }
+    }
+    
+    auto spd = this->getSpeed();
+    m_curPosition += m_movingVector * spd * dt;
+    if (m_isBallController)
+    {
+        FBMATCH->setBallPosition(m_curPosition);
+    }
 }
+
+
 
 void CFBPlayer::gainBall()
 {
@@ -38,6 +54,8 @@ void CFBPlayer::gainBall()
     m_ownerTeam->setAttacking(true);
     
     m_ownerTeam->setHilightPlayerId(this->m_positionInFormation);
+    
+    m_movingVector.setPoint(0, 0);
 }
 
 
@@ -74,4 +92,40 @@ void CFBPlayer::setPosition(const Point& pos)
         FBMATCH->setBallPosition(pos);
     }
 }
+
+
+
+bool CFBPlayer::moveTo(const Point& pos)
+{
+    m_targetPosition = pos;
+    
+    if (FBDefs::isPitchPointAlmostSame(m_curPosition, pos))
+    {
+        m_movingVector.setPoint(0, 0);
+        return true;
+    }
+    else
+    {
+        m_movingVector = (pos - m_curPosition).normalize();
+        
+        return false;
+    }
+}
+
+
+
+void CFBPlayer::setMovingVector(const cocos2d::Point& vec)
+{
+    m_targetPosition.setPoint(0, 0);
+    m_movingVector = vec;
+}
+
+
+
+void CFBPlayer::setMovingVector(float x, float y)
+{
+    m_targetPosition.setPoint(0, 0);
+    m_movingVector.setPoint(x, y);
+}
+
 
