@@ -30,7 +30,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>CMatchLayer</string>
+				<string>fb_menu.ccb</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -71,6 +71,8 @@
 						<string>fb_menu.ccb</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>baseClass</key>
@@ -1372,8 +1374,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
