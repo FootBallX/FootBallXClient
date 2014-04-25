@@ -484,7 +484,7 @@ function StartShootBall(o1, isAir)
 }
 
 //门将接球，o1=射门球员；o2=门将
-function TakeBallGP(o1, o2)
+function CatchBallGP(o1, o2)
 {
   switch (g_type)
   {

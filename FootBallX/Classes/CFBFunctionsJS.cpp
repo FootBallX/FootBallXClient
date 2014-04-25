@@ -249,9 +249,9 @@ FBDefs::JS_RET_VAL CFBFunctionsJS::hitBallGP(const CFBCard& co1, const CFBCard& 
 
 
 
-FBDefs::JS_RET_VAL CFBFunctionsJS::takeBallGP(const CFBCard& co1, const CFBCard& co2)
+FBDefs::JS_RET_VAL CFBFunctionsJS::catchBallGP(const CFBCard& co1, const CFBCard& co2)
 {
-    auto res = callJSFunc("TakeBallGP", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
+    auto res = callJSFunc("CatchBallGP", "jj", createJsvalFromCard(co1), createJsvalFromCard(co2));
     if (JSVAL_IS_INT(res))
     {
         int ret = JSVAL_TO_INT(res);

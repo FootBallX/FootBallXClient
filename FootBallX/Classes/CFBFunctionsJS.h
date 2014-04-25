@@ -32,7 +32,7 @@ public:
     FBDefs::JS_RET_VAL blockBall(const CFBCard& co1, const CFBCard& co2);
     
     FBDefs::JS_RET_VAL hitBallGP(const CFBCard& co1, const CFBCard& co2);
-    FBDefs::JS_RET_VAL takeBallGP(const CFBCard& co1, const CFBCard& co2);
+    FBDefs::JS_RET_VAL catchBallGP(const CFBCard& co1, const CFBCard& co2);
     
     void receiveBall(const CFBCard& co1);
 protected:

@@ -73,7 +73,7 @@ void CFBShootBallGroundIns::update(float dt)
                             m_ret = FB_FUNC_JS->hitBallGP(o1, o2);
                             break;
                         case FBDefs::PLAYER_INS::TAKE:
-                            m_ret = FB_FUNC_JS->takeBallGP(o1, o2);
+                            m_ret = FB_FUNC_JS->catchBallGP(o1, o2);
                             break;
                         default:
                             CC_ASSERT(false);
