@@ -71,8 +71,6 @@
 						<string>fb_menu.ccb</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>baseClass</key>
@@ -611,7 +609,7 @@
 								<array>
 									<string>MenuButtonDribble</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -819,7 +817,7 @@
 								<array>
 									<string>MenuButtonPass</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -1027,7 +1025,7 @@
 								<array>
 									<string>MenuButtonShoot</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -1233,9 +1231,9 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string></string>
+									<string>MenuButtonOneTwo</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -1540,6 +1538,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

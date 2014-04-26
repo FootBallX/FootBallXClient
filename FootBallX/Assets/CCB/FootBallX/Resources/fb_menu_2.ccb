@@ -377,7 +377,7 @@
 								<array>
 									<string>MenuButtonShoot</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -585,7 +585,7 @@
 								<array>
 									<string>MenuButtonDribble</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>

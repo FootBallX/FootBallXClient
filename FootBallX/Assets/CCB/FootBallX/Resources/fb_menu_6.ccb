@@ -493,7 +493,7 @@
 								<array>
 									<string>MenuButtonClear</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -701,7 +701,7 @@
 								<array>
 									<string>MenuButtonIntercept</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>
@@ -909,7 +909,7 @@
 								<array>
 									<string>MenuButtonBlock</string>
 									<integer>1</integer>
-									<integer>225</integer>
+									<integer>32</integer>
 								</array>
 							</dict>
 							<dict>

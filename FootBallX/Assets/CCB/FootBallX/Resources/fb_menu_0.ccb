@@ -90,7 +90,7 @@
 						<array>
 							<string>MenuButtonDribble</string>
 							<integer>1</integer>
-							<integer>225</integer>
+							<integer>32</integer>
 						</array>
 					</dict>
 					<dict>
@@ -298,7 +298,7 @@
 						<array>
 							<string>MenuButtonPass</string>
 							<integer>1</integer>
-							<integer>225</integer>
+							<integer>32</integer>
 						</array>
 					</dict>
 					<dict>
@@ -506,7 +506,7 @@
 						<array>
 							<string>MenuButtonShoot</string>
 							<integer>1</integer>
-							<integer>225</integer>
+							<integer>32</integer>
 						</array>
 					</dict>
 					<dict>
@@ -714,7 +714,7 @@
 						<array>
 							<string>MenuButtonOneTwo</string>
 							<integer>1</integer>
-							<integer>225</integer>
+							<integer>32</integer>
 						</array>
 					</dict>
 					<dict>
