@@ -1,9 +1,15 @@
 #ifndef __CFBCardJSBinds_h__
 #define __CFBCardJSBinds_h__
 
+#ifdef DEBUG
+#undef DEBUG
 #include "jsapi.h"
 #include "jsfriendapi.h"
-
+#define DEBUG   1
+#else
+#include "jsapi.h"
+#include "jsfriendapi.h"
+#endif
 
 extern JSClass  *jsb_CFBCard_class;
 extern JSObject *jsb_CFBCard_prototype;

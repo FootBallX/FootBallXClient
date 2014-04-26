@@ -657,7 +657,7 @@ class MOZ_STACK_CLASS Rooted : public js::RootedBase<T>
       : ptr(js::GCMethods<T>::initial())
     {
         MOZ_GUARD_OBJECT_NOTIFIER_INIT;
-//        MOZ_ASSERT(js::IsInRequest(cx));
+        MOZ_ASSERT(js::IsInRequest(cx));
         init(js::ContextFriendFields::get(cx));
     }
 
@@ -666,7 +666,7 @@ class MOZ_STACK_CLASS Rooted : public js::RootedBase<T>
       : ptr(initial)
     {
         MOZ_GUARD_OBJECT_NOTIFIER_INIT;
-//        MOZ_ASSERT(js::IsInRequest(cx));
+        MOZ_ASSERT(js::IsInRequest(cx));
         init(js::ContextFriendFields::get(cx));
     }
 

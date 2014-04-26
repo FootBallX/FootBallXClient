@@ -1068,7 +1068,7 @@ namespace JS {
 JS_ALWAYS_INLINE bool
 ToNumber(JSContext *cx, Handle<Value> v, double *out)
 {
-//    AssertArgumentsAreSane(cx, v);
+    AssertArgumentsAreSane(cx, v);
     {
         js::SkipRoot root(cx, &v);
         js::MaybeCheckStackRoots(cx);

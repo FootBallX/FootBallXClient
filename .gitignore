@@ -19,6 +19,7 @@ FootBallX/Resources.ios/
 #cocos2dx/platform/android/java/bin/
 cocos2d-x/libs/
 cocos2d-x/libsMac/
+cocos2d-x/libsMacDebug/
 libpomelo/lib/
 libpomelo/libMac/
 .metadata/

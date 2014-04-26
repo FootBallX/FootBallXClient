@@ -96,19 +96,11 @@ void CMatchMenuLayer::onPass(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onPass(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -120,19 +112,11 @@ void CMatchMenuLayer::onDribble(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onDribble(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -144,19 +128,11 @@ void CMatchMenuLayer::onShoot(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onShoot(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -168,19 +144,11 @@ void CMatchMenuLayer::onOneTwo(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onOneTwo(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -192,19 +160,11 @@ void CMatchMenuLayer::onTackle(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onTackle(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -216,19 +176,11 @@ void CMatchMenuLayer::onBlock(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onBlock(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -240,19 +192,11 @@ void CMatchMenuLayer::onIntercept(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onIntercept(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }
@@ -264,19 +208,11 @@ void CMatchMenuLayer::onHit(Ref* sender, Control::EventType event)
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
-        {
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->pauseEventListenersForTarget(parent);
             break;
-        }
         case Control::EventType::TOUCH_UP_INSIDE:
             m_matchLayer->onHit(sender);
-            // passthrough
+            break;
         default:
-            Layer* parent = (Layer*)this->getParent();
-            auto dispatcher = Director::getInstance()->getEventDispatcher();
-            dispatcher->resumeEventListenersForTarget(parent);
             break;
     }
 }

@@ -256,7 +256,7 @@ void CCPomelo::dispatchCallbacks(float delta)
 
 CCPomelo::CCPomelo()
 {
-    Director::getInstance()->getScheduler()->scheduleSelector(schedule_selector(CCPomelo::dispatchCallbacks), this, 0, false);
+    Director::getInstance()->getScheduler()->schedule(schedule_selector(CCPomelo::dispatchCallbacks), this, 0, false);
     Director::getInstance()->getScheduler()->pauseTarget(this);
     client = pc_client_new();
     pthread_mutex_init(&reponse_queue_mutex, NULL);
@@ -273,7 +273,7 @@ CCPomelo::CCPomelo()
 
 CCPomelo::~CCPomelo()
 {
-    Director::getInstance()->getScheduler()->unscheduleSelector(schedule_selector(CCPomelo::dispatchCallbacks), POMELO);
+    Director::getInstance()->getScheduler()->unschedule(schedule_selector(CCPomelo::dispatchCallbacks), POMELO);
 }
 
 

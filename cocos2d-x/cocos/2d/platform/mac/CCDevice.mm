@@ -128,11 +128,7 @@ static bool _initWithString(const char * text, Device::TextAlign align, const ch
 					if ([@"!?.,-= " rangeOfString:character].location != NSNotFound) {
                         lastBreakLocation = i + insertCount;
                     }
-                    // Raymond modify for i386 arch compile error.
-                    NSSize tempSz = [lineBreak sizeWithAttributes:tokenAttributesDict];
-                    textSize.width = tempSz.width;
-                    textSize.height = tempSz.height;
-                    
+                    textSize = [lineBreak sizeWithAttributes:tokenAttributesDict];
                     if(textSize.height > info->height)
                         break;
 					if (textSize.width > info->width) {

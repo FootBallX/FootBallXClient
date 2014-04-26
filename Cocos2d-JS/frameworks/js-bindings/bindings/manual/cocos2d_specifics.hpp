@@ -202,30 +202,22 @@ private:
 };
 
 
-class CC_DLL __JSSAXDelegator: public cocos2d::SAXDelegator
+class CC_DLL __JSPlistDelegator: public cocos2d::SAXDelegator
 {
 public:
-    static __JSSAXDelegator* getInstance() {
-		static __JSSAXDelegator* pInstance = NULL;
+    static __JSPlistDelegator* getInstance() {
+		static __JSPlistDelegator* pInstance = NULL;
         if (pInstance == NULL) {
-            pInstance = new __JSSAXDelegator();
+            pInstance = new __JSPlistDelegator();
         }
 		return pInstance;
 	};
     
-    ~__JSSAXDelegator();
+    ~__JSPlistDelegator();
     
     cocos2d::SAXParser* getParser();
     
     std::string parse(const std::string& path);
-    
-    bool preloadPlist(const std::string& path) {
-        return true;
-    }
-    
-    std::string getList(const std::string& path) {
-        return path;
-    }
     
     // implement pure virtual methods of SAXDelegator
     void startElement(void *ctx, const char *name, const char **atts);
@@ -244,5 +236,7 @@ bool js_cocos2dx_Node_onEnter(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_Node_onExit(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_Node_onEnterTransitionDidFinish(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_Node_onExitTransitionDidStart(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_cocos2dx_Component_onEnter(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_cocos2dx_Component_onExit(JSContext *cx, uint32_t argc, jsval *vp);
 
 #endif

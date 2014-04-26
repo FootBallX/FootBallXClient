@@ -117,6 +117,8 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
                     FBMATCH->syncTeam();
                 }
                 break;
+            default:
+                break;
         }
     }
     
@@ -139,6 +141,8 @@ void CMatchLayer::onTouchMoved(Touch* touch, Event* event)
                 break;
             case OP::NONE:
                 FBMATCH->setBallControllerMove((loc - m_screenCenter).normalize());
+                break;
+            default:
                 break;
         }
     }

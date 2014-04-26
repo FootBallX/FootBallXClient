@@ -123,6 +123,16 @@ public:
 	 */
 	bool runScript(const char *path, JSObject* global = NULL, JSContext* cx = NULL);
 
+    /**
+     * will clean script object the specified string
+     */
+    void cleanScript(const char *path);
+    
+     /**
+     * will clean all script object
+     */
+    void cleanAllScript();
+    
 	/**
 	 * initialize everything
 	 */
@@ -214,6 +224,7 @@ public:
 
 public:
     int handleNodeEvent(void* data);
+    int handleComponentEvent(void* data);
     int handleMenuClickedEvent(void* data);
     
     bool handleTouchesEvent(void* nativeObj, cocos2d::EventTouch::EventCode eventCode, const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event, jsval* jsvalRet = nullptr);

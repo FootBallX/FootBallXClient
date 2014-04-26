@@ -17,12 +17,13 @@ LOCAL_SRC_FILES := manual/ScriptingCore.cpp \
                    manual/jsb_event_dispatcher_manual.cpp \
                    auto/jsb_cocos2dx_auto.cpp
 
-LOCAL_CFLAGS := -DCOCOS2D_JAVASCRIPT
+LOCAL_CFLAGS := -DCOCOS2D_JAVASCRIPT -DCC_CONSTRUCTOR_ACCESS=public
 
-LOCAL_EXPORT_CFLAGS := -DCOCOS2D_JAVASCRIPT
+LOCAL_EXPORT_CFLAGS := -DCOCOS2D_JAVASCRIPT -DCC_CONSTRUCTOR_ACCESS=public
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/manual \
                     $(LOCAL_PATH)/auto \
+                    $(LOCAL_PATH)/../../../../cocos2d-x/cocos/ui \
                     $(LOCAL_PATH)/../../../../cocos2d-x/cocos/audio/include \
                     $(LOCAL_PATH)/../../../../cocos2d-x/cocos/storage \
                     $(LOCAL_PATH)/../../../../cocos2d-x/extensions \

@@ -114,6 +114,8 @@ void CFBPassBallIns::update(float dt)
                 
                 break;
             }
+            default:
+                break;
         }
     }
 }

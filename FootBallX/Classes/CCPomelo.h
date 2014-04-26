@@ -29,7 +29,7 @@ public:
 
 
 class CCPomelo
-: public cocos2d::Object
+: public cocos2d::Ref
 , public CSingleton<CCPomelo>
 {
 public:

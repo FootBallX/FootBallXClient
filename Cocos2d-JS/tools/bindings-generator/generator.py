@@ -216,7 +216,7 @@ class NativeType(object):
                 if nt.name == "std::function":
                     nt.namespaced_name = get_namespaced_name(cdecl)
 
-                    r = re.compile('function<(\S+) \((.*)\)>').search(cdecl.displayname)
+                    r = re.compile('function<(.+) \((.*)\)>').search(cdecl.displayname)
                     (ret_type, params) = r.groups()
                     params = filter(None, params.split(", "))
 
@@ -456,12 +456,13 @@ class NativeFunction(object):
 
         self.min_args = index if found_default_arg else len(self.arguments)
 
-    def generate_code(self, current_class=None, generator=None):
+    def generate_code(self, current_class=None, generator=None, is_override=False):
         gen = current_class.generator if current_class else generator
         config = gen.config
         tpl = Template(file=os.path.join(gen.target, "templates", "function.h"),
                         searchList=[current_class, self])
-        gen.head_file.write(str(tpl))
+        if not is_override:
+            gen.head_file.write(str(tpl))
         if self.static:
             if config['definitions'].has_key('sfunction'):
                 tpl = Template(config['definitions']['sfunction'],
@@ -480,10 +481,14 @@ class NativeFunction(object):
                     tpl = Template(config['definitions']['constructor'],
                                     searchList=[current_class, self])
                     self.signature_name = str(tpl)
-            tpl = Template(file=os.path.join(gen.target, "templates", "ifunction.c"),
-                            searchList=[current_class, self])
-
-        gen.impl_file.write(str(tpl))
+            if self.is_constructor and gen.script_type == "spidermonkey" :
+                tpl = Template(file=os.path.join(gen.target, "templates", "constructor.c"),
+                                                searchList=[current_class, self])
+            else :
+                tpl = Template(file=os.path.join(gen.target, "templates", "ifunction.c"),
+                                searchList=[current_class, self])
+        if not is_override:
+            gen.impl_file.write(str(tpl))
         apidoc_function_script = Template(file=os.path.join(gen.target,
                                                         "templates",
                                                         "apidoc_function.script"),
@@ -509,13 +514,14 @@ class NativeOverloadedFunction(object):
         self.min_args = min(self.min_args, func.min_args)
         self.implementations.append(func)
 
-    def generate_code(self, current_class=None):
+    def generate_code(self, current_class=None, is_override=False):
         gen = current_class.generator
         config = gen.config
         static = self.implementations[0].static
         tpl = Template(file=os.path.join(gen.target, "templates", "function.h"),
                         searchList=[current_class, self])
-        gen.head_file.write(str(tpl))
+        if not is_override:
+            gen.head_file.write(str(tpl))
         if static:
             if config['definitions'].has_key('sfunction'):
                 tpl = Template(config['definitions']['sfunction'],
@@ -536,7 +542,8 @@ class NativeOverloadedFunction(object):
                     self.signature_name = str(tpl)
             tpl = Template(file=os.path.join(gen.target, "templates", "ifunction_overloaded.c"),
                             searchList=[current_class, self])
-        gen.impl_file.write(str(tpl))
+        if not is_override:
+            gen.impl_file.write(str(tpl))
 
         if current_class != None:
             if gen.script_type == "lua":
@@ -568,6 +575,8 @@ class NativeClass(object):
         self.generator = generator
         self.is_abstract = self.class_name in generator.abstract_classes
         self._current_visibility = cindex.AccessSpecifierKind.PRIVATE
+        #for generate lua api doc
+        self.override_methods = {}
 
         registration_name = generator.get_class_or_rename_class(self.class_name)
         if generator.remove_prefix:
@@ -614,6 +623,17 @@ class NativeClass(object):
                 ret.append({"name": name, "impl": impl})
         return ret
 
+    def override_methods_clean(self):
+        '''
+        clean list of override methods (without the ones that should be skipped)
+        '''
+        ret = []
+        for name, impl in self.override_methods.iteritems():
+            should_skip = self.generator.should_skip(self.class_name, name)
+            if not should_skip:
+                ret.append({"name": name, "impl": impl})
+        return ret
+
     def generate_code(self):
         '''
         actually generate the code. it uses the current target templates/rules in order to
@@ -648,6 +668,9 @@ class NativeClass(object):
             m['impl'].generate_code(self)
         for m in self.static_methods_clean():
             m['impl'].generate_code(self)
+        if self.generator.script_type == "lua":  
+            for m in self.override_methods_clean():
+                m['impl'].generate_code(self, is_override = True)
         # generate register section
         register = Template(file=os.path.join(self.generator.target, "templates", "register.c"),
                             searchList=[{"current_class": self}])
@@ -731,6 +754,15 @@ class NativeClass(object):
                     return False
                 if m.is_override:
                     if NativeClass._is_method_in_parents(self, registration_name):
+                        if self.generator.script_type == "lua":
+                            if not self.override_methods.has_key(registration_name):
+                                self.override_methods[registration_name] = m
+                            else:
+                                previous_m = self.override_methods[registration_name]
+                                if isinstance(previous_m, NativeOverloadedFunction):
+                                    previous_m.append(m)
+                                else:
+                                    self.override_methods[registration_name] = NativeOverloadedFunction([m, previous_m])
                         return False
 
                 if m.static:

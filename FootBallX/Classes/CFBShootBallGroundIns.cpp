@@ -98,6 +98,8 @@ void CFBShootBallGroundIns::update(float dt)
                 
                 break;
             }
+            default:
+                break;
         }
     }
 }
