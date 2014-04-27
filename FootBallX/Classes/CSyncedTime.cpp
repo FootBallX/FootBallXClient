@@ -54,8 +54,8 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
     CJsonT docs(ccpomeloresp->docs);
-    m_serverTime = docs.getInt("sTime");
-    auto lct = docs.getInt("cTime");
+    m_serverTime = docs.getJsonInt("sTime");
+    auto lct = docs.getJsonInt("cTime");
     auto ct = getClientTime();
     int ping = (ct - lct) * 0.5;
     m_pings.push_back(ping);
@@ -64,6 +64,8 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
     
     if (m_syncCount > 0)
     {
+        log("serT: %lld", m_serverTime);
+        log("ping %d -- > %d", m_syncCount, ping);
         syncTime();
     }
     else

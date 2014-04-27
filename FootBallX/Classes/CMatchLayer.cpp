@@ -27,6 +27,7 @@ enum class Z_ORDER : int
 #ifdef SHOW_GRID
     GRID_DEBUG,
 #endif
+    COUNT_DOWN,
     MENU,
 };
 
@@ -41,7 +42,7 @@ public:
 
 
 #define TAG_ACTION_FLIP3D           1001
-
+#define TAG_COUNT_DOWN              1002
 
 CMatchLayer::CMatchLayer()
 {
@@ -246,6 +247,15 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         
         Size pitchSz = m_pitchSprite->getContentSize();
         
+        const char* FONT_NAME = "Helvetica";
+        const int FONT_SIZE = 32 * cocosbuilder::CCBReader::getResolutionScale();
+        
+        auto countDownSpr = Label::createWithSystemFont("", FONT_NAME, FONT_SIZE);
+        addChild(countDownSpr, (int)Z_ORDER::COUNT_DOWN, TAG_COUNT_DOWN);
+        countDownSpr->setVisible(false);
+        auto sz = Director::getInstance()->getWinSize();
+        countDownSpr->setPosition(sz.width * 0.5f, sz.height * 0.5f);
+        
         BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
 
         vector<string> redPlayercards =
@@ -309,8 +319,20 @@ void CMatchLayer::update(float dt)
     {
         case FBDefs::MATCH_STEP::WAIT_START:
             break;
+        case FBDefs::MATCH_STEP::COUNT_DOWN:
+        {
+            char s[25];
+            sprintf(s, "%d", FBMATCH->getCountDownTime());
+            auto spr = (Label*)getChildByTag(TAG_COUNT_DOWN);
+            spr->setVisible(true);
+            spr->setString(s);
+            break;
+        }
         case FBDefs::MATCH_STEP::MATCHING:
         {
+            auto spr = getChildByTag(TAG_COUNT_DOWN);
+            spr->setVisible(false);
+            
             updateTeam(FBMATCH->getTeam(FBDefs::SIDE::LEFT), m_blackPlayers);
             updateTeam(FBMATCH->getTeam(FBDefs::SIDE::RIGHT), m_redPlayers);
             

@@ -37,7 +37,7 @@ CFBMatch::~CFBMatch()
 bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CFBMatchProxy* proxy)
 {
     do
-    {
+    {        
         m_pitch = new CFBPitch;
         m_ball = new CFBBall;
         
@@ -168,19 +168,26 @@ CFBTeam* CFBMatch::getDefendingTeam()
 
 void CFBMatch::update(float dt)
 {
+    m_proxy->update(dt);
     switch (m_matchStep)
     {
         case FBDefs::MATCH_STEP::WAIT_START:
-            m_proxy->update(dt);
             break;
+        case FBDefs::MATCH_STEP::COUNT_DOWN:
+        {
+            auto delta = m_startTime - m_proxy->getTime();
+            if (delta <= 0)
+            {
+                m_matchStep = FBDefs::MATCH_STEP::MATCHING;
+            }
+            break;
+        }
         case FBDefs::MATCH_STEP::MATCHING:
         {
             if (!m_isPause)
             {
                 m_teamsInMatch[(int)SIDE::SELF]->update(dt);
                 m_teamsInMatch[(int)SIDE::OPP]->update(dt);
-                
-                m_proxy->update(dt);
             }
             
             if (m_currentInstruction != nullptr)
@@ -547,6 +554,13 @@ FBDefs::MATCH_STEP CFBMatch::getMatchStep()
     return m_matchStep;
 }
 
+
+
+int CFBMatch::getCountDownTime()
+{
+    return (int)-m_proxy->getDeltaTime(m_startTime);
+}
+
 #pragma mark - encounter
 
 void CFBMatch::updateEncounter(float dt)
@@ -726,6 +740,7 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
 
 void CFBMatch::startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st)
 {
+    log("diff: %lld", st - m_proxy->getTime());
     log("side: %d, kick: %d", (int)mySide, (int)kickOffSide);
     
     setControlSide(mySide);
@@ -734,7 +749,9 @@ void CFBMatch::startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long
     
     m_teams[(int)kickOffSide]->kickOff();
     
-    m_matchStep = FBDefs::MATCH_STEP::MATCHING;
+    m_matchStep = FBDefs::MATCH_STEP::COUNT_DOWN;
+    
+    m_startTime = st;
     
     m_syncTime[(int)SIDE::SELF] = m_SYNC_TIME;
 }

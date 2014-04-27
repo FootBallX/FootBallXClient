@@ -62,6 +62,7 @@ public:
     FBDefs::MATCH_STEP getMatchStep();
     void setBallControllerMove(const cocos2d::Point& vec);
     
+    int getCountDownTime();
     #pragma mark - net or sim
     void syncTeam();
     void teamPositionAck(const vector<float>& p, int ballPlayerId, long long timestamp);
@@ -104,6 +105,7 @@ protected:
     
     CFBTeam* m_teamsInMatch[(int)SIDE::NONE];       // 这里重新组织一下，按照己方和对方保存team
     float m_syncTime[(int)SIDE::NONE];
+    long long m_startTime = 0;
 
     void onInstructionEnd();
     

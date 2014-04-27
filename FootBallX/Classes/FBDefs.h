@@ -112,6 +112,7 @@ namespace FBDefs
     enum class MATCH_STEP
     {
         WAIT_START,
+        COUNT_DOWN,
         MATCHING,
         NONE,
     };
