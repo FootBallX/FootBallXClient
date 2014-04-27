@@ -96,7 +96,7 @@ bool CMessageBoxLayer::addButton(const char* t, BUTTON_TYPE btnType)
 void CMessageBoxLayer::setMsg(const char* msg)
 {
     removeChildByTag(TAG_MSG);
-    LabelTTF* msg_label = LabelTTF::create(msg, FONT_NAME, FONT_SIZE);
+    Label* msg_label = Label::createWithSystemFont(msg, FONT_NAME, FONT_SIZE);
     addChild(msg_label, Z_MSG, TAG_MSG);
 
 }
@@ -106,7 +106,7 @@ void CMessageBoxLayer::setMsg(const char* msg)
 void CMessageBoxLayer::setTitle(const char* title)
 {
     removeChildByTag(TAG_TITLE);
-    LabelTTF* title_label = LabelTTF::create(title, FONT_NAME, FONT_SIZE);
+    Label* title_label = Label::createWithSystemFont(title, FONT_NAME, FONT_SIZE);
     addChild(title_label, Z_TITLE, TAG_TITLE);
 }
 

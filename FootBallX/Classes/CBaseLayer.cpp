@@ -101,7 +101,7 @@ ControlButton* CBaseLayer::createImageButtonWithTitle(const char* title, const c
     
     do
     {
-        LabelTTF* pLabel = LabelTTF::create(title, font, fontSize);
+        Label* pLabel = Label::createWithSystemFont(title, font, fontSize);
         CC_BREAK_IF(nullptr == pLabel);
         Scale9Sprite* pBackground = Scale9Sprite::createWithSpriteFrameName(spriteFrameName);
         CC_BREAK_IF(nullptr == pBackground);
@@ -181,7 +181,7 @@ CCControlToggleButton* CBaseLayer::createToggleButton(const char* toggleOn, cons
 }
 
 
-LabelBMFont* CBaseLayer::createLabelBMFont(const char* title, GameFonts font, TextHAlignment alignment, Point position)
+Label* CBaseLayer::createLabelBMFont(const char* title, GameFonts font, TextHAlignment alignment, Point position)
 {
     CCAssert(title, "Invalid title.");
     

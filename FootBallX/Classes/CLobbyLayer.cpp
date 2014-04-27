@@ -56,9 +56,10 @@ Control::Handler CLobbyLayer::onResolveCCBCCControlSelector(Ref* pTarget, const 
 
 bool CLobbyLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
 {
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "logText", LabelTTF*, m_logText);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnSignUp", ControlButton*, m_singUpButton);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnCancel", ControlButton*, m_cancelButton);
+    
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "logText", decltype(m_logText), m_logText);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnSignUp", decltype(m_signUpButton), m_signUpButton);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnCancel", decltype(m_cancelButton), m_cancelButton);
     return false;
 }
 
@@ -114,7 +115,7 @@ void CLobbyLayer::onSignUp(Ref* sender, Control::EventType event)
             return;
         }
         m_logText->setString("You are in queue, please wait for other player.");
-        m_singUpButton->setVisible(false);
+        m_signUpButton->setVisible(false);
     });
     
     msg.release();

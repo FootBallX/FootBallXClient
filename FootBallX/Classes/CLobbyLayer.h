@@ -38,8 +38,8 @@ protected:
     Layer* m_editPasswordLayer = nullptr;
     
     ControlButton* m_cancelButton = nullptr;
-    ControlButton* m_singUpButton = nullptr;
-    LabelTTF* m_logText = nullptr;
+    ControlButton* m_signUpButton = nullptr;
+    Label* m_logText = nullptr;
     
     virtual void onSignUp(Ref* sender, Control::EventType event);
     virtual void onCancel(Ref* sender, Control::EventType event);
