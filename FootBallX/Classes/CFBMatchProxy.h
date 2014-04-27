@@ -15,7 +15,7 @@
 class CFBMatchProxy
 {
 public:
-    typedef function<void(const vector<float>&, int)> TEAM_POSITION_FUNC;
+    typedef function<void(const vector<float>&, int, long long)> TEAM_POSITION_FUNC;
     typedef function<void(FBDefs::SIDE, FBDefs::SIDE, long long)> START_MATCH_FUNC;
     typedef function<void()> END_MATCH_FUNC;
     
@@ -31,6 +31,8 @@ public:
     
     virtual void update(float dt) = 0;
     
+    virtual long long getTime() = 0;
+    virtual float getDeltaTime(long long) = 0;
 };
 
 #endif /* defined(__FootBallX__CFBMatchProxy__) */

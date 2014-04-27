@@ -46,7 +46,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         CC_SAFE_DELETE(m_proxy);
         m_proxy = proxy;
         m_proxy->setEndMatchAck(std::bind(&CFBMatch::endMatchAck, this));
-        m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2));
+        m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
@@ -177,10 +177,8 @@ void CFBMatch::update(float dt)
         {
             if (!m_isPause)
             {
-                for (auto x : m_teams)
-                {
-                    x->update(dt);
-                }
+                m_teamsInMatch[(int)SIDE::SELF]->update(dt);
+                m_teamsInMatch[(int)SIDE::OPP]->update(dt);
                 
                 m_proxy->update(dt);
             }
@@ -196,6 +194,7 @@ void CFBMatch::update(float dt)
                 {
                     if (i == (int)SIDE::SELF)
                     {
+                        m_teamsInMatch[(int)SIDE::SELF]->think();
                         syncTeam();
                         m_syncTime[i] = m_SYNC_TIME;
                     }
@@ -365,7 +364,7 @@ void CFBMatch::tryPassBall(CFBPlayer* from, CFBPlayer* to)
     }
     
     std::sort(involvePlayers.begin(), involvePlayers.end(),
-              [&](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
+              [](const pair<float, CFBPlayer*>& o1, const pair<float, CFBPlayer*> o2)-> bool
               {
                   return o1.first < o2.first;
               });
@@ -687,12 +686,13 @@ void CFBMatch::syncTeam()
 
 
 
-void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId)
+void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long long timeStamp)
 {
     auto team = m_teamsInMatch[(int)SIDE::OPP];
     auto fmt = team->getFormation();
     
     int size = fmt->getPlayerNumber();
+    float dt = m_proxy->getDeltaTime(timeStamp);
     
     for (int i = 0; i < size; ++i)
     {
@@ -708,7 +708,7 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId)
 //        }
 //        else
         {
-            player->moveTo(pos);
+            player->moveTo(pos, dt);
         }
         
 //        if (i == 5)

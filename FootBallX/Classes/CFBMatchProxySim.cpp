@@ -73,3 +73,15 @@ void CFBMatchProxySim::update(float dt)
 
 
 
+
+long long CFBMatchProxySim::getTime()
+{
+    return 0;
+}
+
+
+
+float CFBMatchProxySim::getDeltaTime(long long time)
+{
+    return 0;
+}

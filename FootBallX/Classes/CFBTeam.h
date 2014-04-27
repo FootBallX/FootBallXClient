@@ -26,6 +26,7 @@ public:
     
     virtual bool init(const vector<string>& cardPlayers);
     virtual void update(float dt);
+    virtual void think();
     virtual bool onStartMatch(bool networkControl);
     virtual void kickOff();
     virtual CFBPlayer* getHilightPlayer();

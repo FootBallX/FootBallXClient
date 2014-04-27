@@ -64,7 +64,7 @@ public:
     
     #pragma mark - net or sim
     void syncTeam();
-    void teamPositionAck(const vector<float>& p, int ballPlayerId);
+    void teamPositionAck(const vector<float>& p, int ballPlayerId, long long timestamp);
     void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
     void endMatchAck();
 protected:

@@ -33,6 +33,8 @@ public:
     
     virtual void update(float dt) override;
     
+    virtual long long getTime() override;
+    virtual float getDeltaTime(long long) override;
 protected:
     enum class SYNC_TYPE
     {

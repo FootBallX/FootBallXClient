@@ -50,23 +50,34 @@ void CFBFormation::update(float dt)
 {
     CC_ASSERT(m_playerAIs);
     
-    m_updateCD++;
-    int thinkIndex = int(m_updateCD) % m_playerNumber;
-    if (thinkIndex != m_updateIndex)
-    {
-        m_updateIndex = thinkIndex;
-        if (thinkIndex == 0)
-        {
-            random_shuffle(m_playerIndices.begin(), m_playerIndices.end());
-        }
-        
-        m_playerAIs[m_playerIndices[thinkIndex]]->think();
-    }
+//    m_updateCD++;
+//    int thinkIndex = int(m_updateCD) % m_playerNumber;
+//    if (thinkIndex != m_updateIndex)
+//    {
+//        m_updateIndex = thinkIndex;
+//        if (thinkIndex == 0)
+//        {
+//            random_shuffle(m_playerIndices.begin(), m_playerIndices.end());
+//        }
+//        
+//        m_playerAIs[m_playerIndices[thinkIndex]]->think();
+//    }
     
     for (int i = 0; i < m_playerNumber; ++i)
     {
         CC_ASSERT(m_playerAIs[i]);
         m_playerAIs[i]->update(dt);
+    }
+}
+
+
+
+void CFBFormation::think()
+{
+    for (int i = 0; i < m_playerNumber; ++i)
+    {
+        CC_ASSERT(m_playerAIs[i]);
+        m_playerAIs[i]->think();
     }
 }
 

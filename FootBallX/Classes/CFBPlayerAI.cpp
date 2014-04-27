@@ -67,7 +67,13 @@ void CFBPlayerAI::thinkOnAttacking()
     considerSupport();
     if (m_state == FBDefs::AI_STATE::NONE)
     {
-        m_state = FBDefs::AI_STATE::BACKHOME;
+        updateHomePosition();
+        
+        auto pitch = FBMATCH->getPitch();
+        auto team = m_formation->getTeam();
+        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+        
+        m_player->moveTo(homePos);
     }
 }
 
@@ -78,7 +84,13 @@ void CFBPlayerAI::thinkOnDefending()
     considerChase();
     if (m_state == FBDefs::AI_STATE::NONE)
     {
-        m_state = FBDefs::AI_STATE::BACKHOME;
+        updateHomePosition();
+        
+        auto pitch = FBMATCH->getPitch();
+        auto team = m_formation->getTeam();
+        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+        
+        m_player->moveTo(homePos);
     }
 }
 
@@ -87,7 +99,6 @@ void CFBPlayerAI::thinkOnDefending()
 void CFBPlayerAI::update(float dt)
 {
     m_changeStateCD -= dt;
-    updateHomePosition();
     m_player->update(dt);
 }
 
@@ -112,7 +123,7 @@ void CFBPlayerAI::initPlayerStates(bool networkControl)
     }
     else
     {
-        m_state = FBDefs::AI_STATE::BACKHOME;
+        m_state = FBDefs::AI_STATE::NONE;
     }
 }
 

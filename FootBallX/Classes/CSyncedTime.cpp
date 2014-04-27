@@ -23,7 +23,8 @@ bool CSyncedTime::init()
 
 void CSyncedTime::update(float dt)
 {
-    m_serverTime += dt * 1000000;
+    float delta = dt * 1000000.f;
+    m_serverTime += (int)delta;
 }
 
 

@@ -37,6 +37,8 @@ public:
     
     virtual void update(float dt);
     
+    virtual void think();
+    
     virtual int getPlayerNumber() { return m_playerNumber;}
     
     virtual bool onStartMatch(bool networkControl);

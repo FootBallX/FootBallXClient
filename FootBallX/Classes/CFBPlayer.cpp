@@ -95,7 +95,7 @@ void CFBPlayer::setPosition(const Point& pos)
 
 
 
-bool CFBPlayer::moveTo(const Point& pos)
+bool CFBPlayer::moveTo(const Point& pos, float dt)
 {
     m_targetPosition = pos;
     
@@ -107,7 +107,7 @@ bool CFBPlayer::moveTo(const Point& pos)
     else
     {
         m_movingVector = (pos - m_curPosition).normalize();
-        
+        m_curPosition += m_movingVector * (dt * getSpeed());
         return false;
     }
 }

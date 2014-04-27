@@ -109,6 +109,7 @@ void CFBMatchProxyNet::update(float dt)
             break;
         }
         default:
+            m_syncedTimer.update(dt);
             break;
     }
 }
@@ -132,7 +133,8 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
             {
                 v.push_back(ja.get(i).toFloat() / FBDefs::FLT_SCALE);
             }
-            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"));
+            
+            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"), docs.getJsonInt("timeStamp"));
             break;
         }
         default:
@@ -208,3 +210,15 @@ void CFBMatchProxyNet::onSwicthDominator(Node*, void* r)
 }
 
 
+
+long long CFBMatchProxyNet::getTime()
+{
+    return m_syncedTimer.getTime();
+}
+
+
+
+float CFBMatchProxyNet::getDeltaTime(long long time)
+{
+    return (m_syncedTimer.getTime() - time) / 1000000.f;
+}

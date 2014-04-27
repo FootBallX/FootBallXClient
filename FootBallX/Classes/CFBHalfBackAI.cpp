@@ -14,23 +14,23 @@ void CFBHalfBackAI::update(float dt)
 {
     CFBPlayerAI::update(dt);
 
-    switch (m_state)
-    {
-        case FBDefs::AI_STATE::BACKHOME:
-            returnToHome(dt);
-            break;
-        case FBDefs::AI_STATE::WAIT:
-            updateWait(dt);
-            break;
-        case FBDefs::AI_STATE::CHASE:
-            chaseBall(dt);
-            break;
-        case FBDefs::AI_STATE::AI_CONTROL:
-            updateAIControlBall(dt);
-            break;
-        default:
-            break;
-    }
+//    switch (m_state)
+//    {
+//        case FBDefs::AI_STATE::BACKHOME:
+//            returnToHome(dt);
+//            break;
+//        case FBDefs::AI_STATE::WAIT:
+//            updateWait(dt);
+//            break;
+//        case FBDefs::AI_STATE::CHASE:
+//            chaseBall(dt);
+//            break;
+//        case FBDefs::AI_STATE::AI_CONTROL:
+//            updateAIControlBall(dt);
+//            break;
+//        default:
+//            break;
+//    }
 
 }
 

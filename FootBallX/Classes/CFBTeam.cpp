@@ -44,15 +44,6 @@ bool CFBTeam::init(const vector<string>& cardPlayers)
 
 void CFBTeam::update(float dt)
 {
-    if (this->isAttacking())
-    {
-        updateFieldStatusOnAttack();
-    }
-    else if (this->isDefending())
-    {
-        updateFieldStatusOnDefend();
-    }
-    
     m_formation->update(dt);
     
     function<bool(float, float)> comp =
@@ -75,6 +66,22 @@ void CFBTeam::update(float dt)
             }
         }
     }
+}
+
+
+
+void CFBTeam::think()
+{
+    if (this->isAttacking())
+    {
+        updateFieldStatusOnAttack();
+    }
+    else if (this->isDefending())
+    {
+        updateFieldStatusOnDefend();
+    }
+    
+    m_formation->think();
 }
 
 

@@ -30,7 +30,7 @@ public:
     virtual void setMovingVector(const cocos2d::Point& vec);
     virtual void setMovingVector(float x, float y);
     virtual const cocos2d::Point& getMovingVector() { return m_movingVector; }
-    virtual bool moveTo(const cocos2d::Point& pos);
+    virtual bool moveTo(const cocos2d::Point& pos, float dt = 0.f);
     
     virtual void setInstruction(FBDefs::PLAYER_INS ins) { m_instruction = ins; }
     virtual FBDefs::PLAYER_INS getInstruction() { return m_instruction; }

@@ -26,6 +26,8 @@ public:
     
     virtual void update(float dt) override;
     
+    virtual long long getTime() override;
+    virtual float getDeltaTime(long long) override;
 protected:
     TEAM_POSITION_FUNC m_teamPositionAck;
     START_MATCH_FUNC m_startMatchAck;

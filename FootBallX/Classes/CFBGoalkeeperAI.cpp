@@ -31,17 +31,17 @@ void CFBGoalkeeperAI::update(float dt)
 {
     CFBPlayerAI::update(dt);
     
-    switch (m_state)
-    {
-        case FBDefs::AI_STATE::BACKHOME:
-            returnToHome(dt);
-            break;
-        case FBDefs::AI_STATE::WAIT:
-            updateWait(dt);
-            break;
-        default:
-            break;
-    }
+//    switch (m_state)
+//    {
+//        case FBDefs::AI_STATE::BACKHOME:
+//            returnToHome(dt);
+//            break;
+//        case FBDefs::AI_STATE::WAIT:
+//            updateWait(dt);
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 
