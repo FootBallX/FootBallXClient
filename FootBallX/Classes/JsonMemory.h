@@ -46,7 +46,7 @@ protected:
     std::vector<int> m_poolSize;
     
     typedef int BLOCK_HEADER_TYPE;
-    typedef unsigned short UNIT_HEADER_TYPE;
+    typedef int UNIT_HEADER_TYPE;
     
     const int START_BUFFER_SIZE = 32;
     
