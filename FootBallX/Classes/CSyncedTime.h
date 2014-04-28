@@ -32,7 +32,7 @@ protected:
     long long m_serverTime = 0;
     
     bool m_isSyncing = false;
-    const int m_syncCountMax = 5;
+    const int m_syncCountMax = 20;
     int m_syncCount;
     
     vector<int> m_pings;

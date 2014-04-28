@@ -29,6 +29,9 @@ enum class Z_ORDER : int
 #endif
     COUNT_DOWN,
     MENU,
+#ifdef DEBUG
+    STAT,
+#endif
 };
 
 static class CMatchLayerRegister
@@ -43,6 +46,9 @@ public:
 
 #define TAG_ACTION_FLIP3D           1001
 #define TAG_COUNT_DOWN              1002
+#ifdef DEBUG
+#define TAG_STAT                    1003
+#endif
 
 CMatchLayer::CMatchLayer()
 {
@@ -249,12 +255,19 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
         
         const char* FONT_NAME = "Helvetica";
         const int FONT_SIZE = 32 * cocosbuilder::CCBReader::getResolutionScale();
-        
+
         auto countDownSpr = Label::createWithSystemFont("", FONT_NAME, FONT_SIZE);
         addChild(countDownSpr, (int)Z_ORDER::COUNT_DOWN, TAG_COUNT_DOWN);
         countDownSpr->setVisible(false);
         auto sz = Director::getInstance()->getWinSize();
         countDownSpr->setPosition(sz.width * 0.5f, sz.height * 0.5f);
+        
+#ifdef DEBUG
+        auto stat = Label::createWithSystemFont("", FONT_NAME, 18 * cocosbuilder::CCBReader::getResolutionScale());
+        stat->setAnchorPoint(Point(0, 1));
+        stat->setPosition(0, sz.height);
+        addChild(stat, (int)Z_ORDER::STAT, TAG_STAT);
+#endif
         
         BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
 
@@ -312,6 +325,15 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoad
 void CMatchLayer::update(float dt)
 {
     CBaseLayer::update(dt);
+    
+#ifdef DEBUG
+    {
+        auto stat = (Label*)getChildByTag(TAG_STAT);
+        char ss[100];
+        sprintf(ss, "time: %lld", FBMATCH->getTime());
+        stat->setString(ss);
+    }
+#endif
     
     FBMATCH->update(dt);
     

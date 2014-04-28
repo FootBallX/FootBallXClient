@@ -561,6 +561,13 @@ int CFBMatch::getCountDownTime()
     return (int)-m_proxy->getDeltaTime(m_startTime);
 }
 
+
+
+long long CFBMatch::getTime()
+{
+    return m_proxy->getTime();
+}
+
 #pragma mark - encounter
 
 void CFBMatch::updateEncounter(float dt)
@@ -707,6 +714,7 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
     
     int size = fmt->getPlayerNumber();
     float dt = m_proxy->getDeltaTime(timeStamp);
+    log("dt: %f", dt);
     
     for (int i = 0; i < size; ++i)
     {
