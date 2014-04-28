@@ -1,1 +1,1 @@
-/Users/matakashi/Documents/Project/gyp/gyp-read-only/gyp --depth=. pomelo.gyp -Dlibrary=static_library -DTO=pc $@
+/Users/matakashi/Documents/Project/gyp-read-only/gyp --depth=. pomelo.gyp -Dlibrary=static_library -DTO=pc $@

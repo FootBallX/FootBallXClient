@@ -67,7 +67,7 @@
         'include/pomelo-private/map.h',
         'include/pomelo-private/ngx-queue.h',
         'include/pomelo-private/transport.h',
-        'include/pomelo-private/_memory.h',
+        'include/pomelo-private/jansson-memory.h',
         'include/pomelo-protobuf/pb-util.h',
         'include/pomelo-protobuf/pb.h',
         'include/pomelo-protocol/message.h',
@@ -90,7 +90,7 @@
         'src/transport.c',
         'src/protocol.c',
         'src/thread.c',
-        'src/memory.c',
+        'src/jansson-memory.c',
       ],
       'conditions': [
         ['OS != "win"', {

@@ -3,28 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		122BEC362D7376404265AF67 /* listener.c in Sources */ = {isa = PBXBuildFile; fileRef = D990E2390368348ACD74503B /* listener.c */; };
-		31417B769C8D5D10E9CAD799 /* msg-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 6EBA7309E35A99F250B11EAC /* msg-json.c */; };
-		3FD8C2DC0EDD36DBA37094EF /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = D88068FDCABC80CA59FC5CD8 /* message.c */; };
-		4195A1378573FF28BAE44EC1 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = C2B17D75D3EB57AA81E9D5F7 /* thread.c */; };
-		48F60F494D9BA761985A6B5C /* client.c in Sources */ = {isa = PBXBuildFile; fileRef = D296F173D8BC2522D83B619B /* client.c */; };
-		51923384228C82B1F5AAAC28 /* protocol.c in Sources */ = {isa = PBXBuildFile; fileRef = AA7783075FCDBAF16776B1CB /* protocol.c */; };
-		54CD5DAE18FB897D00A99A60 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 54CD5DAD18FB897D00A99A60 /* memory.c */; };
-		5572037675C86FE90AE3247B /* pb-encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 88DD628F5980E363D6CD7429 /* pb-encode.c */; };
-		578913EA93DD3F1E71C0D7C6 /* pb-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E445EB4DD2E1486E2E4EF058 /* pb-decode.c */; };
-		5B219998380A9C807462DAA9 /* package.c in Sources */ = {isa = PBXBuildFile; fileRef = 46838A97020ABE01515E9686 /* package.c */; };
-		5BC4B4A6FEABD9BF2526E15B /* map.c in Sources */ = {isa = PBXBuildFile; fileRef = FD142599BAB523E87FC39897 /* map.c */; };
-		60B669E0F33B59B2E62C601F /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C152036C6CA6853783E4A65 /* network.c */; };
-		71F2E312AEA7855BD6360CDD /* pb-util.c in Sources */ = {isa = PBXBuildFile; fileRef = 16AEBE4B3DDF6643C43D90AF /* pb-util.c */; };
-		75CBF354F8B0D8AE610DC98F /* transport.c in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B2AC84C659D95243B8BD /* transport.c */; };
-		88D7CE26279948F9F9EBFF15 /* pkg-heartbeat.c in Sources */ = {isa = PBXBuildFile; fileRef = 669696E48600F36F9ACE5505 /* pkg-heartbeat.c */; };
-		8E57CAB0FEB8543DDA6172ED /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 16EF87B722016AAC04EE8335 /* common.c */; };
-		D45173073B2FDF9E52FB0FB7 /* msg-pb.c in Sources */ = {isa = PBXBuildFile; fileRef = C994BAB82106B6246CC5712C /* msg-pb.c */; };
-		EF4CD506E0467501C01C8933 /* pkg-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA0AAD28DD689BA69CF13D /* pkg-handshake.c */; };
+		2C2522274EC075CB04B91D4A /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 16EF87B722016AAC04EE8335 /* common.c */; };
+		39A6A4E92B3B7FAF92C467E2 /* listener.c in Sources */ = {isa = PBXBuildFile; fileRef = D990E2390368348ACD74503B /* listener.c */; };
+		52C70ED138D278C577A683D8 /* pb-util.c in Sources */ = {isa = PBXBuildFile; fileRef = 16AEBE4B3DDF6643C43D90AF /* pb-util.c */; };
+		59B83C7160E177689D0C9970 /* pb-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E445EB4DD2E1486E2E4EF058 /* pb-decode.c */; };
+		6A845D92C5CEB4037E13F077 /* pb-encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 88DD628F5980E363D6CD7429 /* pb-encode.c */; };
+		83A374841CEF815170902BA6 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = D88068FDCABC80CA59FC5CD8 /* message.c */; };
+		86DAC4B348C1B7C25B277407 /* msg-json.c in Sources */ = {isa = PBXBuildFile; fileRef = 6EBA7309E35A99F250B11EAC /* msg-json.c */; };
+		87CC80910337E687C8C18C3E /* transport.c in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B2AC84C659D95243B8BD /* transport.c */; };
+		8BEB51221A38280987F7E467 /* map.c in Sources */ = {isa = PBXBuildFile; fileRef = FD142599BAB523E87FC39897 /* map.c */; };
+		A41EEB74B651E65B4A443F29 /* jansson-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 5916E81DC8608C43D152C8A4 /* jansson-memory.c */; };
+		C4CE4FCFD2724FBA635C2375 /* package.c in Sources */ = {isa = PBXBuildFile; fileRef = 46838A97020ABE01515E9686 /* package.c */; };
+		CF8D91DCD259F8FE062D504E /* protocol.c in Sources */ = {isa = PBXBuildFile; fileRef = AA7783075FCDBAF16776B1CB /* protocol.c */; };
+		D51D9E6D819185F176CC622C /* client.c in Sources */ = {isa = PBXBuildFile; fileRef = D296F173D8BC2522D83B619B /* client.c */; };
+		E0A93AF23B727E6A76D2F2BA /* network.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C152036C6CA6853783E4A65 /* network.c */; };
+		E898B052274F45D86CB2D71B /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = C2B17D75D3EB57AA81E9D5F7 /* thread.c */; };
+		ECC5C9055E1256C576612E9D /* pkg-heartbeat.c in Sources */ = {isa = PBXBuildFile; fileRef = 669696E48600F36F9ACE5505 /* pkg-heartbeat.c */; };
+		EEF9E71791D440B7BFC1664A /* pkg-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA0AAD28DD689BA69CF13D /* pkg-handshake.c */; };
+		F2BAED0D24E26AD26551109A /* msg-pb.c in Sources */ = {isa = PBXBuildFile; fileRef = C994BAB82106B6246CC5712C /* msg-pb.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,13 +34,13 @@
 		16EF87B722016AAC04EE8335 /* common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
 		1E7CC53ABF019266ABC4FD38 /* internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
 		1F8A117AABE8B43E8D632CA0 /* pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		2DB015B5741F258D1DF84FED /* jansson-memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jansson-memory.h"; sourceTree = "<group>"; };
 		2FDA0AAD28DD689BA69CF13D /* pkg-handshake.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "pkg-handshake.c"; sourceTree = "<group>"; };
 		36C1B2AC84C659D95243B8BD /* transport.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = transport.c; sourceTree = "<group>"; };
 		46838A97020ABE01515E9686 /* package.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = package.c; sourceTree = "<group>"; };
 		4C152036C6CA6853783E4A65 /* network.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = network.c; sourceTree = "<group>"; };
 		4CD908F8AC9AB82D7196D5B7 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		54CD5DAD18FB897D00A99A60 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
-		54CD5DAF18FB898700A99A60 /* memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
+		5916E81DC8608C43D152C8A4 /* jansson-memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "jansson-memory.c"; sourceTree = "<group>"; };
 		63B528C5FC14F0F35FB3D865 /* pb-util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pb-util.h"; sourceTree = "<group>"; };
 		642C33C4778345B0EC88D044 /* message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
 		669696E48600F36F9ACE5505 /* pkg-heartbeat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "pkg-heartbeat.c"; sourceTree = "<group>"; };
@@ -73,24 +73,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0760E814E1D985A5C578BEF8 /* pomelo-private */ = {
-			isa = PBXGroup;
-			children = (
-				54CD5DAF18FB898700A99A60 /* memory.h */,
-				4CD908F8AC9AB82D7196D5B7 /* common.h */,
-				1E7CC53ABF019266ABC4FD38 /* internal.h */,
-				7534114F5F629BD249600852 /* listener.h */,
-				0CAD32CDFD4BF423D071D306 /* map.h */,
-				CD10CC580F21349EAA1C70F8 /* ngx-queue.h */,
-				9FFF236E60C50A1DE94809DC /* transport.h */,
-			);
-			path = "pomelo-private";
-			sourceTree = "<group>";
-		};
 		1A34A6FDB5AEBC823361B49F /* include */ = {
 			isa = PBXGroup;
 			children = (
-				0760E814E1D985A5C578BEF8 /* pomelo-private */,
+				511A0BC4BC5167788127E2A2 /* pomelo-private */,
 				CB8ACC669EFC6586D75712AF /* pomelo-protobuf */,
 				F338B57D84AFDD82ED78B6BF /* pomelo-protocol */,
 				C205231D282F36070811A2B7 /* pomelo.h */,
@@ -106,12 +92,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A14912B826C50E362CD6591D /* src */ = {
+		511A0BC4BC5167788127E2A2 /* pomelo-private */ = {
 			isa = PBXGroup;
 			children = (
-				54CD5DAD18FB897D00A99A60 /* memory.c */,
+				4CD908F8AC9AB82D7196D5B7 /* common.h */,
+				1E7CC53ABF019266ABC4FD38 /* internal.h */,
+				2DB015B5741F258D1DF84FED /* jansson-memory.h */,
+				7534114F5F629BD249600852 /* listener.h */,
+				0CAD32CDFD4BF423D071D306 /* map.h */,
+				CD10CC580F21349EAA1C70F8 /* ngx-queue.h */,
+				9FFF236E60C50A1DE94809DC /* transport.h */,
+			);
+			path = "pomelo-private";
+			sourceTree = "<group>";
+		};
+		5778615C1ED99C21D15DFA0A /* src */ = {
+			isa = PBXGroup;
+			children = (
 				D296F173D8BC2522D83B619B /* client.c */,
 				16EF87B722016AAC04EE8335 /* common.c */,
+				5916E81DC8608C43D152C8A4 /* jansson-memory.c */,
 				D990E2390368348ACD74503B /* listener.c */,
 				FD142599BAB523E87FC39897 /* map.c */,
 				D88068FDCABC80CA59FC5CD8 /* message.c */,
@@ -170,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1A34A6FDB5AEBC823361B49F /* include */,
-				A14912B826C50E362CD6591D /* src */,
+				5778615C1ED99C21D15DFA0A /* src */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -204,11 +204,7 @@
 			};
 			buildConfigurationList = 8507625DC7EBB8838C0F9137 /* Build configuration list for PBXProject "pomelo" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
-			knownRegions = (
-				en,
-			);
 			mainGroup = D4A8831A12C91E54580ED81B;
 			projectDirPath = "";
 			projectRoot = "";
@@ -223,24 +219,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48F60F494D9BA761985A6B5C /* client.c in Sources */,
-				8E57CAB0FEB8543DDA6172ED /* common.c in Sources */,
-				122BEC362D7376404265AF67 /* listener.c in Sources */,
-				5BC4B4A6FEABD9BF2526E15B /* map.c in Sources */,
-				54CD5DAE18FB897D00A99A60 /* memory.c in Sources */,
-				3FD8C2DC0EDD36DBA37094EF /* message.c in Sources */,
-				31417B769C8D5D10E9CAD799 /* msg-json.c in Sources */,
-				D45173073B2FDF9E52FB0FB7 /* msg-pb.c in Sources */,
-				60B669E0F33B59B2E62C601F /* network.c in Sources */,
-				5B219998380A9C807462DAA9 /* package.c in Sources */,
-				578913EA93DD3F1E71C0D7C6 /* pb-decode.c in Sources */,
-				5572037675C86FE90AE3247B /* pb-encode.c in Sources */,
-				71F2E312AEA7855BD6360CDD /* pb-util.c in Sources */,
-				EF4CD506E0467501C01C8933 /* pkg-handshake.c in Sources */,
-				88D7CE26279948F9F9EBFF15 /* pkg-heartbeat.c in Sources */,
-				75CBF354F8B0D8AE610DC98F /* transport.c in Sources */,
-				51923384228C82B1F5AAAC28 /* protocol.c in Sources */,
-				4195A1378573FF28BAE44EC1 /* thread.c in Sources */,
+				D51D9E6D819185F176CC622C /* client.c in Sources */,
+				2C2522274EC075CB04B91D4A /* common.c in Sources */,
+				39A6A4E92B3B7FAF92C467E2 /* listener.c in Sources */,
+				8BEB51221A38280987F7E467 /* map.c in Sources */,
+				83A374841CEF815170902BA6 /* message.c in Sources */,
+				86DAC4B348C1B7C25B277407 /* msg-json.c in Sources */,
+				F2BAED0D24E26AD26551109A /* msg-pb.c in Sources */,
+				E0A93AF23B727E6A76D2F2BA /* network.c in Sources */,
+				C4CE4FCFD2724FBA635C2375 /* package.c in Sources */,
+				59B83C7160E177689D0C9970 /* pb-decode.c in Sources */,
+				6A845D92C5CEB4037E13F077 /* pb-encode.c in Sources */,
+				52C70ED138D278C577A683D8 /* pb-util.c in Sources */,
+				EEF9E71791D440B7BFC1664A /* pkg-handshake.c in Sources */,
+				ECC5C9055E1256C576612E9D /* pkg-heartbeat.c in Sources */,
+				87CC80910337E687C8C18C3E /* transport.c in Sources */,
+				CF8D91DCD259F8FE062D504E /* protocol.c in Sources */,
+				E898B052274F45D86CB2D71B /* thread.c in Sources */,
+				A41EEB74B651E65B4A443F29 /* jansson-memory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
