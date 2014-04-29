@@ -23,8 +23,16 @@ bool CSyncedTime::init()
 
 void CSyncedTime::update(float dt)
 {
-    float delta = dt * 1000000.f;
+    float delta = dt * 1000.f;
     m_serverTime += (int)delta;
+    
+    if (m_isSyncing && m_startSyncTime < 0)
+    {
+        syncTime();
+        m_startSyncTime = FLT_MAX;
+    }
+    
+    m_startSyncTime -= dt;
 }
 
 
@@ -35,7 +43,7 @@ void CSyncedTime::startSyncTime()
     m_syncCount = m_syncCountMax;
     m_pings.clear();
     
-    syncTime();
+    m_startSyncTime = 0.f;
 }
 
 
@@ -66,7 +74,7 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
     {
         log("serT: %lld", m_serverTime);
         log("ping %d -- > %d", m_syncCount, ping);
-        syncTime();
+        m_startSyncTime = 0.25f;
     }
     else
     {
@@ -83,7 +91,7 @@ long long CSyncedTime::getClientTime()
     
     gettimeofday(&now, nullptr);
     
-    return now.tv_sec * 1000000  + now.tv_usec;
+    return now.tv_sec * 1000  + now.tv_usec / 1000;
 }
 
 

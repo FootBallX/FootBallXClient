@@ -106,6 +106,11 @@ bool CFBPlayer::moveTo(const Point& pos, float dt)
     }
     else
     {
+        if (dt < 0)
+        {
+            dt = 0;
+        }
+        
         m_movingVector = (pos - m_curPosition).normalize();
         m_curPosition += m_movingVector * (dt * getSpeed());
         return false;

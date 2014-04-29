@@ -100,7 +100,7 @@ protected:
         OPP,        // 对方
         NONE,
     };
-    const float m_SYNC_TIME = 1.f;
+    const float m_SYNC_TIME = .5f;
     
     CFBMatchProxy* m_proxy = nullptr;
     

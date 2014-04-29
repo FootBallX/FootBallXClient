@@ -82,12 +82,21 @@ void CFBMatchProxyNet::setEndMatchAck(END_MATCH_FUNC f)
 
 void CFBMatchProxyNet::update(float dt)
 {
+    m_syncedTimer.update(dt);
+    
     switch (m_startStep)
     {
         case START_STEP::SYNC_TIME_BEGIN:
         {
-            m_startStep = START_STEP::SYNC_TIME;
-            m_syncedTimer.startSyncTime();
+            if (m_startSyncTime < 0)
+            {
+                m_startStep = START_STEP::SYNC_TIME;
+                m_syncedTimer.startSyncTime();
+            }
+            else
+            {
+                m_startSyncTime -= dt;
+            }
             break;
         }
         case START_STEP::SYNC_TIME:
@@ -109,7 +118,6 @@ void CFBMatchProxyNet::update(float dt)
             break;
         }
         default:
-            m_syncedTimer.update(dt);
             break;
     }
 }
@@ -220,5 +228,5 @@ long long CFBMatchProxyNet::getTime()
 
 float CFBMatchProxyNet::getDeltaTime(long long time)
 {
-    return (m_syncedTimer.getTime() - time) / 1000000.f;
+    return (m_syncedTimer.getTime() - time) / 1000.f;
 }

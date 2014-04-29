@@ -36,6 +36,8 @@ protected:
     int m_syncCount;
     
     vector<int> m_pings;
+    
+    float m_startSyncTime = FLT_MAX;
 };
 
 

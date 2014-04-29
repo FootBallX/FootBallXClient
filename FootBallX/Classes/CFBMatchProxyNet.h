@@ -63,6 +63,8 @@ protected:
     START_STEP m_startStep = START_STEP::NONE;
     
     bool m_isDominator = false;
+    
+    float m_startSyncTime = 2.0f;
 };
 
 #endif /* defined(__FootBallX__CFBMatchProxyNet__) */

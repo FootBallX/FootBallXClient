@@ -714,7 +714,6 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
     
     int size = fmt->getPlayerNumber();
     float dt = m_proxy->getDeltaTime(timeStamp);
-    log("dt: %f", dt);
     
     for (int i = 0; i < size; ++i)
     {
@@ -741,7 +740,7 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
 //        }
     }
     
-    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
+    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME * 2;
 }
 
 
