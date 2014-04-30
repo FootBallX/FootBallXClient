@@ -10,6 +10,7 @@
 #include "pomelo-private/internal.h"
 #include "pomelo-private/common.h"
 #include "pomelo-private/ngx-queue.h"
+#include "pomelo-private/jansson-memory.h"
 
 static void pc__client_init(pc_client_t *client);
 static void pc__close_async_cb(uv_async_t *handle, int status);
@@ -17,7 +18,7 @@ static void pc__release_listeners(pc_map_t *map, const char* key, void *value);
 static void pc__release_requests(pc_map_t *map, const char* key, void *value);
 
 pc_client_t *pc_client_new() {
-  pc_client_t *client = (pc_client_t *)malloc(sizeof(pc_client_t));
+  pc_client_t *client = (pc_client_t *)pc_jsonp_malloc(sizeof(pc_client_t));
 
   if(!client) {
     fprintf(stderr, "Fail to malloc for pc_client_t.\n");
@@ -56,7 +57,7 @@ void pc__client_init(pc_client_t *client) {
     abort();
   }
 
-  client->heartbeat_timer = (uv_timer_t *)malloc(sizeof(uv_timer_t));
+  client->heartbeat_timer = (uv_timer_t *)pc_jsonp_malloc(sizeof(uv_timer_t));
   if(client->heartbeat_timer == NULL) {
     fprintf(stderr, "Fail to malloc client->heartbeat_timer.\n");
     abort();
@@ -69,7 +70,7 @@ void pc__client_init(pc_client_t *client) {
   client->heartbeat_timer->data = client;
   client->heartbeat = 0;
 
-  client->timeout_timer = (uv_timer_t *)malloc(sizeof(uv_timer_t));
+  client->timeout_timer = (uv_timer_t *)pc_jsonp_malloc(sizeof(uv_timer_t));
   if(client->timeout_timer == NULL) {
     fprintf(stderr, "Fail to malloc client->timeout_timer.\n");
     abort();
@@ -82,7 +83,7 @@ void pc__client_init(pc_client_t *client) {
   client->timeout_timer->data = client;
   client->timeout = 0;
 
-  client->close_async = (uv_async_t *)malloc(sizeof(uv_async_t));
+  client->close_async = (uv_async_t *)pc_jsonp_malloc(sizeof(uv_async_t));
   uv_async_init(client->uv_loop, client->close_async, pc__close_async_cb);
   client->close_async->data = client;
   uv_mutex_init(&client->mutex);
@@ -227,7 +228,7 @@ finally:
     uv_loop_delete(client->uv_loop);
     client->uv_loop = NULL;
   }
-  free(client);
+  pc_jsonp_free(client);
 }
 
 int pc_client_join(pc_client_t *client) {
@@ -303,7 +304,7 @@ int pc_add_listener(pc_client_t *client, const char *event,
   ngx_queue_t *head = (ngx_queue_t *)pc_map_get(client->listeners, event);
 
   if(head == NULL) {
-    head = (ngx_queue_t *)malloc(sizeof(ngx_queue_t));
+    head = (ngx_queue_t *)pc_jsonp_malloc(sizeof(ngx_queue_t));
     if(head == NULL) {
       fprintf(stderr, "Fail to create listener queue.\n");
       pc_listener_destroy(listener);
@@ -344,7 +345,7 @@ void pc_remove_listener(pc_client_t *client, const char *event, pc_event_cb cb) 
 
   if(ngx_queue_empty(head)) {
     pc_map_del(client->listeners, event);
-    free(head);
+    pc_jsonp_free(head);
   }
   uv_mutex_unlock(&client->listener_mutex);
 }
@@ -392,7 +393,7 @@ void pc__release_listeners(pc_map_t *map, const char* key, void *value) {
     pc_listener_destroy(l);
   }
 
-  free(head);
+  pc_jsonp_free(head);
 }
 
 void pc__release_requests(pc_map_t *map, const char* key, void *value) {

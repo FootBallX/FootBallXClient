@@ -1,5 +1,6 @@
 #include "pomelo.h"
 #include "pomelo-private/internal.h"
+#include "pomelo-private/jansson-memory.h"
 
 void pc__cond_wait(pc_client_t *client, uint64_t timeout) {
   uv_mutex_lock(&client->mutex);

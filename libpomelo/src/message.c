@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <string.h>
 #include "pomelo-protocol/message.h"
+#include "pomelo-private/jansson-memory.h"
 
 static uint8_t pc__msg_id_length(uint32_t id);
 
@@ -24,7 +25,7 @@ pc_buf_t pc_msg_encode_route(uint32_t id, pc_msg_type type,
   size_t msg_len = PC_MSG_FLAG_BYTES + id_len + PC_MSG_ROUTE_LEN_BYTES +
                    route_len + msg.len;
 
-  char *base = buf.base = (char *)malloc(msg_len);
+  char *base = buf.base = (char *)pc_jsonp_malloc(msg_len);
 
   if(buf.base == NULL) {
     buf.len = -1;
@@ -54,7 +55,7 @@ pc_buf_t pc_msg_encode_route(uint32_t id, pc_msg_type type,
   return buf;
 
 error:
-  if(buf.len != -1) free(buf.base);
+  if(buf.len != -1) pc_jsonp_free(buf.base);
   buf.len = -1;
   return buf;
 }
@@ -70,7 +71,7 @@ pc_buf_t pc_msg_encode_code(uint32_t id, pc_msg_type type,
 
   size_t msg_len = PC_MSG_FLAG_BYTES + id_len + route_len + msg.len;
 
-  char *base = buf.base = (char *)malloc(msg_len);
+  char *base = buf.base = (char *)pc_jsonp_malloc(msg_len);
 
   if(buf.base == NULL) {
     buf.len = -1;
@@ -101,7 +102,7 @@ pc_buf_t pc_msg_encode_code(uint32_t id, pc_msg_type type,
   return buf;
 
 error:
-  if(buf.len != -1) free(buf.base);
+  if(buf.len != -1) pc_jsonp_free(buf.base);
   buf.len = -1;
   return buf;
 }
@@ -111,7 +112,7 @@ pc__msg_raw_t *pc_msg_decode(const char *data, size_t len) {
   char *route_str = NULL;
   char *body = NULL;
 
-  msg = (pc__msg_raw_t *)malloc(sizeof(pc__msg_raw_t));
+  msg = (pc__msg_raw_t *)pc_jsonp_malloc(sizeof(pc__msg_raw_t));
   if(msg == NULL) {
     fprintf(stderr, "Fail to malloc for pc_raw_msg_t.\n");
     return NULL;
@@ -164,7 +165,7 @@ pc__msg_raw_t *pc_msg_decode(const char *data, size_t len) {
       size_t route_len = data[offset++];
 
       if(route_len) {
-        route_str = (char *)malloc(route_len + 1);
+        route_str = (char *)pc_jsonp_malloc(route_len + 1);
         if(route_str == NULL) {
           fprintf(stderr, "Fail to malloc for message route string.\n");
           goto error;
@@ -183,7 +184,7 @@ pc__msg_raw_t *pc_msg_decode(const char *data, size_t len) {
   // body
   size_t body_len = len - offset;
   if(body_len) {
-    body = (char *)malloc(body_len);
+    body = (char *)pc_jsonp_malloc(body_len);
     memcpy(body, data + offset, body_len);
   }
   msg->body.base = body;
@@ -192,9 +193,9 @@ pc__msg_raw_t *pc_msg_decode(const char *data, size_t len) {
   return msg;
 
 error:
-  if(msg) free(msg);
-  if(route_str) free((void *)route_str);
-  if(body) free(body);
+  if(msg) pc_jsonp_free(msg);
+  if(route_str) pc_jsonp_free((void *)route_str);
+  if(body) pc_jsonp_free(body);
   return NULL;
 }
 
@@ -239,20 +240,20 @@ static uint8_t pc__msg_id_length(uint32_t id) {
 
 void pc_msg_destroy(pc_msg_t *msg) {
   if(msg == NULL) return;
-  if(msg->route) free((void *)msg->route);
+  if(msg->route) pc_jsonp_free((void *)msg->route);
   if(msg->msg) {
     json_decref(msg->msg);
     msg->msg = NULL;
   }
-  free(msg);
+  pc_jsonp_free(msg);
 }
 
 void pc__raw_msg_destroy(pc__msg_raw_t *msg) {
   if(!msg->compressRoute && msg->route.route_str) {
-    free((void *)msg->route.route_str);
+    pc_jsonp_free((void *)msg->route.route_str);
   }
   if(msg->body.len > 0) {
-    free(msg->body.base);
+    pc_jsonp_free(msg->body.base);
   }
-  free(msg);
+  pc_jsonp_free(msg);
 }

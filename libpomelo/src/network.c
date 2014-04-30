@@ -7,6 +7,7 @@
 #include "pomelo-protocol/message.h"
 #include "pomelo-private/common.h"
 #include "pomelo-private/transport.h"
+#include "pomelo-private/jansson-memory.h"
 
 int pc__handshake_req(pc_client_t *client);
 
@@ -33,7 +34,7 @@ pc_connect_t *pc_connect_req_new(struct sockaddr_in *address) {
     return NULL;
   }
 
-  pc_connect_t *req = (pc_connect_t *)malloc(sizeof(pc_connect_t));
+  pc_connect_t *req = (pc_connect_t *)pc_jsonp_malloc(sizeof(pc_connect_t));
   if(req == NULL) {
     fprintf(stderr, "Fail to malloc for pc_connect_t.\n");
     return NULL;
@@ -43,7 +44,7 @@ pc_connect_t *pc_connect_req_new(struct sockaddr_in *address) {
   req->type = PC_CONNECT;
 
   struct sockaddr_in *cpy_addr =
-      (struct sockaddr_in *)malloc(sizeof (struct sockaddr_in));
+      (struct sockaddr_in *)pc_jsonp_malloc(sizeof (struct sockaddr_in));
 
   if(cpy_addr == NULL) {
     fprintf(stderr, "Fail to malloc sockaddr_in in pc_connect_req_init.\n");
@@ -56,17 +57,17 @@ pc_connect_t *pc_connect_req_new(struct sockaddr_in *address) {
   return req;
 
 error:
-  if(req) free(req);
-  if(cpy_addr) free(cpy_addr);
+  if(req) pc_jsonp_free(req);
+  if(cpy_addr) pc_jsonp_free(cpy_addr);
   return NULL;
 }
 
 void pc_connect_req_destroy(pc_connect_t *req) {
   if(req->address) {
-    free(req->address);
+    pc_jsonp_free(req->address);
     req->address = NULL;
   }
-  free(req);
+  pc_jsonp_free(req);
 }
 
 /**
@@ -90,13 +91,13 @@ int pc_connect(pc_client_t *client, pc_connect_t *req,
   pc_transport_t *transport = NULL;
   void **data = NULL;
 
-  connect_req = (uv_connect_t *)malloc(sizeof(uv_connect_t));
+  connect_req = (uv_connect_t *)pc_jsonp_malloc(sizeof(uv_connect_t));
   if(connect_req == NULL) {
     fprintf(stderr, "Fail to malloc for uv_connect_t.\n");
     return -1;
   }
 
-  data = (void **)malloc(sizeof(void *) * 2);
+  data = (void **)pc_jsonp_malloc(sizeof(void *) * 2);
 
   if(data == NULL) {
     fprintf(stderr, "Fail to malloc for data array in pc_connect.\n");
@@ -131,15 +132,15 @@ int pc_connect(pc_client_t *client, pc_connect_t *req,
 
 error:
   req->data = NULL;
-  if(data) free(data);
+  if(data) pc_jsonp_free(data);
   if(transport) pc_transport_destroy(transport);
-  if(connect_req) free(connect_req);
+  if(connect_req) pc_jsonp_free(connect_req);
 
   return -1;
 }
 
 pc_request_t *pc_request_new() {
-  pc_request_t *req = (pc_request_t *)malloc(sizeof(pc_request_t));
+  pc_request_t *req = (pc_request_t *)pc_jsonp_malloc(sizeof(pc_request_t));
   if(req == NULL) {
     fprintf(stderr, "Fail to malloc for new pc_request_t.\n");
     return NULL;
@@ -153,10 +154,10 @@ pc_request_t *pc_request_new() {
 
 void pc_request_destroy(pc_request_t *req) {
   if(req->route) {
-    free((void *)req->route);
+    pc_jsonp_free((void *)req->route);
     req->route = NULL;
   }
-  free(req);
+  pc_jsonp_free(req);
 }
 
 int pc_request(pc_client_t *client, pc_request_t *req, const char *route,
@@ -174,7 +175,7 @@ int pc_request(pc_client_t *client, pc_request_t *req, const char *route,
  * Create and initiate notify request instance.
  */
 pc_notify_t *pc_notify_new() {
-  pc_notify_t *req = (pc_notify_t *)malloc(sizeof(pc_notify_t));
+  pc_notify_t *req = (pc_notify_t *)pc_jsonp_malloc(sizeof(pc_notify_t));
   if(req == NULL) {
     fprintf(stderr, "Fail to malloc new pc_notify_t.\n");
     return NULL;
@@ -187,10 +188,10 @@ pc_notify_t *pc_notify_new() {
 
 void pc_notify_destroy(pc_notify_t *req) {
   if(req->route) {
-    free((void *)req->route);
+    pc_jsonp_free((void *)req->route);
     req->route = NULL;
   }
-  free(req);
+  pc_jsonp_free(req);
 }
 
 /**
@@ -244,7 +245,7 @@ static void pc__request(pc_request_t *req, int status) {
     goto error;
   }
 
-  write_req = (uv_write_t *)malloc(sizeof(uv_write_t));
+  write_req = (uv_write_t *)pc_jsonp_malloc(sizeof(uv_write_t));
 
   if(write_req == NULL) {
     goto error;
@@ -253,7 +254,7 @@ static void pc__request(pc_request_t *req, int status) {
   memset(write_req, 0, sizeof(uv_write_t));
 
   // record request context
-  data = (void **)malloc(sizeof(void *) * 2);
+  data = (void **)pc_jsonp_malloc(sizeof(void *) * 2);
   if(data == NULL) {
     fprintf(stderr, "Fail to malloc void** for pc__request.\n");
     goto error;
@@ -282,10 +283,10 @@ static void pc__request(pc_request_t *req, int status) {
   return;
 
 error:
-  if(msg_buf.len != -1) free(msg_buf.base);
-  if(pkg_buf.len != -1) free(pkg_buf.base);
-  if(write_req) free(write_req);
-  if(data) free(data);
+  if(msg_buf.len != -1) pc_jsonp_free(msg_buf.base);
+  if(pkg_buf.len != -1) pc_jsonp_free(pkg_buf.base);
+  if(write_req) pc_jsonp_free(write_req);
+  if(data) pc_jsonp_free(data);
   req->cb(req, -1, NULL);
 }
 
@@ -330,7 +331,7 @@ static void pc__notify(pc_notify_t *req, int status) {
     goto error;
   }
 
-  write_req = (uv_write_t *)malloc(sizeof(uv_write_t));
+  write_req = (uv_write_t *)pc_jsonp_malloc(sizeof(uv_write_t));
 
   if(write_req == NULL) {
     goto error;
@@ -339,7 +340,7 @@ static void pc__notify(pc_notify_t *req, int status) {
   memset(write_req, 0, sizeof(uv_write_t));
 
   // record notify context
-  data = (void **)malloc(sizeof(void *) * 2);
+  data = (void **)pc_jsonp_malloc(sizeof(void *) * 2);
   if(data == NULL) {
     fprintf(stderr, "Fail to malloc void** for pc__request.\n");
     goto error;
@@ -363,10 +364,10 @@ static void pc__notify(pc_notify_t *req, int status) {
   return;
 
 error:
-  if(msg_buf.len != -1) free(msg_buf.base);
-  if(pkg_buf.len != -1) free(pkg_buf.base);
-  if(write_req) free(write_req);
-  if(data) free(data);
+  if(msg_buf.len != -1) pc_jsonp_free(msg_buf.base);
+  if(pkg_buf.len != -1) pc_jsonp_free(pkg_buf.base);
+  if(write_req) pc_jsonp_free(write_req);
+  if(data) pc_jsonp_free(data);
   req->cb(req, -1);
 }
 
@@ -374,7 +375,7 @@ error:
  * Allocate buffer callback for uv_read_start.
  */
 static uv_buf_t pc__alloc_buffer(uv_handle_t *handle, size_t suggested_size) {
-  return uv_buf_init((char*) malloc(suggested_size), suggested_size);
+  return uv_buf_init((char*) pc_jsonp_malloc(suggested_size), suggested_size);
 }
 
 /**
@@ -386,8 +387,8 @@ static void pc__on_tcp_connect(uv_connect_t *req, int status) {
   pc_connect_t *conn_req = (pc_connect_t *)data[1];
   pc_client_t *client = transport->client;
 
-  free(req);
-  free(data);
+  pc_jsonp_free(req);
+  pc_jsonp_free(data);
 
   if(PC_ST_CONNECTING != client->state) {
     fprintf(stderr, "Invalid client state when tcp connected: %d.\n",
@@ -449,7 +450,7 @@ static int pc__async_write(pc_transport_t *transport, pc_tcp_req_t *req,
   uv_async_t *async_req = NULL;
   req->route = NULL;
 
-  cpy_route = (char *)malloc(route_len);
+  cpy_route = (char *)pc_jsonp_malloc(route_len);
   if(cpy_route == NULL) {
     fprintf(stderr, "Fail to malloc for route string in pc__async_write.\n");
     goto error;
@@ -462,7 +463,7 @@ static int pc__async_write(pc_transport_t *transport, pc_tcp_req_t *req,
   req->route = cpy_route;
   req->msg = msg;
 
-  async_req = (uv_async_t *)malloc(sizeof(uv_async_t));
+  async_req = (uv_async_t *)pc_jsonp_malloc(sizeof(uv_async_t));
   if(async_req == NULL) {
     fprintf(stderr, "Fail to malloc for async notify.\n");
     goto error;
@@ -487,14 +488,14 @@ static int pc__async_write(pc_transport_t *transport, pc_tcp_req_t *req,
 
 error:
   if(req->route) {
-    free((void *)req->route);
+    pc_jsonp_free((void *)req->route);
     req->route = NULL;
   }
   if(async_inited) {
     // should not release the async_req before close callback
     uv_close((uv_handle_t *)async_req, pc__handle_close_cb);
   } else {
-    if(async_req) free(async_req);
+    if(async_req) pc_jsonp_free(async_req);
   }
   return -1;
 }
@@ -509,7 +510,7 @@ static void pc__async_write_cb(uv_async_t* req, int status) {
   } else {
     fprintf(stderr, "Unknown tcp request type: %d\n", tcp_req->type);
     // TDOO: should abort? How to free unknown tcp request
-    free(tcp_req);
+    pc_jsonp_free(tcp_req);
     return;
   }
 }
@@ -524,9 +525,9 @@ static void pc__on_request(uv_write_t *req, int status) {
   pc_client_t *client = transport->client;
   char *base = (char *)data[1];
 
-  free(base);
-  free(req);
-  free(data);
+  pc_jsonp_free(base);
+  pc_jsonp_free(req);
+  pc_jsonp_free(data);
 
   if(PC_TP_ST_WORKING != transport->state) {
     fprintf(stderr, "Request error for transport not working.\n");
@@ -559,9 +560,9 @@ static void pc__on_notify(uv_write_t *req, int status) {
   pc_client_t *client = transport->client;
   char *base = (char *)data[1];
 
-  free(base);
-  free(req);
-  free(data);
+  pc_jsonp_free(base);
+  pc_jsonp_free(req);
+  pc_jsonp_free(data);
 
   if(PC_TP_ST_WORKING != transport->state) {
     fprintf(stderr, "Notify error for transport not working.\n");
@@ -588,7 +589,7 @@ int pc__binary_write(pc_client_t *client, const char *data, size_t len,
   uv_write_t *req = NULL;
   void **attach = NULL;
 
-  req = (uv_write_t *)malloc(sizeof(uv_write_t));
+  req = (uv_write_t *)pc_jsonp_malloc(sizeof(uv_write_t));
   if(req == NULL) {
     fprintf(stderr, "Fail to malloc for uv_write_t.\n");
     goto error;
@@ -596,7 +597,7 @@ int pc__binary_write(pc_client_t *client, const char *data, size_t len,
 
   memset(req, 0, sizeof(uv_write_t));
 
-  attach = (void **)malloc(sizeof(void *) * 2);
+  attach = (void **)pc_jsonp_malloc(sizeof(void *) * 2);
   if(data == NULL) {
     fprintf(stderr, "Fail to malloc data for handshake ack.\n");
     goto error;
@@ -618,7 +619,7 @@ int pc__binary_write(pc_client_t *client, const char *data, size_t len,
 
   return 0;
 error:
-  if(req) free(req);
-  if(attach) free(attach);
+  if(req) pc_jsonp_free(req);
+  if(attach) pc_jsonp_free(attach);
   return -1;
 }

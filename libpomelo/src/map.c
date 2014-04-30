@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stddef.h>
 #include "pomelo-private/map.h"
+#include "pomelo-private/jansson-memory.h"
 
 static size_t pc__hash(const char *str) {
   size_t hash = 0;
@@ -17,7 +18,7 @@ static size_t pc__hash(const char *str) {
 }
 
 pc_map_t *pc_map_new(size_t capacity, pc_map_value_release release_value) {
-  pc_map_t *map = (pc_map_t *)malloc(sizeof(pc_map_t));
+  pc_map_t *map = (pc_map_t *)pc_jsonp_malloc(sizeof(pc_map_t));
   if(map == NULL) {
     return NULL;
   }
@@ -25,7 +26,7 @@ pc_map_t *pc_map_new(size_t capacity, pc_map_value_release release_value) {
   memset(map, 0, sizeof(pc_map_t));
 
   if(pc_map_init(map, capacity, release_value)) {
-    free(map);
+    pc_jsonp_free(map);
     return NULL;
   }
 
@@ -34,7 +35,7 @@ pc_map_t *pc_map_new(size_t capacity, pc_map_value_release release_value) {
 
 void pc_map_destroy(pc_map_t *map) {
   pc_map_close(map);
-  free(map);
+  pc_jsonp_free(map);
 }
 
 int pc_map_init(pc_map_t *map, size_t capacity,
@@ -45,7 +46,7 @@ int pc_map_init(pc_map_t *map, size_t capacity,
 
   map->capacity = capacity;
 
-  map->buckets = (ngx_queue_t *)malloc(sizeof(ngx_queue_t) * capacity);
+  map->buckets = (ngx_queue_t *)pc_jsonp_malloc(sizeof(ngx_queue_t) * capacity);
 
   if(map->buckets == NULL) {
     fprintf(stderr, "Fail to malloc for pc_map_t.\n");
@@ -64,7 +65,7 @@ int pc_map_init(pc_map_t *map, size_t capacity,
 
 void pc_map_close(pc_map_t *map) {
   pc_map_clear(map);
-  free(map->buckets);
+  pc_jsonp_free(map->buckets);
   map->buckets = NULL;
 }
 
@@ -73,14 +74,14 @@ int pc_map_set(pc_map_t *map, const char *key, void *value) {
   pc__pair_t *pair = NULL;
   char *cpy_key = NULL;
 
-  pair = (pc__pair_t *)malloc(sizeof(pc__pair_t));
+  pair = (pc__pair_t *)pc_jsonp_malloc(sizeof(pc__pair_t));
   if(pair == NULL) {
     goto error;
   }
   memset(pair, 0, sizeof(pc__pair_t));
   ngx_queue_init(&pair->queue);
 
-  cpy_key = (char *)malloc(key_len);
+  cpy_key = (char *)pc_jsonp_malloc(key_len);
   if(cpy_key == NULL) {
     goto error;
   }
@@ -108,14 +109,14 @@ int pc_map_set(pc_map_t *map, const char *key, void *value) {
 
   if(old_pair) {
     map->release_value(map, old_pair->key, old_pair->value);
-    free((void *)old_pair->key);
-    free(old_pair);
+    pc_jsonp_free((void *)old_pair->key);
+    pc_jsonp_free(old_pair);
   }
 
   return 0;
 error:
-  if(pair) free(pair);
-  if(cpy_key) free(cpy_key);
+  if(pair) pc_jsonp_free(pair);
+  if(cpy_key) pc_jsonp_free(cpy_key);
   return -1;
 }
 
@@ -148,8 +149,8 @@ void *pc_map_del(pc_map_t *map, const char *key) {
       ngx_queue_remove(q);
       ngx_queue_init(q);
       value = pair->value;
-      free((void *)pair->key);
-      free(pair);
+      pc_jsonp_free((void *)pair->key);
+      pc_jsonp_free(pair);
       return value;
     }
   }
@@ -171,8 +172,8 @@ void pc_map_clear(pc_map_t *map) {
       ngx_queue_remove(q);
       ngx_queue_init(q);
       map->release_value(map, pair->key, pair->value);
-      free((void *)pair->key);
-      free(pair);
+      pc_jsonp_free((void *)pair->key);
+      pc_jsonp_free(pair);
     }
   }
 }

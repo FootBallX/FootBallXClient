@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pomelo-protobuf/pb-util.h"
+#include "pomelo-private/jansson-memory.h"
 
 int pb__get_type(const char *type) {
   if (strcmp(type, "uInt32") == 0)

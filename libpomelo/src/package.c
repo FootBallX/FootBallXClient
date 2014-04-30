@@ -4,6 +4,7 @@
 #include "pomelo-private/internal.h"
 #include "pomelo-private/common.h"
 #include "pomelo-protocol/package.h"
+#include "pomelo-private/jansson-memory.h"
 
 static size_t pc__pkg_head(pc_pkg_parser_t *parser,
                            const char *data, size_t offset, size_t nread);
@@ -11,7 +12,7 @@ static size_t pc__pkg_body(pc_pkg_parser_t *parser,
                            const char *data, size_t offset, size_t nread);
 
 pc_pkg_parser_t *pc_pkg_parser_new(pc_pkg_cb cb, void *attach) {
-  pc_pkg_parser_t *parser = (pc_pkg_parser_t *)malloc(sizeof(pc_pkg_parser_t));
+  pc_pkg_parser_t *parser = (pc_pkg_parser_t *)pc_jsonp_malloc(sizeof(pc_pkg_parser_t));
   if(parser == NULL) {
     fprintf(stderr, "Fail to malloc for pc_pkg_parser_t.\n");
     return NULL;
@@ -20,7 +21,7 @@ pc_pkg_parser_t *pc_pkg_parser_new(pc_pkg_cb cb, void *attach) {
   memset(parser, 0, sizeof(pc_pkg_parser_t));
 
   if(pc_pkg_parser_init(parser, cb, attach)) {
-    free(parser);
+    pc_jsonp_free(parser);
     return NULL;
   }
 
@@ -41,7 +42,7 @@ int pc_pkg_parser_init(pc_pkg_parser_t *parser, pc_pkg_cb cb, void *attach) {
 
 void pc_pkg_parser_destroy(pc_pkg_parser_t *parser) {
   pc_pkg_parser_close(parser);
-  free(parser);
+  pc_jsonp_free(parser);
 }
 
 void pc_pkg_parser_close(pc_pkg_parser_t *parser) {
@@ -52,7 +53,7 @@ void pc_pkg_parser_close(pc_pkg_parser_t *parser) {
   parser->state = PC_PKG_CLOSED;
 
   if(parser->pkg_buf) {
-    free(parser->pkg_buf);
+    pc_jsonp_free(parser->pkg_buf);
   }
 }
 
@@ -63,7 +64,7 @@ void pc_pkg_parser_reset(pc_pkg_parser_t *parser) {
 
   parser->head_offset = 0;
   if(parser->pkg_buf) {
-    free(parser->pkg_buf);
+    pc_jsonp_free(parser->pkg_buf);
   }
   parser->pkg_buf = NULL;
   parser->pkg_offset = 0;
@@ -113,7 +114,7 @@ pc_buf_t pc_pkg_encode(pc_pkg_type type, const char *data, size_t len) {
   }
 
   size_t size = PC_PKG_HEAD_BYTES + len;
-  buf.base = (char *)malloc(size);
+  buf.base = (char *)pc_jsonp_malloc(size);
   if(buf.base == NULL) {
     fprintf(stderr, "Fail to malloc for Pomelo package, size: %lu.\n", size);
     buf.len = -1;
@@ -171,7 +172,7 @@ static size_t pc__pkg_head(pc_pkg_parser_t *parser,
     }
 
     if(pkg_len > 0) {
-      parser->pkg_buf = (char *)malloc(pkg_len);
+      parser->pkg_buf = (char *)pc_jsonp_malloc(pkg_len);
       if(parser->pkg_buf == NULL) {
         fprintf(stderr, "Fail to malloc buffer for package size: %lu\n", pkg_len);
         return -1;

@@ -1,5 +1,6 @@
 #include "pomelo.h"
 #include "pomelo-protocol/package.h"
+#include "pomelo-private/jansson-memory.h"
 
 /**
  * Pomelo package heartbeat parsing and processing.
@@ -35,7 +36,7 @@ int pc__heartbeat_req(pc_client_t *client) {
   return 0;
 
 error:
-  if(buf.len != -1) free(buf.base);
+  if(buf.len != -1) pc_jsonp_free(buf.base);
   return -1;
 }
 
@@ -75,9 +76,9 @@ static void pc__heartbeat_req_cb(uv_write_t* req, int status) {
   pc_client_t *client = (pc_client_t *)data[0];
   char *base = (char *)data[1];
 
-  free(base);
-  free(data);
-  free(req);
+  pc_jsonp_free(base);
+  pc_jsonp_free(data);
+  pc_jsonp_free(req);
 
   if(status == -1) {
     fprintf(stderr, "Fail to write heartbeat async, %s.\n",

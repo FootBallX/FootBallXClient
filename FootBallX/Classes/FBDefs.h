@@ -17,7 +17,6 @@ class CFBPitchGrid;
 
 namespace FBDefs
 {
-    static const int FLT_SCALE = 1000;      // 保留3位有效数字
     static const float PITCH_POINT_ALMOST_EQUAL_DISTANCE = 4.0f;
     
     enum class FORMATION

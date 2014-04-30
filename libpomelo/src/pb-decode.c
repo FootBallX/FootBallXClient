@@ -16,6 +16,7 @@
 #define PB_INTERNALS
 #include "pomelo-protobuf/pb.h"
 #include "pomelo-protobuf/pb-util.h"
+#include "pomelo-private/jansson-memory.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -221,13 +222,13 @@ static int checkreturn pb_decode_proto(pb_istream_t *stream, const json_t *gprot
         if (!pb_decode_strlen(stream, &str_len)) {
             return 0;
         }
-        str_value = (char *)malloc(str_len + 1);
+        str_value = (char *)pc_jsonp_malloc(str_len + 1);
         if (str_value == NULL) {
-            free(str_value);
+            pc_jsonp_free(str_value);
             return 0;
         }
         if (!pb_decode_string(stream, str_value, str_len)) {
-            free(str_value);
+            pc_jsonp_free(str_value);
             return 0;
         }
         if (json_is_object(result)) {
@@ -235,20 +236,20 @@ static int checkreturn pb_decode_proto(pb_istream_t *stream, const json_t *gprot
         } else {
             json_array_append_new(result, json_string(str_value));
         }
-        free(str_value);
+        pc_jsonp_free(str_value);
         break;
     default:
         if (_messages) {
             sub_msg = json_object_get(_messages, type_text);
             if (!sub_msg) {
                 const char *head = "message ";
-                char *head_text = (char *)malloc(strlen(head) + strlen(type_text) + 1);
+                char *head_text = (char *)pc_jsonp_malloc(strlen(head) + strlen(type_text) + 1);
                 memset(head_text, 0, sizeof(head_text));
                 strcpy(head_text, head);
                 strcat(head_text, type_text);
                 // check root msg in gprotos
                 sub_msg = json_object_get(gprotos, head_text);
-                free(head_text);
+                pc_jsonp_free(head_text);
             }
 
             if (sub_msg) {

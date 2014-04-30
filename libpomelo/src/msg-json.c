@@ -1,6 +1,7 @@
 #include <string.h>
 #include "jansson.h"
 #include "pomelo-protocol/message.h"
+#include "pomelo-private/jansson-memory.h"
 
 pc_buf_t pc__json_encode(const json_t *msg) {
   pc_buf_t buf;

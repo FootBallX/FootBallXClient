@@ -18,7 +18,7 @@ void on_request_cb(pc_request_t *req, int status, json_t *resp) {
     char *json_str = json_dumps(resp, 0);
     if(json_str != NULL) {
       printf("server response: %s\n", json_str);
-      free(json_str);
+      pc_jsonp_free(json_str);
     }
   }
 

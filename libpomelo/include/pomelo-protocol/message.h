@@ -114,7 +114,7 @@ void pc_msg_destroy(pc_msg_t *msg);
  * Encode message body with json.
  *
  * @param  msg message body structure.
- * @return     encode result in bytes, buf.len = -1 for error. buf.base should be released by free() outside.
+ * @return     encode result in bytes, buf.len = -1 for error. buf.base should be released by pc_jsonp_free() outside.
  */
 pc_buf_t pc__json_encode(const json_t *msg);
 
@@ -132,11 +132,11 @@ json_t *pc__json_decode(const char *data, size_t offset, size_t len);
  * Do protobuf encode for message. The pc_buf_t returned contains the encode
  * result in buf.base and the size of the data in buf.len which should be
  * positive and should be -1 stand for error. And if success, the buf.base MUST
- * be released by free().
+ * be released by pc_jsonp_free().
  *
  * @param  msg    json message to be encoded
  * @param  pb_def protobuf definition for the message
- * @return        encode result and buf.len = -1 for error. buf.base should be released by free() outside.
+ * @return        encode result and buf.len = -1 for error. buf.base should be released by pc_jsonp_free() outside.
  */
 pc_buf_t pc__pb_encode(const json_t *msg, const json_t *gprotos, const json_t *pb_def);
 

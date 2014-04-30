@@ -97,7 +97,7 @@ pc_msg_t *pc__default_msg_parse_cb(pc_client_t *client, const char *data,
     goto error;
   }
 
-  msg = (pc_msg_t *)malloc(sizeof(pc_msg_t));
+  msg = (pc_msg_t *)pc_jsonp_malloc(sizeof(pc_msg_t));
   if(msg == NULL) {
     fprintf(stderr, "Fail to malloc for pc_msg_t while parsing raw message.\n");
     goto error;
@@ -121,7 +121,7 @@ pc_msg_t *pc__default_msg_parse_cb(pc_client_t *client, const char *data,
       origin_route = raw_msg->route.route_str;
     }
 
-    route_str = (char *)malloc(strlen(origin_route) + 1);
+    route_str = (char *)pc_jsonp_malloc(strlen(origin_route) + 1);
     if(route_str == NULL) {
       fprintf(stderr, "Fail to malloc for uncompress route dictionary.\n");
       goto error;
@@ -165,7 +165,7 @@ pc_msg_t *pc__default_msg_parse_cb(pc_client_t *client, const char *data,
   return msg;
 
 error:
-  if(msg == NULL && route_str) free((void *)route_str);
+  if(msg == NULL && route_str) pc_jsonp_free((void *)route_str);
   if(raw_msg) pc__raw_msg_destroy(raw_msg);
   if(msg) pc_msg_destroy(msg);
   return NULL;
@@ -237,7 +237,7 @@ pc_buf_t pc__default_msg_encode_cb(pc_client_t *client, uint32_t reqId,
   return msg_buf;
 
 error:
-  if(msg_buf.len > 0) free(msg_buf.base);
+  if(msg_buf.len > 0) pc_jsonp_free(msg_buf.base);
   if(body_buf.len > 0) pc_jsonp_free(body_buf.base);
   msg_buf.len = -1;
   return msg_buf;
@@ -245,7 +245,7 @@ error:
 
 void pc__default_msg_encode_done_cb(pc_client_t *client, pc_buf_t buf) {
   if(buf.len > 0) {
-    free(buf.base);
+    pc_jsonp_free(buf.base);
   }
 }
 

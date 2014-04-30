@@ -38,6 +38,8 @@ public:
     std::vector<int> m_curAlloc;
     std::vector<int> m_peakAlloc;
     std::map<void*, int> m_allocMap;
+    
+    std::map<void*, int> m_rowPool;
 #endif
     
 protected:

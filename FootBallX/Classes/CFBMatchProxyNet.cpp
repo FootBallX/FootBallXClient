@@ -46,7 +46,7 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId
     CJsonTArray ja;
     for (auto x : p)
     {
-        ja.append(CJsonT((int)(FBDefs::FLT_SCALE * (x + (0.5f / FBDefs::FLT_SCALE)))));
+        ja.append(CJsonT(x));
     }
     msg.setChild("teamPos", ja);
     msg.setChild("ballPosPlayerId", CJsonT(ballPlayerId));
@@ -139,7 +139,7 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
             auto size = ja.size();
             for (int i = 0; i < size; ++i)
             {
-                v.push_back(ja.get(i).toFloat() / FBDefs::FLT_SCALE);
+                v.push_back(ja.get(i).toFloat());
             }
             
             m_teamPositionAck(v, docs.getInt("ballPosPlayerId"), docs.getJsonInt("timeStamp"));

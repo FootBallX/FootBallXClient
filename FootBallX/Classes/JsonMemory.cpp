@@ -162,6 +162,9 @@ void* CJsonMemPool::pool_alloc(size_t s)
         debugInfo();
         
         log("pool is full!! ---> request size: %zu", s);
+        
+        retP = malloc(s);
+        m_rowPool[retP] = (int)s;
     }
 #endif
 	return retP;
@@ -171,6 +174,12 @@ void* CJsonMemPool::pool_alloc(size_t s)
 
 void CJsonMemPool::pool_free(void* p)
 {
+#ifdef DEBUG
+    if (m_rowPool.erase(p) == 1)
+    {
+        return;
+    }
+#endif
     unsigned char* allocP = (unsigned char*)p - sizeof(UNIT_HEADER_TYPE);
     *((UNIT_HEADER_TYPE*)allocP) = 0;
     

@@ -3,15 +3,16 @@
 #include <string.h>
 #include "pomelo-private/transport.h"
 #include "pomelo-protocol/package.h"
+#include "pomelo-private/jansson-memory.h"
 
 void pc__tcp_close_cb(uv_handle_t *handler) {
   pc_transport_t *transport = (pc_transport_t *)handler->data;
-  free(handler);
-  free(transport);
+  pc_jsonp_free(handler);
+  pc_jsonp_free(transport);
 }
 
 pc_transport_t *pc_transport_new(pc_client_t *client) {
-  pc_transport_t *transport = (pc_transport_t *)malloc(sizeof(pc_transport_t));
+  pc_transport_t *transport = (pc_transport_t *)pc_jsonp_malloc(sizeof(pc_transport_t));
 
   if(transport == NULL) {
     fprintf(stderr, "Fail to malloc for pc_transport_t.\n");
@@ -21,7 +22,7 @@ pc_transport_t *pc_transport_new(pc_client_t *client) {
   memset(transport, 0, sizeof(pc_transport_t));
 
   transport->client = client;
-  transport->socket = (uv_tcp_t *)malloc(sizeof(uv_tcp_t));
+  transport->socket = (uv_tcp_t *)pc_jsonp_malloc(sizeof(uv_tcp_t));
   if(transport->socket == NULL) {
     fprintf(stderr, "Fail to malloc for uv_tcp_t.\n");
     goto error;
@@ -38,8 +39,8 @@ pc_transport_t *pc_transport_new(pc_client_t *client) {
   return transport;
 
 error:
-  if(transport->socket) free(transport->socket);
-  if(transport) free(transport);
+  if(transport->socket) pc_jsonp_free(transport->socket);
+  if(transport) pc_jsonp_free(transport);
 
   return NULL;
 }
@@ -49,7 +50,7 @@ void pc_transport_destroy(pc_transport_t *transport) {
     return;
   }
   if(PC_TP_ST_INITED == transport->state) {
-    free(transport);
+    pc_jsonp_free(transport);
     return;
   }
 
@@ -97,7 +98,7 @@ void pc_tp_on_tcp_read(uv_stream_t *socket, ssize_t nread, uv_buf_t buf) {
 
   if(nread == 0) {
     // read noting
-    free(buf.base);
+    pc_jsonp_free(buf.base);
     return;
   }
 
@@ -105,6 +106,6 @@ void pc_tp_on_tcp_read(uv_stream_t *socket, ssize_t nread, uv_buf_t buf) {
 
 error:
   if(buf.len != -1) {
-    free(buf.base);
+    pc_jsonp_free(buf.base);
   }
 }
