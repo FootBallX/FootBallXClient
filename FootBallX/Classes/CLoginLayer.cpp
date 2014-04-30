@@ -146,9 +146,9 @@ void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
 
 void CLoginLayer::onCancel(Ref* sender, Control::EventType event)
 {
-//    POMELO->stop();
-//    json_memory_dump();
-    SCENE_MANAGER->go(ST_MATCH);
+    POMELO->stop();
+    json_memory_dump();
+//    SCENE_MANAGER->go(ST_MATCH);
 }
 
 

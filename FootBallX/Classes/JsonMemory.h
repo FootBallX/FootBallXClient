@@ -44,6 +44,7 @@ public:
     
 protected:
     void* m_pool;
+    int m_totalSize = 0;
 
     std::vector<int> m_poolSize;
     

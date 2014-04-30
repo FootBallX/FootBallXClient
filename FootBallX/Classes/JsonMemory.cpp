@@ -12,7 +12,12 @@
 
 static pthread_mutex_t  mt;
 //static CJsonMemPool g_memPool({128,  64,  64,  32,  32});
-static CJsonMemPool g_memPool({2048,  1024,  256,  64,  64});
+static CJsonMemPool g_memPool({
+    //32   64   128   256     512     1024    2048    4096
+    1024,  512, 256,  64,     8,      4,      0,      6,
+    //8192  16384   32768   65536
+        0,  0,      0,      1,
+});
 
 void json_memory_init()
 {
@@ -64,19 +69,19 @@ CJsonMemPool::CJsonMemPool(const std::vector<int>& poolSize) : m_poolSize(poolSi
 #endif
     
     int poolHeaderSize = sizeof(void*) * num;
-    int totalSize = poolHeaderSize;
+    m_totalSize = poolHeaderSize;
     
     int i;
     int unitSize = START_BUFFER_SIZE;
     for (i = 0; i < num; ++i)
     {
-        totalSize += (unitSize + sizeof(UNIT_HEADER_TYPE)) * m_poolSize[i] + sizeof(BLOCK_HEADER_TYPE);
+        m_totalSize += (unitSize + sizeof(UNIT_HEADER_TYPE)) * m_poolSize[i] + sizeof(BLOCK_HEADER_TYPE);
         unitSize *= 2;
     }
     
     // buff结构，第一个int存放一个索引,表示分配到哪里的下标
     // 每个buff块，前面有一个WORD标记是否被分配，0表示未分配，>0表示分配了，数字是分配的长度
-    m_pool = calloc(totalSize, sizeof(unsigned char));
+    m_pool = calloc(m_totalSize, sizeof(unsigned char));
     
     void** p = (void**)m_pool;
     int offset = 0;
@@ -156,17 +161,23 @@ void* CJsonMemPool::pool_alloc(size_t s)
         unitSize *= 2;
     }
 
-#ifdef DEBUG
+//#ifdef DEBUG
+//    if (nullptr == retP)
+//    {
+//        debugInfo();
+//        log("pool is full!! ---> request size: %zu", s);
+//    }
+//#endif
+    
     if (nullptr == retP)
     {
-        debugInfo();
-        
-        log("pool is full!! ---> request size: %zu", s);
-        
         retP = malloc(s);
+#ifdef DEBUG
         m_rowPool[retP] = (int)s;
-    }
+        log("malloc %p, size: %d", retP, (int)s);
 #endif
+    }
+    
 	return retP;
 }
 
@@ -175,26 +186,42 @@ void* CJsonMemPool::pool_alloc(size_t s)
 void CJsonMemPool::pool_free(void* p)
 {
 #ifdef DEBUG
-    if (m_rowPool.erase(p) == 1)
     {
-        return;
+        auto it = m_rowPool.find(p);
+        if (it != m_rowPool.end())
+        {
+            log("free %p, size: %d", p, (*it).second);
+            m_rowPool.erase(it);
+        }
     }
 #endif
-    unsigned char* allocP = (unsigned char*)p - sizeof(UNIT_HEADER_TYPE);
-    *((UNIT_HEADER_TYPE*)allocP) = 0;
     
+    CC_ASSERT(sizeof(long) == sizeof(void*));
+    long dt = (long)p - (long)m_pool;
+    if (dt < 0 || dt >= m_totalSize)
+    {
+        free(p);
+    }
+    else
+    {
+        unsigned char* allocP = (unsigned char*)p - sizeof(UNIT_HEADER_TYPE);
+        *((UNIT_HEADER_TYPE*)allocP) = 0;
+        
 #ifdef DEBUG
-    auto it = m_allocMap.find(p);
-    m_curAlloc[(*it).second]--;
-    m_allocMap.erase(it);
+        {
+            auto it = m_allocMap.find(p);
+            m_curAlloc[(*it).second]--;
+            m_allocMap.erase(it);
+        }
 #endif
+    }
 }
 
 
 #ifdef DEBUG
 void CJsonMemPool::debugInfo()
 {
-    log("----------- debug info -----------");
+    log("----------- debug info, pool size %d -----------", m_totalSize);
     int num = (int)m_poolSize.size();
     
     int unitSize = START_BUFFER_SIZE;
