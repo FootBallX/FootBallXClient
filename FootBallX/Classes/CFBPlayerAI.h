@@ -62,8 +62,6 @@ protected:
     virtual void thinkDribbleBall();
     virtual void thinkPassBall();
 
-    virtual void applyStateCD() { m_changeStateCD = 1.f; }
-    virtual bool isNotInStateCD() { return true; return FLT_LE(m_changeStateCD, 0.f); }
     virtual void startWait(float t);
     virtual void updateWait(float dt);
 
@@ -81,7 +79,6 @@ protected:
     
     cocos2d::Point m_moveToTarget;
     
-    float m_changeStateCD = 0.f;
     float m_waitTime = 0.f;
     
     int m_passBallScore = 0;

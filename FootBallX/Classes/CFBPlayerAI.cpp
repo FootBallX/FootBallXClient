@@ -98,7 +98,6 @@ void CFBPlayerAI::thinkOnDefending()
 
 void CFBPlayerAI::update(float dt)
 {
-    m_changeStateCD -= dt;
     m_player->update(dt);
 }
 
@@ -153,9 +152,8 @@ void CFBPlayerAI::chaseBall(float dt)
         auto ballPos = FBMATCH->getBallPosition();
         
         auto ls = (homePos - m_player->getPosition()).getLengthSq();
-        if (ls >= m_defendOrbitRadiusx2Sq && isNotInStateCD())
+        if (ls >= m_defendOrbitRadiusx2Sq)
         {
-            applyStateCD();
             m_state = FBDefs::AI_STATE::BACKHOME;
             
             auto actp = team->getActivePlayer();
@@ -213,17 +211,57 @@ void CFBPlayerAI::chaseBall(float dt)
 
 void CFBPlayerAI::considerChase()
 {
+    auto team = m_formation->getTeam();
+    const Point& ballPos = FBMATCH->getBallPosition();
+    auto pitch = FBMATCH->getPitch();
+    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+
     if (m_state != FBDefs::AI_STATE::CHASE)
     {
-        const Point& ballPos = FBMATCH->getBallPosition();
-        auto pitch = FBMATCH->getPitch();
-        auto team = m_formation->getTeam();
-        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
-
-        if ((homePos - ballPos).getLengthSq() < m_defendOrbitRadiusSq && isNotInStateCD())
+        if ((homePos - ballPos).getLengthSq() < m_defendOrbitRadiusSq)
         {
-            applyStateCD();
             m_state = FBDefs::AI_STATE::CHASE;
+        }
+    }
+    
+    if (m_state == FBDefs::AI_STATE::CHASE)
+    {
+        auto actp = team->getActivePlayer();
+        auto assp = team->getAssistantPlayer();
+        
+        if ((homePos - m_player->getPosition()).getLengthSq() >= m_defendOrbitRadiusx2Sq)
+        {
+            m_state = FBDefs::AI_STATE::NONE;
+            
+            if (actp == m_player->m_positionInFormation)
+            {
+                team->setActivePlayer(-1);
+                
+                if (assp > -1)
+                {
+                    auto playerAI = m_formation->getPlayerAIById(assp);
+                    playerAI->m_state = FBDefs::AI_STATE::NONE;
+                    
+                    team->setAssistantPlayer(-1);
+                }
+            }
+            else if (assp == m_player->m_positionInFormation)
+            {
+                team->setAssistantPlayer(-1);
+            }
+        }
+        else
+        {
+            if (actp == -1 || actp == m_player->m_positionInFormation)
+            {
+                team->setActivePlayer(m_player->m_positionInFormation);
+                m_player->moveTo(ballPos);
+            }
+            else if (assp == -1 || assp == m_player->m_positionInFormation)
+            {
+                team->setAssistantPlayer(m_player->m_positionInFormation);
+                m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, team->getSide()));
+            }
         }
     }
 }

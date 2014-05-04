@@ -112,7 +112,7 @@ void CFBMatchProxyNet::update(float dt)
             m_startStep = START_STEP::NONE;
             const char *route = "match.matchHandler.ready";
             CJsonT msg;
-            POMELO->request(route, msg, [&](Node* node, void* resp){
+            POMELO->request(route, msg, [](Node* node, void* resp){
             });
             msg.release();
             break;

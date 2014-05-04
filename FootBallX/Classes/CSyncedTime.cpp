@@ -72,8 +72,8 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
     
     if (m_syncCount > 0)
     {
-        log("serT: %lld", m_serverTime);
-        log("ping %d -- > %d", m_syncCount, ping);
+//        log("serT: %lld", m_serverTime);
+//        log("ping %d -- > %d", m_syncCount, ping);
         m_startSyncTime = 0.25f;
     }
     else

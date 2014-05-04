@@ -69,3 +69,7 @@ xcuserdata
 JSTest/test?.js
 
 FootBallX/proj.ios_mac/buildRelease.sh
+FootBallX/proj.ios_mac/build/
+
+cocos2d-x/cocos/2d/platform/android/java/bin/
+cocos2d-x/cocos/2d/platform/android/java/gen/

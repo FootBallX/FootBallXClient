@@ -31,6 +31,7 @@ public:
     virtual void setMovingVector(float x, float y);
     virtual const cocos2d::Point& getMovingVector() { return m_movingVector; }
     virtual bool moveTo(const cocos2d::Point& pos, float dt = 0.f);
+    virtual bool moveFromTo(const cocos2d::Point& pos, const cocos2d::Point& vec, float dt, float duration);
     
     virtual void setInstruction(FBDefs::PLAYER_INS ins) { m_instruction = ins; }
     virtual FBDefs::PLAYER_INS getInstruction() { return m_instruction; }
@@ -61,6 +62,7 @@ protected:
     const CFBCard& m_playerCard;
     
     float m_speedCache = -FLT_MAX;
+    float m_speedScale = 1.f;
 };
 
 #endif /* defined(__FootBallX__CFBPlayer__) */

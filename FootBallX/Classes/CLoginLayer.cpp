@@ -100,6 +100,7 @@ bool CLoginLayer::init()
 
 void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
 {
+//    std::string ip = "192.168.1.6";
     std::string ip = "127.0.0.1";
     int port = 3017;
 
@@ -147,8 +148,11 @@ void CLoginLayer::onLogin(Ref* sender, Control::EventType event)
 void CLoginLayer::onCancel(Ref* sender, Control::EventType event)
 {
     POMELO->stop();
+    delete POMELO;
     json_memory_dump();
 //    SCENE_MANAGER->go(ST_MATCH);
+    
+    Director::getInstance()->end();
 }
 
 

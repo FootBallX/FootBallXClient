@@ -201,6 +201,8 @@ void CFBMatch::update(float dt)
                 {
                     if (i == (int)SIDE::SELF)
                     {
+                        auto hilightPlayer = m_teamsInMatch[(int)SIDE::SELF]->getHilightPlayer();
+                        hilightPlayer->setMovingVector(m_vecFromUser);
                         m_teamsInMatch[(int)SIDE::SELF]->think();
                         syncTeam();
                         m_syncTime[i] = m_SYNC_TIME;
@@ -679,8 +681,9 @@ void CFBMatch::checkEncounterInPenaltyArea()
 
 void CFBMatch::setBallControllerMove(const Point& vec)
 {
-    auto hilightPlayer = m_teamsInMatch[(int)SIDE::SELF]->getHilightPlayer();
-    hilightPlayer->setMovingVector(vec);
+    m_vecFromUser = vec;
+//    auto hilightPlayer = m_teamsInMatch[(int)SIDE::SELF]->getHilightPlayer();
+//    hilightPlayer->setMovingVector(vec);
 }
 
 #pragma mark - net or sim
@@ -713,6 +716,7 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
     auto fmt = team->getFormation();
     
     int size = fmt->getPlayerNumber();
+    
     float dt = m_proxy->getDeltaTime(timeStamp);
     
     for (int i = 0; i < size; ++i)
@@ -720,27 +724,11 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
         Point pos(p[i * 4], p[i * 4 + 1]);
         Point vec(p[i * 4 + 2], p[i * 4 + 3]);
         auto player = fmt->getPlayer(i);
-//        player->setPosition(pos);
-//        player->setMovingVector(vec);
-//        
-//        if ( i == ballPlayerId)
-//        {
-//            player->setPosition(pos);
-//        }
-//        else
-        {
-            player->moveTo(pos, dt);
-        }
-        
-//        if (i == 5)
-//        {
-//            auto p = player->getPosition();
-//            log("player pos: %f, %f", p.x, p.y);
-//            log("pos: %f, %f", pos.x, pos.y);
-//        }
+
+        player->moveFromTo(pos, vec, dt, m_SYNC_TIME);
     }
     
-    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME * 2;
+    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
 }
 
 

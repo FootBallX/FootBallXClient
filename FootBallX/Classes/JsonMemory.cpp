@@ -13,10 +13,10 @@
 static pthread_mutex_t  mt;
 //static CJsonMemPool g_memPool({128,  64,  64,  32,  32});
 static CJsonMemPool g_memPool({
-    //32   64   128   256     512     1024    2048    4096
-    1024,  512, 256,  64,     8,      4,      0,      6,
+    //32   64       128     256     512     1024    2048    4096
+    2048,  1024, 1024,      128,     16,      16,     16,     16,
     //8192  16384   32768   65536
-        0,  0,      0,      1,
+        16,  16,      16,      16,
 });
 
 void json_memory_init()
@@ -82,6 +82,7 @@ CJsonMemPool::CJsonMemPool(const std::vector<int>& poolSize) : m_poolSize(poolSi
     // buff结构，第一个int存放一个索引,表示分配到哪里的下标
     // 每个buff块，前面有一个WORD标记是否被分配，0表示未分配，>0表示分配了，数字是分配的长度
     m_pool = calloc(m_totalSize, sizeof(unsigned char));
+    log("Json memeory pool size: %0.2fM", (float)m_totalSize / (1024 * 1024));
     
     void** p = (void**)m_pool;
     int offset = 0;

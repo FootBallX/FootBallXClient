@@ -79,7 +79,7 @@ float CFBPlayer::getSpeed()
         m_speedCache = speed;
     }
 
-    return m_speedCache;
+    return m_speedCache * m_speedScale;
 }
 
 
@@ -115,6 +115,18 @@ bool CFBPlayer::moveTo(const Point& pos, float dt)
         m_curPosition += m_movingVector * (dt * getSpeed());
         return false;
     }
+}
+
+
+
+bool CFBPlayer::moveFromTo(const cocos2d::Point& pos, const cocos2d::Point& vec, float dt, float duration)
+{
+    Point target = pos + vec * (getSpeed() * duration);
+    
+    // TODO: 考虑加入速度变化，使得moveTo的过程更加精确。
+    moveTo(target);
+    
+    return false;
 }
 
 

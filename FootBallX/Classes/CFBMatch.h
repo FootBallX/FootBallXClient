@@ -93,6 +93,8 @@ protected:
     
     FBDefs::SIDE m_controlSide = FBDefs::SIDE::NONE;
     
+    Point m_vecFromUser;        // 玩家当前操作的缓存
+    
 #pragma mark - net or sim properties
     enum class SIDE
     {
@@ -100,7 +102,7 @@ protected:
         OPP,        // 对方
         NONE,
     };
-    const float m_SYNC_TIME = .5f;
+    const float m_SYNC_TIME = 1.0f;
     
     CFBMatchProxy* m_proxy = nullptr;
     

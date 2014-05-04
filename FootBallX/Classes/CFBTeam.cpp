@@ -46,7 +46,7 @@ void CFBTeam::update(float dt)
 {
     m_formation->update(dt);
     
-    function<bool(float, float)> comp =
+    auto comp =
         getSide() == FBDefs::SIDE::LEFT ?
         [](float a, float b){return a < b;} : [](float a, float b){return a > b;};
     
