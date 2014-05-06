@@ -48,6 +48,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         m_proxy->setEndMatchAck(std::bind(&CFBMatch::endMatchAck, this));
         m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        m_proxy->setTriggerMenuAck(std::bind(&CFBMatch::triggerMenuAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
         
@@ -570,6 +571,14 @@ long long CFBMatch::getTime()
     return m_proxy->getTime();
 }
 
+
+
+void CFBMatch::setMenuCmd(FBDefs::MENU_TYPE menuType)
+{
+    
+}
+
+
 #pragma mark - encounter
 
 void CFBMatch::updateEncounter(float dt)
@@ -582,7 +591,7 @@ void CFBMatch::updateEncounter(float dt)
         {
             m_encounterTime = FLT_MAX;
             
-            m_matchUI->onMenu(m_menuType, m_isAir, m_involvePlayerIds);
+//            m_matchUI->onMenu(m_menuType, m_involvePlayerIds);
             
             m_menuType = FBDefs::MENU_TYPE::NONE;
         }
@@ -759,5 +768,10 @@ void CFBMatch::endMatchAck()
 }
 
 
+
+void CFBMatch::triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers)
+{
+    m_matchUI->onMenu(menuType, attackPlayerNumbers, defendPlayerNumbers);
+}
 
 

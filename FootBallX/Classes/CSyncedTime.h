@@ -23,13 +23,13 @@ public:
     void update(float dt);
     void startSyncTime();
     bool isSyncing();
-    long long getTime();
+    unsigned int getTime();
 protected:
     void syncTime();
     void syncTimeAck(Node*, void*);
-    long long getClientTime();
+    unsigned int getClientTime();
     
-    long long m_serverTime = 0;
+    unsigned int m_serverTime = 0;
     
     bool m_isSyncing = false;
     const int m_syncCountMax = 10;

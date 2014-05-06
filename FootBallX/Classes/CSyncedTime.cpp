@@ -85,18 +85,18 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
 
 
 
-long long CSyncedTime::getClientTime()
+unsigned int CSyncedTime::getClientTime()
 {
     struct timeval now;
     
     gettimeofday(&now, nullptr);
     
-    return now.tv_sec * 1000  + now.tv_usec / 1000;
+    return (unsigned int)(now.tv_sec * 1000  + now.tv_usec / 1000);
 }
 
 
 
-long long CSyncedTime::getTime()
+unsigned int CSyncedTime::getTime()
 {
     return m_serverTime;
 }

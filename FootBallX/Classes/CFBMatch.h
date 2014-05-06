@@ -64,11 +64,8 @@ public:
     
     int getCountDownTime();
     long long getTime();
-    #pragma mark - net or sim
-    void syncTeam();
-    void teamPositionAck(const vector<float>& p, int ballPlayerId, long long timestamp);
-    void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
-    void endMatchAck();
+
+    void setMenuCmd(FBDefs::MENU_TYPE menuType);
 protected:
     IFBMatchUI* m_matchUI = nullptr;
     CFBBall* m_ball = nullptr;
@@ -95,7 +92,14 @@ protected:
     
     Point m_vecFromUser;        // 玩家当前操作的缓存
     
-#pragma mark - net or sim properties
+    
+#pragma mark - net or sim
+    void syncTeam();
+    void teamPositionAck(const vector<float>& p, int ballPlayerId, long long timestamp);
+    void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
+    void endMatchAck();
+    void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers);
+
     enum class SIDE
     {
         SELF,       // 自己

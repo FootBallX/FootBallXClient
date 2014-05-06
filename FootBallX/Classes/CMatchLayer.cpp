@@ -88,6 +88,8 @@ bool CMatchLayer::init()
         this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
         this->scheduleUpdate();
 
+        delete pReader;
+        
         return true;
     } while (false);
     
@@ -121,7 +123,6 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
                 if (!FBMATCH->isPausing())
                 {
                     FBMATCH->setBallControllerMove((loc - m_screenCenter).normalize());
-                    FBMATCH->syncTeam();
                 }
                 break;
             default:
@@ -160,7 +161,6 @@ void CMatchLayer::onTouchMoved(Touch* touch, Event* event)
 void CMatchLayer::onTouchEnded(Touch* touch, Event* event)
 {
     FBMATCH->setBallControllerMove(Point());
-    FBMATCH->syncTeam();
     m_isTouchDown = false;
 }
 
@@ -169,7 +169,6 @@ void CMatchLayer::onTouchEnded(Touch* touch, Event* event)
 void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 {
     FBMATCH->setBallControllerMove(Point());
-    FBMATCH->syncTeam();
     m_isTouchDown = false;
 }
 
@@ -635,10 +634,26 @@ void CMatchLayer::onAnimationEnd()
 
 #pragma mark - IFBMatchUI
 
-void CMatchLayer::onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&)
+void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayerNumbers, const vector<int>& defendPlayerNumbers)
 {
     FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
+    
+    if (nullptr != m_menuLayer)
+    {
+        m_menuLayer->removeFromParentAndCleanup(true);
+    }
+    
+    cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
+    
+    char name[256];
+    sprintf(name, "fb_menu_%d.ccbi", (int)type);
+    m_menuLayer = dynamic_cast<CMatchMenuLayer*>(pReader->readNodeGraphFromFile(name));
+    m_menuLayer->setMatchLayer(this);
+    m_menuLayer->setPlayers(attackPlayerNumbers, defendPlayerNumbers);
+    this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
+    
+    delete pReader;
 }
 
 
@@ -663,6 +678,8 @@ void CMatchLayer::onPlayAnimation(const string& name, float delay)
         
         node->release();
     }), NULL));
+    
+    delete pReader;
 }
 
 

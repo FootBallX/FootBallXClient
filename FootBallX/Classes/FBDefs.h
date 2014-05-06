@@ -195,6 +195,19 @@ namespace FBDefs
         NONE,
     };
     
+    enum class MENU_ITEMS
+    {
+        Pass,
+        Dribble,
+        OneTwo,
+        Shoot,
+        Tackle,
+        Intercept,
+        Block,
+        Hit,
+        None,
+    };
+    
     enum class GAME_EVENT       // 指令的发起事件，这里不分攻防
     {
         ACTIVE_PASS,            // 主动传球

@@ -22,6 +22,7 @@ public:
     CJsonT(float value);
     CJsonT(double value);
     CJsonT(int value);
+    CJsonT(unsigned int value);
     CJsonT(json_int_t value);
     CJsonT(bool value);
     virtual ~CJsonT();
@@ -32,6 +33,7 @@ public:
     float toFloat();
     double toDouble();
     int toInt();
+    unsigned int toUInt();
     json_int_t toJsonInt();
     bool toBool();
     const char* toString();
@@ -39,6 +41,7 @@ public:
     float getFloat(const char* key);
     double getDouble(const char* key);
     int getInt(const char* key);
+    unsigned int getUInt(const char* key);
     json_int_t getJsonInt(const char* key);
     bool getBool(const char* key);
     const char* getString(const char* key);
@@ -49,6 +52,7 @@ public:
     void setChild(const char* key, float value);
     void setChild(const char* key, double value);
     void setChild(const char* key, int value);
+    void setChild(const char* key, unsigned int value);
     void setChild(const char* key, json_int_t value);
     void setChild(const char* key, const char* value);
     void setChild(const char* key, bool value);

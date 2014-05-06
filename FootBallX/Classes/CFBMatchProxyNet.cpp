@@ -16,7 +16,7 @@ CFBMatchProxyNet::CFBMatchProxyNet()
     POMELO->addListener("sync", std::bind(&CFBMatchProxyNet::onSync, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("startMatch", std::bind(&CFBMatchProxyNet::onStartMatch, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("endMatch", std::bind(&CFBMatchProxyNet::onEndMatch, this, std::placeholders::_1, std::placeholders::_2));
-    POMELO->addListener("switchDominator", std::bind(&CFBMatchProxyNet::onSwicthDominator, this, std::placeholders::_1, std::placeholders::_2));
+    POMELO->addListener("triggerMenu", std::bind(&CFBMatchProxyNet::onTriggerMenu, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -26,7 +26,7 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
     POMELO->removeListener("sync");
     POMELO->removeListener("startMatch");
     POMELO->removeListener("endMatch");
-    POMELO->removeListener("switchDominator");
+    POMELO->removeListener("triggerMenu");
 }
 
 
@@ -58,6 +58,15 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId
 
 
 
+void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi)
+{
+    CJsonT msg;
+    msg.setChild("cmd", (int)mi);
+    POMELO->notify("match.matchHandler.menuCmd", msg, [](Node*, void*){});
+    msg.release();
+}
+
+
 
 void CFBMatchProxyNet::setTeamPositionAck(TEAM_POSITION_FUNC f)
 {
@@ -78,6 +87,12 @@ void CFBMatchProxyNet::setEndMatchAck(END_MATCH_FUNC f)
     m_endMatchAck = f;
 }
 
+
+
+void CFBMatchProxyNet::setTriggerMenuAck(TRIGGER_MENU_FUNC f)
+{
+    m_triggerMenuAck = f;
+}
 
 
 void CFBMatchProxyNet::update(float dt)
@@ -157,22 +172,8 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
 
-    if (200 != docs.getInt("code"))
-    {
-        return;
-    }
-    
     int u1 = docs.getInt("left");
     int u2 = docs.getInt("right");
-
-    if (PLAYER_INFO->getUID() == docs.getInt("dominatorUid"))
-    {
-        m_isDominator = true;
-    }
-    else
-    {
-        m_isDominator = false;
-    }
     
     FBDefs::SIDE side = FBDefs::SIDE::NONE;
     FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
@@ -209,12 +210,35 @@ void CFBMatchProxyNet::onEndMatch(Node*, void* r)
 
 
 
-void CFBMatchProxyNet::onSwicthDominator(Node*, void* r)
+void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
     
-    m_isDominator = docs.getBool("gotDominator");
+    int type = docs.getInt("menuType");
+    CC_ASSERT(type >= 0 && type < (unsigned int)FBDefs::MENU_TYPE::NONE);
+    
+    vector<int> av;
+    vector<int> dv;
+    {
+        CJsonTArray ja(docs.getChild("attackPlayers"));
+        CC_ASSERT(ja.size() > 0);
+        for (int i = 0; i < ja.size(); ++i)
+        {
+            av.push_back(ja.get(i).toInt());
+        }
+    }
+    {
+        CJsonTArray ja(docs.getChild("defendplayers"));
+        CC_ASSERT(ja.size() > 0);
+        vector<int> v;
+        for (int i = 0; i < ja.size(); ++i)
+        {
+            dv.push_back(ja.get(i).toInt());
+        }
+    }
+    
+    m_triggerMenuAck((FBDefs::MENU_TYPE)type, av, dv);
 }
 
 

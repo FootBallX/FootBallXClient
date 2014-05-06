@@ -65,7 +65,7 @@ protected:
     virtual void onHit(Ref* pSender);           // 击球
 
 #pragma mark - IFBMatchUI
-    virtual void onMenu(FBDefs::MENU_TYPE, bool, const vector<int>&) override;
+    virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&) override;
     virtual void onPlayAnimation(const string&, float) override;
     virtual void onInstrunctionEnd(void) override;
     virtual void onPauseGame(bool) override;

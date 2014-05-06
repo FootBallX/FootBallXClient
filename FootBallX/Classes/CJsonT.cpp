@@ -58,6 +58,12 @@ CJsonT::CJsonT(int value) : CJsonT((json_int_t)value)
 
 
 
+CJsonT::CJsonT(unsigned int value) : CJsonT((json_int_t)value)
+{
+}
+
+
+
 CJsonT::CJsonT(json_int_t value)
 {
     m_value = json_integer(value);
@@ -139,6 +145,17 @@ int CJsonT::toInt()
 
 
 
+unsigned int CJsonT::toUInt()
+{
+    if (json_is_integer(m_value))
+    {
+        return (unsigned int)json_integer_value(m_value);
+    }
+    
+    return 0;
+}
+
+
 json_int_t CJsonT::toJsonInt()
 {
     if (json_is_integer(m_value))
@@ -191,6 +208,13 @@ int CJsonT::getInt(const char* key)
 
 
 
+unsigned int CJsonT::getUInt(const char* key)
+{
+    return CJsonT(json_object_get(m_value, key)).toUInt();
+}
+
+
+
 json_int_t CJsonT::getJsonInt(const char* key)
 {
     return CJsonT(json_object_get(m_value, key)).toJsonInt();
@@ -234,6 +258,13 @@ void CJsonT::setChild(const char* key, double value)
 
 
 void CJsonT::setChild(const char* key, int value)
+{
+    setChild(key, CJsonT(value));
+}
+
+
+
+void CJsonT::setChild(const char* key, unsigned int value)
 {
     setChild(key, CJsonT(value));
 }

@@ -85,6 +85,14 @@ bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
 
 
 
+void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
+{
+    m_attackPlayerNumbers = ap;
+    m_defendPlayerNumbers = dp;
+}
+
+
+
 void CMatchMenuLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)
 {
 }

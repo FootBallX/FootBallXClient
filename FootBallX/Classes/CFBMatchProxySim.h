@@ -19,10 +19,12 @@ public:
     
     virtual void start() override;
     virtual void sendTeamPosition(const vector<float>&, int) override;
+    virtual void sendMenuCmd(FBDefs::MENU_ITEMS) override;
     
     virtual void setTeamPositionAck(TEAM_POSITION_FUNC) override;
     virtual void setStartMatchAck(START_MATCH_FUNC) override;
     virtual void setEndMatchAck(END_MATCH_FUNC) override;
+    virtual void setTriggerMenuAck(TRIGGER_MENU_FUNC) override;
     
     virtual void update(float dt) override;
     
@@ -32,6 +34,7 @@ protected:
     TEAM_POSITION_FUNC m_teamPositionAck;
     START_MATCH_FUNC m_startMatchAck;
     END_MATCH_FUNC m_endMatchAck;
+    TRIGGER_MENU_FUNC m_triggerMenuAck;
 };
 
 #endif /* defined(__FootBallX__CFBMatchProxySim__) */

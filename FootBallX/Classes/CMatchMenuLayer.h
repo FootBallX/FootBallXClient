@@ -43,6 +43,7 @@ public:
     
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
     
+    virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
 protected:
     virtual void onPass(Ref* sender, Control::EventType event);          // 传球
     virtual void onDribble(Ref* sender, Control::EventType event);       // 盘带
@@ -57,6 +58,9 @@ protected:
     ControlButton* m_btnDribble = nullptr;
     ControlButton* m_btnShoot = nullptr;
     ControlButton* m_btnOneTwo = nullptr;
+    
+    vector<int> m_attackPlayerNumbers;
+    vector<int> m_defendPlayerNumbers;
 };
 
 

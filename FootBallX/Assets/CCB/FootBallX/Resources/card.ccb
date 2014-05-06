@@ -149,7 +149,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>CMatchLayer</string>
+		<string></string>
 		<key>displayName</key>
 		<string>Card plate</string>
 		<key>memberVarAssignmentName</key>
