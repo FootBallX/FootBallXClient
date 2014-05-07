@@ -37,9 +37,9 @@
 						<key>displayName</key>
 						<string>image_1</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerImg3</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -109,9 +109,9 @@
 						<key>displayName</key>
 						<string>image_2</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerImg1</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -181,9 +181,9 @@
 						<key>displayName</key>
 						<string>image_3</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerImg0</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -253,9 +253,9 @@
 						<key>displayName</key>
 						<string>image_4</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerImg2</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -325,9 +325,9 @@
 						<key>displayName</key>
 						<string>image_5</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerImg4</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -603,61 +603,11 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Card_ccb_def_1</string>
+						<string>CCardLayer</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>defCard4</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
-						<key>properties</key>
-						<array>
-							<dict>
-								<key>name</key>
-								<string>position</string>
-								<key>type</key>
-								<string>Position</string>
-								<key>value</key>
-								<array>
-									<real>35.208332061767578</real>
-									<real>4.0625</real>
-									<integer>4</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>scale</string>
-								<key>type</key>
-								<string>ScaleLock</string>
-								<key>value</key>
-								<array>
-									<real>1</real>
-									<real>1</real>
-									<false/>
-									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>ccbFile</string>
-								<key>type</key>
-								<string>CCBFile</string>
-								<key>value</key>
-								<string>card.ccb</string>
-							</dict>
-						</array>
-					</dict>
-					<dict>
-						<key>baseClass</key>
-						<string>CCBFile</string>
-						<key>children</key>
-						<array/>
-						<key>customClass</key>
-						<string></string>
-						<key>displayName</key>
-						<string>Card_ccb_def_5</string>
-						<key>memberVarAssignmentName</key>
-						<string></string>
-						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>2</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -703,11 +653,11 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Card_ccb_def_4</string>
+						<string>CCardLayer</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>defCard3</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -753,11 +703,11 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Card_ccb_def_3</string>
+						<string>CCardLayer</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>defCard2</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -803,11 +753,11 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Card_ccb_def_2</string>
+						<string>CCardLayer</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>defCard1</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -853,11 +803,61 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Card_ccb_atk</string>
+						<string>CCardLayer</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>defCard0</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
+						<key>properties</key>
+						<array>
+							<dict>
+								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>35.208332061767578</real>
+									<real>4.0625</real>
+									<integer>4</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>scale</string>
+								<key>type</key>
+								<string>ScaleLock</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<real>1</real>
+									<false/>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>ccbFile</string>
+								<key>type</key>
+								<string>CCBFile</string>
+								<key>value</key>
+								<string>card.ccb</string>
+							</dict>
+						</array>
+					</dict>
+					<dict>
+						<key>baseClass</key>
+						<string>CCBFile</string>
+						<key>children</key>
+						<array/>
+						<key>customClass</key>
+						<string></string>
+						<key>displayName</key>
+						<string>CCardLayer</string>
+						<key>memberVarAssignmentName</key>
+						<string>atkCard</string>
+						<key>memberVarAssignmentType</key>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1115,9 +1115,9 @@
 						<key>displayName</key>
 						<string>nickname_def_1</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerNick0</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1231,9 +1231,9 @@
 						<key>displayName</key>
 						<string>nickname_def_2</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerNick1</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1347,9 +1347,9 @@
 						<key>displayName</key>
 						<string>nickname_def_3</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerNick2</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1463,9 +1463,9 @@
 						<key>displayName</key>
 						<string>nickname_def_4</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerNick3</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1579,9 +1579,9 @@
 						<key>displayName</key>
 						<string>nickname_def_5</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>playerNick4</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -1776,7 +1776,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string></string>
+		<string>CMenuFrameLayer</string>
 		<key>displayName</key>
 		<string>CCLayer</string>
 		<key>memberVarAssignmentName</key>
@@ -1850,6 +1850,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

@@ -30,7 +30,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>fb_menu.ccb</string>
+				<string>CMenuFrameLayer</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -319,9 +319,9 @@
 						<key>displayName</key>
 						<string>bt_1</string>
 						<key>memberVarAssignmentName</key>
-						<string>VarButton</string>
+						<string>varButtonBlockDribble</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -375,7 +375,7 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string>MenuButton</string>
+									<string>onBlockDribble</string>
 									<integer>1</integer>
 									<integer>32</integer>
 								</array>
@@ -527,9 +527,9 @@
 						<key>displayName</key>
 						<string>bt_2</string>
 						<key>memberVarAssignmentName</key>
-						<string>VarButton</string>
+						<string>varButtonBlockShoot</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -583,7 +583,7 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string>MenuButton</string>
+									<string>onBlockShoot</string>
 									<integer>1</integer>
 									<integer>32</integer>
 								</array>
@@ -724,8 +724,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

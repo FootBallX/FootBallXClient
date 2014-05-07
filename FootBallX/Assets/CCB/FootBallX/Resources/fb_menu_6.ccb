@@ -30,7 +30,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>fb_menu.ccb</string>
+				<string>CMenuFrameLayer</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -435,7 +435,7 @@
 						<key>displayName</key>
 						<string>bt_1</string>
 						<key>memberVarAssignmentName</key>
-						<string>VarButtonClear</string>
+						<string>varButtonClear</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -491,7 +491,7 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string>MenuButtonClear</string>
+									<string>onClear</string>
 									<integer>1</integer>
 									<integer>32</integer>
 								</array>
@@ -643,9 +643,9 @@
 						<key>displayName</key>
 						<string>bt_2</string>
 						<key>memberVarAssignmentName</key>
-						<string>VarButtonIntercept</string>
+						<string>varButtonIntercept</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -699,7 +699,7 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string>MenuButtonIntercept</string>
+									<string>onIntercept</string>
 									<integer>1</integer>
 									<integer>32</integer>
 								</array>
@@ -851,9 +851,9 @@
 						<key>displayName</key>
 						<string>bt_3</string>
 						<key>memberVarAssignmentName</key>
-						<string>VarButtonBlock</string>
+						<string>varButtonBlock</string>
 						<key>memberVarAssignmentType</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>properties</key>
 						<array>
 							<dict>
@@ -907,7 +907,7 @@
 								<string>BlockCCControl</string>
 								<key>value</key>
 								<array>
-									<string>MenuButtonBlock</string>
+									<string>onBlock</string>
 									<integer>1</integer>
 									<integer>32</integer>
 								</array>
@@ -1048,6 +1048,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

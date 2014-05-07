@@ -78,6 +78,8 @@
 		543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C018815EE60076C7EB /* CTransitLayer.cpp */; };
 		543D49C618815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
 		543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543D49C418815F320076C7EB /* CAnimationCache.cpp */; };
+		543E4234191928CB0093AFE2 /* CMenuFrameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543E4232191928CB0093AFE2 /* CMenuFrameLayer.cpp */; };
+		543E4235191928CB0093AFE2 /* CMenuFrameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543E4232191928CB0093AFE2 /* CMenuFrameLayer.cpp */; };
 		544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		544955F2187F8924002FB29B /* CFBPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544955EF187F8924002FB29B /* CFBPitch.cpp */; };
 		544B6E2B188E9A8500A1EBB4 /* CFBMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */; };
@@ -166,6 +168,8 @@
 		54F159CB1884DADF008AF575 /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BD1884DADF008AF575 /* Icon-144.png */; };
 		54F159CC1884DADF008AF575 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F159BE1884DADF008AF575 /* Icon-152.png */; };
 		54F159CF1884DD08008AF575 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F159CE1884DD08008AF575 /* CoreMotion.framework */; };
+		54F189251918F6C60087E63A /* CCardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F189231918F6C60087E63A /* CCardLayer.cpp */; };
+		54F189261918F6C60087E63A /* CCardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F189231918F6C60087E63A /* CCardLayer.cpp */; };
 		54F895BD18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */; };
 		54F895BE18EFBA6400518F3D /* CLobbyLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */; };
 		54FC876318A3AAC100A320EC /* CFBPitchGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */; };
@@ -251,6 +255,8 @@
 		543D49C118815EE60076C7EB /* CTransitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTransitLayer.h; path = ../Classes/CTransitLayer.h; sourceTree = "<group>"; };
 		543D49C418815F320076C7EB /* CAnimationCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CAnimationCache.cpp; path = ../Classes/CAnimationCache.cpp; sourceTree = "<group>"; };
 		543D49C518815F320076C7EB /* CAnimationCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CAnimationCache.h; path = ../Classes/CAnimationCache.h; sourceTree = "<group>"; };
+		543E4232191928CB0093AFE2 /* CMenuFrameLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CMenuFrameLayer.cpp; path = ../Classes/CMenuFrameLayer.cpp; sourceTree = "<group>"; };
+		543E4233191928CB0093AFE2 /* CMenuFrameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMenuFrameLayer.h; path = ../Classes/CMenuFrameLayer.h; sourceTree = "<group>"; };
 		544955EF187F8924002FB29B /* CFBPitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitch.cpp; path = ../Classes/CFBPitch.cpp; sourceTree = "<group>"; };
 		544955F0187F8924002FB29B /* CFBPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPitch.h; path = ../Classes/CFBPitch.h; sourceTree = "<group>"; };
 		544B6E29188E9A8500A1EBB4 /* CFBMatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBMatch.cpp; path = ../Classes/CFBMatch.cpp; sourceTree = "<group>"; };
@@ -347,6 +353,8 @@
 		54F159BE1884DADF008AF575 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-152.png"; path = "ios/Icon-152.png"; sourceTree = "<group>"; };
 		54F159BF1884DADF008AF575 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Info.plist; sourceTree = "<group>"; };
 		54F159CE1884DD08008AF575 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		54F189231918F6C60087E63A /* CCardLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCardLayer.cpp; path = ../Classes/CCardLayer.cpp; sourceTree = "<group>"; };
+		54F189241918F6C60087E63A /* CCardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCardLayer.h; path = ../Classes/CCardLayer.h; sourceTree = "<group>"; };
 		54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CLobbyLayer.cpp; path = ../Classes/CLobbyLayer.cpp; sourceTree = "<group>"; };
 		54F895BC18EFBA6400518F3D /* CLobbyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLobbyLayer.h; path = ../Classes/CLobbyLayer.h; sourceTree = "<group>"; };
 		54FC876118A3AAC100A320EC /* CFBPitchGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPitchGrid.cpp; path = ../Classes/CFBPitchGrid.cpp; sourceTree = "<group>"; };
@@ -461,6 +469,10 @@
 		542EC2DC1880FC1700EB100C /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				543E4232191928CB0093AFE2 /* CMenuFrameLayer.cpp */,
+				543E4233191928CB0093AFE2 /* CMenuFrameLayer.h */,
+				54F189231918F6C60087E63A /* CCardLayer.cpp */,
+				54F189241918F6C60087E63A /* CCardLayer.h */,
 				54F895BB18EFBA6400518F3D /* CLobbyLayer.cpp */,
 				54F895BC18EFBA6400518F3D /* CLobbyLayer.h */,
 				543D49C018815EE60076C7EB /* CTransitLayer.cpp */,
@@ -963,6 +975,7 @@
 				543D49B918815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
 				5452C06618F541C7009347AD /* CFBMatchProxy.cpp in Sources */,
 				5490F12218F2EC8800E8C0E3 /* CPlayerInfo.cpp in Sources */,
+				54F189251918F6C60087E63A /* CCardLayer.cpp in Sources */,
 				543D49BE18815EB50076C7EB /* CCControlToggleButton.cpp in Sources */,
 				54764CB318CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */,
 				5432C98518B9C2070066919A /* CRandomManager.cpp in Sources */,
@@ -979,6 +992,7 @@
 				54C1EBC118963EA000DC5E0F /* CSpriteEx.cpp in Sources */,
 				54D375D11889284F008BA6BB /* CFBFormation.cpp in Sources */,
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
+				543E4234191928CB0093AFE2 /* CMenuFrameLayer.cpp in Sources */,
 				54555F6418E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */,
 				5420555618D09204001551BF /* CFBForwardAI.cpp in Sources */,
 			);
@@ -1006,6 +1020,7 @@
 				5436BB0D18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */,
 				5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */,
 				5420555318D091F5001551BF /* CFBHalfBackAI.cpp in Sources */,
+				54F189261918F6C60087E63A /* CCardLayer.cpp in Sources */,
 				5452C07018F5420B009347AD /* CFBMatchProxySim.cpp in Sources */,
 				5484C238187D1D3B00AA8AFB /* main.cpp in Sources */,
 				542650B7187E3B9C008113ED /* CCPomelo.cpp in Sources */,
@@ -1027,6 +1042,7 @@
 				543D49B318815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B518815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
 				543D49BA18815D7A0076C7EB /* CLoginLayer.cpp in Sources */,
+				543E4235191928CB0093AFE2 /* CMenuFrameLayer.cpp in Sources */,
 				5420554A18D090FA001551BF /* CFBGoalkeeperAI.cpp in Sources */,
 				54555F6318E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */,
 				54555F6518E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */,

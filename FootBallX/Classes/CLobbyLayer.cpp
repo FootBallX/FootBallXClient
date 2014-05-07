@@ -57,9 +57,9 @@ Control::Handler CLobbyLayer::onResolveCCBCCControlSelector(Ref* pTarget, const 
 bool CLobbyLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
 {
     
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "logText", decltype(m_logText), m_logText);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnSignUp", decltype(m_signUpButton), m_signUpButton);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "btnCancel", decltype(m_cancelButton), m_cancelButton);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "logText", decltype(m_logText), m_logText);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "btnSignUp", decltype(m_signUpButton), m_signUpButton);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "btnCancel", decltype(m_cancelButton), m_cancelButton);
     return false;
 }
 

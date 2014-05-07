@@ -149,7 +149,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string></string>
+		<string>CCardLayer</string>
 		<key>displayName</key>
 		<string>Card plate</string>
 		<key>memberVarAssignmentName</key>
@@ -223,6 +223,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

@@ -32,7 +32,7 @@
 				<key>displayName</key>
 				<string>bt_1</string>
 				<key>memberVarAssignmentName</key>
-				<string>VarButtonDribble</string>
+				<string>varButtonDribble</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -88,7 +88,7 @@
 						<string>BlockCCControl</string>
 						<key>value</key>
 						<array>
-							<string>MenuButtonDribble</string>
+							<string>onDribble</string>
 							<integer>1</integer>
 							<integer>32</integer>
 						</array>
@@ -240,7 +240,7 @@
 				<key>displayName</key>
 				<string>bt_2</string>
 				<key>memberVarAssignmentName</key>
-				<string>VarButtonPass</string>
+				<string>varButtonPass</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -296,7 +296,7 @@
 						<string>BlockCCControl</string>
 						<key>value</key>
 						<array>
-							<string>MenuButtonPass</string>
+							<string>onPass</string>
 							<integer>1</integer>
 							<integer>32</integer>
 						</array>
@@ -448,7 +448,7 @@
 				<key>displayName</key>
 				<string>bt_3</string>
 				<key>memberVarAssignmentName</key>
-				<string>VarButtonShoot</string>
+				<string>varButtonShoot</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -504,7 +504,7 @@
 						<string>BlockCCControl</string>
 						<key>value</key>
 						<array>
-							<string>MenuButtonShoot</string>
+							<string>onShoot</string>
 							<integer>1</integer>
 							<integer>32</integer>
 						</array>
@@ -656,7 +656,7 @@
 				<key>displayName</key>
 				<string>bt_4</string>
 				<key>memberVarAssignmentName</key>
-				<string>VarButtonOneTwo</string>
+				<string>varButtonOneTwo</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -712,7 +712,7 @@
 						<string>BlockCCControl</string>
 						<key>value</key>
 						<array>
-							<string>MenuButtonOneTwo</string>
+							<string>onOneTwo</string>
 							<integer>1</integer>
 							<integer>32</integer>
 						</array>

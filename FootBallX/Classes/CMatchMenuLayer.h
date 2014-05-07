@@ -15,6 +15,7 @@
 class CFBAnimationLayer;
 class CFBTeam;
 class CMatchLayer;
+class CCardLayer;
 
 class CMatchMenuLayer
 : public CBaseLayer
@@ -44,6 +45,7 @@ public:
     virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
     
     virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
+    
 protected:
     virtual void onPass(Ref* sender, Control::EventType event);          // 传球
     virtual void onDribble(Ref* sender, Control::EventType event);       // 盘带
@@ -58,6 +60,23 @@ protected:
     ControlButton* m_btnDribble = nullptr;
     ControlButton* m_btnShoot = nullptr;
     ControlButton* m_btnOneTwo = nullptr;
+    
+    Sprite* m_PlayerImg3 = nullptr;
+    Sprite* m_PlayerImg1 = nullptr;
+    Sprite* m_PlayerImg0 = nullptr;
+    Sprite* m_PlayerImg2 = nullptr;
+    Sprite* m_PlayerImg4 = nullptr;
+    CCardLayer* m_DefCard4 = nullptr;
+    CCardLayer* m_DefCard3 = nullptr;
+    CCardLayer* m_DefCard2 = nullptr;
+    CCardLayer* m_DefCard1 = nullptr;
+    CCardLayer* m_DefCard0 = nullptr;
+    CCardLayer* m_AtkCard = nullptr;
+    Label* m_PlayerNick0 = nullptr;
+    Label* m_PlayerNick1 = nullptr;
+    Label* m_PlayerNick2 = nullptr;
+    Label* m_PlayerNick3 = nullptr;
+    Label* m_PlayerNick4 = nullptr;
     
     vector<int> m_attackPlayerNumbers;
     vector<int> m_defendPlayerNumbers;

@@ -8,6 +8,7 @@
 
 #include "CMatchMenuLayer.h"
 #include "CMatchLayer.h"
+#include "CCardLayer.h"
 
 static class CMatchMenuLayerRegister
 {
@@ -73,13 +74,30 @@ Control::Handler CMatchMenuLayer::onResolveCCBCCControlSelector(Ref* pTarget, co
 }
 
 
-
 bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode)
 {
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "VarButtonDribble", ControlButton*, m_btnDribble);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "VarButtonPass", ControlButton*, m_btnPass);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "VarButtonOneTwo", ControlButton*, m_btnOneTwo);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "VarButtonShoot", ControlButton*, m_btnShoot);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonDribble", ControlButton*, m_btnDribble);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonPass", ControlButton*, m_btnPass);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonOneTwo", ControlButton*, m_btnOneTwo);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonShoot", ControlButton*, m_btnShoot);
+    
+    
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg3", Sprite*, this->m_PlayerImg3);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg1", Sprite*, this->m_PlayerImg1);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg0", Sprite*, this->m_PlayerImg0);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg2", Sprite*, this->m_PlayerImg2);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg4", Sprite*, this->m_PlayerImg4);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard4", CCardLayer*, this->m_DefCard4);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard3", CCardLayer*, this->m_DefCard3);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard2", CCardLayer*, this->m_DefCard2);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard1", CCardLayer*, this->m_DefCard1);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard0", CCardLayer*, this->m_DefCard0);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "AtkCard", CCardLayer*, this->m_AtkCard);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick0", Label*, this->m_PlayerNick0);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick1", Label*, this->m_PlayerNick1);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick2", Label*, this->m_PlayerNick2);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick3", Label*, this->m_PlayerNick3);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick4", Label*, this->m_PlayerNick4);
 	return false;
 }
 
@@ -88,7 +106,29 @@ bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
 void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
 {
     m_attackPlayerNumbers = ap;
+    m_AtkCard->setCardName(m_attackPlayerNumbers[0]);
+    
     m_defendPlayerNumbers = dp;
+    
+    auto size = dp.size();
+    
+    m_DefCard0->setCardName(dp[0]);
+    if (size > 1)
+    {
+        m_DefCard1->setCardName(dp[1]);
+    }
+    if (size > 2)
+    {
+        m_DefCard2->setCardName(dp[2]);
+    }
+    if (size > 3)
+    {
+        m_DefCard3->setCardName(dp[3]);
+    }
+    if (size > 4)
+    {
+        m_DefCard4->setCardName(dp[4]);
+    }
 }
 
 

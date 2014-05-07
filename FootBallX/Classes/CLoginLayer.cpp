@@ -34,28 +34,41 @@ CLoginLayer::~CLoginLayer()
 }
 
 
+void CLoginLayer::onEnter()
+{
+    CBaseLayer::onEnter();
+}
+
+void CLoginLayer::onExit()
+{
+    CBaseLayer::onExit();
+}
+
 
 SEL_MenuHandler CLoginLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
-//    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onLogin", CLoginLayer::onLogin);
-//    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onCancel", CLoginLayer::onCancel);
-//    CCB_SELECTORRESOLVER_CCMENUITEM_GLUE(this, "onTestSocket", CLobbyLayer::onTestSocket);
+    // AUTO_GEN_MENU_ITEM_BEGIN
+    // AUTO_GEN_MENU_ITEM_END
     return nullptr;
 }
 
 //函数定义类型为：void pressTitle(Ref*pSender);
 Control::Handler CLoginLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
 {
+    // AUTO_GEN_CONTROL_BEGIN
     CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onLogin", CLoginLayer::onLogin);
     CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onCancel", CLoginLayer::onCancel);
-//    CCB_SELECTORRESOLVER_CCCONTROL_GLUE( this, "pressTitle", CLobbyLayer::controlButtonTest);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onTest", CLoginLayer::onTest);
+    // AUTO_GEN_CONTROL_END
     return nullptr;
 }
 
 bool CLoginLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
 {
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "m_edtUserNameLayer", Layer*, m_editUserNameLayer);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "m_edtPasswordLayer", Layer*, m_editPasswordLayer);
+    // AUTO_GEN_VAR_BEGIN
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "editUserNameLayer", Layer*, this->m_editUserNameLayer);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "editPasswordLayer", Layer*, this->m_editPasswordLayer);
+    // AUTO_GEN_VAR_END
     return false;
 }
 
@@ -150,7 +163,6 @@ void CLoginLayer::onCancel(Ref* sender, Control::EventType event)
     POMELO->stop();
     delete POMELO;
     json_memory_dump();
-//    SCENE_MANAGER->go(ST_MATCH);
     
     Director::getInstance()->end();
 }
@@ -236,3 +248,22 @@ void CLoginLayer::getPlayerInfo(void)
     });
     msg.release();
 }
+
+
+
+void CLoginLayer::onTest(Ref* sender, Control::EventType event)
+{
+    //    SCENE_MANAGER->go(ST_MATCH);
+    cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
+    
+    char name[256];
+    sprintf(name, "fb_menu_%d.ccbi", 1);
+    auto m = pReader->readNodeGraphFromFile(name);
+    addChild(m);
+    delete pReader;
+}
+
+
+
+
+
