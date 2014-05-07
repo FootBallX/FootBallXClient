@@ -9,6 +9,7 @@
 #include "CMatchMenuLayer.h"
 #include "CMatchLayer.h"
 #include "CCardLayer.h"
+#include "CMenuFrameLayer.h"
 
 static class CMatchMenuLayerRegister
 {
@@ -33,6 +34,19 @@ CMatchMenuLayer::~CMatchMenuLayer()
 
 
 
+void CMatchMenuLayer::onEnter()
+{
+    CBaseLayer::onEnter();
+}
+
+
+
+void CMatchMenuLayer::onExit()
+{
+    CBaseLayer::onExit();
+}
+
+
 bool CMatchMenuLayer::init()
 {
     do
@@ -54,7 +68,8 @@ void CMatchMenuLayer::update(float dt)
 
 SEL_MenuHandler CMatchMenuLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
 {
-
+    // AUTO_GEN_MENU_ITEM_BEGIN
+    // AUTO_GEN_MENU_ITEM_END
     return nullptr;
 }
 
@@ -62,42 +77,45 @@ SEL_MenuHandler CMatchMenuLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, co
 
 Control::Handler CMatchMenuLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
 {
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonPass", CMatchMenuLayer::onPass);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonDribble", CMatchMenuLayer::onDribble);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonOneTwo", CMatchMenuLayer::onOneTwo);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonShoot", CMatchMenuLayer::onShoot);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonTackle", CMatchMenuLayer::onTackle);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonIntercept", CMatchMenuLayer::onIntercept);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonBlock", CMatchMenuLayer::onBlock);
-    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "MenuButtonHit", CMatchMenuLayer::onHit);
+    // AUTO_GEN_CONTROL_BEGIN
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onDribble", CMatchMenuLayer::onDribble);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onPass", CMatchMenuLayer::onPass);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onShoot", CMatchMenuLayer::onShoot);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onOneTwo", CMatchMenuLayer::onOneTwo);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onClear", CMatchMenuLayer::onClear);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onTackle", CMatchMenuLayer::onTackle);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onIntercept", CMatchMenuLayer::onIntercept);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onBlock", CMatchMenuLayer::onBlock);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onCatch", CMatchMenuLayer::onCatch);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onHit", CMatchMenuLayer::onHit);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onBlockDribble", CMatchMenuLayer::onBlockDribble);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onBlockShoot", CMatchMenuLayer::onBlockShoot);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onAttack", CMatchMenuLayer::onAttack);
+    CCB_SELECTORRESOLVER_CCCONTROL_GLUE(this, "onWait", CMatchMenuLayer::onWait);
+    // AUTO_GEN_CONTROL_END
     return nullptr;
 }
 
 
 bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode)
 {
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonDribble", ControlButton*, m_btnDribble);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonPass", ControlButton*, m_btnPass);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonOneTwo", ControlButton*, m_btnOneTwo);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "VarButtonShoot", ControlButton*, m_btnShoot);
-    
-    
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg3", Sprite*, this->m_PlayerImg3);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg1", Sprite*, this->m_PlayerImg1);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg0", Sprite*, this->m_PlayerImg0);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg2", Sprite*, this->m_PlayerImg2);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerImg4", Sprite*, this->m_PlayerImg4);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard4", CCardLayer*, this->m_DefCard4);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard3", CCardLayer*, this->m_DefCard3);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard2", CCardLayer*, this->m_DefCard2);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard1", CCardLayer*, this->m_DefCard1);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "DefCard0", CCardLayer*, this->m_DefCard0);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "AtkCard", CCardLayer*, this->m_AtkCard);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick0", Label*, this->m_PlayerNick0);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick1", Label*, this->m_PlayerNick1);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick2", Label*, this->m_PlayerNick2);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick3", Label*, this->m_PlayerNick3);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "PlayerNick4", Label*, this->m_PlayerNick4);
+    // AUTO_GEN_VAR_BEGIN
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "menuFrameLayer", CMenuFrameLayer*, this->m_menuFrameLayer);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonDribble", ControlButton*, this->m_varButtonDribble);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonPass", ControlButton*, this->m_varButtonPass);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonShoot", ControlButton*, this->m_varButtonShoot);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonOneTwo", ControlButton*, this->m_varButtonOneTwo);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonClear", ControlButton*, this->m_varButtonClear);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonTackle", ControlButton*, this->m_varButtonTackle);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonIntercept", ControlButton*, this->m_varButtonIntercept);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonBlock", ControlButton*, this->m_varButtonBlock);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonCatch", ControlButton*, this->m_varButtonCatch);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonHit", ControlButton*, this->m_varButtonHit);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonBlockDribble", ControlButton*, this->m_varButtonBlockDribble);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonBlockShoot", ControlButton*, this->m_varButtonBlockShoot);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonAttack", ControlButton*, this->m_varButtonAttack);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "varButtonWait", ControlButton*, this->m_varButtonWait);
+    // AUTO_GEN_VAR_END
 	return false;
 }
 
@@ -106,29 +124,9 @@ bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
 void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
 {
     m_attackPlayerNumbers = ap;
-    m_AtkCard->setCardName(m_attackPlayerNumbers[0]);
-    
     m_defendPlayerNumbers = dp;
     
-    auto size = dp.size();
-    
-    m_DefCard0->setCardName(dp[0]);
-    if (size > 1)
-    {
-        m_DefCard1->setCardName(dp[1]);
-    }
-    if (size > 2)
-    {
-        m_DefCard2->setCardName(dp[2]);
-    }
-    if (size > 3)
-    {
-        m_DefCard3->setCardName(dp[3]);
-    }
-    if (size > 4)
-    {
-        m_DefCard4->setCardName(dp[4]);
-    }
+    m_menuFrameLayer->setPlayers(ap, dp);
 }
 
 
@@ -267,6 +265,39 @@ void CMatchMenuLayer::onHit(Ref* sender, Control::EventType event)
 
 
 
+void CMatchMenuLayer::onClear(Ref* sender, Control::EventType event)
+{
 
+}
+
+
+void CMatchMenuLayer::onCatch(Ref* sender, Control::EventType event)
+{
+
+}
+
+
+void CMatchMenuLayer::onBlockDribble(Ref* sender, Control::EventType event)
+{
+
+}
+
+
+void CMatchMenuLayer::onBlockShoot(Ref* sender, Control::EventType event)
+{
+
+}
+
+
+void CMatchMenuLayer::onAttack(Ref* sender, Control::EventType event)
+{
+
+}
+
+
+void CMatchMenuLayer::onWait(Ref* sender, Control::EventType event)
+{
+
+}
 
 

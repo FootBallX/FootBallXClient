@@ -250,6 +250,9 @@ void CLoginLayer::getPlayerInfo(void)
 }
 
 
+// Codes below are for testing.
+
+#include "CMatchMenuLayer.h"
 
 void CLoginLayer::onTest(Ref* sender, Control::EventType event)
 {
@@ -261,6 +264,9 @@ void CLoginLayer::onTest(Ref* sender, Control::EventType event)
     auto m = pReader->readNodeGraphFromFile(name);
     addChild(m);
     delete pReader;
+    
+    CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
+    p->setPlayers({10}, {1,2,3,4});
 }
 
 

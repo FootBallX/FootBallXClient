@@ -65,9 +65,13 @@ void CCardLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoad
 
 void CCardLayer::setCardName(int cardId)
 {
+    // TODO: 这里是测试代码，只在卡牌位置显示球员编号。将来换成显示球员对应卡牌。
     char s[32];
     sprintf(s, "card:%d", cardId);
-    auto p = Label::createWithSystemFont(s, "Helvetica", 24);
+    auto p = Label::createWithSystemFont(s, "Helvetica", 40);
     addChild(p, 0, 123);
+    
+    Point sz(getContentSize());
+    p->setPosition(sz * 0.5);
 }
 

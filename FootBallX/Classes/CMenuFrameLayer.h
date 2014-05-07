@@ -14,6 +14,7 @@ class CMenuFrameLayer
 , public cocosbuilder::NodeLoaderListener
 {
 public:
+    virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
 
 //========AUTO CREATE CODE START========
 
@@ -37,6 +38,7 @@ protected:
     Sprite* m_playerImg0 = nullptr;
     Sprite* m_playerImg2 = nullptr;
     Sprite* m_playerImg4 = nullptr;
+    CCardLayer* m_defCard4 = nullptr;
     CCardLayer* m_defCard3 = nullptr;
     CCardLayer* m_defCard2 = nullptr;
     CCardLayer* m_defCard1 = nullptr;

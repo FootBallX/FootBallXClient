@@ -16,6 +16,7 @@ class CFBAnimationLayer;
 class CFBTeam;
 class CMatchLayer;
 class CCardLayer;
+class CMenuFrameLayer;
 
 class CMatchMenuLayer
 : public CBaseLayer
@@ -26,70 +27,77 @@ class CMatchMenuLayer
 public:
     CC_SYNTHESIZE(CMatchLayer*, m_matchLayer, MatchLayer);
     
-    CREATE_FUNC(CMatchMenuLayer);
-    
-    CMatchMenuLayer();
-    virtual ~CMatchMenuLayer();
-    
     virtual bool init();
     
     virtual void update(float dt);
     
-    //CCBSelectorResolver
-    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) override;
-    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) override;
-    
-    //CCBMemberVariableAssigner
-    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode) override;
-    
-    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
-    
     virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
     
 protected:
-    virtual void onPass(Ref* sender, Control::EventType event);          // 传球
-    virtual void onDribble(Ref* sender, Control::EventType event);       // 盘带
-    virtual void onShoot(Ref* sender, Control::EventType event);         // 射门
-    virtual void onOneTwo(Ref* sender, Control::EventType event);        // 二过一
-    virtual void onTackle(Ref* sender, Control::EventType event);        // 铲球
-    virtual void onBlock(Ref* sender, Control::EventType event);         // 封堵
-    virtual void onIntercept(Ref* sender, Control::EventType event);     // 拦截
-    virtual void onHit(Ref* sender, Control::EventType event);           // 击球
-    
-    ControlButton* m_btnPass = nullptr;
-    ControlButton* m_btnDribble = nullptr;
-    ControlButton* m_btnShoot = nullptr;
-    ControlButton* m_btnOneTwo = nullptr;
-    
-    Sprite* m_PlayerImg3 = nullptr;
-    Sprite* m_PlayerImg1 = nullptr;
-    Sprite* m_PlayerImg0 = nullptr;
-    Sprite* m_PlayerImg2 = nullptr;
-    Sprite* m_PlayerImg4 = nullptr;
-    CCardLayer* m_DefCard4 = nullptr;
-    CCardLayer* m_DefCard3 = nullptr;
-    CCardLayer* m_DefCard2 = nullptr;
-    CCardLayer* m_DefCard1 = nullptr;
-    CCardLayer* m_DefCard0 = nullptr;
-    CCardLayer* m_AtkCard = nullptr;
-    Label* m_PlayerNick0 = nullptr;
-    Label* m_PlayerNick1 = nullptr;
-    Label* m_PlayerNick2 = nullptr;
-    Label* m_PlayerNick3 = nullptr;
-    Label* m_PlayerNick4 = nullptr;
-    
     vector<int> m_attackPlayerNumbers;
     vector<int> m_defendPlayerNumbers;
-};
+    
+//========AUTO CREATE CODE START========
 
+public:
+    CREATE_FUNC(CMatchMenuLayer);
+    
+    CMatchMenuLayer();
+    virtual ~CMatchMenuLayer();
+
+    virtual void onEnter() override;
+    virtual void onExit() override;
+
+    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) override;
+    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) override;
+    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode) override;
+    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
+    
+protected:
+    CMenuFrameLayer* m_menuFrameLayer = nullptr;
+    ControlButton* m_varButtonDribble = nullptr;
+    ControlButton* m_varButtonPass = nullptr;
+    ControlButton* m_varButtonShoot = nullptr;
+    ControlButton* m_varButtonOneTwo = nullptr;
+    ControlButton* m_varButtonClear = nullptr;
+    ControlButton* m_varButtonTackle = nullptr;
+    ControlButton* m_varButtonIntercept = nullptr;
+    ControlButton* m_varButtonBlock = nullptr;
+    ControlButton* m_varButtonCatch = nullptr;
+    ControlButton* m_varButtonHit = nullptr;
+    ControlButton* m_varButtonBlockDribble = nullptr;
+    ControlButton* m_varButtonBlockShoot = nullptr;
+    ControlButton* m_varButtonAttack = nullptr;
+    ControlButton* m_varButtonWait = nullptr;
+    
+    void onDribble(Ref* sender, Control::EventType event);
+    void onPass(Ref* sender, Control::EventType event);
+    void onShoot(Ref* sender, Control::EventType event);
+    void onOneTwo(Ref* sender, Control::EventType event);
+    void onClear(Ref* sender, Control::EventType event);
+    void onTackle(Ref* sender, Control::EventType event);
+    void onIntercept(Ref* sender, Control::EventType event);
+    void onBlock(Ref* sender, Control::EventType event);
+    void onCatch(Ref* sender, Control::EventType event);
+    void onHit(Ref* sender, Control::EventType event);
+    void onBlockDribble(Ref* sender, Control::EventType event);
+    void onBlockShoot(Ref* sender, Control::EventType event);
+    void onAttack(Ref* sender, Control::EventType event);
+    void onWait(Ref* sender, Control::EventType event);
+
+};
 
 class CMatchMenuLayerLoader : public cocosbuilder::LayerLoader
 {
 public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CMatchMenuLayerLoader, loader);
+    
 protected:
     CCB_VIRTUAL_NEW_AUTORELEASE_CREATECCNODE_METHOD(CMatchMenuLayer);
 };
 
+
+
+//========AUTO CREATE CODE END========
 
 #endif /* defined(__FootBallX__CMatchMenuLayer__) */

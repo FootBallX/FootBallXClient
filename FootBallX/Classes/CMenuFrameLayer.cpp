@@ -56,6 +56,7 @@ bool CMenuFrameLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "playerImg0", Sprite*, this->m_playerImg0);
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "playerImg2", Sprite*, this->m_playerImg2);
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "playerImg4", Sprite*, this->m_playerImg4);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "defCard4", CCardLayer*, this->m_defCard4);
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "defCard3", CCardLayer*, this->m_defCard3);
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "defCard2", CCardLayer*, this->m_defCard2);
     CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "defCard1", CCardLayer*, this->m_defCard1);
@@ -76,6 +77,32 @@ void CMenuFrameLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNod
 {
     
 }
+
+
+void CMenuFrameLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
+{
+    m_atkCard->setCardName(ap[0]);
+    auto size = dp.size();
+    
+    m_defCard0->setCardName(dp[0]);
+    if (size > 1)
+    {
+        m_defCard1->setCardName(dp[1]);
+    }
+    if (size > 2)
+    {
+        m_defCard2->setCardName(dp[2]);
+    }
+    if (size > 3)
+    {
+        m_defCard3->setCardName(dp[3]);
+    }
+    if (size > 4)
+    {
+        m_defCard4->setCardName(dp[4]);
+    }
+}
+
 
 
 
