@@ -109,11 +109,9 @@ void CFBPlayerAI::considerSupport()
 
 
 
-void CFBPlayerAI::initPlayerStates(bool networkControl)
+void CFBPlayerAI::initPlayerStates(const Point& pt, bool networkControl)
 {
-    auto pitch = FBMATCH->getPitch();
-    auto team = m_formation->getTeam();
-    m_player->setPosition(pitch->transformBySide(m_initPosition, team->getSide()));
+    m_player->setPosition(pt);
     m_player->m_isOnDuty = true;
     
     if (networkControl)

@@ -329,7 +329,7 @@ void CMatchLayer::update(float dt)
     {
         auto stat = (Label*)getChildByTag(TAG_STAT);
         char ss[100];
-        sprintf(ss, "time: %lld", FBMATCH->getTime());
+        sprintf(ss, "time: %u", FBMATCH->getTime());
         stat->setString(ss);
     }
 #endif
@@ -569,15 +569,23 @@ void CMatchLayer::refreshGrids()
 
 
 
+void CMatchLayer::setMenuItem(FBDefs::MENU_ITEMS mi)
+{
+}
+
+
+
 void CMatchLayer::onPass(Ref* pSender)
 {
     m_operator = OP::PASS_BALL;
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Pass);
 }
 
 
 
 void CMatchLayer::onDribble(Ref* pSender)
 {
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Dribble);
 }
 
 
@@ -589,37 +597,42 @@ void CMatchLayer::onShoot(Ref* pSender)
     auto from = team->getHilightPlayer();
     FBMATCH->tryShootBall(from, false);
     
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Shoot);
 }
 
 
 
 void CMatchLayer::onOneTwo(Ref* pSender)
 {
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::OneTwo);
 }
 
 
 
 void CMatchLayer::onTackle(Ref* pSender)
 {
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Tackle);
 }
 
 
 
 void CMatchLayer::onIntercept(Ref* pSender)
 {
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Intercept);
 }
 
 
 
 void CMatchLayer::onBlock(Ref* pSender)
 {
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Block);
 }
 
 
 
 void CMatchLayer::onHit(Ref* pSender)
 {
-    
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Hit);
 }
 
 
@@ -634,7 +647,7 @@ void CMatchLayer::onAnimationEnd()
 
 #pragma mark - IFBMatchUI
 
-void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayerNumbers, const vector<int>& defendPlayerNumbers)
+void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayerNumbers, const vector<int>& defendPlayerNumbers, int side)
 {
     FBMATCH->pauseGame(true);
     togglePitchLieDown(false);
@@ -650,7 +663,7 @@ void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayer
     sprintf(name, "fb_menu_%d.ccbi", (int)type);
     m_menuLayer = dynamic_cast<CMatchMenuLayer*>(pReader->readNodeGraphFromFile(name));
     m_menuLayer->setMatchLayer(this);
-    m_menuLayer->setPlayers(attackPlayerNumbers, defendPlayerNumbers);
+    m_menuLayer->setPlayers(attackPlayerNumbers, defendPlayerNumbers, side);
     this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
     
     delete pReader;
@@ -703,3 +716,14 @@ void CMatchLayer::onGameEnd(void)
     SCENE_MANAGER->go(ST_LOBBY);
 }
 
+
+
+void CMatchLayer::waitInstruction(void)
+{
+    // TODO: close menu and show wait prompt.
+    if (m_menuLayer)
+    {
+        m_menuLayer->removeFromParentAndCleanup(true);
+        m_menuLayer = nullptr;
+    }
+}

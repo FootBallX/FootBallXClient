@@ -55,6 +55,8 @@ protected:
     
     void onPassBall(Ref* pSender);
     
+    void setMenuItem(FBDefs::MENU_ITEMS mi);
+    
     virtual void onPass(Ref* pSender);          // 传球
     virtual void onDribble(Ref* pSender);       // 盘带
     virtual void onShoot(Ref* pSender);         // 射门
@@ -65,11 +67,12 @@ protected:
     virtual void onHit(Ref* pSender);           // 击球
 
 #pragma mark - IFBMatchUI
-    virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&) override;
+    virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&, int) override;
     virtual void onPlayAnimation(const string&, float) override;
     virtual void onInstrunctionEnd(void) override;
     virtual void onPauseGame(bool) override;
     virtual void onGameEnd(void) override;
+    virtual void waitInstruction(void) override;
     
     void onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers);
     void onPauseGameCallback(bool p);

@@ -10,6 +10,7 @@
 #include "CMatchLayer.h"
 #include "CCardLayer.h"
 #include "CMenuFrameLayer.h"
+#include "CFBMatch.h"
 
 static class CMatchMenuLayerRegister
 {
@@ -121,10 +122,9 @@ bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
 
 
 
-void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
+void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp, int side)
 {
-    m_attackPlayerNumbers = ap;
-    m_defendPlayerNumbers = dp;
+    CC_ASSERT(side == 0 || side == 1);
     
     m_menuFrameLayer->setPlayers(ap, dp);
 }
@@ -134,7 +134,6 @@ void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp)
 void CMatchMenuLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)
 {
 }
-
 
 
 void CMatchMenuLayer::onPass(Ref* sender, Control::EventType event)

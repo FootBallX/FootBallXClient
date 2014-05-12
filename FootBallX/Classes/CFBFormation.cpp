@@ -83,7 +83,7 @@ void CFBFormation::think()
 
 
 
-bool CFBFormation::onStartMatch(bool networkControl)
+bool CFBFormation::onStartMatch(const vector<float>& initPlayerPos, bool networkControl)
 {
     do
     {
@@ -91,7 +91,7 @@ bool CFBFormation::onStartMatch(bool networkControl)
         for (int i = 0; i < m_playerNumber; ++i)
         {
             CC_ASSERT(m_playerAIs[i]);
-            m_playerAIs[i]->initPlayerStates(networkControl);
+            m_playerAIs[i]->initPlayerStates(Point(initPlayerPos[i*2], initPlayerPos[i*2 + 1]), networkControl);
         }
         
         m_team->setHilightPlayerId(m_playerNumber - 1);

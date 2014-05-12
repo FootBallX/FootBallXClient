@@ -89,9 +89,9 @@ void CFBBackAI::considerSupport()
 
 
 
-void CFBBackAI::initPlayerStates(bool networkControl)
+void CFBBackAI::initPlayerStates(const cocos2d::Point& pt, bool networkControl)
 {
-    CFBPlayerAI::initPlayerStates(networkControl);
+    CFBPlayerAI::initPlayerStates(pt, networkControl);
     
     m_player->m_isGoalKeeper = false;
 }

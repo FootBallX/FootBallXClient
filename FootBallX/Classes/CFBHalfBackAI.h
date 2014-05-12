@@ -20,7 +20,7 @@ public:
     
     virtual void update(float dt) override;
 protected:
-    virtual void initPlayerStates(bool networkControl) override;
+    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl) override;
     virtual void considerSupport() override;
     
     virtual void updateHomePosition() override;

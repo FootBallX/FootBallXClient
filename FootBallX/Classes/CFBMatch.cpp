@@ -47,7 +47,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         m_proxy = proxy;
         m_proxy->setEndMatchAck(std::bind(&CFBMatch::endMatchAck, this));
         m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-        m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
         m_proxy->setTriggerMenuAck(std::bind(&CFBMatch::triggerMenuAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
@@ -566,16 +566,27 @@ int CFBMatch::getCountDownTime()
 
 
 
-long long CFBMatch::getTime()
+unsigned int CFBMatch::getTime()
 {
     return m_proxy->getTime();
 }
 
 
+#pragma mark - Instructions
 
-void CFBMatch::setMenuCmd(FBDefs::MENU_TYPE menuType)
+void CFBMatch::setMenuItem(FBDefs::MENU_ITEMS mi)
 {
+    m_playerInstructions.push_back(mi);
     
+    auto sz = m_playerInstructions.size();
+    
+    if ((getControlSideTeam()->isAttacking() && sz == m_attackPlayerNumbers.size()) ||
+        (getControlSideTeam()->isDefending() && sz == m_defendPlayerNumbers.size()))
+    {
+        m_proxy->sendMenuCmd(m_playerInstructions);
+        m_playerInstructions.clear();
+        m_matchUI->waitInstruction();
+    }
 }
 
 
@@ -719,7 +730,7 @@ void CFBMatch::syncTeam()
 
 
 
-void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long long timeStamp)
+void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, unsigned int timeStamp)
 {
     auto team = m_teamsInMatch[(int)SIDE::OPP];
     auto fmt = team->getFormation();
@@ -742,14 +753,14 @@ void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, long lo
 
 
 
-void CFBMatch::startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st)
+void CFBMatch::startMatchAck(const vector<vector<float>>& allPos, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st)
 {
-    log("diff: %lld", st - m_proxy->getTime());
+    log("diff: %u", st - m_proxy->getTime());
     log("side: %d, kick: %d", (int)mySide, (int)kickOffSide);
     
     setControlSide(mySide);
-    m_teamsInMatch[(int)SIDE::SELF]->onStartMatch(false);
-    m_teamsInMatch[(int)SIDE::OPP]->onStartMatch(true);
+    m_teamsInMatch[(int)SIDE::SELF]->onStartMatch(allPos[0], false);
+    m_teamsInMatch[(int)SIDE::OPP]->onStartMatch(allPos[1], true);
     
     m_teams[(int)kickOffSide]->kickOff();
     
@@ -771,7 +782,12 @@ void CFBMatch::endMatchAck()
 
 void CFBMatch::triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers)
 {
-    m_matchUI->onMenu(menuType, attackPlayerNumbers, defendPlayerNumbers);
+    int side = getControlSideTeam()->isAttacking() ? 0 : 1;
+    m_matchUI->onMenu(menuType, attackPlayerNumbers, defendPlayerNumbers, side);
+    m_playerInstructions.clear();
+    
+    m_attackPlayerNumbers = attackPlayerNumbers;
+    m_defendPlayerNumbers = defendPlayerNumbers;
 }
 
 

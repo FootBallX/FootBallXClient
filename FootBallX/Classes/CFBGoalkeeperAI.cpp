@@ -46,9 +46,9 @@ void CFBGoalkeeperAI::update(float dt)
 
 
 
-void CFBGoalkeeperAI::initPlayerStates(bool networkControl)
+void CFBGoalkeeperAI::initPlayerStates(const cocos2d::Point& pt, bool networkControl)
 {
-    CFBPlayerAI::initPlayerStates(networkControl);
+    CFBPlayerAI::initPlayerStates(pt, networkControl);
     
     m_player->m_isGoalKeeper = true;
 }

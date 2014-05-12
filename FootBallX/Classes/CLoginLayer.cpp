@@ -256,7 +256,7 @@ void CLoginLayer::getPlayerInfo(void)
 
 void CLoginLayer::onTest(Ref* sender, Control::EventType event)
 {
-    //    SCENE_MANAGER->go(ST_MATCH);
+//    SCENE_MANAGER->go(ST_MATCH);
     cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
     
     char name[256];
@@ -266,7 +266,7 @@ void CLoginLayer::onTest(Ref* sender, Control::EventType event)
     delete pReader;
     
     CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
-    p->setPlayers({10}, {1,2,3,4});
+    p->setPlayers({10}, {1,2,3,4}, 0);
 }
 
 

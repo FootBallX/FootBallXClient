@@ -22,7 +22,7 @@ public:
     
 protected:
     virtual void updateHomePosition() override;
-    virtual void initPlayerStates(bool networkControl) override;
+    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl) override;
     virtual void thinkControlBall() override;
 };
 

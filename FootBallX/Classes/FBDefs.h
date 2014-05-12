@@ -205,6 +205,12 @@ namespace FBDefs
         Intercept,
         Block,
         Hit,
+        Attack,
+        Wait,
+        Clear,
+        Catch,
+        BlockDribble,
+        BlockShoot,
         None,
     };
     

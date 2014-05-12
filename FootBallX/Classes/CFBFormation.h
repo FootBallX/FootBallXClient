@@ -41,7 +41,7 @@ public:
     
     virtual int getPlayerNumber() { return m_playerNumber;}
     
-    virtual bool onStartMatch(bool networkControl);
+    virtual bool onStartMatch(const vector<float>& initPlayerPos, bool networkControl);
     
     virtual CFBPlayer* getKickOffPlayer() = 0;
     

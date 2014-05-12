@@ -31,11 +31,10 @@ public:
     
     virtual void update(float dt);
     
-    virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
+    // side : 0 -> ap, 1 -> dp
+    virtual void setPlayers(const vector<int>& ap, const vector<int>& dp, int side);
     
 protected:
-    vector<int> m_attackPlayerNumbers;
-    vector<int> m_defendPlayerNumbers;
     
 //========AUTO CREATE CODE START========
 

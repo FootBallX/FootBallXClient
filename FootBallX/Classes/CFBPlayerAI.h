@@ -38,7 +38,7 @@ public:
     
     virtual void update(float dt);
     
-    virtual void initPlayerStates(bool networkControl);
+    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl);
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
 

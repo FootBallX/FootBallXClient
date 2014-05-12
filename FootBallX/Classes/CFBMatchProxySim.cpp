@@ -25,7 +25,7 @@ void CFBMatchProxySim::start()
 {
     if( m_startMatchAck)
     {
-        m_startMatchAck(FBDefs::SIDE::LEFT, FBDefs::SIDE::LEFT, 0);
+//        m_startMatchAck(FBDefs::SIDE::LEFT, FBDefs::SIDE::LEFT, 0);
     }
 }
 
@@ -38,7 +38,7 @@ void CFBMatchProxySim::sendTeamPosition(const vector<float>&, int)
 
 
 
-void CFBMatchProxySim::sendMenuCmd(FBDefs::MENU_ITEMS mi)
+void CFBMatchProxySim::sendMenuCmd(const vector<FBDefs::MENU_ITEMS>& mi)
 {
     
 }
@@ -88,14 +88,14 @@ void CFBMatchProxySim::update(float dt)
 
 
 
-long long CFBMatchProxySim::getTime()
+unsigned int CFBMatchProxySim::getTime()
 {
     return 0;
 }
 
 
 
-float CFBMatchProxySim::getDeltaTime(long long time)
+float CFBMatchProxySim::getDeltaTime(unsigned int time)
 {
     return 0;
 }

@@ -86,7 +86,7 @@ void CFBTeam::think()
 
 
 
-bool CFBTeam::onStartMatch(bool networkControl)
+bool CFBTeam::onStartMatch(const vector<float>& initPlayerPos, bool networkControl)
 {
     do
     {
@@ -97,7 +97,7 @@ bool CFBTeam::onStartMatch(bool networkControl)
             m_formation->addPlayer(m_teamMembers[i], i);
         }
         
-        BREAK_IF_FAILED(m_formation->onStartMatch(networkControl));
+        BREAK_IF_FAILED(m_formation->onStartMatch(initPlayerPos, networkControl));
         
         return true;
     } while (false);

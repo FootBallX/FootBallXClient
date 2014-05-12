@@ -62,8 +62,8 @@ void CSyncedTime::syncTimeAck(Node*, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
     CJsonT docs(ccpomeloresp->docs);
-    m_serverTime = docs.getJsonInt("sTime");
-    auto lct = docs.getJsonInt("cTime");
+    m_serverTime = docs.getUInt("sTime");
+    auto lct = docs.getUInt("cTime");
     auto ct = getClientTime();
     int ping = (ct - lct) * 0.5;
     m_pings.push_back(ping);

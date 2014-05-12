@@ -63,9 +63,9 @@ public:
     void setBallControllerMove(const cocos2d::Point& vec);
     
     int getCountDownTime();
-    long long getTime();
+    unsigned int getTime();
 
-    void setMenuCmd(FBDefs::MENU_TYPE menuType);
+    void setMenuItem(FBDefs::MENU_ITEMS mi);
 protected:
     IFBMatchUI* m_matchUI = nullptr;
     CFBBall* m_ball = nullptr;
@@ -92,11 +92,15 @@ protected:
     
     Point m_vecFromUser;        // 玩家当前操作的缓存
     
+#pragma mark - Instructinos
+    vector<FBDefs::MENU_ITEMS> m_playerInstructions;    // 玩家指令
+    vector<int> m_attackPlayerNumbers;
+    vector<int> m_defendPlayerNumbers;
     
 #pragma mark - net or sim
     void syncTeam();
-    void teamPositionAck(const vector<float>& p, int ballPlayerId, long long timestamp);
-    void startMatchAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, long long st);
+    void teamPositionAck(const vector<float>& p, int ballPlayerId, unsigned int timestamp);
+    void startMatchAck(const vector<vector<float>>& allPos, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st);
     void endMatchAck();
     void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers);
 
@@ -112,7 +116,7 @@ protected:
     
     CFBTeam* m_teamsInMatch[(int)SIDE::NONE];       // 这里重新组织一下，按照己方和对方保存team
     float m_syncTime[(int)SIDE::NONE];
-    long long m_startTime = 0;
+    unsigned int m_startTime = 0;
 
     void onInstructionEnd();
     

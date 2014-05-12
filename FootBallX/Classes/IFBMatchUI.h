@@ -15,11 +15,12 @@
 class IFBMatchUI
 {
 public:
-    virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&) = 0;
+    virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&, int) = 0;
     virtual void onPlayAnimation(const string&, float) = 0;
     virtual void onInstrunctionEnd(void) = 0;
     virtual void onPauseGame(bool) = 0;
     virtual void onGameEnd(void) = 0;
+    virtual void waitInstruction(void) = 0;
 };
 
 #endif /* defined(__FootBallX__IFBMatchUI__) */

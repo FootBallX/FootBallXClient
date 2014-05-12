@@ -19,7 +19,7 @@ public:
     
     virtual void start() override;
     virtual void sendTeamPosition(const vector<float>&, int) override;
-    virtual void sendMenuCmd(FBDefs::MENU_ITEMS) override;
+    virtual void sendMenuCmd(const vector<FBDefs::MENU_ITEMS>&) override;
     
     virtual void setTeamPositionAck(TEAM_POSITION_FUNC) override;
     virtual void setStartMatchAck(START_MATCH_FUNC) override;
@@ -28,8 +28,8 @@ public:
     
     virtual void update(float dt) override;
     
-    virtual long long getTime() override;
-    virtual float getDeltaTime(long long) override;
+    virtual unsigned int getTime() override;
+    virtual float getDeltaTime(unsigned int) override;
 protected:
     TEAM_POSITION_FUNC m_teamPositionAck;
     START_MATCH_FUNC m_startMatchAck;

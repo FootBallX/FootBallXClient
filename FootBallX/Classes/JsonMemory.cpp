@@ -133,7 +133,7 @@ void* CJsonMemPool::pool_alloc(size_t s)
                 if (*((UNIT_HEADER_TYPE*)allocP) == 0)
                 {
                     retP = allocP + sizeof(UNIT_HEADER_TYPE);
-                    *((UNIT_HEADER_TYPE*)allocP) = s;
+                    *((UNIT_HEADER_TYPE*)allocP) = (UNIT_HEADER_TYPE)s;
                     
 #ifdef DEBUG
                     m_allocMap[retP] = i;

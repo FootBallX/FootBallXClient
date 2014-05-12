@@ -58,10 +58,15 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId
 
 
 
-void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi)
+void CFBMatchProxyNet::sendMenuCmd(const vector<FBDefs::MENU_ITEMS>& mi)
 {
     CJsonT msg;
-    msg.setChild("cmd", (int)mi);
+    CJsonTArray ja;
+    for (auto x : mi)
+    {
+        ja.append(CJsonT((unsigned int)x));
+    }
+    msg.setChild("cmds", ja);
     POMELO->notify("match.matchHandler.menuCmd", msg, [](Node*, void*){});
     msg.release();
 }
@@ -157,7 +162,7 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
                 v.push_back(ja.get(i).toFloat());
             }
             
-            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"), docs.getJsonInt("timeStamp"));
+            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"), docs.getUInt("timeStamp"));
             break;
         }
         default:
@@ -172,8 +177,11 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
 
-    int u1 = docs.getInt("left");
-    int u2 = docs.getInt("right");
+    CJsonT left(docs.getChild("left"));
+    CJsonT right(docs.getChild("right"));
+    
+    int u1 = left.getInt("uid");
+    int u2 = right.getInt("uid");
     
     FBDefs::SIDE side = FBDefs::SIDE::NONE;
     FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
@@ -191,14 +199,36 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
         CC_ASSERT(false);
     }
     
-    if ( 1 == json_integer_value(json_object_get(docs, "kickOffSide")))
+    if ( 1 == docs.getInt("kickOffSide"))
     {
         kickOffSide = FBDefs::SIDE::RIGHT;
     }
     
-    long long startTime = json_integer_value(json_object_get(docs, "startTime"));
+    unsigned int startTime = docs.getUInt("startTime");
 
-    m_startMatchAck(side, kickOffSide, startTime);
+    vector<vector<float>> v = {vector<float>(), vector<float>()};
+    vector<float>& leftV = v[0];
+    vector<float>& rightV = v[1];
+    {
+        CJsonTArray ja(left.getChild("teamPos"));
+        auto size = ja.size();
+        for (int i = 0; i < size; ++i)
+        {
+            leftV.push_back(ja.get(i).toFloat());
+        }
+    }
+    
+    {
+        CJsonTArray ja(right.getChild("teamPos"));
+        auto size = ja.size();
+        for (int i = 0; i < size; ++i)
+        {
+            rightV.push_back(ja.get(i).toFloat());
+        }
+    }
+    
+    
+    m_startMatchAck(v, side, kickOffSide, startTime);
 }
 
 
@@ -243,14 +273,14 @@ void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
 
 
 
-long long CFBMatchProxyNet::getTime()
+unsigned int CFBMatchProxyNet::getTime()
 {
     return m_syncedTimer.getTime();
 }
 
 
 
-float CFBMatchProxyNet::getDeltaTime(long long time)
+float CFBMatchProxyNet::getDeltaTime(unsigned int time)
 {
     return (m_syncedTimer.getTime() - time) / 1000.f;
 }
