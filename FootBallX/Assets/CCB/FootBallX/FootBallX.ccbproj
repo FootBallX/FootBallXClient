@@ -361,9 +361,5 @@
 			<string>Resources</string>
 		</dict>
 	</array>
-	<key>versionStr</key>
-	<string>Version: 3.0-alpha5
-GitHub: 76499877e8
-</string>
 </dict>
 </plist>

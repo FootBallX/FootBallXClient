@@ -96,6 +96,7 @@ protected:
     vector<FBDefs::MENU_ITEMS> m_playerInstructions;    // 玩家指令
     vector<int> m_attackPlayerNumbers;
     vector<int> m_defendPlayerNumbers;
+    int m_targetPlayerId = -1;       // 仅传球时候有效，传球对象
     
 #pragma mark - net or sim
     void syncTeam();
@@ -103,7 +104,8 @@ protected:
     void startMatchAck(const vector<vector<float>>& allPos, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st);
     void endMatchAck();
     void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers);
-
+    void instructionAck(unsigned int countDown);
+    
     enum class SIDE
     {
         SELF,       // 自己

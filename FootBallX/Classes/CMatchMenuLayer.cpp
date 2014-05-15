@@ -125,10 +125,22 @@ bool CMatchMenuLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMembe
 void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp, int side)
 {
     CC_ASSERT(side == 0 || side == 1);
-    
+    m_curPlayerIndex = 0;
     m_menuFrameLayer->setPlayers(ap, dp);
+    
+    if (side == 1)
+    {
+        m_menuFrameLayer->hilitePlayerCard(m_curPlayerIndex);
+    }
 }
 
+
+
+void CMatchMenuLayer::nextHiliteCard()
+{
+    m_curPlayerIndex++;
+    m_menuFrameLayer->hilitePlayerCard(m_curPlayerIndex);
+}    
 
 
 void CMatchMenuLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)
@@ -143,7 +155,11 @@ void CMatchMenuLayer::onPass(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onPass(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onPass(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -154,12 +170,17 @@ void CMatchMenuLayer::onPass(Ref* sender, Control::EventType event)
 
 void CMatchMenuLayer::onDribble(Ref* sender, Control::EventType event)
 {
+    
     switch (event)
     {
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onDribble(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onDribble(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -175,7 +196,11 @@ void CMatchMenuLayer::onShoot(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onShoot(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onShoot(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -191,7 +216,11 @@ void CMatchMenuLayer::onOneTwo(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onOneTwo(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onOneTwo(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -207,7 +236,11 @@ void CMatchMenuLayer::onTackle(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onTackle(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onTackle(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -223,7 +256,11 @@ void CMatchMenuLayer::onBlock(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onBlock(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onBlock(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -239,7 +276,11 @@ void CMatchMenuLayer::onIntercept(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onIntercept(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onIntercept(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -255,7 +296,11 @@ void CMatchMenuLayer::onHit(Ref* sender, Control::EventType event)
         case Control::EventType::TOUCH_DOWN:
             break;
         case Control::EventType::TOUCH_UP_INSIDE:
-            m_matchLayer->onHit(sender);
+            if (m_matchLayer)
+            {
+                m_matchLayer->onHit(sender);
+            }
+            nextHiliteCard();
             break;
         default:
             break;
@@ -266,37 +311,37 @@ void CMatchMenuLayer::onHit(Ref* sender, Control::EventType event)
 
 void CMatchMenuLayer::onClear(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 
 void CMatchMenuLayer::onCatch(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 
 void CMatchMenuLayer::onBlockDribble(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 
 void CMatchMenuLayer::onBlockShoot(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 
 void CMatchMenuLayer::onAttack(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 
 void CMatchMenuLayer::onWait(Ref* sender, Control::EventType event)
 {
-
+    
 }
 
 

@@ -35,6 +35,9 @@ public:
     virtual void setPlayers(const vector<int>& ap, const vector<int>& dp, int side);
     
 protected:
+    void nextHiliteCard();
+    
+    int m_curPlayerIndex = 0;
     
 //========AUTO CREATE CODE START========
 
@@ -83,7 +86,6 @@ protected:
     void onBlockShoot(Ref* sender, Control::EventType event);
     void onAttack(Ref* sender, Control::EventType event);
     void onWait(Ref* sender, Control::EventType event);
-
 };
 
 class CMatchMenuLayerLoader : public cocosbuilder::LayerLoader

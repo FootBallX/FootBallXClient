@@ -343,7 +343,7 @@ void CMatchLayer::update(float dt)
         case FBDefs::MATCH_STEP::COUNT_DOWN:
         {
             char s[25];
-            sprintf(s, "%d", FBMATCH->getCountDownTime());
+            sprintf(s, "%u", FBMATCH->getCountDownTime());
             auto spr = (Label*)getChildByTag(TAG_COUNT_DOWN);
             spr->setVisible(true);
             spr->setString(s);

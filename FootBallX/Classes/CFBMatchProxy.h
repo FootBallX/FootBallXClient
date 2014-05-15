@@ -19,18 +19,20 @@ public:
     typedef function<void(const vector<vector<float>>&, FBDefs::SIDE, FBDefs::SIDE, unsigned int)> START_MATCH_FUNC;
     typedef function<void()> END_MATCH_FUNC;
     typedef function<void(FBDefs::MENU_TYPE, vector<int>&, vector<int>&)> TRIGGER_MENU_FUNC;
+    typedef function<void(unsigned int)> INSTRUCTION_ACK_FUNC;
     
     CFBMatchProxy() = default;
     virtual ~CFBMatchProxy() = default;
     
     virtual void start() = 0;
     virtual void sendTeamPosition(const vector<float>&, int) = 0;
-    virtual void sendMenuCmd(const vector<FBDefs::MENU_ITEMS>&) = 0;
+    virtual void sendMenuCmd(FBDefs::MENU_ITEMS) = 0;
     
     virtual void setTeamPositionAck(TEAM_POSITION_FUNC) = 0;
     virtual void setStartMatchAck(START_MATCH_FUNC) = 0;
     virtual void setEndMatchAck(END_MATCH_FUNC) = 0;
     virtual void setTriggerMenuAck(TRIGGER_MENU_FUNC) = 0;
+    virtual void setInstructionAck(INSTRUCTION_ACK_FUNC) = 0;
     
     virtual void update(float dt) = 0;
     

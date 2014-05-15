@@ -58,16 +58,16 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId
 
 
 
-void CFBMatchProxyNet::sendMenuCmd(const vector<FBDefs::MENU_ITEMS>& mi)
+void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi)
 {
     CJsonT msg;
-    CJsonTArray ja;
-    for (auto x : mi)
-    {
-        ja.append(CJsonT((unsigned int)x));
-    }
-    msg.setChild("cmds", ja);
-    POMELO->notify("match.matchHandler.menuCmd", msg, [](Node*, void*){});
+    msg.setChild("cmd", (unsigned int)mi);
+    POMELO->request("match.matchHandler.menuCmd", msg, [this](Node* node, void* resp){
+        CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
+        CJsonT docs(ccpomeloresp->docs);
+        unsigned int countDown = docs.getUInt("countDown");
+        this->m_instructionAck(countDown);
+    });
     msg.release();
 }
 
@@ -98,6 +98,14 @@ void CFBMatchProxyNet::setTriggerMenuAck(TRIGGER_MENU_FUNC f)
 {
     m_triggerMenuAck = f;
 }
+
+
+
+void CFBMatchProxyNet::setInstructionAck(INSTRUCTION_ACK_FUNC f)
+{
+    m_instructionAck = f;
+}
+
 
 
 void CFBMatchProxyNet::update(float dt)
@@ -132,7 +140,7 @@ void CFBMatchProxyNet::update(float dt)
             m_startStep = START_STEP::NONE;
             const char *route = "match.matchHandler.ready";
             CJsonT msg;
-            POMELO->request(route, msg, [](Node* node, void* resp){
+            POMELO->notify(route, msg, [](Node* node, void* resp){
             });
             msg.release();
             break;
@@ -282,5 +290,5 @@ unsigned int CFBMatchProxyNet::getTime()
 
 float CFBMatchProxyNet::getDeltaTime(unsigned int time)
 {
-    return (m_syncedTimer.getTime() - time) / 1000.f;
+    return ((float)m_syncedTimer.getTime() - (float)time) / 1000.f;
 }

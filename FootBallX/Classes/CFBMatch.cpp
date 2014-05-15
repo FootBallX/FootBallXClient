@@ -49,6 +49,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
         m_proxy->setTriggerMenuAck(std::bind(&CFBMatch::triggerMenuAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        m_proxy->setInstructionAck(std::bind(&CFBMatch::instructionAck, this, std::placeholders::_1));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
         
@@ -176,7 +177,7 @@ void CFBMatch::update(float dt)
             break;
         case FBDefs::MATCH_STEP::COUNT_DOWN:
         {
-            auto delta = m_startTime - m_proxy->getTime();
+            int delta = (int)(m_startTime - m_proxy->getTime());
             if (delta <= 0)
             {
                 m_matchStep = FBDefs::MATCH_STEP::MATCHING;
@@ -580,13 +581,7 @@ void CFBMatch::setMenuItem(FBDefs::MENU_ITEMS mi)
     
     auto sz = m_playerInstructions.size();
     
-    if ((getControlSideTeam()->isAttacking() && sz == m_attackPlayerNumbers.size()) ||
-        (getControlSideTeam()->isDefending() && sz == m_defendPlayerNumbers.size()))
-    {
-        m_proxy->sendMenuCmd(m_playerInstructions);
-        m_playerInstructions.clear();
-        m_matchUI->waitInstruction();
-    }
+    m_proxy->sendMenuCmd(mi);
 }
 
 
@@ -788,6 +783,16 @@ void CFBMatch::triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPla
     
     m_attackPlayerNumbers = attackPlayerNumbers;
     m_defendPlayerNumbers = defendPlayerNumbers;
+    m_targetPlayerId = -1;
 }
 
+
+void CFBMatch::instructionAck(unsigned int countDown)
+{
+    if (countDown == 0)
+    {
+        m_playerInstructions.clear();
+        m_matchUI->waitInstruction();
+    }
+}
 

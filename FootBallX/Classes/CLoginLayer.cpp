@@ -91,6 +91,9 @@ void CLoginLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
 #if DEBUG
     m_userName->setText("test1");
     m_password->setText("123");
+#else
+    m_userName->setText("test2");
+    m_password->setText("123");
 #endif
 
 }

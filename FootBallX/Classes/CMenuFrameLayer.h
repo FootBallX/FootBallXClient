@@ -15,7 +15,11 @@ class CMenuFrameLayer
 {
 public:
     virtual void setPlayers(const vector<int>& ap, const vector<int>& dp);
-
+    virtual void hilitePlayerCard(int idx);
+    
+protected:
+    float m_cardPosY;
+    float m_cardHilitePosY;
 //========AUTO CREATE CODE START========
 
 public:
