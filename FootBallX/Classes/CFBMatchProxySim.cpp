@@ -38,7 +38,7 @@ void CFBMatchProxySim::sendTeamPosition(const vector<float>&, int)
 
 
 
-void CFBMatchProxySim::sendMenuCmd(FBDefs::MENU_ITEMS)
+void CFBMatchProxySim::sendMenuCmd(FBDefs::MENU_ITEMS, int)
 {
     
 }
@@ -76,6 +76,14 @@ void CFBMatchProxySim::setInstructionAck(INSTRUCTION_ACK_FUNC f)
 {
     m_instructionAck = f;
 }
+
+
+
+void CFBMatchProxySim::setInstructionResultAck(INSTRUCTION_RESULT_FUNC f)
+{
+    m_instructionResultAck = f;
+}
+
 
 
 

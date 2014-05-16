@@ -11,12 +11,14 @@
 #include "CFBMatch.h"
 #include "CPlayerInfo.h"
 
+
 CFBMatchProxyNet::CFBMatchProxyNet()
 {
     POMELO->addListener("sync", std::bind(&CFBMatchProxyNet::onSync, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("startMatch", std::bind(&CFBMatchProxyNet::onStartMatch, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("endMatch", std::bind(&CFBMatchProxyNet::onEndMatch, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("triggerMenu", std::bind(&CFBMatchProxyNet::onTriggerMenu, this, std::placeholders::_1, std::placeholders::_2));
+    POMELO->addListener("instructions", std::bind(&CFBMatchProxyNet::onInstructionResult, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -58,10 +60,14 @@ void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId
 
 
 
-void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi)
+void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi, int playerId)
 {
     CJsonT msg;
     msg.setChild("cmd", (unsigned int)mi);
+    if (playerId > -1)
+    {
+        msg.setChild("targetPlayerId", (unsigned int)playerId);
+    }
     POMELO->request("match.matchHandler.menuCmd", msg, [this](Node* node, void* resp){
         CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
         CJsonT docs(ccpomeloresp->docs);
@@ -104,6 +110,13 @@ void CFBMatchProxyNet::setTriggerMenuAck(TRIGGER_MENU_FUNC f)
 void CFBMatchProxyNet::setInstructionAck(INSTRUCTION_ACK_FUNC f)
 {
     m_instructionAck = f;
+}
+
+
+
+void CFBMatchProxyNet::setInstructionResultAck(INSTRUCTION_RESULT_FUNC f)
+{
+    m_instructionResultAck = f;
 }
 
 
@@ -277,6 +290,55 @@ void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
     }
     
     m_triggerMenuAck((FBDefs::MENU_TYPE)type, av, dv);
+}
+
+
+
+void CFBMatchProxyNet::onInstructionResult(Node*, void* r)
+{
+    CFBInstructionResult res;
+    
+    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
+    CJsonT docs(ccpomeloresp->docs);
+    
+    log("%s", docs.dump().c_str());
+    
+    CJsonTArray ja(docs.getChild("instructions"));
+    for (size_t i = 0; i < ja.size(); ++i)
+    {
+        auto ins = ja.get(i);
+        res.instructions.push_back(
+                                   CFBInstructionResult::InsStructure(
+                                                                      ins.getInt("side"),
+                                                                      ins.getInt("playerNumber"),
+                                                                      ins.getInt("ins"),
+                                                                      ins.getInt("result")
+                                                                      )
+                                   );
+        
+        auto& insStru = res.instructions[i];
+        
+        CJsonTArray animsJson(ins.getChild("animations"));
+        for (size_t j = 0; j < animsJson.size(); ++j)
+        {
+            auto animObj = animsJson.get(j);
+            insStru.animations.push_back(
+                                         CFBInstructionResult
+                                         ::InsStructure
+                                         ::Animation(
+                                                     animObj.getInt("animId"),
+                                                     animObj.getFloat("delay")
+                                                     )
+                                         );
+        }
+    }
+    
+    res.ballSide = docs.getInt("ballSide");
+    res.playerNumber = docs.getInt("playerNumber");
+    res.ballPosX = docs.getFloat("ballPosX");
+    res.ballPosY = docs.getFloat("ballPosY");
+    
+    m_instructionResultAck(res);
 }
 
 

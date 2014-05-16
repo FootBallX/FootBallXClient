@@ -65,7 +65,7 @@ public:
     int getCountDownTime();
     unsigned int getTime();
 
-    void setMenuItem(FBDefs::MENU_ITEMS mi);
+    void setMenuItem(FBDefs::MENU_ITEMS mi, int targetPlayer = -1);
 protected:
     IFBMatchUI* m_matchUI = nullptr;
     CFBBall* m_ball = nullptr;
@@ -105,6 +105,7 @@ protected:
     void endMatchAck();
     void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers);
     void instructionAck(unsigned int countDown);
+    void instructionResultAck(const CFBInstructionResult&);
     
     enum class SIDE
     {

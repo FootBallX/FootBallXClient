@@ -26,13 +26,14 @@ public:
     
     virtual void start() override;
     virtual void sendTeamPosition(const vector<float>&, int) override;
-    virtual void sendMenuCmd(FBDefs::MENU_ITEMS) override;
+    virtual void sendMenuCmd(FBDefs::MENU_ITEMS, int) override;
     
     virtual void setTeamPositionAck(TEAM_POSITION_FUNC) override;
     virtual void setStartMatchAck(START_MATCH_FUNC) override;
     virtual void setEndMatchAck(END_MATCH_FUNC) override;
     virtual void setTriggerMenuAck(TRIGGER_MENU_FUNC) override;
     virtual void setInstructionAck(INSTRUCTION_ACK_FUNC) override;
+    virtual void setInstructionResultAck(INSTRUCTION_RESULT_FUNC) override;
 
     virtual void update(float dt) override;
     
@@ -55,13 +56,15 @@ protected:
     void onSync(Node*, void*);
     void onStartMatch(Node*, void*);
     void onEndMatch(Node*, void*);
-    void onTriggerMenu(Node* , void*);
+    void onTriggerMenu(Node*, void*);
+    void onInstructionResult(Node*, void*);
     
     TEAM_POSITION_FUNC m_teamPositionAck;
     START_MATCH_FUNC m_startMatchAck;
     END_MATCH_FUNC m_endMatchAck;
     TRIGGER_MENU_FUNC m_triggerMenuAck;
     INSTRUCTION_ACK_FUNC m_instructionAck;
+    INSTRUCTION_RESULT_FUNC m_instructionResultAck;
     
     CSyncedTime m_syncedTimer;
     

@@ -26,27 +26,13 @@ class CMatchLayer
 {
 public:
     friend class CMatchMenuLayer;
-    
-    CREATE_FUNC(CMatchLayer);
-    
-    CMatchLayer();
-    virtual ~CMatchLayer();
-    
+
     virtual bool init();
     
     virtual void update(float dt);
     
-    //CCBSelectorResolver
-    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) override;
-    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) override;
-    
-    //CCBMemberVariableAssigner
-    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode) override;
-    
-    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
-    
 protected:
-    void updateTeam(CFBTeam* team, Sprite** sprites);
+    void updateTeam(CFBTeam* team, vector<Sprite*>& sprites);
     
     bool onTouchBegan(Touch* touch, Event* event);
     void onTouchMoved(Touch* touch, Event* event);
@@ -82,7 +68,7 @@ protected:
 
     void togglePitchLieDown(bool lieDown);
     
-    int getSelectedPlayerId(const Point& pt, bool isBlack);
+    int getSelectedPlayerId(const Point& pt, FBDefs::SIDE side);
 #ifdef SHOW_GRID
     void refreshGrids();
 #endif
@@ -91,12 +77,7 @@ protected:
 
     void onEndMatch(Node* node, void* resp);
     
-    Sprite* m_blackPlayers[11] = {nullptr};
-    Sprite* m_redPlayers[11] = {nullptr};
-    Sprite* m_pitchSprite = nullptr;
-    
-    Sprite* m_ball = nullptr;
-    Sprite* m_arrow = nullptr;
+    vector<Sprite*> m_players[(int)FBDefs::SIDE::NONE];
     
     bool m_isTouchDown = false;
     bool m_isPitchViewLieDown = true;
@@ -115,16 +96,65 @@ protected:
     OP m_operator = OP::NONE;
     
     CMatchMenuLayer* m_menuLayer = nullptr;
-};
+    
+    
+    //========AUTO CREATE CODE START========
 
+public:
+    CREATE_FUNC(CMatchLayer);
+    
+    CMatchLayer();
+    virtual ~CMatchLayer();
+
+    virtual void onEnter() override;
+    virtual void onExit() override;
+
+    virtual SEL_MenuHandler onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName) override;
+    virtual Control::Handler onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName) override;
+    virtual bool onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode) override;
+    virtual void onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader) override;
+    
+protected:
+    Sprite* m_pitch = nullptr;
+    Sprite* m_b0 = nullptr;
+    Sprite* m_b1 = nullptr;
+    Sprite* m_b2 = nullptr;
+    Sprite* m_b3 = nullptr;
+    Sprite* m_b4 = nullptr;
+    Sprite* m_b5 = nullptr;
+    Sprite* m_b6 = nullptr;
+    Sprite* m_b7 = nullptr;
+    Sprite* m_b8 = nullptr;
+    Sprite* m_b9 = nullptr;
+    Sprite* m_b10 = nullptr;
+    Sprite* m_r0 = nullptr;
+    Sprite* m_r1 = nullptr;
+    Sprite* m_r2 = nullptr;
+    Sprite* m_r3 = nullptr;
+    Sprite* m_r4 = nullptr;
+    Sprite* m_r5 = nullptr;
+    Sprite* m_r6 = nullptr;
+    Sprite* m_r7 = nullptr;
+    Sprite* m_r8 = nullptr;
+    Sprite* m_r9 = nullptr;
+    Sprite* m_r10 = nullptr;
+    Sprite* m_ball = nullptr;
+    Sprite* m_arrow = nullptr;
+    
+
+};
 
 class CMatchLayerLoader : public cocosbuilder::LayerLoader
 {
 public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CMatchLayerLoader, loader);
+    
 protected:
     CCB_VIRTUAL_NEW_AUTORELEASE_CREATECCNODE_METHOD(CMatchLayer);
 };
 
+
+
+//========AUTO CREATE CODE END========
 
 #endif /* defined(__FootBallX__CMatchLayer__) */

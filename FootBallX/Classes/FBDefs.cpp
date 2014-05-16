@@ -14,7 +14,7 @@
 #define WAY_WIDTH       10.f
 
 namespace FBDefs
-{
+{    
     bool isPointOnTheWay(const cocos2d::Point& p1, const cocos2d::Point& p2, const cocos2d::Point& p)
     {
         cocos2d::Rect bx(min(p1.x, p2.x), min(p1.y, p2.y), abs(p1.x - p2.x), abs(p1.y - p2.y));

@@ -34,6 +34,14 @@ enum class Z_ORDER : int
 #endif
 };
 
+
+
+#define TAG_ACTION_FLIP3D           1001
+#define TAG_COUNT_DOWN              1002
+#ifdef DEBUG
+#define TAG_STAT                    1003
+#endif
+
 static class CMatchLayerRegister
 {
 public:
@@ -44,21 +52,181 @@ public:
 } __reg;
 
 
-#define TAG_ACTION_FLIP3D           1001
-#define TAG_COUNT_DOWN              1002
-#ifdef DEBUG
-#define TAG_STAT                    1003
-#endif
 
 CMatchLayer::CMatchLayer()
 {
 }
 
-
-
 CMatchLayer::~CMatchLayer()
 {
 }
+
+void CMatchLayer::onEnter()
+{
+    CBaseLayer::onEnter();
+}
+
+void CMatchLayer::onExit()
+{
+    CBaseLayer::onExit();
+}
+
+SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
+{
+    // AUTO_GEN_MENU_ITEM_BEGIN
+    // AUTO_GEN_MENU_ITEM_END
+    return nullptr;
+}
+
+
+
+Control::Handler CMatchLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
+{
+    // AUTO_GEN_CONTROL_BEGIN
+    // AUTO_GEN_CONTROL_END
+    return nullptr;
+}
+
+
+
+bool CMatchLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node * pNode)
+{
+    // AUTO_GEN_VAR_BEGIN
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "pitch", Sprite*, this->m_pitch);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b0", Sprite*, this->m_b0);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b1", Sprite*, this->m_b1);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b2", Sprite*, this->m_b2);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b3", Sprite*, this->m_b3);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b4", Sprite*, this->m_b4);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b5", Sprite*, this->m_b5);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b6", Sprite*, this->m_b6);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b7", Sprite*, this->m_b7);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b8", Sprite*, this->m_b8);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b9", Sprite*, this->m_b9);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "b10", Sprite*, this->m_b10);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r0", Sprite*, this->m_r0);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r1", Sprite*, this->m_r1);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r2", Sprite*, this->m_r2);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r3", Sprite*, this->m_r3);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r4", Sprite*, this->m_r4);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r5", Sprite*, this->m_r5);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r6", Sprite*, this->m_r6);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r7", Sprite*, this->m_r7);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r8", Sprite*, this->m_r8);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r9", Sprite*, this->m_r9);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "r10", Sprite*, this->m_r10);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "ball", Sprite*, this->m_ball);
+    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "arrow", Sprite*, this->m_arrow);
+    // AUTO_GEN_VAR_END
+	return false;
+}
+
+
+
+void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)
+{
+    m_players[(int)FBDefs::SIDE::LEFT] = {m_b0, m_b1, m_b2, m_b3, m_b4, m_b5, m_b6, m_b7, m_b8, m_b9, m_b10};
+    m_players[(int)FBDefs::SIDE::RIGHT] = {m_r0, m_r1, m_r2, m_r3, m_r4, m_r5, m_r6, m_r7, m_r8, m_r9, m_r10};
+    
+    for (auto v :m_players)
+    {
+        int i = 0;
+        for (auto x : v)
+        {
+            CC_ASSERT(x != nullptr);
+            x->setVisible(false);
+            x->setTag(i);
+            ++i;
+        }
+    }
+
+    m_ball->setVisible(false);
+    
+    do
+    {
+        {
+            auto ng = NodeGrid::create();
+            FlipX3D* fx3 = CFlip3DYEx::create(1, 90, 90);
+            fx3->setTag(TAG_ACTION_FLIP3D);
+            ng->runAction(fx3);
+            m_pitch->getParent()->addChild(ng, (int)Z_ORDER::PITCH);
+            m_pitch->removeFromParent();
+            ng->addChild(m_pitch);
+            m_isPitchViewLieDown = true;
+        }
+        
+        Size pitchSz = m_pitch->getContentSize();
+        
+        const char* FONT_NAME = "Helvetica";
+        const int FONT_SIZE = 32 * cocosbuilder::CCBReader::getResolutionScale();
+        
+        auto countDownSpr = Label::createWithSystemFont("", FONT_NAME, FONT_SIZE);
+        addChild(countDownSpr, (int)Z_ORDER::COUNT_DOWN, TAG_COUNT_DOWN);
+        countDownSpr->setVisible(false);
+        auto sz = Director::getInstance()->getWinSize();
+        countDownSpr->setPosition(sz.width * 0.5f, sz.height * 0.5f);
+        
+#ifdef DEBUG
+        auto stat = Label::createWithSystemFont("", FONT_NAME, 18 * cocosbuilder::CCBReader::getResolutionScale());
+        stat->setAnchorPoint(Point(0, 1));
+        stat->setPosition(0, sz.height);
+        addChild(stat, (int)Z_ORDER::STAT, TAG_STAT);
+#endif
+        
+        BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
+        
+        vector<string> redPlayercards =
+        {
+            "10001",
+            "40001",
+            "40002",
+            "40003",
+            "40004",
+            "30001",
+            "30002",
+            "30003",
+            "30004",
+            "20001",
+            "20002",
+        };
+        vector<string> blackPlayercards =
+        {
+            "10002",
+            "40005",
+            "40006",
+            "40007",
+            "30005",
+            "30006",
+            "30007",
+            "30008",
+            "30009",
+            "20003",
+            "20004",
+        };
+        
+        CFBTeam* red = new CFBTeam;
+        BREAK_IF_FAILED(red->init(redPlayercards));
+        CFBTeam* black = new CFBTeam;
+        BREAK_IF_FAILED(black->init(blackPlayercards));
+        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
+        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
+        
+        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_2_3_2))
+        
+        BREAK_IF_FAILED(FBMATCH->startMatch());
+#ifdef SHOW_GRID
+        auto draw = DrawNode::create();
+        m_pitch->addChild(draw, (int)Z_ORDER::GRID_DEBUG, TAG_GRID_DRAW_NODE);
+        
+        refreshGrids();
+#endif // SHOW_GRID
+        
+    } while (false);
+    
+}
+
+
+
 
 
 
@@ -108,13 +276,10 @@ bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
         {
             case OP::PASS_BALL:
             {
-                int idx = getSelectedPlayerId(loc, true);
+                int idx = getSelectedPlayerId(loc, FBMATCH->getControlSide());
                 if (idx != -1)
                 {
-                    auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
-                    auto from = team->getHilightPlayer();
-                    auto to = team->getFormation()->getPlayer(idx);
-                    FBMATCH->tryPassBall(from, to);
+                    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Pass, idx);
                     m_operator = OP::NONE;
                 }
                 break;
@@ -174,152 +339,6 @@ void CMatchLayer::onTouchCancelled(Touch* touch, Event* event)
 
 
 
-SEL_MenuHandler CMatchLayer::onResolveCCBCCMenuItemSelector(Ref* pTarget, const char* pSelectorName)
-{
-    return nullptr;
-}
-
-
-
-//函数定义类型为：void pressTitle(Ref*pSender);
-Control::Handler CMatchLayer::onResolveCCBCCControlSelector(Ref* pTarget, const char* pSelectorName)
-{
-    return nullptr;
-}
-
-
-
-bool CMatchLayer::onAssignCCBMemberVariable(Ref* pTarget, const char* pMemberVariableName, Node* pNode)
-{
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b0", Sprite*, m_blackPlayers[0]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b1", Sprite*, m_blackPlayers[1]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b2", Sprite*, m_blackPlayers[2]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b3", Sprite*, m_blackPlayers[3]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b4", Sprite*, m_blackPlayers[4]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b5", Sprite*, m_blackPlayers[5]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b6", Sprite*, m_blackPlayers[6]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b7", Sprite*, m_blackPlayers[7]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b8", Sprite*, m_blackPlayers[8]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b9", Sprite*, m_blackPlayers[9]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "b10", Sprite*, m_blackPlayers[10]);
-    
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r0", Sprite*, m_redPlayers[0]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r1", Sprite*, m_redPlayers[1]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r2", Sprite*, m_redPlayers[2]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r3", Sprite*, m_redPlayers[3]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r4", Sprite*, m_redPlayers[4]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r5", Sprite*, m_redPlayers[5]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r6", Sprite*, m_redPlayers[6]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r7", Sprite*, m_redPlayers[7]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r8", Sprite*, m_redPlayers[8]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r9", Sprite*, m_redPlayers[9]);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK( this, "r10", Sprite*, m_redPlayers[10]);
-    
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "pitch", Sprite*, m_pitchSprite);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "ball", Sprite*, m_ball);
-    CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "arrow", Sprite*, m_arrow);
-
-    return false;
-}
-
-
-
-void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader* pNodeLoader)
-{
-    for (auto x : m_blackPlayers)
-    {
-        x->setVisible(false);
-    }
-    for (auto x : m_redPlayers)
-    {
-        x->setVisible(false);
-    }
-    
-    m_ball->setVisible(false);
-
-    do
-    {
-        {
-            auto ng = NodeGrid::create();
-            FlipX3D* fx3 = CFlip3DYEx::create(1, 90, 90);
-            fx3->setTag(TAG_ACTION_FLIP3D);
-            ng->runAction(fx3);
-            m_pitchSprite->getParent()->addChild(ng, (int)Z_ORDER::PITCH);
-            m_pitchSprite->removeFromParent();
-            ng->addChild(m_pitchSprite);
-            m_isPitchViewLieDown = true;
-        }
-        
-        Size pitchSz = m_pitchSprite->getContentSize();
-        
-        const char* FONT_NAME = "Helvetica";
-        const int FONT_SIZE = 32 * cocosbuilder::CCBReader::getResolutionScale();
-
-        auto countDownSpr = Label::createWithSystemFont("", FONT_NAME, FONT_SIZE);
-        addChild(countDownSpr, (int)Z_ORDER::COUNT_DOWN, TAG_COUNT_DOWN);
-        countDownSpr->setVisible(false);
-        auto sz = Director::getInstance()->getWinSize();
-        countDownSpr->setPosition(sz.width * 0.5f, sz.height * 0.5f);
-        
-#ifdef DEBUG
-        auto stat = Label::createWithSystemFont("", FONT_NAME, 18 * cocosbuilder::CCBReader::getResolutionScale());
-        stat->setAnchorPoint(Point(0, 1));
-        stat->setPosition(0, sz.height);
-        addChild(stat, (int)Z_ORDER::STAT, TAG_STAT);
-#endif
-        
-        BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
-
-        vector<string> redPlayercards =
-        {
-            "10001",
-            "40001",
-            "40002",
-            "40003",
-            "40004",
-            "30001",
-            "30002",
-            "30003",
-            "30004",
-            "20001",
-            "20002",
-        };
-        vector<string> blackPlayercards =
-        {
-            "10002",
-            "40005",
-            "40006",
-            "40007",
-            "30005",
-            "30006",
-            "30007",
-            "30008",
-            "30009",
-            "20003",
-            "20004",
-        };
-        
-        CFBTeam* red = new CFBTeam;
-        BREAK_IF_FAILED(red->init(redPlayercards));
-        CFBTeam* black = new CFBTeam;
-        BREAK_IF_FAILED(black->init(blackPlayercards));
-        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
-        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
-        
-        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_2_3_2))
-        
-        BREAK_IF_FAILED(FBMATCH->startMatch());
-#ifdef SHOW_GRID
-        auto draw = DrawNode::create();
-        m_pitchSprite->addChild(draw, (int)Z_ORDER::GRID_DEBUG, TAG_GRID_DRAW_NODE);
-        
-        refreshGrids();
-#endif // SHOW_GRID
-        
-    } while (false);
-}
-
-
 
 void CMatchLayer::update(float dt)
 {
@@ -354,8 +373,8 @@ void CMatchLayer::update(float dt)
             auto spr = getChildByTag(TAG_COUNT_DOWN);
             spr->setVisible(false);
             
-            updateTeam(FBMATCH->getTeam(FBDefs::SIDE::LEFT), m_blackPlayers);
-            updateTeam(FBMATCH->getTeam(FBDefs::SIDE::RIGHT), m_redPlayers);
+            updateTeam(FBMATCH->getTeam(FBDefs::SIDE::LEFT), m_players[(int)FBDefs::SIDE::LEFT]);
+            updateTeam(FBMATCH->getTeam(FBDefs::SIDE::RIGHT), m_players[(int)FBDefs::SIDE::RIGHT]);
             
             auto pitch = FBMATCH->getPitch();
             auto team = FBMATCH->getControlSideTeam();
@@ -390,7 +409,7 @@ void CMatchLayer::update(float dt)
 
 
 
-void CMatchLayer::updateTeam(CFBTeam* team, Sprite** sprites)
+void CMatchLayer::updateTeam(CFBTeam* team, vector<Sprite*>& sprites)
 {
     auto pitch = FBMATCH->getPitch();
     
@@ -424,7 +443,7 @@ void CMatchLayer::togglePitchLieDown(bool lieDown)
         if (m_isPitchViewLieDown)
         {
             m_isPitchViewLieDown = false;
-            NodeGrid* ng = (NodeGrid*)m_pitchSprite->getParent();
+            NodeGrid* ng = (NodeGrid*)m_pitch->getParent();
             ng->stopActionByTag(TAG_ACTION_FLIP3D);
             auto fx = CFlip3DYEx::create(.5f, 90, 180);
             fx->setTag(TAG_ACTION_FLIP3D);
@@ -433,7 +452,7 @@ void CMatchLayer::togglePitchLieDown(bool lieDown)
         else
         {
             m_isPitchViewLieDown = true;
-            NodeGrid* ng = (NodeGrid*)m_pitchSprite->getParent();
+            NodeGrid* ng = (NodeGrid*)m_pitch->getParent();
             ng->stopActionByTag(TAG_ACTION_FLIP3D);
             auto fx = CFlip3DYEx::create(.5f, 0, 90);
             fx->setTag(TAG_ACTION_FLIP3D);
@@ -465,31 +484,18 @@ void CMatchLayer::onPassBall(Ref* pSender)
 
 
 
-int CMatchLayer::getSelectedPlayerId(const Point& pt, bool isBlack)
+int CMatchLayer::getSelectedPlayerId(const Point& pt, FBDefs::SIDE side)
 {
-    auto mat = m_pitchSprite->getWorldToNodeTransform();
+    auto mat = m_pitch->getWorldToNodeTransform();
     Point pos = PointApplyTransform(pt, mat);
     
-    if (isBlack)
+    auto players = m_players[(int)side];
+    for (auto spr : players)
     {
-        for (auto spr : m_blackPlayers)
+        auto bx = spr->getBoundingBox();
+        if (bx.containsPoint(pos))
         {
-            auto bx = spr->getBoundingBox();
-            if (bx.containsPoint(pos))
-            {
-                return spr->getTag();
-            }
-        }
-    }
-    else
-    {
-        for (auto spr : m_redPlayers)
-        {
-            auto bx = spr->getBoundingBox();
-            if (bx.containsPoint(pos))
-            {
-                return spr->getTag();
-            }
+            return spr->getTag();
         }
     }
     
@@ -508,7 +514,7 @@ void CMatchLayer::refreshGrids()
     auto& InRightPenalty = pitch->getGridsInPenaltyAreaBySide(FBDefs::SIDE::RIGHT);
     auto& OutRightPenalty = pitch->getGridsOutsidePenaltyAreaBySide(FBDefs::SIDE::RIGHT);
     
-    DrawNode* draw = (DrawNode*)m_pitchSprite->getChildByTag(TAG_GRID_DRAW_NODE);
+    DrawNode* draw = (DrawNode*)m_pitch->getChildByTag(TAG_GRID_DRAW_NODE);
     draw->clear();
     for (const auto& g: grids)
     {
@@ -578,7 +584,9 @@ void CMatchLayer::setMenuItem(FBDefs::MENU_ITEMS mi)
 void CMatchLayer::onPass(Ref* pSender)
 {
     m_operator = OP::PASS_BALL;
-    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Pass);
+    m_pitch->setVisible(true);
+    m_menuLayer->setVisible(false);
+    this->togglePitchLieDown(false);
 }
 
 
@@ -650,7 +658,7 @@ void CMatchLayer::onAnimationEnd()
 void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayerNumbers, const vector<int>& defendPlayerNumbers, int side)
 {
     FBMATCH->pauseGame(true);
-    togglePitchLieDown(false);
+    m_pitch->setVisible(false);
     
     if (nullptr != m_menuLayer)
     {
@@ -726,4 +734,9 @@ void CMatchLayer::waitInstruction(void)
         m_menuLayer->removeFromParentAndCleanup(true);
         m_menuLayer = nullptr;
     }
+    
+    togglePitchLieDown(true);
 }
+
+
+

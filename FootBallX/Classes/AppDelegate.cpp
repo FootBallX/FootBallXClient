@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = pDirector->getOpenGLView();
     if(!glview) {
 //        glview = GLView::create("FootBallX");
-        float scale = 10;
+        float scale = 8;
         glview = GLView::createWithRect("FootBallX", Rect(0, 0, 96 * scale, 64 * scale));
         pDirector->setOpenGLView(glview);
     }

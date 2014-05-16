@@ -25,6 +25,7 @@
 		54027EF9187D77220061A96E /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54027EF6187D77220061A96E /* libuv.a */; };
 		5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
 		5408321C18976DF300B0E101 /* CFlip3DEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5408321918976BBB00B0E101 /* CFlip3DEx.cpp */; };
+		54124DFF1926002C0000577D /* CFBInstructionResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54124DFD1926002C0000577D /* CFBInstructionResult.cpp */; };
 		54131E9F18D74A32009C8BAE /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54131E9E18D74A32009C8BAE /* libjs_static.a */; };
 		54131EA918D7DF1F009C8BAE /* libjs_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54131EA818D7DF1F009C8BAE /* libjs_static.a */; };
 		5418A74718CAEAD6000AE94A /* JS in Resources */ = {isa = PBXBuildFile; fileRef = 5418A74618CAEAD6000AE94A /* JS */; };
@@ -205,6 +206,9 @@
 		54027EF6187D77220061A96E /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../../libpomelo/libMac/libuv.a; sourceTree = "<group>"; };
 		5408321918976BBB00B0E101 /* CFlip3DEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFlip3DEx.cpp; path = ../Classes/CFlip3DEx.cpp; sourceTree = "<group>"; };
 		5408321A18976BBB00B0E101 /* CFlip3DEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFlip3DEx.h; path = ../Classes/CFlip3DEx.h; sourceTree = "<group>"; };
+		54124DFD1926002C0000577D /* CFBInstructionResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBInstructionResult.cpp; path = ../Classes/CFBInstructionResult.cpp; sourceTree = "<group>"; };
+		54124DFE1926002C0000577D /* CFBInstructionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBInstructionResult.h; path = ../Classes/CFBInstructionResult.h; sourceTree = "<group>"; };
+		54124E00192628C90000577D /* aniDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = aniDefs.h; path = ../Classes/aniDefs.h; sourceTree = "<group>"; };
 		54131E9E18D74A32009C8BAE /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/mac/libjs_static.a"; sourceTree = "<group>"; };
 		54131EA818D7DF1F009C8BAE /* libjs_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjs_static.a; path = "../../Cocos2d-JS/frameworks/js-bindings/external/spidermonkey/prebuilt/ios/libjs_static.a"; sourceTree = "<group>"; };
 		5418A74618CAEAD6000AE94A /* JS */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JS; path = ../JS; sourceTree = "<group>"; };
@@ -584,6 +588,7 @@
 				5418A74A18CAEB1D000AE94A /* CFBFunctionsJS.h */,
 				543AF65F18F8FDDA003B8F94 /* IFBMatchUI.cpp */,
 				543AF66018F8FDDA003B8F94 /* IFBMatchUI.h */,
+				54124E00192628C90000577D /* aniDefs.h */,
 			);
 			name = FootBallGamePlay;
 			sourceTree = "<group>";
@@ -597,6 +602,8 @@
 				5452C06A18F541F5009347AD /* CFBMatchProxyNet.h */,
 				5452C06D18F5420B009347AD /* CFBMatchProxySim.cpp */,
 				5452C06E18F5420B009347AD /* CFBMatchProxySim.h */,
+				54124DFD1926002C0000577D /* CFBInstructionResult.cpp */,
+				54124DFE1926002C0000577D /* CFBInstructionResult.h */,
 			);
 			name = Proxy;
 			sourceTree = "<group>";
@@ -959,6 +966,7 @@
 				5408321B18976BBB00B0E101 /* CFlip3DEx.cpp in Sources */,
 				5418A74B18CAEB1D000AE94A /* CFBFunctionsJS.cpp in Sources */,
 				54DE0DB618C8687900C076D3 /* CFBCard.cpp in Sources */,
+				54124DFF1926002C0000577D /* CFBInstructionResult.cpp in Sources */,
 				542650C1187E3BEB008113ED /* CSingleton.cpp in Sources */,
 				544955F1187F8924002FB29B /* CFBPitch.cpp in Sources */,
 				543D49A018815CB80076C7EB /* CMatchLayer.cpp in Sources */,

@@ -17,6 +17,8 @@ class CFBPitchGrid;
 
 namespace FBDefs
 {
+#include "aniDefs.h"
+    
     static const float PITCH_POINT_ALMOST_EQUAL_DISTANCE = 4.0f;
     
     enum class FORMATION

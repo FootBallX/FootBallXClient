@@ -50,6 +50,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
         m_proxy->setTriggerMenuAck(std::bind(&CFBMatch::triggerMenuAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_proxy->setInstructionAck(std::bind(&CFBMatch::instructionAck, this, std::placeholders::_1));
+        m_proxy->setInstructionResultAck(std::bind(&CFBMatch::instructionResultAck, this, std::placeholders::_1));
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
         
@@ -575,13 +576,13 @@ unsigned int CFBMatch::getTime()
 
 #pragma mark - Instructions
 
-void CFBMatch::setMenuItem(FBDefs::MENU_ITEMS mi)
+void CFBMatch::setMenuItem(FBDefs::MENU_ITEMS mi, int targetPlayer)
 {
     m_playerInstructions.push_back(mi);
     
     auto sz = m_playerInstructions.size();
     
-    m_proxy->sendMenuCmd(mi);
+    m_proxy->sendMenuCmd(mi, targetPlayer);
 }
 
 
@@ -793,6 +794,20 @@ void CFBMatch::instructionAck(unsigned int countDown)
     {
         m_playerInstructions.clear();
         m_matchUI->waitInstruction();
+    }
+}
+
+
+
+void CFBMatch::instructionResultAck(const CFBInstructionResult& res)
+{
+    auto x = res.instructions[0];
+//    for (auto x : res.instructions)
+    {
+        for (auto y : x.animations)
+        {
+            m_matchUI->onPlayAnimation(FBDefs::g_aniNames[y.aniId], y.delay);
+        }
     }
 }
 
