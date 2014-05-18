@@ -33,6 +33,12 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
 
 
 
+void CFBMatchProxyNet::setDelegator(IMatchProxyDelegator* match)
+{
+    m_match = match;
+}
+
+
 void CFBMatchProxyNet::start()
 {
     m_startStep = START_STEP::SYNC_TIME_BEGIN;
@@ -40,19 +46,19 @@ void CFBMatchProxyNet::start()
 
 
 
-void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId)
+void CFBMatchProxyNet::sendTeamPosition(const vector<float>& p, int ballPlayerId, int side)
 {
     CJsonT msg;
-    msg.setChild("type", (json_int_t)SYNC_TYPE::ALL_TEAM);
-    
+
     CJsonTArray ja;
     for (auto x : p)
     {
         ja.append(CJsonT(x));
     }
     msg.setChild("teamPos", ja);
-    msg.setChild("ballPosPlayerId", CJsonT(ballPlayerId));
-    msg.setChild("timeStamp", CJsonT(m_syncedTimer.getTime()));
+    msg.setChild("side", side);
+    msg.setChild("ballPosPlayerId", ballPlayerId);
+    msg.setChild("timeStamp", m_syncedTimer.getTime());
     POMELO->notify("match.matchHandler.sync", msg, [](Node*, void*){});
     
     msg.release();
@@ -72,51 +78,9 @@ void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi, int playerId)
         CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
         CJsonT docs(ccpomeloresp->docs);
         unsigned int countDown = docs.getUInt("countDown");
-        this->m_instructionAck(countDown);
+        m_match->instructionAck(countDown);
     });
     msg.release();
-}
-
-
-
-void CFBMatchProxyNet::setTeamPositionAck(TEAM_POSITION_FUNC f)
-{
-    m_teamPositionAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setStartMatchAck(START_MATCH_FUNC f)
-{
-    m_startMatchAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setEndMatchAck(END_MATCH_FUNC f)
-{
-    m_endMatchAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setTriggerMenuAck(TRIGGER_MENU_FUNC f)
-{
-    m_triggerMenuAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setInstructionAck(INSTRUCTION_ACK_FUNC f)
-{
-    m_instructionAck = f;
-}
-
-
-
-void CFBMatchProxyNet::setInstructionResultAck(INSTRUCTION_RESULT_FUNC f)
-{
-    m_instructionResultAck = f;
 }
 
 
@@ -171,24 +135,16 @@ void CFBMatchProxyNet::onSync(Node*, void* resp)
 
     CJsonT docs(ccpomeloresp->docs);
 
-    switch ((SYNC_TYPE)docs.getInt("type"))
+    vector<float> v;
+    CJsonTArray ja(docs.getChild("teamPos"));
+    auto size = ja.size();
+    for (int i = 0; i < size; ++i)
     {
-        case SYNC_TYPE::ALL_TEAM:
-        {
-            vector<float> v;
-            CJsonTArray ja(docs.getChild("teamPos"));
-            auto size = ja.size();
-            for (int i = 0; i < size; ++i)
-            {
-                v.push_back(ja.get(i).toFloat());
-            }
-            
-            m_teamPositionAck(v, docs.getInt("ballPosPlayerId"), docs.getUInt("timeStamp"));
-            break;
-        }
-        default:
-            break;
+        v.push_back(ja.get(i).toFloat());
     }
+    
+    m_match->teamPositionAck(docs.getInt("side"), v, docs.getInt("ballPosPlayerId"), docs.getUInt("timeStamp"));
+
 }
 
 
@@ -227,36 +183,56 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
     
     unsigned int startTime = docs.getUInt("startTime");
 
-    vector<vector<float>> v = {vector<float>(), vector<float>()};
-    vector<float>& leftV = v[0];
-    vector<float>& rightV = v[1];
+    vector<vector<CFBPlayerInitInfo>> v = {vector<CFBPlayerInitInfo>(), vector<CFBPlayerInitInfo>()};
+    auto& leftV = v[0];
+    auto& rightV = v[1];
     {
-        CJsonTArray ja(left.getChild("teamPos"));
-        auto size = ja.size();
+        CJsonTArray ja_teamPos(left.getChild("teamPos"));
+        CJsonTArray ja_homePos(left.getChild("homePos"));
+        CJsonTArray ja_aiClass(left.getChild("aiClass"));
+        CC_ASSERT(ja_teamPos.size() == ja_homePos.size() && ja_teamPos.size() == 2 * ja_aiClass.size());
+        
+        auto size = ja_aiClass.size();
+        
         for (int i = 0; i < size; ++i)
         {
-            leftV.push_back(ja.get(i).toFloat());
+
+            leftV.push_back(CFBPlayerInitInfo(
+                                              ja_teamPos.get(i * 2).toFloat(), ja_teamPos.get(i * 2 + 1).toFloat(),
+                                              ja_homePos.get(i * 2).toFloat(), ja_homePos.get(i * 2 + 1).toFloat(),
+                                              ja_aiClass.get(i).toInt()
+                                              )
+                            );
         }
     }
     
     {
-        CJsonTArray ja(right.getChild("teamPos"));
-        auto size = ja.size();
+        CJsonTArray ja_teamPos(right.getChild("teamPos"));
+        CJsonTArray ja_homePos(right.getChild("homePos"));
+        CJsonTArray ja_aiClass(right.getChild("aiClass"));
+        CC_ASSERT(ja_teamPos.size() == ja_homePos.size() && ja_teamPos.size() == 2 * ja_aiClass.size());
+
+        auto size = ja_aiClass.size();
         for (int i = 0; i < size; ++i)
         {
-            rightV.push_back(ja.get(i).toFloat());
+            rightV.push_back(CFBPlayerInitInfo(
+                                              ja_teamPos.get(i * 2).toFloat(), ja_teamPos.get(i * 2 + 1).toFloat(),
+                                              ja_homePos.get(i * 2).toFloat(), ja_homePos.get(i * 2 + 1).toFloat(),
+                                              ja_aiClass.get(i).toInt()
+                                              )
+                            );
         }
     }
     
     
-    m_startMatchAck(v, side, kickOffSide, startTime);
+    m_match->startMatchAck(v, side, kickOffSide, startTime);
 }
 
 
 
 void CFBMatchProxyNet::onEndMatch(Node*, void* r)
 {
-    m_endMatchAck();
+    m_match->endMatchAck();
 }
 
 
@@ -289,19 +265,17 @@ void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
         }
     }
     
-    m_triggerMenuAck((FBDefs::MENU_TYPE)type, av, dv);
+    m_match->triggerMenuAck((FBDefs::MENU_TYPE)type, av, dv);
 }
 
 
 
 void CFBMatchProxyNet::onInstructionResult(Node*, void* r)
 {
-    CFBInstructionResult res;
+    CFBInstructionResult& res = m_match->getInstructionResult();
     
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
-    
-    log("%s", docs.dump().c_str());
     
     CJsonTArray ja(docs.getChild("instructions"));
     for (size_t i = 0; i < ja.size(); ++i)
@@ -338,7 +312,7 @@ void CFBMatchProxyNet::onInstructionResult(Node*, void* r)
     res.ballPosX = docs.getFloat("ballPosX");
     res.ballPosY = docs.getFloat("ballPosY");
     
-    m_instructionResultAck(res);
+    m_match->instructionResultAck();
 }
 
 

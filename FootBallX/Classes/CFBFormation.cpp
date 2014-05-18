@@ -23,7 +23,7 @@ CFBFormation::~CFBFormation()
     {
         CC_SAFE_DELETE(m_playerAIs[i]);
     }
-    CC_SAFE_DELETE_ARRAY(m_playerAIs);
+    m_playerAIs.clear();
 }
 
 bool CFBFormation::init(CFBTeam* team)
@@ -33,11 +33,11 @@ bool CFBFormation::init(CFBTeam* team)
         BREAK_IF(team == nullptr);
         m_team = team;
         
-        CC_SAFE_DELETE_ARRAY(m_playerAIs);
-        
-        m_playerAIs = new CFBPlayerAI*[m_playerNumber];
-        m_playerIndices.resize(m_playerNumber);
-        iota(m_playerIndices.begin(), m_playerIndices.end(), 0);
+//        CC_SAFE_DELETE_ARRAY(m_playerAIs);
+//        
+//        m_playerAIs = new CFBPlayerAI*[m_playerNumber];
+//        m_playerIndices.resize(m_playerNumber);
+//        iota(m_playerIndices.begin(), m_playerIndices.end(), 0);
         
         return true;
     } while (false);
@@ -48,8 +48,6 @@ bool CFBFormation::init(CFBTeam* team)
 
 void CFBFormation::update(float dt)
 {
-    CC_ASSERT(m_playerAIs);
-    
 //    m_updateCD++;
 //    int thinkIndex = int(m_updateCD) % m_playerNumber;
 //    if (thinkIndex != m_updateIndex)
@@ -83,15 +81,39 @@ void CFBFormation::think()
 
 
 
-bool CFBFormation::onStartMatch(const vector<float>& initPlayerPos, bool networkControl)
+bool CFBFormation::onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, const vector<CFBPlayer*>& players, bool networkControl)
 {
     do
     {
-        CC_ASSERT(m_playerAIs);
+        float orbit;
+        m_playerNumber = (int)initPlayerInfo.size();
         for (int i = 0; i < m_playerNumber; ++i)
         {
-            CC_ASSERT(m_playerAIs[i]);
-            m_playerAIs[i]->initPlayerStates(Point(initPlayerPos[i*2], initPlayerPos[i*2 + 1]), networkControl);
+            switch (initPlayerInfo[i].aiClass)
+            {
+                case 0:
+                    m_playerAIs.push_back(new CFBGoalkeeperAI());
+                    orbit = GOALKEEPER_ORBIT_RATE;
+                    break;
+                case 1:
+                    m_playerAIs.push_back(new CFBBackAI());
+                    orbit = BACK_ORBIT_RATE;
+                    break;
+                case 2:
+                    m_playerAIs.push_back(new CFBHalfBackAI());
+                    orbit = HALF_BACK_ORBIT_RATE;
+                    break;
+                case 3:
+                    m_playerAIs.push_back(new CFBForwardAI());
+                    orbit = FORWARD_ORBIT_RATE;
+                    break;
+                default:
+                    CC_ASSERT(false);
+                    break;
+            }
+            
+            players[i]->m_positionInFormation = i;
+            m_playerAIs[i]->init(this, players[i], initPlayerInfo[i].position, initPlayerInfo[i].homePosition, orbit, networkControl);
         }
         
         m_team->setHilightPlayerId(m_playerNumber - 1);
@@ -131,6 +153,12 @@ CFBPlayerAI* CFBFormation::getPassBallTarget()
 
 
 
+CFBPlayer* CFBFormation::getKickOffPlayer()
+{
+    // TODO: 这里要改，大概应该从服务器指定开球队员吧。
+    return getPlayer(9);
+}
+
 //Point CFBFormation::getDribbleTargetPos()
 //{
 //    auto pitch = FBMATCH->getPitch();
@@ -151,181 +179,4 @@ CFBPlayerAI* CFBFormation::getPassBallTarget()
 //    
 //    return pitch->getGrid(index).m_position;
 //}
-
-
-#pragma mark ----- 442
-
-CFBFormation442::CFBFormation442()
-{
-    m_playerNumber = 11;
-    m_formationId = FBDefs::FORMATION::F_4_4_2;
-}
-
-const char* CFBFormation442::description()
-{
-    return "4-4-2";
-}
-
-bool CFBFormation442::init(CFBTeam* team)
-{
-    do
-    {
-        BREAK_IF_FAILED(CFBFormation::init(team));
-
-        m_playerAIs[0] = new CFBGoalkeeperAI();
-        m_playerAIs[1] = new CFBBackAI();
-        m_playerAIs[2] = new CFBBackAI();
-        m_playerAIs[3] = new CFBBackAI();
-        m_playerAIs[4] = new CFBBackAI();
-        m_playerAIs[5] = new CFBHalfBackAI();
-        m_playerAIs[6] = new CFBHalfBackAI();
-        m_playerAIs[7] = new CFBHalfBackAI();
-        m_playerAIs[8] = new CFBHalfBackAI();
-        m_playerAIs[9] = new CFBForwardAI();
-        m_playerAIs[10] = new CFBForwardAI();
-
-        return true;
-    } while (false);
-	return false;
-}
-
-
-
-void CFBFormation442::addPlayer(CFBPlayer* player, int pos)
-{
-    auto initPos = FBDefs::InitFormation[(int)FBDefs::FORMATION::F_4_4_2];
-    auto homePos = FBDefs::HomeFormation[(int)FBDefs::FORMATION::F_4_4_2];
-    
-    switch (pos)
-    {
-        case 0:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], GOALKEEPER_ORBIT_RATE);
-            break;
-        case 1:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 2:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 3:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 4:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 5:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 6:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 7:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 8:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 9:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
-            break;
-        case 10:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
-            break;
-        default:
-            CC_ASSERT(false);
-            break;
-    }
-    
-    player->m_positionInFormation = pos;
-}
-
-
-
-#pragma mark ----- 352
-
-CFBFormation352::CFBFormation352()
-{
-    m_playerNumber = 11;
-    m_formationId = FBDefs::FORMATION::F_3_2_3_2;
-}
-
-
-const char* CFBFormation352::description()
-{
-    return "3-2_3-2";
-}
-
-
-bool CFBFormation352::init(CFBTeam* team)
-{
-    do
-    {
-        BREAK_IF_FAILED(CFBFormation::init(team));
-        
-        m_playerAIs[0] = new CFBGoalkeeperAI();
-        m_playerAIs[1] = new CFBBackAI();
-        m_playerAIs[2] = new CFBBackAI();
-        m_playerAIs[3] = new CFBBackAI();
-        m_playerAIs[4] = new CFBHalfBackAI();
-        m_playerAIs[5] = new CFBHalfBackAI();
-        m_playerAIs[6] = new CFBHalfBackAI();
-        m_playerAIs[7] = new CFBHalfBackAI();
-        m_playerAIs[8] = new CFBHalfBackAI();
-        m_playerAIs[9] = new CFBForwardAI();
-        m_playerAIs[10] = new CFBForwardAI();
-        
-        return true;
-    } while (false);
-	return false;
-}
-
-
-
-void CFBFormation352::addPlayer(CFBPlayer* player, int pos)
-{
-    auto initPos = FBDefs::InitFormation[(int)FBDefs::FORMATION::F_3_2_3_2];
-    auto homePos = FBDefs::HomeFormation[(int)FBDefs::FORMATION::F_3_2_3_2];
-    switch (pos)
-    {
-        case 0:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], GOALKEEPER_ORBIT_RATE);
-            break;
-        case 1:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 2:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 3:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], BACK_ORBIT_RATE);
-            break;
-        case 4:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 5:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 6:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 7:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 8:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], HALF_BACK_ORBIT_RATE);
-            break;
-        case 9:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
-            break;
-        case 10:
-            m_playerAIs[pos]->init(this, player, initPos[pos], homePos[pos], FORWARD_ORBIT_RATE);
-            break;
-        default:
-            CC_ASSERT(false);
-            break;
-    }
-    
-    player->m_positionInFormation = pos;
-}
-
 

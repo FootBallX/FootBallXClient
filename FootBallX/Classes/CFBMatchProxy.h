@@ -12,30 +12,32 @@
 #include "Common.h"
 #include "FBDefs.h"
 #include "CFBInstructionResult.h"
+#include "CFBPlayerInitInfo.h"
+
+class IMatchProxyDelegator
+{
+public:
+    virtual void syncTeam() = 0;
+    virtual void teamPositionAck(int side, const vector<float>&, int, unsigned int) = 0;
+    virtual void startMatchAck(const vector<vector<CFBPlayerInitInfo>>&, FBDefs::SIDE, FBDefs::SIDE, unsigned int) = 0;
+    virtual void endMatchAck() = 0;
+    virtual void triggerMenuAck(FBDefs::MENU_TYPE, vector<int>&, vector<int>&) = 0;
+    virtual void instructionAck(unsigned int) = 0;
+    virtual void instructionResultAck() = 0;
+    
+    virtual CFBInstructionResult& getInstructionResult() = 0;
+};
 
 class CFBMatchProxy
 {
 public:
-    typedef function<void(const vector<float>&, int, unsigned int)> TEAM_POSITION_FUNC;
-    typedef function<void(const vector<vector<float>>&, FBDefs::SIDE, FBDefs::SIDE, unsigned int)> START_MATCH_FUNC;
-    typedef function<void()> END_MATCH_FUNC;
-    typedef function<void(FBDefs::MENU_TYPE, vector<int>&, vector<int>&)> TRIGGER_MENU_FUNC;
-    typedef function<void(unsigned int)> INSTRUCTION_ACK_FUNC;
-    typedef function<void(const CFBInstructionResult&)> INSTRUCTION_RESULT_FUNC;
-    
     CFBMatchProxy() = default;
     virtual ~CFBMatchProxy() = default;
     
+    virtual void setDelegator(IMatchProxyDelegator*) = 0;
     virtual void start() = 0;
-    virtual void sendTeamPosition(const vector<float>&, int) = 0;
+    virtual void sendTeamPosition(const vector<float>&, int, int) = 0;
     virtual void sendMenuCmd(FBDefs::MENU_ITEMS, int) = 0;
-    
-    virtual void setTeamPositionAck(TEAM_POSITION_FUNC) = 0;
-    virtual void setStartMatchAck(START_MATCH_FUNC) = 0;
-    virtual void setEndMatchAck(END_MATCH_FUNC) = 0;
-    virtual void setTriggerMenuAck(TRIGGER_MENU_FUNC) = 0;
-    virtual void setInstructionAck(INSTRUCTION_ACK_FUNC) = 0;
-    virtual void setInstructionResultAck(INSTRUCTION_RESULT_FUNC) = 0;
     
     virtual void update(float dt) = 0;
     

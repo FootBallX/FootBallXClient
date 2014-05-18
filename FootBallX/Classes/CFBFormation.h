@@ -12,6 +12,7 @@
 #include "Common.h"
 #include "CFBPlayerAI.h"
 #include "FBDefs.h"
+#include "CFBPlayerInitInfo.h"
 
 class CFBPlayer;
 class CFBTeam;
@@ -29,10 +30,9 @@ class CFBFormation
 public:
     CFBFormation() = default;
     virtual ~CFBFormation();
-    virtual const char* description() = 0;
+    virtual const char* description(){CC_ASSERT(false); return nullptr;};
 
     virtual bool init(CFBTeam* team);
-    virtual void addPlayer(CFBPlayer* player, int pos) = 0;
     virtual CFBPlayer* getPlayer(int pos);
     
     virtual void update(float dt);
@@ -41,9 +41,9 @@ public:
     
     virtual int getPlayerNumber() { return m_playerNumber;}
     
-    virtual bool onStartMatch(const vector<float>& initPlayerPos, bool networkControl);
+    virtual bool onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, const vector<CFBPlayer*>& players, bool networkControl);
     
-    virtual CFBPlayer* getKickOffPlayer() = 0;
+    virtual CFBPlayer* getKickOffPlayer();
     
     virtual CFBTeam* getTeam() const {return m_team;}
     
@@ -58,42 +58,11 @@ protected:
     FBDefs::FORMATION m_formationId = FBDefs::FORMATION::NONE;
     CFBTeam* m_team;        // weak reference to the team object;
     int m_playerNumber = 0;
-    CFBPlayerAI** m_playerAIs = nullptr;
+    vector<CFBPlayerAI*> m_playerAIs;
     int m_updateIndex = -1;
     int m_updateCD = 0;
     vector<int> m_playerIndices;
 };
 
-#pragma mark ----- 442
-
-class CFBFormation442
-: public CFBFormation
-{
-public:
-    CFBFormation442();
-    virtual ~CFBFormation442() = default;
-    virtual bool init(CFBTeam* team) override;
-    virtual const char* description() override;
-    virtual void addPlayer(CFBPlayer* player, int pos) override;
-    virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
-
-protected:
-};
-
-#pragma mark ----- 352
-
-class CFBFormation352
-: public CFBFormation
-{
-public:
-    CFBFormation352();
-    virtual ~CFBFormation352() = default;
-    virtual bool init(CFBTeam* team) override;
-    virtual const char* description() override;
-    virtual void addPlayer(CFBPlayer* player, int pos) override;
-    virtual CFBPlayer* getKickOffPlayer() override {return getPlayer(9);}
-
-protected:
-};
 
 #endif /* defined(__FootBallX__CFBFormation__) */

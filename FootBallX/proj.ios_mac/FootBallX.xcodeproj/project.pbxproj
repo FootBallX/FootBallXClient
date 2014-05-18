@@ -95,6 +95,8 @@
 		54555F6318E8096D00C351D5 /* CFBShootBallAirIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F5E18E8096D00C351D5 /* CFBShootBallAirIns.cpp */; };
 		54555F6418E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */; };
 		54555F6518E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */; };
+		5459C3501928BDF600DA6A4D /* CFBPlayerInitInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5459C34E1928BDF600DA6A4D /* CFBPlayerInitInfo.cpp */; };
+		5459C3511928BDF600DA6A4D /* CFBPlayerInitInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5459C34E1928BDF600DA6A4D /* CFBPlayerInitInfo.cpp */; };
 		545BC7D318A9E8BC001DD728 /* FootBallMathTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */; };
 		545BC7D518AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
 		545BC7D618AA0660001DD728 /* FBDefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 545BC7D418AA0660001DD728 /* FBDefs.cpp */; };
@@ -275,6 +277,8 @@
 		54555F5F18E8096D00C351D5 /* CFBShootBallAirIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBShootBallAirIns.h; path = ../Classes/CFBShootBallAirIns.h; sourceTree = "<group>"; };
 		54555F6018E8096D00C351D5 /* CFBShootBallGroundIns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBShootBallGroundIns.cpp; path = ../Classes/CFBShootBallGroundIns.cpp; sourceTree = "<group>"; };
 		54555F6118E8096D00C351D5 /* CFBShootBallGroundIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBShootBallGroundIns.h; path = ../Classes/CFBShootBallGroundIns.h; sourceTree = "<group>"; };
+		5459C34E1928BDF600DA6A4D /* CFBPlayerInitInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBPlayerInitInfo.cpp; path = ../Classes/CFBPlayerInitInfo.cpp; sourceTree = "<group>"; };
+		5459C34F1928BDF600DA6A4D /* CFBPlayerInitInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFBPlayerInitInfo.h; path = ../Classes/CFBPlayerInitInfo.h; sourceTree = "<group>"; };
 		545BC7D118A9D7B6001DD728 /* FootBallMathTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FootBallMathTest.mm; path = FootBallXTests/FootBallMathTest.mm; sourceTree = "<group>"; };
 		545BC7D418AA0660001DD728 /* FBDefs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBDefs.cpp; path = ../Classes/FBDefs.cpp; sourceTree = "<group>"; };
 		5472F720187DA4EB0001FD79 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -599,11 +603,13 @@
 				5452C06418F541C7009347AD /* CFBMatchProxy.cpp */,
 				5452C06518F541C7009347AD /* CFBMatchProxy.h */,
 				5452C06918F541F5009347AD /* CFBMatchProxyNet.cpp */,
+				54124DFD1926002C0000577D /* CFBInstructionResult.cpp */,
 				5452C06A18F541F5009347AD /* CFBMatchProxyNet.h */,
 				5452C06D18F5420B009347AD /* CFBMatchProxySim.cpp */,
 				5452C06E18F5420B009347AD /* CFBMatchProxySim.h */,
-				54124DFD1926002C0000577D /* CFBInstructionResult.cpp */,
 				54124DFE1926002C0000577D /* CFBInstructionResult.h */,
+				5459C34E1928BDF600DA6A4D /* CFBPlayerInitInfo.cpp */,
+				5459C34F1928BDF600DA6A4D /* CFBPlayerInitInfo.h */,
 			);
 			name = Proxy;
 			sourceTree = "<group>";
@@ -975,6 +981,7 @@
 				54D9CD6E189605B500F7B888 /* CFBBall.cpp in Sources */,
 				543D49AE18815D0F0076C7EB /* CGameSceneManager.cpp in Sources */,
 				543D49B018815D0F0076C7EB /* CMemPool.cpp in Sources */,
+				5459C3501928BDF600DA6A4D /* CFBPlayerInitInfo.cpp in Sources */,
 				5420555218D091F5001551BF /* CFBHalfBackAI.cpp in Sources */,
 				543D49B218815D0F0076C7EB /* CMessageBoxLayer.cpp in Sources */,
 				543D49B418815D0F0076C7EB /* CTouchesLayer.cpp in Sources */,
@@ -1061,6 +1068,7 @@
 				548C252318FCC6420016E40F /* CJsonT.cpp in Sources */,
 				54764CB418CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */,
 				548C252718FD07F20016E40F /* JsonMemory.cpp in Sources */,
+				5459C3511928BDF600DA6A4D /* CFBPlayerInitInfo.cpp in Sources */,
 				543D49C318815EE60076C7EB /* CTransitLayer.cpp in Sources */,
 				5490F12318F2EC8800E8C0E3 /* CPlayerInfo.cpp in Sources */,
 				543D49C718815F320076C7EB /* CAnimationCache.cpp in Sources */,

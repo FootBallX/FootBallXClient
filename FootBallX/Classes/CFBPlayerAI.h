@@ -30,7 +30,7 @@ public:
     CFBPlayerAI() = default;
     virtual ~CFBPlayerAI() = default;
     
-    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius);
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl);
     
     virtual void think();
     
@@ -38,7 +38,7 @@ public:
     
     virtual void update(float dt);
     
-    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl);
+//    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl);
     
     virtual CFBPlayer* getPlayer() const {return m_player;}
 

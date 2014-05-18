@@ -210,9 +210,7 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
         BREAK_IF_FAILED(black->init(blackPlayercards));
         FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
         FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
-        
-        BREAK_IF_FAILED(black->changeFormation(FBDefs::FORMATION::F_3_2_3_2))
-        
+
         BREAK_IF_FAILED(FBMATCH->startMatch());
 #ifdef SHOW_GRID
         auto draw = DrawNode::create();
@@ -267,7 +265,12 @@ bool CMatchLayer::init()
 
 
 bool CMatchLayer::onTouchBegan(Touch* touch, Event* event)
-{    
+{
+    if (FBMATCH->getMatchStep() != FBDefs::MATCH_STEP::MATCHING)
+    {
+        return true;
+    }
+    
     auto team = FBMATCH->getControlSideTeam();
     if (team)
     {
@@ -735,6 +738,7 @@ void CMatchLayer::waitInstruction(void)
         m_menuLayer = nullptr;
     }
     
+    m_pitch->setVisible(true);
     togglePitchLieDown(true);
 }
 

@@ -20,8 +20,11 @@
 #include "CFBInstruction.h"
 #include "CFBMatchProxy.h"
 #include "IFBMatchUI.h"
+#include "CFBInstructionResult.h"
 
-class CFBMatch : public CSingleton<CFBMatch>
+class CFBMatch
+: public CSingleton<CFBMatch>
+, IMatchProxyDelegator
 {
 public:
     CC_SYNTHESIZE_READONLY(CFBPitch*, m_pitch, Pitch);
@@ -96,16 +99,21 @@ protected:
     vector<FBDefs::MENU_ITEMS> m_playerInstructions;    // 玩家指令
     vector<int> m_attackPlayerNumbers;
     vector<int> m_defendPlayerNumbers;
-    int m_targetPlayerId = -1;       // 仅传球时候有效，传球对象
+    int m_targetPlayerId = -1;       // 仅传球时候有效，传球对象'
+    
+    int m_playAnimIndex = 0;
+    
+    void playAnimInInstructionsResult();
     
 #pragma mark - net or sim
-    void syncTeam();
-    void teamPositionAck(const vector<float>& p, int ballPlayerId, unsigned int timestamp);
-    void startMatchAck(const vector<vector<float>>& allPos, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st);
-    void endMatchAck();
-    void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers);
-    void instructionAck(unsigned int countDown);
-    void instructionResultAck(const CFBInstructionResult&);
+    virtual void syncTeam() override;
+    virtual void teamPositionAck(int side, const vector<float>& p, int ballPlayerId, unsigned int timestamp) override;
+    virtual void startMatchAck(const vector<vector<CFBPlayerInitInfo>>&, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st) override;
+    virtual void endMatchAck() override;
+    virtual void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers) override;
+    virtual void instructionAck(unsigned int countDown) override;
+    virtual void instructionResultAck() override;
+    virtual CFBInstructionResult& getInstructionResult() override;
     
     enum class SIDE
     {
@@ -116,6 +124,8 @@ protected:
     const float m_SYNC_TIME = 1.0f;
     
     CFBMatchProxy* m_proxy = nullptr;
+    
+    CFBInstructionResult m_instructionResult;
     
     CFBTeam* m_teamsInMatch[(int)SIDE::NONE];       // 这里重新组织一下，按照己方和对方保存team
     float m_syncTime[(int)SIDE::NONE];

@@ -19,11 +19,11 @@ public:
     virtual ~CFBForwardAI() = default;
     
     virtual void update(float dt) override;
-    
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl) override;
+
 protected:
     virtual void updateHomePosition() override;
     virtual void considerSupport() override;
-    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl) override;
     virtual void thinkControlBall() override;
     
     virtual void updateAIControlBall(float dt) override;

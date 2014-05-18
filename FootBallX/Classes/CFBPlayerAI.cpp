@@ -12,7 +12,7 @@
 #include "CFBFormation.h"
 #include "CRandomManager.h"
 
-bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& pos, const Point& homePos, float radius)
+bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& pos, const Point& homePos, float radius, bool networkControl)
 {
     do
     {
@@ -30,6 +30,18 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& 
         m_defendOrbitRadius = radius;
         m_defendOrbitRadiusSq = m_defendOrbitRadius * m_defendOrbitRadius;
         m_defendOrbitRadiusx2Sq = (2 * m_defendOrbitRadius) * (2 * m_defendOrbitRadius);
+        
+        m_player->m_isOnDuty = true;
+        
+        if (networkControl)
+        {
+            m_state = FBDefs::AI_STATE::NETWORK;
+        }
+        else
+        {
+            m_state = FBDefs::AI_STATE::NONE;
+        }
+        
         return true;
     } while (false);
     
@@ -109,20 +121,20 @@ void CFBPlayerAI::considerSupport()
 
 
 
-void CFBPlayerAI::initPlayerStates(const Point& pt, bool networkControl)
-{
-    m_player->setPosition(pt);
-    m_player->m_isOnDuty = true;
-    
-    if (networkControl)
-    {
-        m_state = FBDefs::AI_STATE::NETWORK;
-    }
-    else
-    {
-        m_state = FBDefs::AI_STATE::NONE;
-    }
-}
+//void CFBPlayerAI::initPlayerStates(const Point& pt, bool networkControl)
+//{
+//    m_player->setPosition(pt);
+//    m_player->m_isOnDuty = true;
+//    
+//    if (networkControl)
+//    {
+//        m_state = FBDefs::AI_STATE::NETWORK;
+//    }
+//    else
+//    {
+//        m_state = FBDefs::AI_STATE::NONE;
+//    }
+//}
 
 
 

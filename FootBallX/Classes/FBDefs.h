@@ -115,6 +115,7 @@ namespace FBDefs
         WAIT_START,
         COUNT_DOWN,
         MATCHING,
+        PLAY_ANIM,
         NONE,
     };
     

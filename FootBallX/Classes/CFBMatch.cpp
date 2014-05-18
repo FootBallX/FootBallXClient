@@ -45,12 +45,7 @@ bool CFBMatch::init(float pitchWidth, float pitchHeight, IFBMatchUI* matchUI, CF
         
         CC_SAFE_DELETE(m_proxy);
         m_proxy = proxy;
-        m_proxy->setEndMatchAck(std::bind(&CFBMatch::endMatchAck, this));
-        m_proxy->setTeamPositionAck(std::bind(&CFBMatch::teamPositionAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-        m_proxy->setStartMatchAck(std::bind(&CFBMatch::startMatchAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-        m_proxy->setTriggerMenuAck(std::bind(&CFBMatch::triggerMenuAck, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-        m_proxy->setInstructionAck(std::bind(&CFBMatch::instructionAck, this, std::placeholders::_1));
-        m_proxy->setInstructionResultAck(std::bind(&CFBMatch::instructionResultAck, this, std::placeholders::_1));
+        m_proxy->setDelegator(this);
         
         BREAK_IF_FAILED(m_pitch->init(pitchWidth, pitchHeight));
         
@@ -224,6 +219,10 @@ void CFBMatch::update(float dt)
                 
                 m_syncTime[i] -= dt;
             }
+            break;
+        }
+        case FBDefs::MATCH_STEP::PLAY_ANIM:
+        {
             break;
         }
         default:
@@ -546,9 +545,15 @@ void CFBMatch::playAnimation(const string& name, float delay)
 
 void CFBMatch::onAnimationEnd()
 {
-    if (m_currentInstruction)
+//    if (m_currentInstruction)
+//    {
+//        m_currentInstruction->onAnimationEnd();
+//    }
+    
+    if (FBDefs::MATCH_STEP::PLAY_ANIM == m_matchStep)
     {
-        m_currentInstruction->onAnimationEnd();
+        ++m_playAnimIndex;
+        playAnimInInstructionsResult();
     }
 }
 
@@ -574,13 +579,30 @@ unsigned int CFBMatch::getTime()
 }
 
 
+
+void CFBMatch::playAnimInInstructionsResult()
+{
+    if (m_playAnimIndex < m_instructionResult.instructions.size())
+    {
+        auto ins = m_instructionResult.instructions[m_playAnimIndex];
+        
+        for (auto ani : ins.animations)
+        {
+            m_matchUI->onPlayAnimation(FBDefs::g_aniNames[ani.aniId], ani.delay);
+        }
+    }
+    else
+    {
+        // TODO: 恢复正常比赛
+    }
+}
+
+
 #pragma mark - Instructions
 
 void CFBMatch::setMenuItem(FBDefs::MENU_ITEMS mi, int targetPlayer)
 {
     m_playerInstructions.push_back(mi);
-    
-    auto sz = m_playerInstructions.size();
     
     m_proxy->sendMenuCmd(mi, targetPlayer);
 }
@@ -721,42 +743,58 @@ void CFBMatch::syncTeam()
         v.push_back(vec.y);
     }
     
-    m_proxy->sendTeamPosition(v, team->isAttacking() ? team->getHilightPlayerId() : -1);
+    m_proxy->sendTeamPosition(v, team->isAttacking() ? team->getHilightPlayerId() : -1, (unsigned int)team->getSide());
 }
 
 
 
-void CFBMatch::teamPositionAck(const vector<float>& p, int ballPlayerId, unsigned int timeStamp)
+void CFBMatch::teamPositionAck(int side, const vector<float>& p, int ballPlayerId, unsigned int timeStamp)
 {
-    auto team = m_teamsInMatch[(int)SIDE::OPP];
+    auto team = m_teams[side];
     auto fmt = team->getFormation();
     
     int size = fmt->getPlayerNumber();
     
-    float dt = m_proxy->getDeltaTime(timeStamp);
-    
-    for (int i = 0; i < size; ++i)
+    if (timeStamp == 0)     // timeStamp为0表示暂停时候的强制同步
     {
-        Point pos(p[i * 4], p[i * 4 + 1]);
-        Point vec(p[i * 4 + 2], p[i * 4 + 3]);
-        auto player = fmt->getPlayer(i);
-
-        player->moveFromTo(pos, vec, dt, m_SYNC_TIME);
+        for (int i = 0; i < size; ++i)
+        {
+            Point pos(p[i * 4], p[i * 4 + 1]);
+            Point vec(p[i * 4 + 2], p[i * 4 + 3]);
+            auto player = fmt->getPlayer(i);
+            
+            player->setPosition(pos);
+            player->setMovingVector(vec);
+        }
     }
-    
-    m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
+    else
+    {
+        float dt = m_proxy->getDeltaTime(timeStamp);
+        
+        for (int i = 0; i < size; ++i)
+        {
+            Point pos(p[i * 4], p[i * 4 + 1]);
+            Point vec(p[i * 4 + 2], p[i * 4 + 3]);
+            auto player = fmt->getPlayer(i);
+
+            player->moveFromTo(pos, vec, dt, m_SYNC_TIME);
+        }
+        
+        CC_ASSERT(team == m_teamsInMatch[(int)SIDE::OPP]);
+        m_syncTime[(int)SIDE::OPP] = m_SYNC_TIME;
+    }
 }
 
 
 
-void CFBMatch::startMatchAck(const vector<vector<float>>& allPos, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st)
+void CFBMatch::startMatchAck(const vector<vector<CFBPlayerInitInfo>>& v, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st)
 {
     log("diff: %u", st - m_proxy->getTime());
     log("side: %d, kick: %d", (int)mySide, (int)kickOffSide);
     
     setControlSide(mySide);
-    m_teamsInMatch[(int)SIDE::SELF]->onStartMatch(allPos[0], false);
-    m_teamsInMatch[(int)SIDE::OPP]->onStartMatch(allPos[1], true);
+    m_teams[0]->onStartMatch(v[0], false);
+    m_teams[1]->onStartMatch(v[1], true);
     
     m_teams[(int)kickOffSide]->kickOff();
     
@@ -799,15 +837,17 @@ void CFBMatch::instructionAck(unsigned int countDown)
 
 
 
-void CFBMatch::instructionResultAck(const CFBInstructionResult& res)
+void CFBMatch::instructionResultAck()
 {
-    auto x = res.instructions[0];
-//    for (auto x : res.instructions)
-    {
-        for (auto y : x.animations)
-        {
-            m_matchUI->onPlayAnimation(FBDefs::g_aniNames[y.aniId], y.delay);
-        }
-    }
+    m_matchStep = FBDefs::MATCH_STEP::PLAY_ANIM;
+    m_playAnimIndex = 0;
+    
+    playAnimInInstructionsResult();
 }
 
+
+
+CFBInstructionResult& CFBMatch::getInstructionResult()
+{
+    return m_instructionResult;
+}

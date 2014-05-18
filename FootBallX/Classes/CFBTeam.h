@@ -11,6 +11,7 @@
 
 #include "Common.h"
 #include "FBDefs.h"
+#include "CFBPlayerInitInfo.h"
 
 class CFBFormation;
 class CFBPlayer;
@@ -27,7 +28,7 @@ public:
     virtual bool init(const vector<string>& cardPlayers);
     virtual void update(float dt);
     virtual void think();
-    virtual bool onStartMatch(const vector<float>& initPlayerPos, bool networkControl);
+    virtual bool onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, bool networkControl);
     virtual void kickOff();
     virtual CFBPlayer* getHilightPlayer();
     virtual bool changeFormation(FBDefs::FORMATION formationId);

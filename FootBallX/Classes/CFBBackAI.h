@@ -19,9 +19,9 @@ public:
     virtual ~CFBBackAI() = default;
     
     virtual void update(float dt) override;
-    
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl) override;
+
 protected:
-    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl) override;
     virtual void considerSupport() override;
     
     virtual void updateHomePosition() override;

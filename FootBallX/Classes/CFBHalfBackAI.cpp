@@ -10,6 +10,20 @@
 #include "CFBMatch.h"
 #include "CRandomManager.h"
 
+bool CFBHalfBackAI::init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl)
+{
+    do
+    {
+        BREAK_IF_FAILED(CFBPlayerAI::init(formation, player, intPos, homePos, radius, networkControl));
+        m_player->m_isGoalKeeper = false;
+        
+        return true;
+    } while (false);
+    
+    return false;
+}
+
+
 void CFBHalfBackAI::update(float dt)
 {
     CFBPlayerAI::update(dt);
@@ -85,15 +99,6 @@ void CFBHalfBackAI::updateHomePosition()
 void CFBHalfBackAI::considerSupport()
 {
 
-}
-
-
-
-void CFBHalfBackAI::initPlayerStates(const cocos2d::Point& pt, bool networkControl)
-{
-    CFBPlayerAI::initPlayerStates(pt, networkControl);
-    
-    m_player->m_isGoalKeeper = false;
 }
 
 

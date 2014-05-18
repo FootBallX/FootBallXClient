@@ -18,11 +18,12 @@ public:
     CFBGoalkeeperAI() = default;
     virtual ~CFBGoalkeeperAI() = default;
     
+    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl) override;
+
     virtual void update(float dt) override;
     
 protected:
     virtual void updateHomePosition() override;
-    virtual void initPlayerStates(const cocos2d::Point& pt, bool networkControl) override;
     virtual void thinkControlBall() override;
 };
 
