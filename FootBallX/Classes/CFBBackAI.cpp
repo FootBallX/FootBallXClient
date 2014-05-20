@@ -10,11 +10,11 @@
 #include "CFBMatch.h"
 #include "CRandomManager.h"
 
-bool CFBBackAI::init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl)
+bool CFBBackAI::init(CFBTeam* team, CFBPlayer* player, const cocos2d::Point& homePos, float orbit)
 {
     do
     {
-        BREAK_IF_FAILED(CFBPlayerAI::init(formation, player, intPos, homePos, radius, networkControl));
+        BREAK_IF_FAILED(CFBPlayerAI::init(team, player, homePos, orbit));
         m_player->m_isGoalKeeper = false;
         
         return true;
@@ -27,7 +27,6 @@ bool CFBBackAI::init(CFBFormation* formation, CFBPlayer* player, const cocos2d::
 
 void CFBBackAI::updateHomePosition()
 {
-    auto team = m_formation->getTeam();
     auto pitch = FBMATCH->getPitch();
     
     int pitchHeight = pitch->getPitchHeight();
@@ -39,10 +38,10 @@ void CFBBackAI::updateHomePosition()
     float yOffset = yRate * FBDefs::OFFSET_Y;
     m_homePosition.y = m_origHomePosition.y + yOffset;
     
-    FBDefs::SIDE side = team->getSide();
+    FBDefs::SIDE side = m_team->getSide();
     float ballRate = FBMATCH->getBallPosRateBySide(side);
     
-    if (team->isAttacking())
+    if (m_team->isAttacking())
     {
         if (FBMATCH->isBallOnTheSide(side))
         {

@@ -10,15 +10,62 @@
 #include "CFBMatch.h"
 #include "CFBCardManager.h"
 #include "CFBFunctionsJS.h"
+#include "CFBGoalkeeperAI.h"
+#include "CFBBackAI.h"
+#include "CFBHalfBackAI.h"
+#include "CFBForwardAI.h"
 
-CFBPlayer::CFBPlayer(const string& cid) : m_playerCard(CARD_MGR->getCardById(cid))
+CFBPlayer::CFBPlayer(CFBTeam* team, const CFBCard& card)
+: m_ownerTeam(team)
+,m_playerCard(card)
 {
 }
 
 
 
-CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
+//CFBPlayer::CFBPlayer(const CFBCard& card) : m_playerCard(card)
+//{
+//}
+
+bool CFBPlayer::createBrain(FBDefs::AI_CLASS aiClass, const Point& homePos, float orbit)
 {
+    do
+    {
+        CC_SAFE_DELETE(m_brain);
+        switch (aiClass)
+        {
+            case FBDefs::AI_CLASS::GOAL_KEEPER:
+                m_brain = new CFBGoalkeeperAI();
+                break;
+            case FBDefs::AI_CLASS::BACK:
+                m_brain = new CFBBackAI();
+                break;
+            case FBDefs::AI_CLASS::HALF_BACK:
+                m_brain = new CFBHalfBackAI();
+                break;
+            case FBDefs::AI_CLASS::FORWARD:
+                m_brain = new CFBForwardAI();
+                break;
+        }
+        m_brain->init(m_ownerTeam, this, homePos, orbit);
+        return true;
+    } while (false);
+    
+    return false;
+}
+
+
+
+CFBPlayerAI* CFBPlayer::getBrain()
+{
+    return m_brain;
+}
+
+
+
+CFBTeam* CFBPlayer::getOwnerTeam() const
+{
+    return m_ownerTeam;
 }
 
 
@@ -45,8 +92,6 @@ void CFBPlayer::update(float dt)
 
 void CFBPlayer::gainBall()
 {
-    CC_ASSERT(m_isOnDuty);
-    
     m_isBallController = true;
     
     FBMATCH->setBallPosition(getPosition());
@@ -62,8 +107,6 @@ void CFBPlayer::gainBall()
 
 void CFBPlayer::loseBall()
 {
-    CC_ASSERT(m_isOnDuty);
-    
     m_isBallController = false;
 
     m_ownerTeam->setAttacking(false);
@@ -75,7 +118,7 @@ float CFBPlayer::getSpeed()
 {
     if (m_speedCache < 0)
     {
-        float speed = FB_FUNC_JS->getSpeed(m_playerCard);
+        float speed = m_playerCard.m_speed;
         m_speedCache = speed;
     }
 

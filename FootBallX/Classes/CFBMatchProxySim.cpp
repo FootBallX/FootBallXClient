@@ -48,14 +48,14 @@ void CFBMatchProxySim::sendMenuCmd(FBDefs::MENU_ITEMS, int)
 
 void CFBMatchProxySim::update(float dt)
 {
-    auto team = FBMATCH->getControlSideTeam();
-    team = FBMATCH->getOtherTeam(team);
-    auto fmt = team->getFormation();
-    auto playerId = team->getHilightPlayerId();
-    auto playerAI = fmt->getPlayerAIById(playerId);
-
-    playerAI->thinkControlBall();
-    playerAI->updateAIControlBall(dt);
+//    auto team = FBMATCH->getControlSideTeam();
+//    team = FBMATCH->getOtherTeam(team);
+//    auto fmt = team->getFormation();
+//    auto playerId = team->getHilightPlayerId();
+//    auto playerAI = fmt->getPlayerAIById(playerId);
+//
+//    playerAI->thinkControlBall();
+//    playerAI->updateAIControlBall(dt);
 }
 
 

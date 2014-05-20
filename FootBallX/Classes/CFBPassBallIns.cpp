@@ -36,7 +36,7 @@ void CFBPassBallIns::checkAirBall()
 {
     auto player = m_players[m_players.size() - 1];
     auto pitch = FBMATCH->getPitch();
-    auto side = player->m_ownerTeam->getSide();
+    auto side = player->getOwnerTeam()->getSide();
     m_isAirBall = pitch->isInPenaltyArea(player->getPosition(), pitch->getOtherSide(side));
 }
 

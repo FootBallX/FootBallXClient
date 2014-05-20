@@ -10,16 +10,12 @@
 #define __FootBallX__CFBPlayerInitInfo__
 
 #include "Common.h"
+#include "CFBCard.h"
 
 class CFBPlayerInitInfo
 {
-public:
-    CFBPlayerInitInfo(float x, float y, float x1, float y1, int a) :
-    position(x, y),
-    homePosition(x1, y1),
-    aiClass(a)
-    {}
-    
+public:    
+    CFBCard card;
     Point position;
     Point homePosition;
     int aiClass;

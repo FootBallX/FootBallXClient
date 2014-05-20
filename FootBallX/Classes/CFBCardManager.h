@@ -21,7 +21,7 @@ public:
     
     bool init();
     
-    const CFBCard& getCardById(const string& sid);
+//    const CFBCard& getCardById(const string& sid);
 protected:
     map<string, CFBCard*> m_cards;
 };

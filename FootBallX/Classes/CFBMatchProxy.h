@@ -19,11 +19,13 @@ class IMatchProxyDelegator
 public:
     virtual void syncTeam() = 0;
     virtual void teamPositionAck(int side, const vector<float>&, int, unsigned int) = 0;
-    virtual void startMatchAck(const vector<vector<CFBPlayerInitInfo>>&, FBDefs::SIDE, FBDefs::SIDE, unsigned int) = 0;
+    virtual void matchInfoAck(FBDefs::SIDE, FBDefs::SIDE, int) = 0;
+    virtual void startMatchAck(unsigned int) = 0;
     virtual void endMatchAck() = 0;
     virtual void triggerMenuAck(FBDefs::MENU_TYPE, vector<int>&, vector<int>&) = 0;
     virtual void instructionAck(unsigned int) = 0;
     virtual void instructionResultAck() = 0;
+    virtual void addPlayer(FBDefs::SIDE, const CFBPlayerInitInfo&) = 0;
     
     virtual CFBInstructionResult& getInstructionResult() = 0;
 };

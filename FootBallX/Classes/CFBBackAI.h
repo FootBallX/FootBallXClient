@@ -19,7 +19,7 @@ public:
     virtual ~CFBBackAI() = default;
     
     virtual void update(float dt) override;
-    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl) override;
+    virtual bool init(CFBTeam* team, CFBPlayer* player, const cocos2d::Point& homePos, float orbit) override;
 
 protected:
     virtual void considerSupport() override;

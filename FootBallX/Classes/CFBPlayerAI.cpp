@@ -9,38 +9,25 @@
 #include "CFBPlayerAI.h"
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
-#include "CFBFormation.h"
 #include "CRandomManager.h"
 
-bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& pos, const Point& homePos, float radius, bool networkControl)
+bool CFBPlayerAI::init(CFBTeam* team, CFBPlayer* player, const Point& homePos, float orbit)
 {
     do
     {
         BREAK_IF(player == nullptr);
-        BREAK_IF(formation == nullptr);
-        m_formation = formation;
+        BREAK_IF(team == nullptr);
+        m_team = team;
         m_player = player;
         
-        m_player->setPosition(pos);
-        
-        m_initPosition = pos;
         m_homePosition = homePos;
         m_origHomePosition = m_homePosition;
         
-        m_defendOrbitRadius = radius;
+        m_defendOrbitRadius = orbit;
         m_defendOrbitRadiusSq = m_defendOrbitRadius * m_defendOrbitRadius;
         m_defendOrbitRadiusx2Sq = (2 * m_defendOrbitRadius) * (2 * m_defendOrbitRadius);
         
-        m_player->m_isOnDuty = true;
-        
-        if (networkControl)
-        {
-            m_state = FBDefs::AI_STATE::NETWORK;
-        }
-        else
-        {
-            m_state = FBDefs::AI_STATE::NONE;
-        }
+        m_state = FBDefs::AI_STATE::NONE;
         
         return true;
     } while (false);
@@ -49,19 +36,30 @@ bool CFBPlayerAI::init(CFBFormation* formation, CFBPlayer* player, const Point& 
 }
 
 
+void CFBPlayerAI::setNetworkControl(bool networkControl)
+{
+    if (networkControl)
+    {
+        m_state = FBDefs::AI_STATE::NETWORK;
+    }
+    else
+    {
+        m_state = FBDefs::AI_STATE::NONE;
+    }
+}
+
 
 void CFBPlayerAI::think()
 {
     if (m_state == FBDefs::AI_STATE::NETWORK) return;
     
-    auto team = m_formation->getTeam();
-    if (team->getHilightPlayer() != m_player)
+    if (m_team->getHilightPlayer() != m_player)
     {
-        if (team->isAttacking())
+        if (m_team->isAttacking())
         {
             thinkOnAttacking();
         }
-        else if (team->isDefending())
+        else if (m_team->isDefending())
         {
             thinkOnDefending();
         }
@@ -82,8 +80,7 @@ void CFBPlayerAI::thinkOnAttacking()
         updateHomePosition();
         
         auto pitch = FBMATCH->getPitch();
-        auto team = m_formation->getTeam();
-        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+        auto homePos = pitch->transformBySide(m_homePosition, m_team->getSide());
         
         m_player->moveTo(homePos);
     }
@@ -99,8 +96,7 @@ void CFBPlayerAI::thinkOnDefending()
         updateHomePosition();
         
         auto pitch = FBMATCH->getPitch();
-        auto team = m_formation->getTeam();
-        auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+        auto homePos = pitch->transformBySide(m_homePosition, m_team->getSide());
         
         m_player->moveTo(homePos);
     }
@@ -142,8 +138,7 @@ void CFBPlayerAI::returnToHome(float dt)
 {
     CC_ASSERT(m_player);
     auto pitch = FBMATCH->getPitch();
-    auto team = m_formation->getTeam();
-    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+    auto homePos = pitch->transformBySide(m_homePosition, m_team->getSide());
 
     m_player->moveTo(homePos);
 }
@@ -154,10 +149,9 @@ void CFBPlayerAI::chaseBall(float dt)
 {
     CC_ASSERT(m_player);
     auto pitch = FBMATCH->getPitch();
-    auto team = m_formation->getTeam();
-    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+    auto homePos = pitch->transformBySide(m_homePosition, m_team->getSide());
     
-    if (m_formation->getTeam()->isDefending())
+    if (m_team->isDefending())
     {
         auto ballPos = FBMATCH->getBallPosition();
         
@@ -166,32 +160,32 @@ void CFBPlayerAI::chaseBall(float dt)
         {
             m_state = FBDefs::AI_STATE::BACKHOME;
             
-            auto actp = team->getActivePlayer();
-            auto assp = team->getAssistantPlayer();
+            auto actp = m_team->getActivePlayer();
+            auto assp = m_team->getAssistantPlayer();
             
             if (actp == m_player->m_positionInFormation)
             {
-                team->setActivePlayer(-1);
+                m_team->setActivePlayer(-1);
                 
                 if (assp > -1)
                 {
-                    auto playerAI = m_formation->getPlayerAIById(assp);
+                    auto playerAI = m_team->getPlayer(assp)->getBrain();
                     playerAI->m_state = FBDefs::AI_STATE::BACKHOME;
                     
-                    team->setAssistantPlayer(-1);
+                    m_team->setAssistantPlayer(-1);
                 }
             }
             else if (assp == m_player->m_positionInFormation)
             {
-                team->setAssistantPlayer(-1);
+                m_team->setAssistantPlayer(-1);
             }
         }
         else
         {
-            auto actp = team->getActivePlayer();
+            auto actp = m_team->getActivePlayer();
             if (actp == -1)
             {
-                team->setActivePlayer(m_player->m_positionInFormation);
+                m_team->setActivePlayer(m_player->m_positionInFormation);
             }
             else if (actp == m_player->m_positionInFormation)
             {
@@ -199,14 +193,14 @@ void CFBPlayerAI::chaseBall(float dt)
             }
             else
             {
-                auto assp = team->getAssistantPlayer();
+                auto assp = m_team->getAssistantPlayer();
                 if (assp == -1)
                 {
-                    team->setAssistantPlayer(m_player->m_positionInFormation);
+                    m_team->setAssistantPlayer(m_player->m_positionInFormation);
                 }
                 else if (assp == m_player->m_positionInFormation)
                 {
-                    m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, team->getSide()));
+                    m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, m_team->getSide()));
                 }
                 else
                 {
@@ -221,10 +215,9 @@ void CFBPlayerAI::chaseBall(float dt)
 
 void CFBPlayerAI::considerChase()
 {
-    auto team = m_formation->getTeam();
     const Point& ballPos = FBMATCH->getBallPosition();
     auto pitch = FBMATCH->getPitch();
-    auto homePos = pitch->transformBySide(m_homePosition, team->getSide());
+    auto homePos = pitch->transformBySide(m_homePosition, m_team->getSide());
 
     if (m_state != FBDefs::AI_STATE::CHASE)
     {
@@ -236,8 +229,8 @@ void CFBPlayerAI::considerChase()
     
     if (m_state == FBDefs::AI_STATE::CHASE)
     {
-        auto actp = team->getActivePlayer();
-        auto assp = team->getAssistantPlayer();
+        auto actp = m_team->getActivePlayer();
+        auto assp = m_team->getAssistantPlayer();
         
         if ((homePos - m_player->getPosition()).getLengthSq() >= m_defendOrbitRadiusx2Sq)
         {
@@ -245,32 +238,32 @@ void CFBPlayerAI::considerChase()
             
             if (actp == m_player->m_positionInFormation)
             {
-                team->setActivePlayer(-1);
+                m_team->setActivePlayer(-1);
                 
                 if (assp > -1)
                 {
-                    auto playerAI = m_formation->getPlayerAIById(assp);
+                    auto playerAI = m_team->getPlayer(assp)->getBrain();
                     playerAI->m_state = FBDefs::AI_STATE::NONE;
                     
-                    team->setAssistantPlayer(-1);
+                    m_team->setAssistantPlayer(-1);
                 }
             }
             else if (assp == m_player->m_positionInFormation)
             {
-                team->setAssistantPlayer(-1);
+                m_team->setAssistantPlayer(-1);
             }
         }
         else
         {
             if (actp == -1 || actp == m_player->m_positionInFormation)
             {
-                team->setActivePlayer(m_player->m_positionInFormation);
+                m_team->setActivePlayer(m_player->m_positionInFormation);
                 m_player->moveTo(ballPos);
             }
             else if (assp == -1 || assp == m_player->m_positionInFormation)
             {
-                team->setAssistantPlayer(m_player->m_positionInFormation);
-                m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, team->getSide()));
+                m_team->setAssistantPlayer(m_player->m_positionInFormation);
+                m_player->moveTo(pitch->getBestAssistantDeffendingPosition(ballPos, m_team->getSide()));
             }
         }
     }
@@ -286,7 +279,7 @@ void CFBPlayerAI::updateWait(float dt)
         if (FLT_LE(m_waitTime, 0.f))
         {
             // debug
-            if (m_formation->getTeam()->getSide() == FBDefs::SIDE::LEFT)
+            if (m_team->getSide() == FBDefs::SIDE::LEFT)
             {
                 log("1");
             }
@@ -315,8 +308,7 @@ void CFBPlayerAI::updateAIControlBall(float dt)
 void CFBPlayerAI::PreventOffside(float& x)
 {
     auto pitch = FBMATCH->getPitch();
-    auto team = m_formation->getTeam();
-    FBDefs::SIDE side = team->getSide();
+    FBDefs::SIDE side = m_team->getSide();
     FBDefs::SIDE otherSide = pitch->getOtherSide(side);
     
     float offsideLine = FBMATCH->getTeam(otherSide)->getLastPosOfPlayer();
@@ -340,9 +332,8 @@ void CFBPlayerAI::increasePassBallScore(int inc)
 void CFBPlayerAI::thinkControlBall()
 {
     int rNum = RANDOM_MGR->getRand() % 100;
-    auto team = m_formation->getTeam();
     
-    if (rNum < 50 && team->canShootDirectly(this->m_player))
+    if (rNum < 50 && m_team->canShootDirectly(this->m_player))
     {
         // shoot
     }
@@ -356,12 +347,12 @@ void CFBPlayerAI::thinkControlBall()
         else
         {
             // pass
-            team->updateFieldStatusOnAttack();
+            m_team->updateFieldStatusOnAttack();
             
-            auto target = m_formation->getPassBallTarget();
+            auto target = m_team->getPassBallTarget();
             if (target)
             {
-                FBMATCH->tryPassBall(m_player, target->getPlayer());
+                FBMATCH->tryPassBall(m_player, target);
             }
         }
     }
@@ -373,13 +364,12 @@ void CFBPlayerAI::thinkDribbleBall()
 {
     if (m_controlState != FBDefs::AI_STATE_CONTROL::NONE) return;
     
-    auto team = m_formation->getTeam();
-    auto side = team->getSide();
+    auto side = m_team->getSide();
     auto pitch = FBMATCH->getPitch();
     auto otherSide = pitch->getOtherSide(side);
     auto otherTeam = FBMATCH->getTeam(otherSide);
     auto& otherTeamMembers = otherTeam->getTeamMembers();
-    auto& teamMembers = team->getTeamMembers();
+    auto& teamMembers = m_team->getTeamMembers();
     
     auto& p1 = m_player->getPosition();
     Point aheadPos = p1;
@@ -402,13 +392,10 @@ void CFBPlayerAI::thinkDribbleBall()
 
     for (auto player : otherTeamMembers)
     {
-        if (player->m_isOnDuty)
+        if (FBDefs::isPointOnTheWay(p1, goalDirPos, player->getPosition()))
         {
-            if (FBDefs::isPointOnTheWay(p1, goalDirPos, player->getPosition()))
-            {
-                ok = false;
-                break;
-            }
+            ok = false;
+            break;
         }
     }
     
@@ -421,13 +408,10 @@ void CFBPlayerAI::thinkDribbleBall()
     
     for (auto player : otherTeamMembers)
     {
-        if (player->m_isOnDuty)
+        if (FBDefs::isPointOnTheWay(p1, aheadPos, player->getPosition()))
         {
-            if (FBDefs::isPointOnTheWay(p1, aheadPos, player->getPosition()))
-            {
-                ok = false;
-                break;
-            }
+            ok = false;
+            break;
         }
     }
     
@@ -445,14 +429,12 @@ void CFBPlayerAI::thinkPassBall()
 {
     if (m_controlState != FBDefs::AI_STATE_CONTROL::NONE) return;
     
-    auto team = m_formation->getTeam();
-    
-    team->updateFieldStatusOnAttack();
-    auto target = m_formation->getPassBallTarget();
+    m_team->updateFieldStatusOnAttack();
+    auto target = m_team->getPassBallTarget();
     
     if (target)
     {
-        FBMATCH->tryPassBall(m_player, target->getPlayer());
+        FBMATCH->tryPassBall(m_player, target);
     }
 }
 

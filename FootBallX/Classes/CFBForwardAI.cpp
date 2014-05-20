@@ -10,11 +10,11 @@
 #include "CFBMatch.h"
 #include "CRandomManager.h"
 
-bool CFBForwardAI::init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl)
+bool CFBForwardAI::init(CFBTeam* team, CFBPlayer* player, const cocos2d::Point& homePos, float orbit)
 {
     do
     {
-        BREAK_IF_FAILED(CFBPlayerAI::init(formation, player, intPos, homePos, radius, networkControl));
+        BREAK_IF_FAILED(CFBPlayerAI::init(team, player, homePos, orbit));
         m_player->m_isGoalKeeper = false;
         
         return true;
@@ -53,7 +53,6 @@ void CFBForwardAI::update(float dt)
 
 void CFBForwardAI::updateHomePosition()
 {
-    auto team = m_formation->getTeam();
     auto pitch = FBMATCH->getPitch();
     
     int pitchHeight = pitch->getPitchHeight();
@@ -64,10 +63,10 @@ void CFBForwardAI::updateHomePosition()
     float yOffset = yRate * FBDefs::OFFSET_Y;
     m_homePosition.y = m_origHomePosition.y + yOffset;
     
-    FBDefs::SIDE side = team->getSide();
+    FBDefs::SIDE side = m_team->getSide();
     float ballRate = FBMATCH->getBallPosRateBySide(side);
     
-    if (team->isAttacking())
+    if (m_team->isAttacking())
     {
         if (FBMATCH->isBallOnTheSide(side))
         {
@@ -101,10 +100,9 @@ void CFBForwardAI::updateHomePosition()
 
 void CFBForwardAI::considerSupport()
 {
-    auto team = m_formation->getTeam();
     if (m_state == FBDefs::AI_STATE::BACKHOME)
     {
-        auto side = team->getSide();
+        auto side = m_team->getSide();
         if (!FBMATCH->isBallOnTheSide(side))
         {
             if (this->m_state != FBDefs::AI_STATE::SUPPORT && this->m_state != FBDefs::AI_STATE::WAIT)
@@ -125,7 +123,7 @@ void CFBForwardAI::updateSupport(float dt)
         case FBDefs::AI_STATE_SUPPORT::FIND_POS:
         {
             auto pitch = FBMATCH->getPitch();
-            m_moveToTarget = pitch->getBestSupportPosition(m_formation->getTeam()->getSide());
+            m_moveToTarget = pitch->getBestSupportPosition(m_team->getSide());
             m_supportState = FBDefs::AI_STATE_SUPPORT::MOVE_TO_POS;
             PreventOffside(m_moveToTarget.x);
             break;

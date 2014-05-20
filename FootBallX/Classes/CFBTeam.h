@@ -13,25 +13,25 @@
 #include "FBDefs.h"
 #include "CFBPlayerInitInfo.h"
 
-class CFBFormation;
 class CFBPlayer;
 
 class CFBTeam
 {
 public:
-    CC_SYNTHESIZE_READONLY(CFBFormation*, m_formation, Formation);
-    CC_SYNTHESIZE(FBDefs::SIDE, m_side, Side);
+//    CC_SYNTHESIZE(FBDefs::SIDE, m_side, Side);
     
-    CFBTeam();
+    CFBTeam(FBDefs::SIDE side);
     virtual ~CFBTeam() = default;
     
-    virtual bool init(const vector<string>& cardPlayers);
+    virtual bool init();
+    virtual void addPlayer(const CFBPlayerInitInfo& info);
     virtual void update(float dt);
     virtual void think();
-    virtual bool onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, bool networkControl);
-    virtual void kickOff();
+    virtual bool onStartMatch(bool networkControl);
+    virtual void kickOff(int playerNumber);
     virtual CFBPlayer* getHilightPlayer();
-    virtual bool changeFormation(FBDefs::FORMATION formationId);
+    virtual CFBPlayer* getPlayer(int idx);
+    virtual int getPlayerNumber();
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
     virtual void setAttacking(bool attacking) { m_state = attacking ? FBDefs::TEAM_STATE::ATTACKING : FBDefs::TEAM_STATE::DEFENDING; }
@@ -56,7 +56,12 @@ public:
     virtual int getHilightPlayerId() { return m_hilightPlayerId; }
     
     virtual void switchHilightPlayer();
+    
+    virtual CFBPlayer* getPassBallTarget();
+
+    virtual FBDefs::SIDE getSide() const;
 protected:
+    FBDefs::SIDE m_side;
     FBDefs::TEAM_STATE m_state = FBDefs::TEAM_STATE::NONE;
     vector<CFBPlayer*> m_teamMembers;
     

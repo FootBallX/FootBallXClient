@@ -175,41 +175,41 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
         
         BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
         
-        vector<string> redPlayercards =
-        {
-            "10001",
-            "40001",
-            "40002",
-            "40003",
-            "40004",
-            "30001",
-            "30002",
-            "30003",
-            "30004",
-            "20001",
-            "20002",
-        };
-        vector<string> blackPlayercards =
-        {
-            "10002",
-            "40005",
-            "40006",
-            "40007",
-            "30005",
-            "30006",
-            "30007",
-            "30008",
-            "30009",
-            "20003",
-            "20004",
-        };
+//        vector<string> redPlayercards =
+//        {
+//            "10001",
+//            "40001",
+//            "40002",
+//            "40003",
+//            "40004",
+//            "30001",
+//            "30002",
+//            "30003",
+//            "30004",
+//            "20001",
+//            "20002",
+//        };
+//        vector<string> blackPlayercards =
+//        {
+//            "10002",
+//            "40005",
+//            "40006",
+//            "40007",
+//            "30005",
+//            "30006",
+//            "30007",
+//            "30008",
+//            "30009",
+//            "20003",
+//            "20004",
+//        };
         
-        CFBTeam* red = new CFBTeam;
-        BREAK_IF_FAILED(red->init(redPlayercards));
-        CFBTeam* black = new CFBTeam;
-        BREAK_IF_FAILED(black->init(blackPlayercards));
-        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
-        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
+//        CFBTeam* red = new CFBTeam;
+//        BREAK_IF_FAILED(red->init(redPlayercards));
+//        CFBTeam* black = new CFBTeam;
+//        BREAK_IF_FAILED(black->init(blackPlayercards));
+//        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
+//        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
 
         BREAK_IF_FAILED(FBMATCH->startMatch());
 #ifdef SHOW_GRID
@@ -416,13 +416,11 @@ void CMatchLayer::updateTeam(CFBTeam* team, vector<Sprite*>& sprites)
 {
     auto pitch = FBMATCH->getPitch();
     
-    auto fmt = team->getFormation();
-    
     auto hilightPlayer = team->getHilightPlayer();
     
-    for (int i = 0; i < fmt->getPlayerNumber(); ++i)
+    for (int i = 0; i < team->getPlayerNumber(); ++i)
     {
-        auto player = fmt->getPlayer(i);
+        auto player = team->getPlayer(i);
         auto spr = sprites[i];
         spr->setVisible(true);
         spr->setPosition(pitch->transToScreen(player->getPosition()));

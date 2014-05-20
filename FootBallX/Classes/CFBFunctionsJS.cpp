@@ -67,24 +67,24 @@ bool JSPlayAnimation(JSContext* cx, uint32_t argc, jsval *vp)
 bool CFBFunctionsJS::init()
 {
     auto sc = ScriptingCore::getInstance();
-    cocos2d::ScriptEngineManager::getInstance()->setScriptEngine(sc);
+//    cocos2d::ScriptEngineManager::getInstance()->setScriptEngine(sc);
     do
     {
-        sc->addRegisterCallback(register_all_CFBCardJSBinds);
-        sc->start();
-        
-        bool ret;
-        ret = sc->runScript("CompactFunctions.js");
-        BREAK_IF(ret == false);
-        
-        this->_cx = sc->getGlobalContext();
-        this->_go = sc->getGlobalObject();
-
-        JSAutoCompartment ac(_cx, _go);
-        
-        JS_DefineFunction(_cx, _go, "Log", JSlog, 0, JSPROP_READONLY | JSPROP_PERMANENT);
-        JS_DefineFunction(_cx, _go, "Rand", JSRand, 0, JSPROP_READONLY | JSPROP_PERMANENT);
-        JS_DefineFunction(_cx, _go, "PlayAnimation", JSPlayAnimation, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+//        sc->addRegisterCallback(register_all_CFBCardJSBinds);
+//        sc->start();
+//        
+//        bool ret;
+//        ret = sc->runScript("CompactFunctions.js");
+//        BREAK_IF(ret == false);
+//        
+//        this->_cx = sc->getGlobalContext();
+//        this->_go = sc->getGlobalObject();
+//
+//        JSAutoCompartment ac(_cx, _go);
+//        
+//        JS_DefineFunction(_cx, _go, "Log", JSlog, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+//        JS_DefineFunction(_cx, _go, "Rand", JSRand, 0, JSPROP_READONLY | JSPROP_PERMANENT);
+//        JS_DefineFunction(_cx, _go, "PlayAnimation", JSPlayAnimation, 0, JSPROP_READONLY | JSPROP_PERMANENT);
         
         return true;
     } while (false);

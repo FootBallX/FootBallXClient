@@ -7,32 +7,22 @@
 //
 
 #include "CFBTeam.h"
-#include "CFBFormation.h"
 #include "CFBPlayer.h"
 #include "CFBMatch.h"
+#include "CFBPlayerAI.h"
 
-CFBTeam::CFBTeam()
-: m_side(FBDefs::SIDE::NONE)
+CFBTeam::CFBTeam(FBDefs::SIDE side)
+: m_side(side)
 {
-    
+    m_state = FBDefs::TEAM_STATE::DEFENDING;
 }
 
 
 
-bool CFBTeam::init(const vector<string>& cardPlayers)
+bool CFBTeam::init()
 {
     do
     {
-        // player 对象应该从哪里来？服务器？这里暂时创建一下。
-        for (int i = 0; i < 11; ++i)
-        {
-            auto player = new CFBPlayer(cardPlayers[i]);
-            player->m_ownerTeam = this;
-            m_teamMembers.push_back(player);
-        }
-        m_formation = new CFBFormation();
-        BREAK_IF_FAILED(m_formation->init(this));
-        
         m_state = FBDefs::TEAM_STATE::DEFENDING;
         return true;
     } while (false);
@@ -41,11 +31,15 @@ bool CFBTeam::init(const vector<string>& cardPlayers)
 }
 
 
+int CFBTeam::getPlayerNumber()
+{
+    return (int)m_teamMembers.size();
+}
+
+
 
 void CFBTeam::update(float dt)
 {
-    m_formation->update(dt);
-    
     auto comp =
         getSide() == FBDefs::SIDE::LEFT ?
         [](float a, float b){return a < b;} : [](float a, float b){return a > b;};
@@ -53,7 +47,8 @@ void CFBTeam::update(float dt)
     m_lastPosOfPlayer = 0;
     for (auto x : m_teamMembers)
     {
-        if (x->m_isOnDuty && x->m_isGoalKeeper == false)
+        x->getBrain()->update(dt);
+        if (x->m_isGoalKeeper == false)
         {
             auto& pos = x->getPosition();
             if (m_lastPosOfPlayer == 0)
@@ -81,17 +76,55 @@ void CFBTeam::think()
         updateFieldStatusOnDefend();
     }
     
-    m_formation->think();
+    for (auto player : m_teamMembers)
+    {
+        player->getBrain()->think();
+    }
 }
 
 
 
-bool CFBTeam::onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, bool networkControl)
+void CFBTeam::addPlayer(const CFBPlayerInitInfo& info)
+{
+    CFBPlayer* player = new CFBPlayer(this, info.card);
+    player->setPosition(info.position);
+    
+    switch (info.aiClass)
+    {
+        case 0:
+            player->createBrain(FBDefs::AI_CLASS::GOAL_KEEPER, info.homePosition, FBDefs::GOALKEEPER_ORBIT_RATE);
+            break;
+        case 1:
+            player->createBrain(FBDefs::AI_CLASS::BACK, info.homePosition, FBDefs::BACK_ORBIT_RATE);
+            break;
+        case 2:
+            player->createBrain(FBDefs::AI_CLASS::HALF_BACK, info.homePosition, FBDefs::HALF_BACK_ORBIT_RATE);
+            break;
+        case 3:
+            player->createBrain(FBDefs::AI_CLASS::FORWARD, info.homePosition, FBDefs::FORWARD_ORBIT_RATE);
+            break;
+        default:
+            CC_ASSERT(false);
+            break;
+    }
+
+    m_teamMembers.push_back(player);
+    
+    player->m_positionInFormation = (int)m_teamMembers.size() - 1;
+}
+
+
+
+bool CFBTeam::onStartMatch(bool networkControl)
 {
     do
     {
-        BREAK_IF_FAILED(m_formation->onStartMatch(initPlayerInfo, m_teamMembers, networkControl));
-        
+        int num = (int)m_teamMembers.size();
+        for (auto player : m_teamMembers)
+        {
+            player->getBrain()->setNetworkControl(networkControl);
+        }
+        setHilightPlayerId(num - 1);
         return true;
     } while (false);
     
@@ -100,9 +133,9 @@ bool CFBTeam::onStartMatch(const vector<CFBPlayerInitInfo>& initPlayerInfo, bool
 
 
 
-void CFBTeam::kickOff()
+void CFBTeam::kickOff(int playerNumber)
 {
-    auto player = m_formation->getKickOffPlayer();
+    auto player = getPlayer(playerNumber);
     player->gainBall();
     m_state = FBDefs::TEAM_STATE::ATTACKING;
 }
@@ -111,46 +144,19 @@ void CFBTeam::kickOff()
 
 CFBPlayer* CFBTeam::getHilightPlayer()
 {
-    if (m_hilightPlayerId >= 0 && m_hilightPlayerId < m_formation->getPlayerNumber())
-    {
-        return m_formation->getPlayer(m_hilightPlayerId);
-    }
-    
-    return nullptr;
+    return getPlayer(m_hilightPlayerId);
 }
 
 
-
-bool CFBTeam::changeFormation(FBDefs::FORMATION formationId)
+CFBPlayer* CFBTeam::getPlayer(int idx)
 {
-    return false;
-//    if (formationId == m_formation->getFormationId()) return true;
-//    
-//    switch (formationId)
-//    {
-//        case FBDefs::FORMATION::F_4_4_2:
-//            do
-//            {
-//                CC_SAFE_DELETE(m_formation);
-//                m_formation = new CFBFormation();
-//                m_formation->init(this);
-//                return true;
-//            } while (false);
-//            return false;
-//        case FBDefs::FORMATION::F_3_2_3_2:
-//            do
-//            {
-//                CC_SAFE_DELETE(m_formation);
-//                m_formation = new CFBFormation352();
-//                m_formation->init(this);
-//                return true;
-//            } while (false);
-//            return false;
-//        default:
-//            break;
-//    }
+    if (idx >= 0 && idx < m_teamMembers.size())
+    {
+        return m_teamMembers[idx];
+    }
     
-    return false;
+    CC_ASSERT(false);
+    return nullptr;
 }
 
 
@@ -167,44 +173,42 @@ void CFBTeam::updateFieldStatusOnAttack()
     
     for (auto player : m_teamMembers)
     {
-        auto ai = m_formation->getPlayerAIById(player->m_positionInFormation);
+        auto ai = player->getBrain();
         ai->setPassBallScore(INT_MIN);
         
-        if (player->m_isOnDuty)
+        auto& pos = player->getPosition();
+        
+        if (!player->m_isGoalKeeper && pp != player)
         {
-            auto& pos = player->getPosition();
+            ai->setPassBallScore(0);
             
-            if (!player->m_isGoalKeeper && pp != player)
+            // can shoot directly?
+            if (canShootDirectly(player))
             {
-                ai->setPassBallScore(0);
-                
-                // can shoot directly?
-                if (canShootDirectly(player))
-                {
-                    ai->increasePassBallScore(50);
-                }
-                
-                int num = getNumberOfDefenderBetweenPlayerAndBall(player);
-                ai->increasePassBallScore(-20 * num);
-                
-                num = getNumberOfDefenderAroundPlayer(player);
-                ai->increasePassBallScore(-10 * num);
-                
-                float dist = pp->getPosition().getDistanceSq(pos);
-                if (dist > sizeSq)
-                {
-                    ai->increasePassBallScore((dist - sizeSq) * (-1));
-                }
+                ai->increasePassBallScore(50);
             }
             
-            if (pitch->getGridsAroundPosition(pos, gridsAroundPlayer))
+            int num = getNumberOfDefenderBetweenPlayerAndBall(player);
+            ai->increasePassBallScore(-20 * num);
+            
+            num = getNumberOfDefenderAroundPlayer(player);
+            ai->increasePassBallScore(-10 * num);
+            
+            float dist = pp->getPosition().getDistanceSq(pos);
+            if (dist > sizeSq)
             {
-                for (auto gid : gridsAroundPlayer)
-                {
-                    pitch->increaseGridDefenceScore(gid, -10);
-                }
+                ai->increasePassBallScore((dist - sizeSq) * (-1));
             }
         }
+        
+        if (pitch->getGridsAroundPosition(pos, gridsAroundPlayer))
+        {
+            for (auto gid : gridsAroundPlayer)
+            {
+                pitch->increaseGridDefenceScore(gid, -10);
+            }
+        }
+        
     }
     
     auto side = getSide();
@@ -213,14 +217,11 @@ void CFBTeam::updateFieldStatusOnAttack()
     auto teamMembers = otherTeam->getTeamMembers();
     for (auto player : teamMembers)
     {
-        if (player->m_isOnDuty)
+        if (pitch->getGridsAroundPosition(player->getPosition(), gridsAroundPlayer))
         {
-            if (pitch->getGridsAroundPosition(player->getPosition(), gridsAroundPlayer))
+            for (auto gid : gridsAroundPlayer)
             {
-                for (auto gid : gridsAroundPlayer)
-                {
-                    pitch->increaseGridDefenceScore(gid, -20);
-                }
+                pitch->increaseGridDefenceScore(gid, -20);
             }
         }
     }
@@ -246,7 +247,7 @@ bool CFBTeam::canShootDirectly(CFBPlayer* player)
     auto teamMember = otherTeam->getTeamMembers();
     for (auto t : teamMember)
     {
-        if (t->m_isOnDuty && FBDefs::isPointOnTheWay(player->getPosition(), gp, t->getPosition()))
+        if (FBDefs::isPointOnTheWay(player->getPosition(), gp, t->getPosition()))
         {
             return false;
         }
@@ -255,7 +256,7 @@ bool CFBTeam::canShootDirectly(CFBPlayer* player)
     teamMember = getTeamMembers();
     for (auto t : teamMember)
     {
-        if (t != player && t->m_isOnDuty && FBDefs::isPointOnTheWay(player->getPosition(), gp, t->getPosition()))
+        if (t != player && FBDefs::isPointOnTheWay(player->getPosition(), gp, t->getPosition()))
         {
             return false;
         }
@@ -277,7 +278,7 @@ int CFBTeam::getNumberOfDefenderBetweenPlayerAndBall(CFBPlayer* player)
     auto teamMember = otherTeam->getTeamMembers();
     for (auto t : teamMember)
     {
-        if (t->m_isOnDuty && FBDefs::isPointOnTheWay(player->getPosition(), ballPos, t->getPosition()))
+        if (FBDefs::isPointOnTheWay(player->getPosition(), ballPos, t->getPosition()))
         {
             num++;
         }
@@ -302,13 +303,10 @@ int CFBTeam::getNumberOfDefenderAroundPlayer(CFBPlayer* player)
     
     for (auto t : teamMember)
     {
-        if (t->m_isOnDuty)
+        float dist = t->getPosition().getDistanceSq(player->getPosition());
+        if (dist < sizeSq)
         {
-            float dist = t->getPosition().getDistanceSq(player->getPosition());
-            if (dist < sizeSq)
-            {
-                num++;
-            }
+            num++;
         }
     }
     
@@ -321,9 +319,35 @@ void CFBTeam::switchHilightPlayer()
 {
     CC_ASSERT(isDefending());
     m_hilightPlayerId++;
-    if (m_hilightPlayerId >= m_formation->getPlayerNumber())
+    if (m_hilightPlayerId >= getPlayerNumber())
     {
         m_hilightPlayerId = 1;
     }
 }
 
+
+
+CFBPlayer* CFBTeam::getPassBallTarget()
+{
+    int max = INT_MIN;
+    CFBPlayer* player = nullptr;
+    
+    for (auto p : m_teamMembers)
+    {
+        int score = p->getBrain()->getPassBallScore();
+        if (score > max)
+        {
+            max = score;
+            player = p;
+        }
+    }
+    
+    return player;
+}
+
+
+
+FBDefs::SIDE CFBTeam::getSide() const
+{
+    return m_side;
+}

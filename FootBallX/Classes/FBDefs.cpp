@@ -61,7 +61,7 @@ namespace FBDefs
         
         for (auto x : players)
         {
-            if (x->m_isOnDuty && !x->m_isGoalKeeper)
+            if (!x->m_isGoalKeeper)
             {
                 const auto& p = x->getPosition();
                 kmVec2Fill(&vP, p.x, p.y);

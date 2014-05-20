@@ -2,6 +2,8 @@
 #include "cocos2d_specifics.hpp"
 #include "CFBCard.h"
 
+#if 0
+
 enum CARD_PROP
 {
     ID,
@@ -246,3 +248,4 @@ void register_all_CFBCardJSBinds(JSContext* cx, JSObject* obj) {
 	js_register_CFBCardJSBinds_CFBCard(cx, obj);
 }
 
+#endif

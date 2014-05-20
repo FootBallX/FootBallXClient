@@ -13,7 +13,6 @@
 #include "CSingleton.h"
 #include "CFBPitch.h"
 #include "CFBTeam.h"
-#include "CFBFormation.h"
 #include "CFBPlayer.h"
 #include "CFBBall.H"
 #include "FBDefs.h"
@@ -43,7 +42,6 @@ public:
     
     CFBTeam* getTeam(FBDefs::SIDE side);
     CFBTeam* getOtherTeam(CFBTeam* team);
-    void setTeam(FBDefs::SIDE side, CFBTeam* team);
     
     CFBTeam* getAttackingTeam();
     CFBTeam* getDefendingTeam();
@@ -108,12 +106,14 @@ protected:
 #pragma mark - net or sim
     virtual void syncTeam() override;
     virtual void teamPositionAck(int side, const vector<float>& p, int ballPlayerId, unsigned int timestamp) override;
-    virtual void startMatchAck(const vector<vector<CFBPlayerInitInfo>>&, FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, unsigned int st) override;
+    virtual void matchInfoAck(FBDefs::SIDE, FBDefs::SIDE, int) override;
+    virtual void startMatchAck(unsigned int) override;
     virtual void endMatchAck() override;
     virtual void triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPlayerNumbers, vector<int>& defendPlayerNumbers) override;
     virtual void instructionAck(unsigned int countDown) override;
     virtual void instructionResultAck() override;
     virtual CFBInstructionResult& getInstructionResult() override;
+    virtual void addPlayer(FBDefs::SIDE side, const CFBPlayerInitInfo& info) override;
     
     enum class SIDE
     {

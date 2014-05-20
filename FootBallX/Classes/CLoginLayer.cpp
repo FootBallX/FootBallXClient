@@ -239,8 +239,8 @@ void CLoginLayer::getPlayerInfo(void)
 
             CJsonT player(docs.getChild("player"));
             
-            PLAYER_INFO->setUID(player.getInt("uid"));
-            PLAYER_INFO->setPID(player.getInt("pid"));
+            PLAYER_INFO->setUID(player.getUInt("uid"));
+            PLAYER_INFO->setPID(player.getUInt("pid"));
             const char* nickname = player.getString("nickname");
             PLAYER_INFO->setNickName(nickname ? nickname : "");
             PLAYER_INFO->setLevel(player.getInt("level"));

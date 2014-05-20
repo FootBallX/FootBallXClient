@@ -29,6 +29,7 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
     POMELO->removeListener("startMatch");
     POMELO->removeListener("endMatch");
     POMELO->removeListener("triggerMenu");
+    POMELO->removeListener("instructions");
 }
 
 
@@ -114,12 +115,15 @@ void CFBMatchProxyNet::update(float dt)
         }
         case START_STEP::SYNC_TIME_END:
         {
-            m_startStep = START_STEP::NONE;
-            const char *route = "match.matchHandler.ready";
+            m_startStep = START_STEP::WAITING_MATCH_INFO;
+            const char *route = "match.matchHandler.getMatchInfo";
             CJsonT msg;
-            POMELO->notify(route, msg, [](Node* node, void* resp){
-            });
+            POMELO->request(route, msg, std::bind(&CFBMatchProxyNet::onGetMatchInfo, this, std::placeholders::_1, std::placeholders::_2));
             msg.release();
+            break;
+        }
+        case START_STEP::WAITING_MATCH_INFO:
+        {
             break;
         }
         default:
@@ -153,79 +157,8 @@ void CFBMatchProxyNet::onStartMatch(Node*, void* r)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
-
-    CJsonT left(docs.getChild("left"));
-    CJsonT right(docs.getChild("right"));
     
-    int u1 = left.getInt("uid");
-    int u2 = right.getInt("uid");
-    
-    FBDefs::SIDE side = FBDefs::SIDE::NONE;
-    FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
-    
-    if (u1 == PLAYER_INFO->getUID())
-    {
-        side = FBDefs::SIDE::LEFT;
-    }
-    else if (u2 == PLAYER_INFO->getUID())
-    {
-        side = FBDefs::SIDE::RIGHT;
-    }
-    else
-    {
-        CC_ASSERT(false);
-    }
-    
-    if ( 1 == docs.getInt("kickOffSide"))
-    {
-        kickOffSide = FBDefs::SIDE::RIGHT;
-    }
-    
-    unsigned int startTime = docs.getUInt("startTime");
-
-    vector<vector<CFBPlayerInitInfo>> v = {vector<CFBPlayerInitInfo>(), vector<CFBPlayerInitInfo>()};
-    auto& leftV = v[0];
-    auto& rightV = v[1];
-    {
-        CJsonTArray ja_teamPos(left.getChild("teamPos"));
-        CJsonTArray ja_homePos(left.getChild("homePos"));
-        CJsonTArray ja_aiClass(left.getChild("aiClass"));
-        CC_ASSERT(ja_teamPos.size() == ja_homePos.size() && ja_teamPos.size() == 2 * ja_aiClass.size());
-        
-        auto size = ja_aiClass.size();
-        
-        for (int i = 0; i < size; ++i)
-        {
-
-            leftV.push_back(CFBPlayerInitInfo(
-                                              ja_teamPos.get(i * 2).toFloat(), ja_teamPos.get(i * 2 + 1).toFloat(),
-                                              ja_homePos.get(i * 2).toFloat(), ja_homePos.get(i * 2 + 1).toFloat(),
-                                              ja_aiClass.get(i).toInt()
-                                              )
-                            );
-        }
-    }
-    
-    {
-        CJsonTArray ja_teamPos(right.getChild("teamPos"));
-        CJsonTArray ja_homePos(right.getChild("homePos"));
-        CJsonTArray ja_aiClass(right.getChild("aiClass"));
-        CC_ASSERT(ja_teamPos.size() == ja_homePos.size() && ja_teamPos.size() == 2 * ja_aiClass.size());
-
-        auto size = ja_aiClass.size();
-        for (int i = 0; i < size; ++i)
-        {
-            rightV.push_back(CFBPlayerInitInfo(
-                                              ja_teamPos.get(i * 2).toFloat(), ja_teamPos.get(i * 2 + 1).toFloat(),
-                                              ja_homePos.get(i * 2).toFloat(), ja_homePos.get(i * 2 + 1).toFloat(),
-                                              ja_aiClass.get(i).toInt()
-                                              )
-                            );
-        }
-    }
-    
-    
-    m_match->startMatchAck(v, side, kickOffSide, startTime);
+    m_match->startMatchAck(docs.getUInt("startTime"));
 }
 
 
@@ -313,6 +246,111 @@ void CFBMatchProxyNet::onInstructionResult(Node*, void* r)
     res.ballPosY = docs.getFloat("ballPosY");
     
     m_match->instructionResultAck();
+}
+
+
+
+void CFBMatchProxyNet::onGetMatchInfo(Node*, void* r)
+{
+    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
+    CJsonT docs(ccpomeloresp->docs);
+    
+    CJsonTArray left(docs.getChild("left"));
+    CJsonTArray right(docs.getChild("right"));
+
+    unsigned int u1 = docs.getUInt("leftUid");
+    unsigned int u2 = docs.getUInt("rightUid");
+    
+    FBDefs::SIDE side = FBDefs::SIDE::NONE;
+    FBDefs::SIDE kickOffSide = FBDefs::SIDE::LEFT;
+    
+    if (u1 == PLAYER_INFO->getUID())
+    {
+        side = FBDefs::SIDE::LEFT;
+    }
+    else if (u2 == PLAYER_INFO->getUID())
+    {
+        side = FBDefs::SIDE::RIGHT;
+    }
+    else
+    {
+        CC_ASSERT(false);
+    }
+    
+    if ( 1 == docs.getInt("kickOffSide"))
+    {
+        kickOffSide = FBDefs::SIDE::RIGHT;
+    }
+    
+    int kickOffPlayer = docs.getInt("kickOffPlayer");
+    
+    int size = (int)left.size();
+    CC_ASSERT(size == right.size());
+    
+    CFBPlayerInitInfo info;
+    for (int i = 0; i < size; ++i)
+    {
+        {
+            CJsonT player(left.get(i));
+            auto& card = info.card;
+            card.m_cardID = player.getUInt("pcId");
+            card.m_speed = player.getFloat("speed");
+            strncpy(card.m_icon, player.getString("icon"), FBDefs::MAX_CARD_ICON_LEN - 1);
+            card.m_strength = player.getFloat("strength");
+            card.m_dribbleSkill = player.getFloat("dribbleSkill");
+            card.m_passSkill = player.getFloat("passSkill");
+            card.m_shootSkill = player.getFloat("shootSkill");
+            card.m_defenceSkill = player.getFloat("defenceSkill");
+            card.m_attackSkill = player.getFloat("attackSkill");
+            card.m_groundSkill = player.getFloat("groundSkill");
+            card.m_airSkill = player.getFloat("airSkill");
+            CJsonT position(player.getChild("position"));
+            info.position.x = position.getFloat("x");
+            info.position.y = position.getFloat("y");
+            CJsonT homePosition(player.getChild("homePosition"));
+            info.homePosition.x = homePosition.getFloat("x");
+            info.homePosition.y = homePosition.getFloat("y");
+            info.aiClass = player.getInt("aiClass");
+            
+            m_match->addPlayer(FBDefs::SIDE::LEFT, info);
+        }
+        
+        {
+            CJsonT player(right.get(i));
+            auto& card = info.card;
+            card.m_cardID = player.getUInt("pcId");
+            card.m_speed = player.getFloat("speed");
+            strncpy(card.m_icon, player.getString("icon"), FBDefs::MAX_CARD_ICON_LEN - 1);
+            card.m_strength = player.getFloat("strength");
+            card.m_dribbleSkill = player.getFloat("dribbleSkill");
+            card.m_passSkill = player.getFloat("passSkill");
+            card.m_shootSkill = player.getFloat("shootSkill");
+            card.m_defenceSkill = player.getFloat("defenceSkill");
+            card.m_attackSkill = player.getFloat("attackSkill");
+            card.m_groundSkill = player.getFloat("groundSkill");
+            card.m_airSkill = player.getFloat("airSkill");
+            CJsonT position(player.getChild("position"));
+            info.position.x = position.getFloat("x");
+            info.position.y = position.getFloat("y");
+            CJsonT homePosition(player.getChild("homePosition"));
+            info.homePosition.x = homePosition.getFloat("x");
+            info.homePosition.y = homePosition.getFloat("y");
+            info.aiClass = player.getInt("aiClass");
+            
+            m_match->addPlayer(FBDefs::SIDE::RIGHT, info);
+        }
+
+    }
+    
+    
+    m_match->matchInfoAck(side, kickOffSide, kickOffPlayer);
+    
+    m_startStep = START_STEP::NONE;
+    const char *route = "match.matchHandler.ready";
+    CJsonT msg;
+    POMELO->notify(route, msg, [](Node* node, void* resp){
+    });
+    msg.release();
 }
 
 

@@ -39,6 +39,7 @@ protected:
         SYNC_TIME_BEGIN,
         SYNC_TIME,
         SYNC_TIME_END,
+        WAITING_MATCH_INFO,
         NONE,
     };
     
@@ -47,6 +48,7 @@ protected:
     void onEndMatch(Node*, void*);
     void onTriggerMenu(Node*, void*);
     void onInstructionResult(Node*, void*);
+    void onGetMatchInfo(Node*, void*);
     
     CSyncedTime m_syncedTimer;
     

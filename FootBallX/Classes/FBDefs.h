@@ -19,7 +19,14 @@ namespace FBDefs
 {
 #include "aniDefs.h"
     
+    static const int MAX_CARD_ICON_LEN = 32;
+    
     static const float PITCH_POINT_ALMOST_EQUAL_DISTANCE = 4.0f;
+    
+    static const int GOALKEEPER_ORBIT_RATE = 100;
+    static const int BACK_ORBIT_RATE = 150;
+    static const int HALF_BACK_ORBIT_RATE = 150;
+    static const int FORWARD_ORBIT_RATE = 100;
     
     enum class FORMATION
     {
@@ -64,7 +71,7 @@ namespace FBDefs
         },
     };
     
-    static const float OFFSET_Y = 100;          // 无球球员横向移动的便宜范围
+    static const float OFFSET_Y = 100;          // 无球球员横向移动的偏移范围
     static const float PASS_BALL_REDUCTION = 200;   // 传球的衰减距离，超过这个距离的传球可能性会减小
     static const float DEFENDER_PLAYER_RADIUS = 100; // 检查这个半径范围内的对方球员为防守球员
     static const float DRIBBLE_CHECK_DIST = 200;    // 传球的检查长度，在这个长度的前方范围没有对方球员则可以传球
@@ -134,6 +141,14 @@ namespace FBDefs
         ATTACKING,
         DEFENDING,
         NONE,
+    };
+    
+    enum class AI_CLASS
+    {
+        GOAL_KEEPER,
+        BACK,
+        HALF_BACK,
+        FORWARD,
     };
     
     enum class AI_STATE

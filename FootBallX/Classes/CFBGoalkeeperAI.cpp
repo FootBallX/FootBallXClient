@@ -10,11 +10,11 @@
 #include "CFBMatch.h"
 #include "CRandomManager.h"
 
-bool CFBGoalkeeperAI::init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl)
+bool CFBGoalkeeperAI::init(CFBTeam* team, CFBPlayer* player, const cocos2d::Point& homePos, float orbit)
 {
     do
     {
-        BREAK_IF_FAILED(CFBPlayerAI::init(formation, player, intPos, homePos, radius, networkControl));
+        BREAK_IF_FAILED(CFBPlayerAI::init(team, player, homePos, orbit));
         m_player->m_isGoalKeeper = true;
         return true;
     } while (false);
@@ -62,9 +62,8 @@ void CFBGoalkeeperAI::update(float dt)
 void CFBGoalkeeperAI::thinkControlBall()
 {
     int rNum = RANDOM_MGR->getRand() % 100;
-    auto team = m_formation->getTeam();
     
-    if (rNum < 50 && team->canShootDirectly(this->m_player))
+    if (rNum < 50 && m_team->canShootDirectly(this->m_player))
     {
         // shoot
     }
@@ -78,12 +77,12 @@ void CFBGoalkeeperAI::thinkControlBall()
         else
         {
             // pass
-            team->updateFieldStatusOnAttack();
+            m_team->updateFieldStatusOnAttack();
             
-            auto target = m_formation->getPassBallTarget();
+            auto target = m_team->getPassBallTarget();
             if (target)
             {
-                FBMATCH->tryPassBall(m_player, target->getPlayer());
+                FBMATCH->tryPassBall(m_player, target);
             }
         }
     }

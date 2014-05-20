@@ -13,7 +13,7 @@
 #include "FBDefs.h"
 
 class CFBPlayer;
-class CFBFormation;
+class CFBTeam;
 
 
 class CFBPlayerAI
@@ -30,7 +30,9 @@ public:
     CFBPlayerAI() = default;
     virtual ~CFBPlayerAI() = default;
     
-    virtual bool init(CFBFormation* formation, CFBPlayer* player, const cocos2d::Point& intPos, const cocos2d::Point& homePos, float radius, bool networkControl);
+    virtual bool init(CFBTeam* team, CFBPlayer* player, const cocos2d::Point& homePos, float orbit);
+    
+    virtual void setNetworkControl(bool networkControl);
     
     virtual void think();
     
@@ -65,9 +67,9 @@ protected:
     virtual void startWait(float t);
     virtual void updateWait(float dt);
 
-    CFBFormation* m_formation = nullptr;        // weak reference to the formation object.
-    CFBPlayer* m_player = nullptr;
-    cocos2d::Point m_initPosition;
+    CFBTeam* m_team = nullptr;        // weak reference to the team object.
+    CFBPlayer* m_player = nullptr;      // weak refrence to the owner player.
+//    cocos2d::Point m_initPosition;
     cocos2d::Point m_origHomePosition;
     cocos2d::Point m_homePosition;
     float m_defendOrbitRadius;

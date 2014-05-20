@@ -13,14 +13,19 @@
 #include "CFBTeam.h"
 #include "CFBCard.h"
 #include "FBDefs.h"
+#include "CFBPlayerInitInfo.h"
+
+class CFBPlayerAI;
 
 class CFBPlayer
 {
 public:
-    CFBPlayer(const string& cid);
-    CFBPlayer(const CFBCard& card);
+    CFBPlayer(CFBTeam* team, const CFBCard& card);
     
     virtual void update (float dt);
+    virtual bool createBrain(FBDefs::AI_CLASS aiClass, const Point& homePos, float orbit);
+    virtual CFBPlayerAI* getBrain();
+    virtual CFBTeam* getOwnerTeam() const;
     
     virtual const CFBCard& getPlayerCard() const { return m_playerCard; }
     
@@ -40,16 +45,17 @@ public:
     virtual void loseBall();
 #pragma mark -- Player states
     
-    CFBTeam* m_ownerTeam = nullptr;
     int m_positionInFormation = -1;
-    bool m_isOnDuty = false;        // 上场
     float m_distanceFromBall = FLT_MAX;
     float m_radiusOfOrbit = 0.f;
     bool m_isBallController = false;
     bool m_isGoalKeeper = false;
 
+
 protected:
     virtual float getSpeed();
+    
+    CFBPlayerAI* m_brain = nullptr;
     
     cocos2d::Point m_curPosition;
     cocos2d::Point m_movingVector;      // 运动方向
@@ -59,7 +65,8 @@ protected:
     
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
-    const CFBCard& m_playerCard;
+    CFBTeam* m_ownerTeam = nullptr;
+    CFBCard m_playerCard;
     
     float m_speedCache = -FLT_MAX;
     float m_speedScale = 1.f;
