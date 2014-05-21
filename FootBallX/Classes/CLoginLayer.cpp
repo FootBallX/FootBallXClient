@@ -256,20 +256,22 @@ void CLoginLayer::getPlayerInfo(void)
 // Codes below are for testing.
 
 #include "CMatchMenuLayer.h"
+#include "CCBReadHelper.h"
 
 void CLoginLayer::onTest(Ref* sender, Control::EventType event)
 {
 //    SCENE_MANAGER->go(ST_MATCH);
-    cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-    
+
     char name[256];
-    sprintf(name, "fb_menu_%d.ccbi", 1);
-    auto m = pReader->readNodeGraphFromFile(name);
-    addChild(m);
-    delete pReader;
-    
-    CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
-    p->setPlayers({10}, {1,2,3,4}, 0);
+    for (int i = 0; i< 5; ++i)
+    {
+        sprintf(name, "fb_menu_%d.ccbi", i);
+        auto m = CCBReadHelper::read(name);
+        addChild(m);
+        
+//        CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
+//        p->setPlayers({10}, {1,2,3,4}, 0);
+    }
 }
 
 

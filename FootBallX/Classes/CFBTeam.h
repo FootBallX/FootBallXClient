@@ -23,7 +23,6 @@ public:
     CFBTeam(FBDefs::SIDE side);
     virtual ~CFBTeam() = default;
     
-    virtual bool init();
     virtual void addPlayer(const CFBPlayerInitInfo& info);
     virtual void update(float dt);
     virtual void think();

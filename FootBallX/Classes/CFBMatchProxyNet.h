@@ -49,6 +49,7 @@ protected:
     void onTriggerMenu(Node*, void*);
     void onInstructionResult(Node*, void*);
     void onGetMatchInfo(Node*, void*);
+    void onInstructionDone(Node*, void*);
     
     CSyncedTime m_syncedTimer;
     

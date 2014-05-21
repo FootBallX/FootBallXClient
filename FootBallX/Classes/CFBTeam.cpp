@@ -19,18 +19,6 @@ CFBTeam::CFBTeam(FBDefs::SIDE side)
 
 
 
-bool CFBTeam::init()
-{
-    do
-    {
-        m_state = FBDefs::TEAM_STATE::DEFENDING;
-        return true;
-    } while (false);
-    
-    return false;
-}
-
-
 int CFBTeam::getPlayerNumber()
 {
     return (int)m_teamMembers.size();

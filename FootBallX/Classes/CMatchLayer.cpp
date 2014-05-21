@@ -15,6 +15,7 @@
 #include "CPlayerInfo.h"
 #include "CFBMatchProxyNet.h"
 #include "CFBMatchProxySim.h"
+#include "CCBReadHelper.h"
 
 #ifdef SHOW_GRID
 #define TAG_GRID_DRAW_NODE          20001
@@ -174,43 +175,6 @@ void CMatchLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoa
 #endif
         
         BREAK_IF_FAILED(FBMATCH->init(pitchSz.width, pitchSz.height, this, new CFBMatchProxyNet()));
-        
-//        vector<string> redPlayercards =
-//        {
-//            "10001",
-//            "40001",
-//            "40002",
-//            "40003",
-//            "40004",
-//            "30001",
-//            "30002",
-//            "30003",
-//            "30004",
-//            "20001",
-//            "20002",
-//        };
-//        vector<string> blackPlayercards =
-//        {
-//            "10002",
-//            "40005",
-//            "40006",
-//            "40007",
-//            "30005",
-//            "30006",
-//            "30007",
-//            "30008",
-//            "30009",
-//            "20003",
-//            "20004",
-//        };
-        
-//        CFBTeam* red = new CFBTeam;
-//        BREAK_IF_FAILED(red->init(redPlayercards));
-//        CFBTeam* black = new CFBTeam;
-//        BREAK_IF_FAILED(black->init(blackPlayercards));
-//        FBMATCH->setTeam(FBDefs::SIDE::LEFT, red);
-//        FBMATCH->setTeam(FBDefs::SIDE::RIGHT, black);
-
         BREAK_IF_FAILED(FBMATCH->startMatch());
 #ifdef SHOW_GRID
         auto draw = DrawNode::create();
@@ -245,17 +209,9 @@ bool CMatchLayer::init()
         dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
         
         m_screenCenter = this->getContentSize() / 2;
-        
-        cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-        m_menuLayer = dynamic_cast<CMatchMenuLayer*>(pReader->readNodeGraphFromFile("fb_menu_0.ccbi"));
-        CC_BREAK_IF(nullptr == m_menuLayer);
-
-        m_menuLayer->setMatchLayer(this);
-        this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
+    
         this->scheduleUpdate();
 
-        delete pReader;
-        
         return true;
     } while (false);
     
@@ -666,24 +622,19 @@ void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayer
         m_menuLayer->removeFromParentAndCleanup(true);
     }
     
-    cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-    
     char name[256];
     sprintf(name, "fb_menu_%d.ccbi", (int)type);
-    m_menuLayer = dynamic_cast<CMatchMenuLayer*>(pReader->readNodeGraphFromFile(name));
+    m_menuLayer = dynamic_cast<CMatchMenuLayer*>(CCBReadHelper::read(name));
     m_menuLayer->setMatchLayer(this);
     m_menuLayer->setPlayers(attackPlayerNumbers, defendPlayerNumbers, side);
     this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
-    
-    delete pReader;
 }
 
 
 
 void CMatchLayer::onPlayAnimation(const string& name, float delay)
 {
-    cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-    auto node = pReader->readNodeGraphFromFile(name.c_str());
+    auto node = CCBReadHelper::read(name.c_str());
     node->retain();
     
     runAction(Sequence::create(DelayTime::create(delay), CallFuncN::create([&, node](Node*){
@@ -700,8 +651,7 @@ void CMatchLayer::onPlayAnimation(const string& name, float delay)
         
         node->release();
     }), NULL));
-    
-    delete pReader;
+
 }
 
 
@@ -727,8 +677,29 @@ void CMatchLayer::onGameEnd(void)
 
 
 
+void CMatchLayer::showAttackMenu(bool show)
+{
+    if (nullptr != m_menuLayer)
+    {
+        m_menuLayer->removeFromParentAndCleanup(true);
+        m_menuLayer = nullptr;
+    }
+    
+    if (show)
+    {
+        m_menuLayer = dynamic_cast<CMatchMenuLayer*>(CCBReadHelper::read("fb_menu_0.ccbi"));
+        CC_ASSERT(nullptr != m_menuLayer);
+        
+        m_menuLayer->setMatchLayer(this);
+        this->addChild(m_menuLayer, (int)Z_ORDER::MENU);
+    }
+}
+
+
+
 void CMatchLayer::waitInstruction(void)
 {
+    log("waitInstruction --------------------------------");
     // TODO: close menu and show wait prompt.
     if (m_menuLayer)
     {

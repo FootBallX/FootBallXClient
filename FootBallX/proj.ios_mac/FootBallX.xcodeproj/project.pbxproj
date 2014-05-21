@@ -55,6 +55,9 @@
 		5436BB0D18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0A18D35E0A005FBF60 /* CFBInstruction.cpp */; };
 		5436BB1018D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */; };
 		5436BB1118D35E4F005FBF60 /* CFBPassBallIns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5436BB0E18D35E4F005FBF60 /* CFBPassBallIns.cpp */; };
+		54397419192C787600BEDD99 /* CountDownHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54EF5D90192AF08100FF1FE4 /* CountDownHelper.cpp */; };
+		5439741A192C787600BEDD99 /* CCBReadHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5482D1BE192C75EF00AA09DA /* CCBReadHelper.cpp */; };
+		5439741B192C787600BEDD99 /* CFBInstructionResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54124DFD1926002C0000577D /* CFBInstructionResult.cpp */; };
 		543AF66118F8FDDA003B8F94 /* IFBMatchUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543AF65F18F8FDDA003B8F94 /* IFBMatchUI.cpp */; };
 		543AF66218F8FDDA003B8F94 /* IFBMatchUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 543AF65F18F8FDDA003B8F94 /* IFBMatchUI.cpp */; };
 		543BF4C31884E073006BC0F6 /* Resources.ios in Resources */ = {isa = PBXBuildFile; fileRef = 543BF4C21884E073006BC0F6 /* Resources.ios */; };
@@ -114,6 +117,7 @@
 		54764CB318CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */; };
 		54764CB418CB4C1D00C551CB /* CFBCardJSBinds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */; };
 		54814C481890002100B47B80 /* FootBallAITest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54814C471890002100B47B80 /* FootBallAITest.mm */; };
+		5482D1C0192C75EF00AA09DA /* CCBReadHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5482D1BE192C75EF00AA09DA /* CCBReadHelper.cpp */; };
 		5484C1CB187D0E2A00AA8AFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CA187D0E2A00AA8AFB /* UIKit.framework */; };
 		5484C1CD187D0E2A00AA8AFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CC187D0E2A00AA8AFB /* Foundation.framework */; };
 		5484C1CF187D0E2A00AA8AFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5484C1CE187D0E2A00AA8AFB /* CoreGraphics.framework */; };
@@ -296,6 +300,8 @@
 		54764CB118CB4C1D00C551CB /* CFBCardJSBinds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CFBCardJSBinds.cpp; path = ../JSBinds/CFBCardJSBinds.cpp; sourceTree = "<group>"; };
 		54764CB218CB4C1D00C551CB /* CFBCardJSBinds.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CFBCardJSBinds.hpp; path = ../JSBinds/CFBCardJSBinds.hpp; sourceTree = "<group>"; };
 		54814C471890002100B47B80 /* FootBallAITest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FootBallAITest.mm; path = FootBallXTests/FootBallAITest.mm; sourceTree = "<group>"; };
+		5482D1BE192C75EF00AA09DA /* CCBReadHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCBReadHelper.cpp; path = ../Classes/CCBReadHelper.cpp; sourceTree = "<group>"; };
+		5482D1BF192C75EF00AA09DA /* CCBReadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCBReadHelper.h; path = ../Classes/CCBReadHelper.h; sourceTree = "<group>"; };
 		5484C1C7187D0E2A00AA8AFB /* FootBallX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootBallX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5484C1CA187D0E2A00AA8AFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5484C1CC187D0E2A00AA8AFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -764,6 +770,8 @@
 			children = (
 				54EF5D90192AF08100FF1FE4 /* CountDownHelper.cpp */,
 				54EF5D91192AF08100FF1FE4 /* CountDownHelper.h */,
+				5482D1BE192C75EF00AA09DA /* CCBReadHelper.cpp */,
+				5482D1BF192C75EF00AA09DA /* CCBReadHelper.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1016,6 +1024,7 @@
 				549C82B3188BA41C0080E249 /* CFBPlayerAI.cpp in Sources */,
 				543E4234191928CB0093AFE2 /* CMenuFrameLayer.cpp in Sources */,
 				54555F6418E8096D00C351D5 /* CFBShootBallGroundIns.cpp in Sources */,
+				5482D1C0192C75EF00AA09DA /* CCBReadHelper.cpp in Sources */,
 				5420555618D09204001551BF /* CFBForwardAI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1037,6 +1046,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54397419192C787600BEDD99 /* CountDownHelper.cpp in Sources */,
+				5439741A192C787600BEDD99 /* CCBReadHelper.cpp in Sources */,
+				5439741B192C787600BEDD99 /* CFBInstructionResult.cpp in Sources */,
 				54C9E25D18D5921000EF55A5 /* CFBAnimationLayer.cpp in Sources */,
 				543AF66218F8FDDA003B8F94 /* IFBMatchUI.cpp in Sources */,
 				5436BB0D18D35E0A005FBF60 /* CFBInstruction.cpp in Sources */,

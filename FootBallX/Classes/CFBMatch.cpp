@@ -802,6 +802,11 @@ void CFBMatch::matchInfoAck(FBDefs::SIDE mySide, FBDefs::SIDE kickOffSide, int k
     m_teamsInMatch[(int)SIDE::OPP]->onStartMatch(true);
     
     m_teams[(int)kickOffSide]->kickOff(kickOffPlayer);
+    
+    if (m_teamsInMatch[(int)SIDE::SELF]->isAttacking())
+    {
+        m_matchUI->showAttackMenu(true);
+    }
 }
 
 
@@ -827,7 +832,11 @@ void CFBMatch::triggerMenuAck(FBDefs::MENU_TYPE menuType, vector<int>& attackPla
 
 void CFBMatch::instructionAck(unsigned int countDown)
 {
-    if (countDown == 0)
+    if (countDown  > 0)
+    {
+        // TODO: 收到countDown后更新客户端显示的倒计时
+    }
+    else
     {
         m_playerInstructions.clear();
         m_matchUI->waitInstruction();

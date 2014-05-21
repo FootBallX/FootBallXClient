@@ -9,6 +9,7 @@
 #include "CGameSceneManager.h"
 #include "CLoginLayer.h"
 #include "CMatchLayer.h"
+#include "CCBReadHelper.h"
 
 
 IMPLEMENT_SINGLETON(CGameSceneManager);
@@ -46,23 +47,17 @@ bool CGameSceneManager::go(SCENE_TYPE st)
     {
         case ST_LOGIN:
         {
-            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-            scene = pReader->createSceneWithNodeGraphFromFile("login_layer.ccbi");
-            delete pReader;
+            scene = CCBReadHelper::readScene("login_layer.ccbi");
             break;
         }
         case ST_LOBBY:
         {
-            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-            scene = pReader->createSceneWithNodeGraphFromFile("lobby_layer.ccbi");
-            delete pReader;
+            scene = CCBReadHelper::readScene("lobby_layer.ccbi");
             break;
         }
         case ST_MATCH:
         {
-            cocosbuilder::CCBReader* pReader = new cocosbuilder::CCBReader(cocosbuilder::NodeLoaderLibrary::getInstance());
-            scene = pReader->createSceneWithNodeGraphFromFile("pitch_layer.ccbi");
-            delete pReader;
+            scene = CCBReadHelper::readScene("pitch_layer.ccbi");
             break;
         }
         default:

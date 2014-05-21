@@ -21,6 +21,7 @@ public:
     virtual void onPauseGame(bool) = 0;
     virtual void onGameEnd(void) = 0;
     virtual void waitInstruction(void) = 0;
+    virtual void showAttackMenu(bool) = 0;
 };
 
 #endif /* defined(__FootBallX__IFBMatchUI__) */

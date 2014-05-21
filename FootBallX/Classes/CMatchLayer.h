@@ -59,6 +59,7 @@ protected:
     virtual void onPauseGame(bool) override;
     virtual void onGameEnd(void) override;
     virtual void waitInstruction(void) override;
+    virtual void showAttackMenu(bool) override;
     
     void onMenuCallback(FBDefs::MENU_TYPE type, bool isAir, const vector<int>& involePlayers);
     void onPauseGameCallback(bool p);

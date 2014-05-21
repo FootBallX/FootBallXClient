@@ -139,8 +139,11 @@ void CMatchMenuLayer::setPlayers(const vector<int>& ap, const vector<int>& dp, i
 void CMatchMenuLayer::nextHiliteCard()
 {
     m_curPlayerIndex++;
-    m_menuFrameLayer->hilitePlayerCard(m_curPlayerIndex);
-}    
+    if (m_menuFrameLayer)
+    {
+        m_menuFrameLayer->hilitePlayerCard(m_curPlayerIndex);
+    }
+}
 
 
 void CMatchMenuLayer::onNodeLoaded(Node * pNode, cocosbuilder::NodeLoader * pNodeLoader)

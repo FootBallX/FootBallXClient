@@ -19,6 +19,7 @@ CFBMatchProxyNet::CFBMatchProxyNet()
     POMELO->addListener("endMatch", std::bind(&CFBMatchProxyNet::onEndMatch, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("triggerMenu", std::bind(&CFBMatchProxyNet::onTriggerMenu, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("instructions", std::bind(&CFBMatchProxyNet::onInstructionResult, this, std::placeholders::_1, std::placeholders::_2));
+    POMELO->addListener("instructionsDone", std::bind(&CFBMatchProxyNet::onInstructionDone, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 
@@ -30,6 +31,7 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
     POMELO->removeListener("endMatch");
     POMELO->removeListener("triggerMenu");
     POMELO->removeListener("instructions");
+    POMELO->removeListener("instructionsDone");
 }
 
 
@@ -351,6 +353,13 @@ void CFBMatchProxyNet::onGetMatchInfo(Node*, void* r)
     POMELO->notify(route, msg, [](Node* node, void* resp){
     });
     msg.release();
+}
+
+
+
+void CFBMatchProxyNet::onInstructionDone(Node*, void* r)
+{
+    m_match->instructionAck(0);
 }
 
 
