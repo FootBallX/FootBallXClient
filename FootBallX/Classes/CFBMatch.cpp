@@ -875,5 +875,9 @@ void CFBMatch::resumeMatch()
 {
     pauseGame(false);
     m_matchStep = FBDefs::MATCH_STEP::MATCHING;
+    if (m_teamsInMatch[(int)SIDE::SELF]->isAttacking())
+    {
+        m_matchUI->showAttackMenu(true);
+    }
     m_matchUI->onPauseGame(false);
 }
