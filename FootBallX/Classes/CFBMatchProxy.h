@@ -26,6 +26,7 @@ public:
     virtual void instructionAck(unsigned int) = 0;
     virtual void instructionResultAck() = 0;
     virtual void addPlayer(FBDefs::SIDE, const CFBPlayerInitInfo&) = 0;
+    virtual void resumeMatch() = 0;
     
     virtual CFBInstructionResult& getInstructionResult() = 0;
 };
@@ -40,6 +41,7 @@ public:
     virtual void start() = 0;
     virtual void sendTeamPosition(const vector<float>&, int, int) = 0;
     virtual void sendMenuCmd(FBDefs::MENU_ITEMS, int) = 0;
+    virtual void sendInstructionMovieEnd() = 0;
     
     virtual void update(float dt) = 0;
     

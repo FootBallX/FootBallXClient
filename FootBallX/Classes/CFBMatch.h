@@ -114,6 +114,7 @@ protected:
     virtual void instructionResultAck() override;
     virtual CFBInstructionResult& getInstructionResult() override;
     virtual void addPlayer(FBDefs::SIDE side, const CFBPlayerInitInfo& info) override;
+    virtual void resumeMatch() override;
     
     enum class SIDE
     {

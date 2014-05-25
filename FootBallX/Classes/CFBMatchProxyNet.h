@@ -28,6 +28,7 @@ public:
     virtual void start() override;
     virtual void sendTeamPosition(const vector<float>&, int, int) override;
     virtual void sendMenuCmd(FBDefs::MENU_ITEMS, int) override;
+    virtual void sendInstructionMovieEnd() override;
 
     virtual void update(float dt) override;
     
@@ -50,6 +51,7 @@ protected:
     void onInstructionResult(Node*, void*);
     void onGetMatchInfo(Node*, void*);
     void onInstructionDone(Node*, void*);
+    void onResumeMatch(Node*, void*);
     
     CSyncedTime m_syncedTimer;
     

@@ -45,6 +45,12 @@ void CFBMatchProxySim::sendMenuCmd(FBDefs::MENU_ITEMS, int)
 }
 
 
+void CFBMatchProxySim::sendInstructionMovieEnd()
+{
+    
+}
+
+
 
 void CFBMatchProxySim::update(float dt)
 {

@@ -542,7 +542,7 @@ void CFBMatch::onAnimationEnd()
 //    {
 //        m_currentInstruction->onAnimationEnd();
 //    }
-    
+    log("AnimaitonEnd");
     if (FBDefs::MATCH_STEP::PLAY_ANIM == m_matchStep)
     {
         ++m_playAnimIndex;
@@ -586,7 +586,7 @@ void CFBMatch::playAnimInInstructionsResult()
     }
     else
     {
-        // TODO: 恢复正常比赛
+        m_proxy->sendInstructionMovieEnd();
     }
 }
 
@@ -612,8 +612,6 @@ void CFBMatch::updateEncounter(float dt)
         if (m_encounterTime < 0)
         {
             m_encounterTime = FLT_MAX;
-            
-//            m_matchUI->onMenu(m_menuType, m_involvePlayerIds);
             
             m_menuType = FBDefs::MENU_TYPE::NONE;
         }
@@ -756,8 +754,14 @@ void CFBMatch::teamPositionAck(int side, const vector<float>& p, int ballPlayerI
             Point vec(p[i * 4 + 2], p[i * 4 + 3]);
             auto player = team->getPlayer(i);
             
+            player->loseBall();
             player->setPosition(pos);
             player->setMovingVector(vec);
+        }
+        
+        if (ballPlayerId != -1)
+        {
+            team->getPlayer(ballPlayerId)->gainBall();
         }
     }
     else
@@ -864,4 +868,12 @@ CFBInstructionResult& CFBMatch::getInstructionResult()
 void CFBMatch::addPlayer(FBDefs::SIDE side, const CFBPlayerInitInfo& info)
 {
     m_teams[(int)side]->addPlayer(info);
+}
+
+
+void CFBMatch::resumeMatch()
+{
+    pauseGame(false);
+    m_matchStep = FBDefs::MATCH_STEP::MATCHING;
+    m_matchUI->onPauseGame(false);
 }

@@ -109,7 +109,7 @@ var client = function() {
 	for (var i = 0; i < aniList.length; ++i)
 	{
 		var line = aniList[i];
-		outBuf += '\t"' + line + '",\n';
+		outBuf += '\t"' + line + '",\t\t//' + i + '\n';
 	}
 	
 	outBuf += 

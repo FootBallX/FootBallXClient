@@ -20,6 +20,8 @@ CFBMatchProxyNet::CFBMatchProxyNet()
     POMELO->addListener("triggerMenu", std::bind(&CFBMatchProxyNet::onTriggerMenu, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("instructions", std::bind(&CFBMatchProxyNet::onInstructionResult, this, std::placeholders::_1, std::placeholders::_2));
     POMELO->addListener("instructionsDone", std::bind(&CFBMatchProxyNet::onInstructionDone, this, std::placeholders::_1, std::placeholders::_2));
+    POMELO->addListener("resumeMatch", std::bind(&CFBMatchProxyNet::onResumeMatch, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 
@@ -32,6 +34,7 @@ CFBMatchProxyNet::~CFBMatchProxyNet()
     POMELO->removeListener("triggerMenu");
     POMELO->removeListener("instructions");
     POMELO->removeListener("instructionsDone");
+    POMELO->removeListener("resumeMatch");
 }
 
 
@@ -84,6 +87,14 @@ void CFBMatchProxyNet::sendMenuCmd(FBDefs::MENU_ITEMS mi, int playerId)
         m_match->instructionAck(countDown);
     });
     msg.release();
+}
+
+
+
+void CFBMatchProxyNet::sendInstructionMovieEnd()
+{
+    CJsonT msg;
+    POMELO->notify("match.matchHandler.instructionMovieEnd", msg, [](Node* node, void* resp){});
 }
 
 
@@ -208,6 +219,7 @@ void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
 void CFBMatchProxyNet::onInstructionResult(Node*, void* r)
 {
     CFBInstructionResult& res = m_match->getInstructionResult();
+    res.instructions.clear();
     
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)r;
     CJsonT docs(ccpomeloresp->docs);
@@ -362,6 +374,12 @@ void CFBMatchProxyNet::onInstructionDone(Node*, void* r)
     m_match->instructionAck(0);
 }
 
+
+
+void CFBMatchProxyNet::onResumeMatch(Node*, void* r)
+{
+    m_match->resumeMatch();
+}
 
 
 unsigned int CFBMatchProxyNet::getTime()

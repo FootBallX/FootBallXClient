@@ -664,8 +664,9 @@ void CMatchLayer::onInstrunctionEnd(void)
 
 
 
-void CMatchLayer::onPauseGame(bool)
+void CMatchLayer::onPauseGame(bool pause)
 {
+    
 }
 
 
