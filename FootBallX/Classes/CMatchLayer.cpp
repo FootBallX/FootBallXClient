@@ -556,12 +556,7 @@ void CMatchLayer::onDribble(Ref* pSender)
 
 
 void CMatchLayer::onShoot(Ref* pSender)
-{
-    m_operator = OP::SHOOT_BALL;
-    auto team = FBMATCH->getTeam(FBDefs::SIDE::LEFT);
-    auto from = team->getHilightPlayer();
-    FBMATCH->tryShootBall(from, false);
-    
+{    
     FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Shoot);
 }
 
@@ -569,7 +564,8 @@ void CMatchLayer::onShoot(Ref* pSender)
 
 void CMatchLayer::onOneTwo(Ref* pSender)
 {
-    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::OneTwo);
+    int idx = FBMATCH->getOneTwoPlayer();
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::OneTwo, idx);
 }
 
 
@@ -625,6 +621,10 @@ void CMatchLayer::onMenu(FBDefs::MENU_TYPE type, const vector<int>& attackPlayer
     char name[256];
     sprintf(name, "fb_menu_%d.ccbi", (int)type);
     m_menuLayer = dynamic_cast<CMatchMenuLayer*>(CCBReadHelper::read(name));
+    if (m_menuLayer == nullptr)
+    {
+        m_menuLayer = dynamic_cast<CMatchMenuLayer*>(CCBReadHelper::read("fb_menu_wait.ccbi"));
+    }
     m_menuLayer->setMatchLayer(this);
     m_menuLayer->setPlayers(attackPlayerNumbers, defendPlayerNumbers, side);
     this->addChild(m_menuLayer, (int)Z_ORDER::MENU);

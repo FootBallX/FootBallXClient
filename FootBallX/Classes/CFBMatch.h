@@ -63,6 +63,8 @@ public:
     FBDefs::MATCH_STEP getMatchStep();
     void setBallControllerMove(const cocos2d::Point& vec);
     
+    int getOneTwoPlayer();      // 自动选取二过一的协助球员
+    
     int getCountDownTime();
     unsigned int getTime();
 

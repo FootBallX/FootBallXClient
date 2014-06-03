@@ -575,21 +575,57 @@ unsigned int CFBMatch::getTime()
 
 void CFBMatch::playAnimInInstructionsResult()
 {
-    if (m_playAnimIndex < m_instructionResult.instructions.size())
+    auto& instructions = m_instructionResult.instructions;
+    while (m_playAnimIndex < instructions.size())
     {
-        auto ins = m_instructionResult.instructions[m_playAnimIndex];
-        
-        for (auto ani : ins.animations)
+        auto ins = instructions[m_playAnimIndex];
+        if (ins.animations.size() > 0)
         {
-            m_matchUI->onPlayAnimation(FBDefs::g_aniNames[ani.aniId], ani.delay);
+            for (auto ani : ins.animations)
+            {
+                m_matchUI->onPlayAnimation(FBDefs::g_aniNames[ani.aniId], ani.delay);
+            }
+            break;
+        }
+        else
+        {
+            m_playAnimIndex++;
         }
     }
-    else
+    
+    if (m_playAnimIndex >= instructions.size())
     {
         m_proxy->sendInstructionMovieEnd();
     }
 }
 
+
+
+int CFBMatch::getOneTwoPlayer()
+{
+    auto team = getControlSideTeam();
+    auto id = team->getHilightPlayerId();
+    auto& ballPos = team->getHilightPlayer()->getPosition();
+    auto& tm = team->getTeamMembers();
+    float dist = FLT_MAX;
+    int playerId = -1;
+    for (auto i = 0; i < tm.size(); ++i)
+    {
+        if (i != id)
+        {
+            auto& pos = tm[i]->getPosition();
+            float len = pos.getDistanceSq(ballPos);
+            if (len < dist)
+            {
+                dist = len;
+                playerId = i;
+            }
+        }
+    }
+    
+    CC_ASSERT(playerId >= 0);
+    return playerId;
+}
 
 #pragma mark - Instructions
 
@@ -853,7 +889,7 @@ void CFBMatch::instructionResultAck()
 {
     m_matchStep = FBDefs::MATCH_STEP::PLAY_ANIM;
     m_playAnimIndex = 0;
-    
+
     playAnimInInstructionsResult();
 }
 

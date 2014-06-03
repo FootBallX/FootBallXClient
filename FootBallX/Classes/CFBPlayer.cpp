@@ -86,6 +86,8 @@ void CFBPlayer::update(float dt)
     {
         FBMATCH->setBallPosition(m_curPosition);
     }
+    
+    m_stunTime -= dt;
 }
 
 
@@ -186,6 +188,20 @@ void CFBPlayer::setMovingVector(float x, float y)
 {
     m_targetPosition.setPoint(0, 0);
     m_movingVector.setPoint(x, y);
+}
+
+
+
+void CFBPlayer::stun()
+{
+    m_stunTime = FBDefs::STUN_TIME;
+}
+
+
+
+bool CFBPlayer::isStunned()
+{
+    return m_stunTime > 0;
 }
 
 

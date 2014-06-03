@@ -43,6 +43,8 @@ public:
 #pragma mark -- player actions
     virtual void gainBall();
     virtual void loseBall();
+    virtual void stun();
+    virtual bool isStunned();
 #pragma mark -- Player states
     
     int m_positionInFormation = -1;
@@ -63,6 +65,7 @@ protected:
     
     FBDefs::PLAYER_INS m_instruction;
     
+    float m_stunTime = 0.f;
 #pragma mark -- player properties
     // all properties are measured by the pitch's width.
     CFBTeam* m_ownerTeam = nullptr;

@@ -34,7 +34,9 @@ public:
     virtual bool isAttacking() const { return m_state == FBDefs::TEAM_STATE::ATTACKING; }
     virtual bool isDefending() const { return m_state == FBDefs::TEAM_STATE::DEFENDING; }
     virtual void setAttacking(bool attacking) { m_state = attacking ? FBDefs::TEAM_STATE::ATTACKING : FBDefs::TEAM_STATE::DEFENDING; }
-    
+    virtual void loseBall();
+    virtual void gainBall(int playerId);
+    virtual void stun(vector<int>& players);
     virtual const vector<CFBPlayer*>& getTeamMembers() const { return m_teamMembers; }
     
     virtual float getLastPosOfPlayer() const { return m_lastPosOfPlayer; }

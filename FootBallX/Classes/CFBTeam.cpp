@@ -66,7 +66,10 @@ void CFBTeam::think()
     
     for (auto player : m_teamMembers)
     {
-        player->getBrain()->think();
+        if (!player->isStunned())
+        {
+            player->getBrain()->think();
+        }
     }
 }
 
@@ -339,3 +342,34 @@ FBDefs::SIDE CFBTeam::getSide() const
 {
     return m_side;
 }
+
+
+
+void CFBTeam::loseBall()
+{
+    for (auto player : m_teamMembers)
+    {
+        player->loseBall();
+    }
+}
+
+
+
+void CFBTeam::gainBall(int playerId)
+{
+    CC_ASSERT(playerId >= 0 && playerId < m_teamMembers.size());
+    m_teamMembers[playerId]->gainBall();
+}
+
+
+
+void CFBTeam::stun(vector<int>& players)
+{
+    for (auto p : players)
+    {
+        m_teamMembers[p]->stun();
+    }
+}
+
+
+
