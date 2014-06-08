@@ -45,7 +45,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (1).png</string>
+										<string>air_chuanqiu/7_1.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -63,7 +63,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (2).png</string>
+										<string>air_chuanqiu/7_2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -81,7 +81,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (3).png</string>
+										<string>air_chuanqiu/7_3.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -99,7 +99,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (4).png</string>
+										<string>air_chuanqiu/7_4.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -117,7 +117,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (5).png</string>
+										<string>air_chuanqiu/7_5.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -135,7 +135,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (6).png</string>
+										<string>air_chuanqiu/7_6.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -153,7 +153,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>data/7 (7).png</string>
+										<string>air_chuanqiu/7_7.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -187,7 +187,7 @@
 						<key>value</key>
 						<array>
 							<real>50.208332061767578</real>
-							<real>70.3125</real>
+							<real>72.5</real>
 							<integer>4</integer>
 						</array>
 					</dict>
@@ -209,8 +209,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.80000001192092896</real>
-							<real>0.80000001192092896</real>
+							<real>1.6000000238418579</real>
+							<real>1.6000000238418579</real>
 							<true/>
 							<integer>0</integer>
 						</array>
@@ -236,7 +236,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>data/7 (7).png</string>
+							<string>air_chuanqiu/7_1.png</string>
 						</array>
 					</dict>
 				</array>
