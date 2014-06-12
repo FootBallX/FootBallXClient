@@ -262,16 +262,15 @@ void CLoginLayer::onTest(Ref* sender, Control::EventType event)
 {
 //    SCENE_MANAGER->go(ST_MATCH);
 
-    char name[256];
-    for (int i = 0; i< 5; ++i)
-    {
-        sprintf(name, "fb_menu_%d.ccbi", i);
-        auto m = CCBReadHelper::read(name);
+        auto m = CCBReadHelper::read("fb_menu_1.ccbi");
         addChild(m);
         
-//        CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
-//        p->setPlayers({10}, {1,2,3,4}, 0);
-    }
+        CMatchMenuLayer* p = dynamic_cast<CMatchMenuLayer*>(m);
+        p->setPlayers({10}, {1,2,3,4}, 0);
+    
+    
+    auto node = CCBReadHelper::read("air_chuanqiu.ccbi");
+    this->addChild(node);
 }
 
 

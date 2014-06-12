@@ -54,7 +54,7 @@ bool CTestCaseManager::parse(const string& buf)
         const string end = "<------";
         
         auto pos = buf.find(begin, 0);
-        
+
         while (pos != string::npos)
         {
             pos += begin.size();
@@ -66,6 +66,8 @@ bool CTestCaseManager::parse(const string& buf)
             m_cases.push_back(ret);
             
             pos = buf.find(begin, ePos + 1);
+            
+            BREAK_IF(pos > 0 && buf[pos-1] == 's');
         }
         return true;
     } while (false);
@@ -112,6 +114,18 @@ CTestCase* CTestCaseManager::parseCase(const string& buf)
                             return nullptr;
                         }
                         break;
+                    case 'r':
+                        if (!parseRepeatCounts(line.substr(2, line.size()-2), tc.get()))
+                        {
+                            return nullptr;
+                        }
+                        break;
+                    case 'u':
+                        if (!parseActiveIns(line.substr(2, line.size()-2), tc.get()))
+                        {
+                            return nullptr;
+                        }
+                        break;
                 }
             }
             bPos = pos + 1;
@@ -133,6 +147,10 @@ bool CTestCaseManager::parseAtkOrDef(const string& line, vector<CTestPlayerInfo*
     if (pos == string::npos)
     {
         pos = line.find("\n", bPos);
+        if (pos == string::npos)
+        {
+            pos = line.size();
+        }
     }
     while (pos != string::npos && bPos < line.size())
     {
@@ -200,6 +218,22 @@ bool CTestCaseManager::parseAtkOrDef(const string& line, vector<CTestPlayerInfo*
             {
                 tpi->instruction = FBDefs::MENU_ITEMS::Intercept;
             }
+            else if (ins == "onetwo")
+            {
+                tpi->instruction = FBDefs::MENU_ITEMS::OneTwo;
+            }
+            else if (ins == "shoot")
+            {
+                tpi->instruction = FBDefs::MENU_ITEMS::Shoot;
+            }
+            else if (ins == "catch")
+            {
+                tpi->instruction = FBDefs::MENU_ITEMS::Catch;
+            }
+            else if (ins == "hit")
+            {
+                tpi->instruction = FBDefs::MENU_ITEMS::Hit;
+            }
             else
             {
                 return false;
@@ -230,6 +264,25 @@ bool CTestCaseManager::parseBallPos(const string& line, CTestCase* tc)
     if (tc->ballPos < 0 || tc->ballPos >= 11) return false;
     
 	return true;
+}
+                            
+                            
+                            
+bool CTestCaseManager::parseRepeatCounts(const string& line, CTestCase* tc)
+{
+    tc->repeatCount = atoi(line.c_str());
+    if (tc->repeatCount <= 0) return false;
+    
+    return true;
+}
+
+
+
+bool CTestCaseManager::parseActiveIns(const string& line, CTestCase* tc)
+{
+    tc->active = (atoi(line.c_str()) == 1);
+    
+    return true;
 }
 
 

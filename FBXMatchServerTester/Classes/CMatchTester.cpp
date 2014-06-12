@@ -51,8 +51,18 @@ void CMatchTester::update(float dt)
             {
                 m_client[0].startCase(tc);
                 m_client[1].startCase(tc);
+                tc->repeatCount--;
+                if (tc->repeatCount == 0)
+                {
+                    log("case: %s, repeat: %d, has done!", tc->name.c_str(), tc->repeatCount);
+                    m_caseIndex++;
+                }
             }
-            m_caseIndex++;
+            else
+            {
+                m_client[0].close();
+                m_client[1].close();
+            }
         }
         m_client[0].run(dt);
         m_client[1].run(dt);

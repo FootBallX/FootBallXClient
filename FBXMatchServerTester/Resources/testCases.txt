@@ -1,17 +1,59 @@
------->case1
+------>case: Shoot catch
+r:1
+b:9
+a:9->(800,400)shoot
+d:1->(800,400)tackle;0->(900, 300)catch
+<------
+
+------>case: Shoot catch
+u:1
+r:1
+b:9
+a:9->(800,400)shoot
+d:0->(900, 300)catch
+<------
+
+------>case: Shoot hit
+u:1
+r:1
+b:9
+a:9->(800,400)shoot
+d:0->(900, 300)hit
+<------
+
+------>case: Pass
+r:1
 b:9
 a:9->(160,150)pass;10->(300,150)none
 d:1->(160,151)intercept;2->(155, 150)block;3->(163,148)tackle;4->(250, 150)none
 <------
 
------->case2
+------>case: dribble VS block
+r:1
+b:9
+a:9->(160,150)dribble;10->(300,150)none
+d:1->(160,151)block;2->(155, 150)intercept;3->(163,148)tackle;4->(250, 150)none
+<------
+
+------>case: dribble VS tackle
+r:1
+b:9
+a:9->(160,150)dribble;10->(300,150)none
+d:1->(160,151)tackle;2->(155, 150)block;3->(163,148)intercept;4->(250, 150)none
+<------
+
+
+------>case: dribble VS intercept
+r:1
 b:9
 a:9->(160,150)dribble;10->(300,150)none
 d:1->(160,151)intercept;2->(155, 150)block;3->(163,148)tackle;4->(250, 150)none
 <------
 
------->case3
+
+------>case: one two
+r:1
 b:9
-a:9->(160,150)dribble;10->(300,150)none
+a:9->(160,150)onetwo;10->(200,200)none
 d:1->(160,151)intercept;2->(155, 150)block;3->(163,148)tackle;4->(250, 150)none
 <------

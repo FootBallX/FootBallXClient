@@ -20,6 +20,10 @@ void CTestClient::addAllListener()
 {
     m_pomelo->addListener("onPair", bind(&CTestClient::onPair, this, std::placeholders::_1, std::placeholders::_2));
     m_pomelo->addListener("startMatch", bind(&CTestClient::onStartMatch, this, std::placeholders::_1, std::placeholders::_2));
+    m_pomelo->addListener("triggerMenu", std::bind(&CTestClient::onTriggerMenu, this, std::placeholders::_1, std::placeholders::_2));
+    m_pomelo->addListener("instructions", std::bind(&CTestClient::onInstructionResult, this, std::placeholders::_1, std::placeholders::_2));
+    m_pomelo->addListener("resumeMatch", std::bind(&CTestClient::onResumeMatch, this, std::placeholders::_1, std::placeholders::_2));
+
 }
 
 
@@ -180,6 +184,71 @@ void CTestClient::onPair(Node* node, void* resp)
 
 
 
+void CTestClient::onTriggerMenu(Node* node, void* resp)
+{
+    log("case encounter");
+    
+    m_caseState = CASE_STATE::Encounter;
+    
+    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
+    CJsonT docs(ccpomeloresp->docs);
+    
+    int type = docs.getInt("menuType");
+    if (type == (int)FBDefs::MENU_TYPE::NONE)
+    {
+        return;
+    }
+    
+    CC_ASSERT(type >= 0 && type < (unsigned int)FBDefs::MENU_TYPE::NONE);
+    
+    
+    json_t* players = nullptr;
+
+    decltype(m_testCase->m_atk)* tpInfo = nullptr;
+    if (isAttacking())
+    {
+        players = docs.getChild("attackPlayers");
+        tpInfo = &(m_testCase->m_atk);
+        log("attack");
+    }
+    else
+    {
+        players = docs.getChild("defendplayers");
+        tpInfo = &(m_testCase->m_def);
+        log("def");
+    }
+    CJsonTArray ja(players);
+    
+    for (int i = 0; i < ja.size(); ++i)
+    {
+        auto playerId = ja.get(i).toInt();
+        log("playerId: %d", playerId);
+        for (auto info : *tpInfo)
+        {
+            if (info->playerNumber == playerId)
+            {
+                // 发送命令
+                CJsonT msg;
+                log("ins: %d", (unsigned int)info->instruction);
+                msg.setChild("cmd", (unsigned int)info->instruction);
+                if (isAttacking() && (*tpInfo).size() > 1)
+                {
+                    msg.setChild("targetPlayerId", (unsigned int)(*tpInfo)[1]->playerNumber);
+                }
+                
+                m_pomelo->request("match.matchHandler.menuCmd", msg, [this](Node* node, void* resp){
+                    CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
+                    CJsonT docs(ccpomeloresp->docs);
+                });
+                msg.release();
+                break;
+            }
+        }
+    }
+}
+
+
+
 void CTestClient::onStartMatch(Node* node, void* resp)
 {
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
@@ -189,6 +258,22 @@ void CTestClient::onStartMatch(Node* node, void* resp)
     m_syncTime = 0.f;
 }
 
+
+
+void CTestClient::onInstructionResult(Node* node, void* resp)
+{
+    CJsonT msg;
+    m_pomelo->notify("match.matchHandler.instructionMovieEnd", msg, [](Node* node, void* resp){});
+    msg.release();
+}
+
+
+
+void CTestClient::onResumeMatch(Node* node, void* resp)
+{
+    log("case done");
+    m_caseState = CASE_STATE::None;
+}
 
 
 void CTestClient::signUp()
@@ -332,6 +417,22 @@ void CTestClient::run(float dt)
         {
             case CASE_STATE::Start:
                 syncCase();
+                if (isAttacking() && m_testCase->active)
+                {
+                    CJsonT msg;
+                    msg.setChild("cmd", (unsigned int)m_testCase->m_atk[0]->instruction);
+                    if (isAttacking() && m_testCase->m_atk.size() > 1)
+                    {
+                        msg.setChild("targetPlayerId", (unsigned int)m_testCase->m_atk[1]->playerNumber);
+                    }
+                    
+                    m_pomelo->request("match.matchHandler.menuCmd", msg, [this](Node* node, void* resp){
+                        CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
+                        CJsonT docs(ccpomeloresp->docs);
+                    });
+                    msg.release();
+                }
+                
                 m_caseState = CASE_STATE::WaitEncounter;
                 break;
             case CASE_STATE::WaitEncounter:
@@ -348,6 +449,14 @@ void CTestClient::run(float dt)
                 break;
         }
     }
+}
+
+
+
+void CTestClient::close()
+{
+    m_state = STATE::None;
+    m_pomelo->stop();
 }
 
 
@@ -392,9 +501,24 @@ void CTestClient::syncNormal()
 
 void CTestClient::startCase(CTestCase* tc)
 {
+    log("start case");
     m_testCase = tc;
     
-    m_caseState = CASE_STATE::Start;
+    if (isAttacking())
+    {
+        CJsonT msg;
+        msg.setChild("side", (int)m_side);
+        msg.setChild("playerNumber", tc->ballPos);
+        m_pomelo->notify("match.matchHandler.setBall", msg, [&](Node* node, void* resp){
+            m_caseState = CASE_STATE::Start;
+        });
+
+        msg.release();
+    }
+    else
+    {
+        m_caseState = CASE_STATE::Start;
+    }
 }
 
 
@@ -470,4 +594,11 @@ void CTestClient::syncCase()
     m_pomelo->notify("match.matchHandler.sync", msg, [](Node*, void*){});
     
     msg.release();
+}
+
+
+
+bool CTestClient::isAttacking()
+{
+    return m_ballPos != -1;
 }

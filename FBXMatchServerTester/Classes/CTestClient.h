@@ -50,6 +50,7 @@ public:
     virtual void signUp();
     virtual void getMatchInfo();
     virtual void run(float dt);
+    virtual void close();
     
     virtual void startCase(CTestCase* tc);
 protected:
@@ -57,12 +58,18 @@ protected:
     virtual void getPlayerInfo(void);
     virtual void onPair(Node* node, void* resp);
     virtual void onStartMatch(Node* node, void* resp);
+    virtual void onTriggerMenu(Node* node, void* resp);
+    virtual void onInstructionResult(Node* node, void* resp);
+    virtual void onResumeMatch(Node* node, void* resp);
+    
     virtual void onGetMatchInfo(Node*, void* r);
     virtual void addAllListener();
     virtual void removeAllListener();
     
     virtual void syncNormal();
     virtual void syncCase();
+    
+    virtual bool isAttacking();
     
     FBDefs::SIDE m_side = FBDefs::SIDE::NONE;
     CCPomelo* m_pomelo = nullptr;

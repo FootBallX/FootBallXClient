@@ -43,6 +43,8 @@ public:
     vector<CTestPlayerInfo*> m_atk;
     vector<CTestPlayerInfo*> m_def;
     int ballPos = -1;
+    int repeatCount = 0;
+    bool active = false;
     string name;
 };
 
@@ -60,6 +62,8 @@ protected:
     CTestCase* parseCase(const string& buf);
     bool parseAtkOrDef(const string& line, vector<CTestPlayerInfo*>& v);
     bool parseBallPos(const string& line, CTestCase* tc);
+    bool parseRepeatCounts(const string& line, CTestCase* tc);
+    bool parseActiveIns(const string& line, CTestCase* tc);
     
     vector<CTestCase*> m_cases;
 };
