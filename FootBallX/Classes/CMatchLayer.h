@@ -51,7 +51,8 @@ protected:
     virtual void onBlock(Ref* pSender);         // 封堵
     virtual void onIntercept(Ref* pSender);     // 拦截
     virtual void onHit(Ref* pSender);           // 击球
-
+    virtual void onCatch(Ref* pSender);         // 接球
+    
 #pragma mark - IFBMatchUI
     virtual void onMenu(FBDefs::MENU_TYPE, const vector<int>&, const vector<int>&, int) override;
     virtual void onPlayAnimation(const string&, float) override;

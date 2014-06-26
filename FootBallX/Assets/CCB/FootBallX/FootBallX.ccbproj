@@ -17,7 +17,7 @@
 	<key>fileVersion</key>
 	<integer>1</integer>
 	<key>flattenPaths</key>
-	<true/>
+	<false/>
 	<key>generatedSpriteSheets</key>
 	<dict>
 		<key>Animation</key>
@@ -264,6 +264,25 @@
 			<integer>2</integer>
 			<key>textureFileFormatAndroid</key>
 			<integer>2</integer>
+			<key>textureFileFormatHTML5</key>
+			<integer>0</integer>
+		</dict>
+		<key>air_chuanqiu</key>
+		<dict>
+			<key>compress</key>
+			<true/>
+			<key>dither</key>
+			<true/>
+			<key>ditherAndroid</key>
+			<true/>
+			<key>ditherHTML5</key>
+			<true/>
+			<key>isDirty</key>
+			<false/>
+			<key>textureFileFormat</key>
+			<integer>0</integer>
+			<key>textureFileFormatAndroid</key>
+			<integer>0</integer>
 			<key>textureFileFormatHTML5</key>
 			<integer>0</integer>
 		</dict>

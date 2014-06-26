@@ -597,6 +597,13 @@ void CMatchLayer::onHit(Ref* pSender)
 }
 
 
+
+void CMatchLayer::onCatch(Ref* pSender)
+{
+    FBMATCH->setMenuItem(FBDefs::MENU_ITEMS::Catch);
+}
+
+
 void CMatchLayer::onAnimationEnd()
 {
     removeChild(m_animationRoot);

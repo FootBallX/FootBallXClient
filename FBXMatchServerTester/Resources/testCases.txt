@@ -1,5 +1,13 @@
+r: 重复次数
+u: 自动开始，bool形
+b: 控球球员 
+a: 供方球员配置
+d: 守方球员配置
+s: 结束标志
+
+
 ------>case: Shoot catch
-r:1
+r:10
 b:9
 a:9->(800,400)shoot
 d:1->(800,400)tackle;0->(900, 300)catch
@@ -7,11 +15,12 @@ d:1->(800,400)tackle;0->(900, 300)catch
 
 ------>case: Shoot catch
 u:1
-r:1
+r:10
 b:9
 a:9->(800,400)shoot
 d:0->(900, 300)catch
 <------
+
 
 ------>case: Shoot hit
 u:1

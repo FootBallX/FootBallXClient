@@ -189,6 +189,12 @@ void CFBMatchProxyNet::onTriggerMenu(Node*, void* r)
     CJsonT docs(ccpomeloresp->docs);
     
     int type = docs.getInt("menuType");
+    if (type == (unsigned int)FBDefs::MENU_TYPE::NONE)
+    {
+        // show the waiting interface.
+        return;
+    }
+    
     CC_ASSERT(type >= 0 && type < (unsigned int)FBDefs::MENU_TYPE::NONE);
     
     vector<int> av;

@@ -320,7 +320,20 @@ void CMatchMenuLayer::onClear(Ref* sender, Control::EventType event)
 
 void CMatchMenuLayer::onCatch(Ref* sender, Control::EventType event)
 {
-    
+    switch (event)
+    {
+        case Control::EventType::TOUCH_DOWN:
+            break;
+        case Control::EventType::TOUCH_UP_INSIDE:
+            if (m_matchLayer)
+            {
+                m_matchLayer->onCatch(sender);
+            }
+            nextHiliteCard();
+            break;
+        default:
+            break;
+    }
 }
 
 

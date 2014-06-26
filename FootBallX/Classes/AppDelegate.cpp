@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = pDirector->getOpenGLView();
     if(!glview) {
 //        glview = GLView::create("FootBallX");
-        float scale = 8;
+        float scale = 6;
         glview = GLView::createWithRect("FootBallX", Rect(0, 0, 96 * scale, 64 * scale));
         pDirector->setOpenGLView(glview);
     }
@@ -250,7 +250,6 @@ void AppDelegate::setupMultipleResolutionSupport()
     glView->setDesignResolutionSize(
                                     designSize.width, designSize.height,
                                     ResolutionPolicy::EXACT_FIT);
-    
 }
 
 
