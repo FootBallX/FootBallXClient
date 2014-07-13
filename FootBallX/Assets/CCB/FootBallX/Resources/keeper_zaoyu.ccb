@@ -45,7 +45,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air/5.png</string>
+										<string>keeper/76.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -79,7 +79,7 @@
 						<key>value</key>
 						<array>
 							<real>50</real>
-							<real>72.5</real>
+							<real>75</real>
 							<integer>4</integer>
 						</array>
 					</dict>
@@ -104,7 +104,7 @@
 							<real>1.6000000238418579</real>
 							<real>1.6000000238418579</real>
 							<true/>
-							<integer>1</integer>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
@@ -118,7 +118,7 @@
 					<dict>
 						<key>baseValue</key>
 						<array>
-							<string>Animation_air/air_zaoyu.png</string>
+							<string>Animation_ground/keeper_jiqiu_randomball.png</string>
 							<string>Use regular file</string>
 						</array>
 						<key>name</key>
@@ -128,7 +128,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>air/5.png</string>
+							<string>keeper/76.png</string>
 						</array>
 					</dict>
 				</array>

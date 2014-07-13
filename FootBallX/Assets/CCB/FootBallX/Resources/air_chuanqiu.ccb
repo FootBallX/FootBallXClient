@@ -13,7 +13,20 @@
 	<key>fileVersion</key>
 	<integer>4</integer>
 	<key>guides</key>
-	<array/>
+	<array>
+		<dict>
+			<key>orientation</key>
+			<integer>0</integer>
+			<key>position</key>
+			<real>-11</real>
+		</dict>
+		<dict>
+			<key>orientation</key>
+			<integer>0</integer>
+			<key>position</key>
+			<real>186</real>
+		</dict>
+	</array>
 	<key>jsControlled</key>
 	<false/>
 	<key>nodeGraph</key>
@@ -45,7 +58,25 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air_chuanqiu/7_1.png</string>
+										<string>air/7_1.png</string>
+										<string>Use regular file</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.066666670143604279</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>air/7_2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -63,7 +94,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air_chuanqiu/7_2.png</string>
+										<string>air/7_3.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -76,12 +107,30 @@
 									<key>name</key>
 									<string>displayFrame</string>
 									<key>time</key>
-									<real>0.23333333432674408</real>
+									<real>0.20000000298023224</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air_chuanqiu/7_3.png</string>
+										<string>air/7_4.png</string>
+										<string>Use regular file</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.26666668057441711</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>air/7_5.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -99,7 +148,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air_chuanqiu/7_4.png</string>
+										<string>air/7_6.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -112,48 +161,12 @@
 									<key>name</key>
 									<string>displayFrame</string>
 									<key>time</key>
-									<real>0.43333333730697632</real>
+									<real>0.40000000596046448</real>
 									<key>type</key>
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air_chuanqiu/7_5.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.53333336114883423</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>air_chuanqiu/7_6.png</string>
-										<string>Use regular file</string>
-									</array>
-								</dict>
-								<dict>
-									<key>easing</key>
-									<dict>
-										<key>type</key>
-										<integer>0</integer>
-									</dict>
-									<key>name</key>
-									<string>displayFrame</string>
-									<key>time</key>
-									<real>0.66666668653488159</real>
-									<key>type</key>
-									<integer>7</integer>
-									<key>value</key>
-									<array>
-										<string>air_chuanqiu/7_7.png</string>
+										<string>air/7_7.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -236,7 +249,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>air_chuanqiu/7_1.png</string>
+							<string>air/7_7.png</string>
 						</array>
 					</dict>
 				</array>
@@ -469,17 +482,17 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.66666668653488159</real>
+			<real>0.40000000596046448</real>
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.66666668653488159</real>
+			<real>0.40000000596046448</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
-			<real>211.64186096191406</real>
+			<real>387.21768188476562</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
 			<key>soundChannel</key>

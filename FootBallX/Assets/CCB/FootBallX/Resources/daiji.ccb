@@ -45,7 +45,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>air/5.png</string>
+										<string>judgment/69.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -104,7 +104,7 @@
 							<real>1.6000000238418579</real>
 							<real>1.6000000238418579</real>
 							<true/>
-							<integer>1</integer>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
@@ -118,7 +118,7 @@
 					<dict>
 						<key>baseValue</key>
 						<array>
-							<string>Animation_air/air_zaoyu.png</string>
+							<string>Animation_ground/ground_2guo1.png</string>
 							<string>Use regular file</string>
 						</array>
 						<key>name</key>
@@ -128,7 +128,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>air/5.png</string>
+							<string>judgment/69.png</string>
 						</array>
 					</dict>
 				</array>
