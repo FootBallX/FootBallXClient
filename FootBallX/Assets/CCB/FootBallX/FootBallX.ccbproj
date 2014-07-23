@@ -267,7 +267,7 @@
 			<key>textureFileFormatHTML5</key>
 			<integer>0</integer>
 		</dict>
-		<key>air_chuanqiu</key>
+		<key>air</key>
 		<dict>
 			<key>compress</key>
 			<true/>
@@ -286,7 +286,7 @@
 			<key>textureFileFormatHTML5</key>
 			<integer>0</integer>
 		</dict>
-		<key>air</key>
+		<key>air_chuanqiu</key>
 		<dict>
 			<key>compress</key>
 			<true/>
@@ -494,9 +494,5 @@
 			<string>Resources</string>
 		</dict>
 	</array>
-	<key>versionStr</key>
-	<string>Version: 3.0-alpha5
-GitHub: 76499877e8
-</string>
 </dict>
 </plist>

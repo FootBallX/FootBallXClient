@@ -143,6 +143,7 @@ void CTestClient::getPlayerInfo(void)
                       {
                           CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
                           CJsonT docs(ccpomeloresp->docs);
+                          CCLOG("playerInfo: %s", docs.dump().c_str());
                           
                           if (docs.getInt("code") != 200)
                           {
@@ -156,7 +157,6 @@ void CTestClient::getPlayerInfo(void)
                               CJsonT player(docs.getChild("player"));
                               
                               m_playerInfo.setUID(player.getUInt("uid"));
-                              m_playerInfo.setPID(player.getUInt("pid"));
                               const char* nickname = player.getString("nickname");
                               m_playerInfo.setNickName(nickname ? nickname : "");
                               m_playerInfo.setLevel(player.getInt("level"));

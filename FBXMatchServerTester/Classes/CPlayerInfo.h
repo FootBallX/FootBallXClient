@@ -16,7 +16,6 @@ class CPlayerInfo
 //: public CSingleton<CPlayerInfo>
 {
     CC_SYNTHESIZE(unsigned int, m_uid, UID);
-    CC_SYNTHESIZE(unsigned int, m_pid, PID);
     CC_SYNTHESIZE(int, m_level, Level);
     CC_SYNTHESIZE(int, m_money, Money);
     CC_SYNTHESIZE(string, m_nickname, NickName);
