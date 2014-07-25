@@ -52,8 +52,6 @@ bool AppDelegate::applicationDidFinishLaunching()
         pDirector->setOpenGLView(glview);
     }
     
-    pDirector->setOpenGLView(glview);
-    
     pDirector->setProjection(Director::Projection::_3D);
     
     // turn on display FPS

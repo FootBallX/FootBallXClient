@@ -1,7 +1,7 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
-#include "cocos2d.h"
+#include "Common.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -17,6 +17,10 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+protected:
+    void onCCBTestButtonClicked(Ref*, Control::EventType);
+    void onMatchTestButtonClicked(Ref*, Control::EventType);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

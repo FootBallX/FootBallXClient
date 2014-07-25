@@ -57,6 +57,7 @@ public:
     bool init();
     
     CTestCase* getCase(int idx);
+    int getCaseCount() { return m_cases.size(); }
 protected:
     bool parse(const string& buf);
     CTestCase* parseCase(const string& buf);

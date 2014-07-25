@@ -18,8 +18,6 @@ bool CMatchTester::init()
     {
         BREAK_IF_FAILED(m_client[0].init("test1", "123"));
         BREAK_IF_FAILED(m_client[1].init("test2", "123"));
-        
-        TC->init();
 
         Director::getInstance()->getScheduler()->schedule(schedule_selector(CMatchTester::update), this, 0, false);
         return true;
