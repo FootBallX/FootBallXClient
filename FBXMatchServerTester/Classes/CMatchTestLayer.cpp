@@ -69,14 +69,15 @@ void CMatchTestLayer::onBack(Ref*, Control::EventType)
 
 void CMatchTestLayer::onStartTest(Ref*, Control::EventType)
 {
-    MT->init();
+    MT->startAll();
 }
 
 
 void CMatchTestLayer::createCaseList()
 {
     auto winSz = Director::getInstance()->getVisibleSize();
-    m_caseList = ScrollView::create(Size(winSz.width * 0.4f, winSz.height * 0.9));
+    Size svSz(winSz.width * 0.4f, winSz.height * 0.9);
+    m_caseList = ScrollView::create(svSz);
     m_caseList->setPosition(Point(0, 0));
     m_caseList->setDirection(ScrollView::Direction::BOTH);
     
@@ -93,8 +94,13 @@ void CMatchTestLayer::createCaseList()
     TC->init();
 
     auto count = TC->getCaseCount();
-    Size containerSize(0, GAP * TC->getCaseCount());
+    Size containerSize(svSz.width, GAP * TC->getCaseCount());
     
+    if (containerSize.height < svSz.height)
+    {
+        containerSize.height = svSz.height;
+    }
+
     for (int i = 0; i < count; ++i)
     {
         auto cs = TC->getCase(i);
@@ -124,8 +130,28 @@ void CMatchTestLayer::createCaseList()
 }
 
 
-void CMatchTestLayer::onCaseClick(Ref*, Control::EventType)
+void CMatchTestLayer::onCaseClick(Ref* obj, Control::EventType)
 {
-    
+    ControlButton* btn = dynamic_cast<ControlButton*>(obj);
+    if (btn && m_caseList->isNodeVisible(btn))
+    {
+        int idx = btn->getTag();
+        auto count = TC->getCaseCount();
+        if (idx >= 0 && idx < count)
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                ControlButton* _btn = dynamic_cast<ControlButton*>(m_caseListContainer->getChildByTag(i));
+                if (_btn)
+                {
+                    _btn->setEnabled(true);
+                }
+            }
+            
+            btn->setEnabled(false);
+        }
+        
+        MT->startCase(idx);
+    }
 }
 

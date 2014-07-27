@@ -22,9 +22,13 @@ public:
     CMatchTester() = default;
     ~CMatchTester() = default;
     
-    virtual bool init();
-    virtual void update(float delta);
+    virtual bool startAll();
+    virtual bool startCase(int index);
+    
 protected:
+    virtual void updateAll(float delta);
+    virtual void update(float delta);
+    
     CTestClient m_client[2];
     
     int m_caseIndex = 0;
