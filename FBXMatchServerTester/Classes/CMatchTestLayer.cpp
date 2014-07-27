@@ -11,7 +11,12 @@
 #include "CTestCaseManager.h"
 
 
-CMatchTestLayer::CMatchTestLayer()
+CMatchTestLayer::CMatchTestLayer() :
+m_borderNode(nullptr)
+, m_caseList(nullptr)
+, m_caseListContainer(nullptr)
+, m_logList(nullptr)
+, m_logListContainer(nullptr)
 {
     
 }
@@ -42,6 +47,10 @@ bool CMatchTestLayer::init()
         addChild(startBtn);
         
         createCaseList();
+        
+        createBorder();
+        createLogList();
+        
         return true;
     } while (false);
     
@@ -63,6 +72,8 @@ void CMatchTestLayer::onExit()
 
 void CMatchTestLayer::onBack(Ref*, Control::EventType)
 {
+    addLog("adslkfjdafkljasdklfjasdlfkjdsafkljasdklfjdsafljdsflkdjaflkasjflksajflksfjkldsafjaslkf");
+    return;
     Director::getInstance()->popScene();
 }
 
@@ -152,6 +163,52 @@ void CMatchTestLayer::onCaseClick(Ref* obj, Control::EventType)
         }
         
         MT->startCase(idx);
+    }
+}
+
+void CMatchTestLayer::createBorder()
+{
+    auto winSz = Director::getInstance()->getVisibleSize();
+    m_borderNode = DrawNode::create();
+    m_borderNode->drawSegment(Point(winSz.width * 0.45, winSz.height * 0.9f), Point(winSz.width * 0.95f, winSz.height * 0.9), .5f, Color4F(0, 1.f, 0, 1.f));
+    m_borderNode->drawSegment(Point(winSz.width * 0.45, winSz.height * 0.05f), Point(winSz.width * 0.95f, winSz.height * 0.05f), .5f, Color4F(0, 1.f, 0, 1.f));
+    m_borderNode->drawSegment(Point(winSz.width * 0.45, winSz.height * 0.05f), Point(winSz.width * 0.45, winSz.height * 0.9f), 0.5f, Color4F(0, 1.f, 0, 1.f));
+    m_borderNode->drawSegment(Point(winSz.width * 0.95, winSz.height * 0.05f), Point(winSz.width * 0.95, winSz.height * 0.9f), 0.5f, Color4F(0, 1.f, 0, 1.f));
+    addChild(m_borderNode);
+}
+
+
+
+void  CMatchTestLayer::createLogList()
+{
+    auto winSz = Director::getInstance()->getVisibleSize();
+    Size svSz(winSz.width * (0.95f - 0.45f) - 10, winSz.height * (0.9f - 0.05f) - 10);
+    m_logList = ScrollView::create(svSz);
+    
+    m_logList->setPosition(Point(winSz.width * 0.45f + 5, winSz.height * 0.05f + 5));
+    m_logList->setDirection(ScrollView::Direction::VERTICAL);
+    
+    m_logListContainer = LayerColor::create(Color4B(0, 0, 0, 128));
+    m_logListContainer->setContentSize(svSz);
+    m_logList->setContainer(m_logListContainer);
+    
+    addChild(m_logList);
+}
+
+
+
+void CMatchTestLayer::addLog(const string& text, Color3B color)
+{
+    auto sz = m_logListContainer->getContentSize();
+    auto lb = Label::createWithSystemFont(text, "Helvetica", 16, Size(sz.width, 0));
+    m_logListContainer->addChild(lb);
+    
+    float height = sz.height;
+    const auto& logs = m_logListContainer->getChildren();
+    for (auto obj : logs)
+    {
+        obj->setPosition(0, height);
+        height -= obj->getContentSize().height + 2;
     }
 }
 
