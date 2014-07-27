@@ -32,15 +32,16 @@ bool CCCBTestLayer::init()
     do
     {
         BREAK_IF_FAILED(Layer::init());
+        createCCBList();
+        createPathEdit();
+        
         auto winSz = Director::getInstance()->getVisibleSize();
         ControlButton* ccbBtn = ControlButton::create("Back", "", 20);
         ccbBtn->setAnchorPoint(Point(1, 0));
         ccbBtn->setPosition(Point(winSz.width, 0));
         ccbBtn->addTargetWithActionForControlEvents(this, cccontrol_selector(CCCBTestLayer::onBack), Control::EventType::TOUCH_UP_INSIDE);
         addChild(ccbBtn);
-        
-        createCCBList();
-        createPathEdit();
+
         return true;
     } while (false);
     
@@ -51,6 +52,7 @@ bool CCCBTestLayer::init()
 void CCCBTestLayer::onEnter()
 {
     Layer::onEnter();
+    
 }
 
 
@@ -70,7 +72,7 @@ void CCCBTestLayer::onBack(Ref*, Control::EventType)
 void CCCBTestLayer::createCCBList()
 {
     auto winSz = Director::getInstance()->getVisibleSize();
-    m_ccbListView = ScrollView::create(Size(winSz.width * 0.25f, winSz.height * 0.9));
+    m_ccbListView = ScrollView::create(Size(winSz.width * 0.25f, winSz.height * 0.9f));
     m_ccbListView->setPosition(Point(0, 0));
     m_ccbListView->setDirection(ScrollView::Direction::BOTH);
     
