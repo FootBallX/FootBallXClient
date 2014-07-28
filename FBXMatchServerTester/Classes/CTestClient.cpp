@@ -9,6 +9,7 @@
 #include "CTestClient.h"
 #include "CFBPlayerInitInfo.h"
 #include "CTestCaseManager.h"
+#include "CMatchTester.h"
 
 CTestClient::~CTestClient()
 {
@@ -60,7 +61,7 @@ bool CTestClient::init(const char* username, const char* password)
                                    CCPomeloReponse* pr = (CCPomeloReponse*)resp;
                                    if (pr->status != 0)
                                    {
-                                       CCLOG("not connected!");
+                                       MT->print("not connected!");
                                        return;
                                    }
                                    CCLOG("connect ok");
@@ -102,7 +103,7 @@ void CTestClient::connectToConnector(const char* ip, int port)
                                CCPomeloReponse* pr = (CCPomeloReponse*)resp;
                                if (pr->status != 0)
                                {
-                                   CCLOG("gate not connected!");
+                                   MT->print("gate not connected!");
                                    return;
                                }
                                CCLOG("gate connect ok");
@@ -119,7 +120,7 @@ void CTestClient::connectToConnector(const char* ip, int port)
                                    
                                    if (docs.getInt("code") != 200)
                                    {
-                                       CCLOG("connect to connector failed");
+                                       MT->print("connect to connector failed");
                                    }
                                    else
                                    {
@@ -147,7 +148,7 @@ void CTestClient::getPlayerInfo(void)
                           
                           if (docs.getInt("code") != 200)
                           {
-                              CCLOG("get player info failed");
+                              MT->print("get player info failed");
                           }
                           else
                           {
@@ -186,7 +187,7 @@ void CTestClient::onPair(Node* node, void* resp)
 
 void CTestClient::onTriggerMenu(Node* node, void* resp)
 {
-    log("case encounter");
+    MT->print("case encounter");
     
     m_caseState = CASE_STATE::Encounter;
     
@@ -209,26 +210,30 @@ void CTestClient::onTriggerMenu(Node* node, void* resp)
     {
         players = docs.getChild("attackPlayers");
         tpInfo = &(m_testCase->m_atk);
-        log("attack");
+        CCLOG("attack");
     }
     else
     {
         players = docs.getChild("defendplayers");
         tpInfo = &(m_testCase->m_def);
-        log("def");
+        CCLOG("def");
     }
     CJsonTArray ja(players);
     
     for (int i = 0; i < ja.size(); ++i)
     {
         auto playerId = ja.get(i).toInt();
-        log("playerId: %d", playerId);
+        MT->print("playerId: %d", playerId);
         for (auto info : *tpInfo)
         {
             if (info->playerNumber == playerId)
             {
                 // 发送命令
                 CJsonT msg;
+                if (isAttacking())
+                {
+                    MT->printA("%s", CTestPlayerInfo::ins_str[(int)info->instruction].c_str());
+                }
                 log("ins: %d", (unsigned int)info->instruction);
                 msg.setChild("cmd", (unsigned int)info->instruction);
                 if (isAttacking() && (*tpInfo).size() > 1)
@@ -254,6 +259,7 @@ void CTestClient::onStartMatch(Node* node, void* resp)
     CCPomeloReponse* ccpomeloresp = (CCPomeloReponse*)resp;
     CJsonT docs(ccpomeloresp->docs);
 
+    MT->print("start match!");
     m_state = STATE::Running;
     m_syncTime = 0.f;
 }
@@ -262,6 +268,14 @@ void CTestClient::onStartMatch(Node* node, void* resp)
 
 void CTestClient::onInstructionResult(Node* node, void* resp)
 {
+    if (isAttacking())
+    {
+        MT->printA("movie end");
+    }
+    else
+    {
+        MT->printD("movie end");
+    }
     CJsonT msg;
     m_pomelo->notify("match.matchHandler.instructionMovieEnd", msg, [](Node* node, void* resp){});
     msg.release();
@@ -271,6 +285,14 @@ void CTestClient::onInstructionResult(Node* node, void* resp)
 
 void CTestClient::onResumeMatch(Node* node, void* resp)
 {
+    if (isAttacking())
+    {
+        MT->printA("resume match");
+    }
+    else
+    {
+        MT->printD("resume match");
+    }
     log("case done");
     m_caseState = CASE_STATE::None;
 }
@@ -400,10 +422,10 @@ void CTestClient::onGetMatchInfo(Node*, void* r)
         
     }
     
+    MT->print("uid: %ud is ready", m_playerInfo.getUID());
     const char *route = "match.matchHandler.ready";
     CJsonT msg;
-    m_pomelo->notify(route, msg, [](Node* node, void* resp){
-    });
+    m_pomelo->notify(route, msg, [](Node* node, void* resp){});
     msg.release();
 }
 
@@ -501,7 +523,7 @@ void CTestClient::syncNormal()
 
 void CTestClient::startCase(CTestCase* tc)
 {
-    log("start case");
+    CCLOG("start case");
     m_testCase = tc;
     
     if (isAttacking())
@@ -530,13 +552,15 @@ void CTestClient::syncCase()
     
     typedef decltype(m_testCase->m_atk) DC;
     DC* pV;
-    if (m_ballPos != -1)
+    if (isAttacking())
     {
         pV = &m_testCase->m_atk;
+        MT->printA("attack side sync: ");
     }
     else
     {
         pV = &m_testCase->m_def;
+        MT->printD("defend side sync: ");
     }
     
     for (int i = 0; i < 11; ++i)
@@ -558,6 +582,14 @@ void CTestClient::syncCase()
                 {
                     ja.append(tpi->position.x);
                     ja.append(tpi->position.y);
+                    if (isAttacking())
+                    {
+                        MT->printA("x: %f, y: %f", tpi->position.x, tpi->position.y);
+                    }
+                    else
+                    {
+                        MT->printD("x: %f, y: %f", tpi->position.x, tpi->position.y);
+                    }
                 }
                 else
                 {
@@ -572,6 +604,14 @@ void CTestClient::syncCase()
                 {
                     ja.append(CJsonT(tpi->position.x));
                     ja.append(CJsonT(tpi->position.y));
+                    if (m_ballPos != -1)
+                    {
+                        MT->printA("x: %f, y: %f", tpi->position.x, tpi->position.y);
+                    }
+                    else
+                    {
+                        MT->printD("x: %f, y: %f", tpi->position.x, tpi->position.y);
+                    }
                 }
                 else
                 {

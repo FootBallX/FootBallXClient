@@ -11,6 +11,26 @@
 IMPLEMENT_SINGLETON(CTestCaseManager);
 
 
+vector<string> CTestPlayerInfo::ins_str =
+{
+    "传球",
+    "盘带",
+    "二过一",
+    "射门",
+    "铲球",
+    "拦截",
+    "封堵",
+    "击球",
+    "出击",
+    "待机",
+    "解围",
+    "接球",
+    "封堵盘带",
+    "封堵射门",
+    "无指令",
+};
+
+
 CTestCaseManager::~CTestCaseManager()
 {
     for (auto p : m_cases)

@@ -25,6 +25,10 @@ public:
     virtual bool startAll();
     virtual bool startCase(int index);
     
+    virtual void setLogFunc(function<void(const string&, Color3B)> func) {m_logFunc = func;}
+    virtual void print(const char* format, ...);
+    virtual void printD(const char* format, ...);
+    virtual void printA(const char* format, ...);
 protected:
     virtual void updateAll(float delta);
     virtual void update(float delta);
@@ -32,6 +36,8 @@ protected:
     CTestClient m_client[2];
     
     int m_caseIndex = 0;
+    
+    function<void(const string&, Color3B)> m_logFunc;
 };
 
 

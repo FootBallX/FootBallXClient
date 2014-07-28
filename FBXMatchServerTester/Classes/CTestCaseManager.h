@@ -19,6 +19,8 @@ public:
     int playerNumber = -1;
     Point position;
     FBDefs::MENU_ITEMS instruction = FBDefs::MENU_ITEMS::None;
+    
+    static vector<string> ins_str;
 };
 
 class CTestCase

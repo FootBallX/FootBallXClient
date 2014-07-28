@@ -33,6 +33,9 @@ bool CMatchTestLayer::init()
     do
     {
         BREAK_IF_FAILED(Layer::init());
+        
+        MT->setLogFunc(bind(&CMatchTestLayer::addLog, this, std::placeholders::_1, std::placeholders::_2));
+        
         auto winSz = Director::getInstance()->getVisibleSize();
         ControlButton* ccbBtn = ControlButton::create("Back", "", 20);
         ccbBtn->setAnchorPoint(Point(1, 0));
@@ -72,8 +75,6 @@ void CMatchTestLayer::onExit()
 
 void CMatchTestLayer::onBack(Ref*, Control::EventType)
 {
-    addLog("adslkfjdafkljasdklfjasdlfkjdsafkljasdklfjdsafljdsflkdjaflkasjflksajflksfjkldsafjaslkf");
-    return;
     Director::getInstance()->popScene();
 }
 
@@ -186,7 +187,7 @@ void  CMatchTestLayer::createLogList()
     m_logList = ScrollView::create(svSz);
     
     m_logList->setPosition(Point(winSz.width * 0.45f + 5, winSz.height * 0.05f + 5));
-    m_logList->setDirection(ScrollView::Direction::VERTICAL);
+    m_logList->setDirection(ScrollView::Direction::BOTH);
     
     m_logListContainer = LayerColor::create(Color4B(0, 0, 0, 128));
     m_logListContainer->setContentSize(svSz);
@@ -199,16 +200,41 @@ void  CMatchTestLayer::createLogList()
 
 void CMatchTestLayer::addLog(const string& text, Color3B color)
 {
+    const float GAP = 2.f;
+    
     auto sz = m_logListContainer->getContentSize();
-    auto lb = Label::createWithSystemFont(text, "Helvetica", 16, Size(sz.width, 0));
+    auto lb = Label::createWithSystemFont(text, "Helvetica", 20);
+    
+    lb->setColor(color);
+    lb->setAnchorPoint(Point(0, 1));
     m_logListContainer->addChild(lb);
     
-    float height = sz.height;
+    auto height = sz.height;
     const auto& logs = m_logListContainer->getChildren();
+    float newHeight = (logs.at(0)->getContentSize().height + GAP) * logs.size();
+    bool dirty = false;
+    if (newHeight > sz.height)
+    {
+        sz.height = newHeight;
+        dirty = true;
+    }
     for (auto obj : logs)
     {
+        auto oSz = obj->getContentSize();
         obj->setPosition(0, height);
-        height -= obj->getContentSize().height + 2;
+        height -= oSz.height + 2;
+        
+        if (sz.width < oSz.width)
+        {
+            sz.width = oSz.width;
+            dirty = true;
+        }
     }
+    
+    if (dirty)
+    {
+        m_logListContainer->setContentSize(sz);
+    }
+
 }
 

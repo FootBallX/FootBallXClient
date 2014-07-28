@@ -52,7 +52,7 @@ void CMatchTester::updateAll(float dt)
                 tc->repeatCount--;
                 if (tc->repeatCount == 0)
                 {
-                    log("case: %s, repeat: %d, has done!", tc->name.c_str(), tc->repeatCount);
+                    print("case: %s, repeat: %d, has done!", tc->name.c_str(), tc->repeatCount);
                     m_caseIndex++;
                 }
             }
@@ -92,11 +92,14 @@ void CMatchTester::update(float dt)
 {
     if (m_client[0].isLoginReady() && m_client[1].isLoginReady())
     {
+        print("start sign up");
         m_client[0].signUp();
         m_client[1].signUp();
     }
     else if (m_client[0].isPaired() && m_client[1].isPaired())
     {
+        print("paired!");
+        print("get match info start");
         m_client[0].getMatchInfo();
         m_client[1].getMatchInfo();
     }
@@ -107,12 +110,13 @@ void CMatchTester::update(float dt)
             auto tc = TC->getCase(m_caseIndex);
             if (tc)
             {
+                print("case %s, repeat: %d, started!", tc->name.c_str(), tc->repeatCount);
                 m_client[0].startCase(tc);
                 m_client[1].startCase(tc);
                 tc->repeatCount--;
                 if (tc->repeatCount == 0)
                 {
-                    log("case: %s, repeat: %d, has done!", tc->name.c_str(), tc->repeatCount);
+                    print("case: %s, repeat: %d, has done!", tc->name.c_str(), tc->repeatCount);
                     m_caseIndex = -1;
                 }
             }
@@ -125,5 +129,64 @@ void CMatchTester::update(float dt)
         }
         m_client[0].run(dt);
         m_client[1].run(dt);
+    }
+}
+
+
+
+void CMatchTester::print(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    static char buf[MAX_LOG_LENGTH];
+    vsnprintf(buf, MAX_LOG_LENGTH-3, format, args);
+    va_end(args);
+    
+    if (m_logFunc)
+    {
+        m_logFunc(buf, Color3B::GREEN);
+    }
+    else
+    {
+        CCLOG("%s", buf);
+    }
+}
+
+
+void CMatchTester::printD(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    static char buf[MAX_LOG_LENGTH];
+    vsnprintf(buf, MAX_LOG_LENGTH-3, format, args);
+    va_end(args);
+    
+    if (m_logFunc)
+    {
+        m_logFunc(buf, Color3B::BLUE);
+    }
+    else
+    {
+        CCLOG("%s", buf);
+    }
+}
+
+
+
+void CMatchTester::printA(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    static char buf[MAX_LOG_LENGTH];
+    vsnprintf(buf, MAX_LOG_LENGTH-3, format, args);
+    va_end(args);
+    
+    if (m_logFunc)
+    {
+        m_logFunc(buf, Color3B::RED);
+    }
+    else
+    {
+        CCLOG("%s", buf);
     }
 }
